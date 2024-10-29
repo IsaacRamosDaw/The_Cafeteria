@@ -10,7 +10,10 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING
     }
+    school: {
+      type: DataTypes.INTEGER
+      key: 'id'
+    }
   });
-
   return course;
 };

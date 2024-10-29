@@ -13,17 +13,24 @@ module.exports = (sequelize) => {
     admin: {
       type: DataTypes.INTEGER
       references: {
-        model: './admin.model.js'
+        model: 'admin.model.js'
         key: 'id'
       }
     }
     school: {
       type: DataTypes.INTEGER
       regerences: {
-        model: './school.model.js'
+        model: 'school.model.js'
+        key: 'id'
+      }
+    }
+    worker: {
+      type: DataTypes.INTEGER
+      regerences: {
+        model: 'worker.model.js'
+        key: 'id'
       }
     }
   });
-
   return coffeShop;
 }
