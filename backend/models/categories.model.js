@@ -2,7 +2,15 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  const categories = sequelize.define(() => {});
+  const categories = sequelize.define(() => {
+    id: {
+      type: DataTypes.NUMBER;
+      primaryKey: true;
+    }
+    name: {
+      type: DataTypes.STRING;
+    }
+  });
 
   return categories;
 };

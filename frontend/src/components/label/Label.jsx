@@ -24,7 +24,7 @@ export default function Label({
         </select>
       </div>
     );
-  } else
+  }
     return (
       <div className="label-input">
         <label className="label-text" htmlFor={id}>
