@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$primary-color: #EB5E28;
+$secondary-color: #2B2927;
+
+$primary-background: #CCC5B9;
+$secondary-background: #8C8C8C;
+
+$default-white: #fff;
+$default-white-2: #E3E3E3;
+
+$default-black: #000;
+
+$primary-font: "Roboto",
+sans-serif;
+
+$text-tiny-size: 12px;
+$text-small-size: 14px;
+$text-medium-size: 18px;
+$text-big-size: 20px;
+
+$text-subtitle: 22px;
+$text-title: 24px;
+
+// Defined flexbox style with parametres
+@mixin flex-items($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $primary-font;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $default-black;
+}
+
+@mixin formulario-layout {
+  @include flex-items(column);
+
+  form {
+    min-width: 35%;
+    max-width: 400px;
+    width: 90%;
+    font-family: $primary-font;
+  }
+}
+
+@mixin page-layout {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}

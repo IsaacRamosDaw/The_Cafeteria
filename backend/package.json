@@ -1,0 +1,16 @@
+{
+  "name": "backendcafeteria",
+  "version": "1.0.0",
+  "description": "backend de la cafeteria",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mansour | cynthia | isaac",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.5"
+  }
+}
