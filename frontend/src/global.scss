@@ -22,6 +22,46 @@ $text-big-size: 20px;
 $text-subtitle: 22px;
 $text-title: 24px;
 
+
+$dark-mode: (
+  "text-accent-1": #FF9972,
+  "text-secondary-1": #B7B7B7,
+  "text-accent-2": #FCD5C8,
+  "text-secondary-2": #EEEEEE,
+  "borders-accent-1": #7D3B24,
+  "borders-secondary-1": #494949,
+  "borders-accent-2": #B75939,
+  "borders-secondary-2": #6B6B6B,
+  "interactive-accent-1": #4D2C21,
+  "interactive-secondary-1": #383838,
+  "interactive-accent-2": #6F301A,
+  "interactive-secondary-2": #424242,
+  "background-accent-1": #2F2825,
+  "background-secondary-1": #292929,
+  "background-accent-2": #342A26,
+  "background-secondary-2": #303030
+);
+
+$light-mode: (
+  "text-accent-1": #B42E00,
+  "text-secondary-1": #4E4E4E,
+  "text-accent-2": #582D1E,
+  "text-secondary-2": #202020,
+  "borders-accent-1": #EEA288,
+  "borders-accent-2": #D27757,
+  "borders-secondary-1": #C0C0C0,
+  "borders-secondary-2": #A1A1A1,
+  "interactive-accent-1": #EFD5CD,
+  "interactive-accent-2": #F8B097,
+  "interactive-secondary-1": #DBDBDB,
+  "interactive-secondary-2": #C9C9C9,
+  "background-accent-1": #ECEAE9,
+  "background-secondary-1": #EAEAEA,
+  "background-accent-2": #EDE2DE,
+  "background-secondary-2": #E5E5E5
+);
+
+
 // Defined flexbox style with parametres
 @mixin flex-items($direction: row) {
   display: flex;
