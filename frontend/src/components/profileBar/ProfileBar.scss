@@ -1,0 +1,44 @@
+@import "/src/global.scss";
+
+.container-profile-bar{
+    @include flex-items(row);
+
+    background-color: rebeccapurple;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 1000; 
+    padding: 10px;
+    box-sizing: border-box;
+    
+    div{
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        height: 2.5rem;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 20px;
+
+        #icon-user{
+            display: grid;
+            place-items: center;
+        }
+    }
+    
+    input{
+        background-color: transparent;
+        border: none;
+        height: 100%;
+        font-size: 1.2rem;
+        width: 100%;
+        margin-left: 5px;
+    }
+    
+    input:focus{
+        outline: none;
+    }
+}
+

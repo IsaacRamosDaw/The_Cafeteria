@@ -1,8 +1,8 @@
 import SearchBar from "../../components/searchBar/SearchBar";
 import TabsBar from "../../components/tabsBar/tabsBar";
 import Separator from "../../components/separator/Separator";
-import "./Products.scss";
 import Product from "../../components/product/product";
+import "./Products.scss";
 
 function Products() {
   return (

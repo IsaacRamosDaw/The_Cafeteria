@@ -1,14 +1,15 @@
 import React from "react";
+import ProfileBar from "../../components/profileBar/ProfileBar";
+import SchoolsContainers from "../../components/adminHomeComponents/schoolsContainers/SchoolContainers";
 import "./AdminHome.scss";
-import SearchBar from "../../components/searchBar/SearchBar";
 
 function AdminHome() {
   return (
     <>
-      <SearchBar/>
-    <main id="admin-home">
-      
-    </main>
+      <ProfileBar />
+      <main id="admin-home">
+        <SchoolsContainers />
+      </main>
     </>
   );
 }

@@ -23,43 +23,48 @@ $text-subtitle: 22px;
 $text-title: 24px;
 
 
-$dark-mode: (
-  "text-accent-1": #FF9972,
-  "text-secondary-1": #B7B7B7,
-  "text-accent-2": #FCD5C8,
-  "text-secondary-2": #EEEEEE,
-  "borders-accent-1": #7D3B24,
-  "borders-secondary-1": #494949,
-  "borders-accent-2": #B75939,
-  "borders-secondary-2": #6B6B6B,
-  "interactive-accent-1": #4D2C21,
-  "interactive-secondary-1": #383838,
-  "interactive-accent-2": #6F301A,
-  "interactive-secondary-2": #424242,
-  "background-accent-1": #2F2825,
-  "background-secondary-1": #292929,
-  "background-accent-2": #342A26,
-  "background-secondary-2": #303030
-);
+/* Color styles */
+$accent: #EB5E28;
+$gray: #8C8C8C;
+$secondary: #2B2927;
 
-$light-mode: (
-  "text-accent-1": #B42E00,
-  "text-secondary-1": #4E4E4E,
-  "text-accent-2": #582D1E,
-  "text-secondary-2": #202020,
-  "borders-accent-1": #EEA288,
-  "borders-accent-2": #D27757,
-  "borders-secondary-1": #C0C0C0,
-  "borders-secondary-2": #A1A1A1,
-  "interactive-accent-1": #EFD5CD,
-  "interactive-accent-2": #F8B097,
-  "interactive-secondary-1": #DBDBDB,
-  "interactive-secondary-2": #C9C9C9,
-  "background-accent-1": #ECEAE9,
-  "background-secondary-1": #EAEAEA,
-  "background-accent-2": #EDE2DE,
-  "background-secondary-2": #E5E5E5
-);
+$neutral-default-white: #EEEEEE;
+$neutral-default-black: #090909;
+
+$dark-mode-text-text-accent-1: #FF9972;
+$dark-mode-text-text-secondary-1: #B7B7B7;
+$dark-mode-text-text-accent-2: #FCD5C8;
+$dark-mode-text-text-secondary-2: #EEEEEE;
+$dark-mode-borders-and-separators-borders-accent-1: #7D3B24;
+$dark-mode-borders-and-separators-borders-secondary-1: #494949;
+$dark-mode-borders-and-separators-borders-accent-2: #B75939;
+$dark-mode-borders-and-separators-borders-secondary-2: #6B6B6B;
+$dark-mode-interactive-components-interactive-accent-1: #4D2C21;
+$dark-mode-interactive-components-interactive-secondary-1: #383838;
+$dark-mode-interactive-components-interactive-accent-2: #6F301A;
+$dark-mode-interactive-components-interactive-secondary-2: #424242;
+$dark-mode-backgrounds-background-accent-1: #2F2825;
+$dark-mode-backgrounds-background-secondary-1: #292929;
+$dark-mode-backgrounds-background-accent-2: #342A26;
+$dark-mode-backgrounds-background-secondary-2: #303030;
+
+$light-mode-text-text-accent-1: #B42E00;
+$light-mode-text-text-secondary-1: #4E4E4E;
+$light-mode-text-text-accent-2: #582D1E;
+$light-mode-text-text-secondary-2: #202020;
+$light-mode-borders-separators-borders-accent-1: #EEA288;
+$light-mode-borders-separators-borders-accent-2: #D27757;
+$light-mode-borders-separators-borders-secondary-1: #C0C0C0;
+$light-mode-borders-separators-borders-secondary-2: #A1A1A1;
+$light-mode-interactive-components-interactive-accent-1: #EFD5CD;
+$light-mode-interactive-components-interactive-accent-2: #F8B097;
+$light-mode-interactive-components-interactive-secondary-1: #DBDBDB;
+$light-mode-interactive-components-interactive-secondary-2: #C9C9C9;
+$light-mode-backgrounds-background-accent-1: #ECEAE9;
+$light-mode-backgrounds-background-secondary-1: #EAEAEA;
+$light-mode-backgrounds-background-accent-2: #EDE2DE;
+$light-mode-backgrounds-background-secondary-2: #E5E5E5;
+
 
 
 // Defined flexbox style with parametres
