@@ -2,10 +2,11 @@ import WorkerCard from "../workerCard/WorkerCard";
 
 function WorkerContainer() {
   return (
-    <section id="worker-container">
-      <p>workercontainer</p>
-      <WorkerCard/>
-     </section>
+    <>
+      <WorkerCard name={'Worker 1'} />
+      <WorkerCard name={'Worker 2'} />
+      <WorkerCard name={'Worker 3'} />
+     </>
   );
 }
 
