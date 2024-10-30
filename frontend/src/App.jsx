@@ -7,6 +7,8 @@ import Orders from "./pages/orders/Orders";
 import Categories from "./pages/categories/Categories";
 import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
+import AdminHome from "./pages/adminHome/AdminHome";
+import AdminSettings from "./pages/adminSettings/AdminSettings";
 import "./global.scss";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/adminHome" element={<AdminHome />} />
+        <Route path="/adminSettings" element={<AdminSettings />} />
       </Routes>
     </Router>
   );

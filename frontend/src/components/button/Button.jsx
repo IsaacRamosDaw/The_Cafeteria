@@ -1,5 +1,5 @@
 import "./button.scss";
-export default function Button({ submit, text, variant }) {
+export default function Button({ submit, text }) {
 
   if (submit) {
     return (
