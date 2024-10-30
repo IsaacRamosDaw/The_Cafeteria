@@ -5,7 +5,7 @@ import Welcome from "./pages/welcome/Welcome";
 import Form from "./pages/form/Form";
 import Orders from "./pages/orders/Orders";
 import Categories from "./pages/categories/Categories";
-import Menu from "./pages/Menu/MenuPage"
+import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
 import "./global.scss";
 
