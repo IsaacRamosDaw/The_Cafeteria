@@ -5,7 +5,7 @@ import "../../components/settings/Settings";
 function AdminSettings() {
   return (
     <main id="admin-settings">
-      <Settings />
+      <Settings type="worker" />
     </main>
   );
 }

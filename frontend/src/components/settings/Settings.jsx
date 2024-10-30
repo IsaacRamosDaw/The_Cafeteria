@@ -1,29 +1,52 @@
 import React from "react";
-import "./Settings.scss";
 import Button from "../button/Button";
+import "./Settings.scss";
 
-function Settings({ school, admin, worker }) {
-  if (admin) {
-    return (
-      <form id="settings" action="">
-        <Button submit={true}/>
-      </form>
-    )
-  }
-  if (school) {
-    return (
-      <form id="settings">
+function Settings({ type }) {
+  
+
+  return (
+    type === 'worker' ? formWorker() : 
+    type === 'school' ? formSchool() : 
+    formAdmin()
+  )
+    
+  //   {
+  //   return (
+  //     <form id="settings" action="">
+  //       <Button submit={true}/>
+  //     </form>
+  //   )
+  // }
+  // if (school) {
+  //   return (
+  //     <form id="settings">
         
-      </form>
-    )
-  }
-  if (worker) {
-    return (
-      <form id="settings">
+  //     </form>
+  //   )
+  // }
+  // if (worker) {
+  //   return (
+  //     <form id="settings">
         
-      </form>
-    )
-  }
+  //     </form>
+  //   )
+  // }
+
+}
+
+function formSchool(){
+
+}
+function formWorker(){
+  return (
+    <div>
+
+    </div>
+  )
+}
+function formAdmin(){
+
 }
 
 export default Settings;
