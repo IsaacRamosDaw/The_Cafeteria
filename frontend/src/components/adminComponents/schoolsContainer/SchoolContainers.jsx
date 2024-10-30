@@ -1,7 +1,8 @@
 import SchoolCard from '../schoolCard/SchoolCard';
 import './SchoolsContainers.scss'
 
-function SchoolsContainers(){
+function SchoolsContainers() {
+    
     return (
         <section id='schools-container'>
             <SchoolCard name="School 1" image="School.png" />
