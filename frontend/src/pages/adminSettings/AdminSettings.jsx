@@ -1,12 +1,12 @@
 import React from "react";
 import "./AdminSettings.scss";
-import "../../components/settings/Settings";
+import Settings from "../../components/adminComponents/settings/Settings";
 
-function AdminSettings() {
+function AdminSettings({type}) {
   return (
-    <main id="admin-settings">
-      <Settings type="worker" />
-    </main>
+    <form action="">
+      <Settings />
+    </form>
   );
 }
 

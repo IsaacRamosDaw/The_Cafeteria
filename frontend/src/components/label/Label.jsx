@@ -6,8 +6,12 @@ export default function Label({
   type = "text",
   id,
   select,
+  schools
 }) {
-  let courses = ["IES EL RINCON", "IES Santa Catalina", "CP La Feria"];
+  let courses = ["1ºEso", "2ºEso", "3ºEso", "4ºEso", "1ºBachiller", "2ºBachiller"];
+  
+  let schoolsArray = ["Ies El Rincon","Ies Santa Isabel","Ies Siete Palmas","Ies Guanrteme","Ies Alonso quesada"];
+  
 
   if (select) {
     return (
@@ -17,10 +21,10 @@ export default function Label({
         </label>
         <select name={id} id={id}>
           {courses.map((c, index) => (
-            <option key={index} value={c}>
-              {c}
-            </option>
-          ))}
+                <option key={index} value={c}>
+                  {c}
+                </option>
+              ))}
         </select>
       </div>
     );
