@@ -12,15 +12,16 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "welcome to bicycles application" });
+  res.json({ message: "welcome to cafeteria application" });
 });
+
+require("./routes/coffeShop.routes")(app);
+require("./routes/categories.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Backend server running on port ${PORT}`);
 });
-
-require("./routes/cafeteria.routes")(app);
 
 // var corsOptions = {
 //   origin: "http://localhost:8100"

@@ -29,10 +29,6 @@ module.exports = (sequelize) => {
 //     name: {
 //       type: DataTypes.STRING
 //     }
-//     school: {
-//       type: DataTypes.INTEGER
-//       key: 'id'
-//     }
 //     schoolId: {
 //       type: DataTypes.INTEGER,
 //       references: {

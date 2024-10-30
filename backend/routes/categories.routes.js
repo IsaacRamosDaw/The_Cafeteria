@@ -1,0 +1,20 @@
+module.exports = app => {
+    const categories = require("../controllers/categories.controller.js");
+
+    var router = require("express").Router();
+
+    //Crear una categoría
+    router.post("/", categories.createCategory);
+
+    //Listar todas las categorías
+    router.get("/", categories.findAll);
+
+    // Actualizar categoría
+    router.put("/:id", categories.update);
+
+    //Eliminar una categoría por su id
+    router.delete("/:id", categories.delete);
+
+    app.use('/api/categories', router);
+
+};
