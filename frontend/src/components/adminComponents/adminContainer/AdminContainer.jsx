@@ -2,9 +2,11 @@ import AdminCard from "../adminCard/AdminCard";
 
 function AdminContainer() {
   return (
-      <section id="admin-container">
-        <AdminCard/>
-      </section>
+      <>
+        <AdminCard name={'Administrador 1'}/>
+        <AdminCard name={'Administrador 2'}/>
+        <AdminCard name={'Administrador 3'}/>      
+      </>
   );
 }
 

@@ -1,5 +1,28 @@
 @import '/src/global.scss';
 
-#container-admin-home{
+main#admin-home{
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;  
+
+  div.info{
+    display: flex;
+    justify-content: space-between;
     
+    a{
+      margin: 10px;
+    }
+  }
+  img.item-img{
+    width: 400px;
+    border-bottom: 15px solid black;
+  }
+
+  section{
+    margin: 20px 0;
+  }
+
+
 }
