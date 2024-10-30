@@ -1,17 +1,16 @@
 @import "/src/global.scss";
 
-.container-profile-bar{
+#container-profile-bar {
     @include flex-items(row);
 
-    background-color: rebeccapurple;
+    background-color: $secondary;
     top: 0;
-    width: 100%;
+    width: 100vw;
+    height: 100px;
+    z-index: 1000;
     position: fixed;
-    z-index: 1000; 
-    padding: 10px;
-    box-sizing: border-box;
-    
-    div{
+
+    div {
         background-color: #fff;
         width: 100%;
         border-radius: 10px;
@@ -22,13 +21,13 @@
         box-sizing: border-box;
         border-radius: 20px;
 
-        #icon-user{
+        #icon-user {
             display: grid;
             place-items: center;
         }
     }
-    
-    input{
+
+    input {
         background-color: transparent;
         border: none;
         height: 100%;
@@ -36,9 +35,8 @@
         width: 100%;
         margin-left: 5px;
     }
-    
-    input:focus{
+
+    input:focus {
         outline: none;
     }
 }
-
