@@ -7,7 +7,7 @@ function SearchBar() {
       <div>
         <img src="/images/icons/magnifying-glass.svg" alt="" />
         <input placeholder="Type to search..." />
-        <Link to="/account">
+        <Link id="icon-user" to="/account">
           <img src="/images/icons/user.svg" alt="" />
         </Link>
       </div>

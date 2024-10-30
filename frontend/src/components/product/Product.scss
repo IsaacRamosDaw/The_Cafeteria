@@ -1,0 +1,38 @@
+main#product{
+  h2{
+    text-align: center;
+    margin: 10px;
+  }
+  p#product-text{
+    padding: 20px;
+    text-align: justify;
+  }
+
+  div{
+    display: flex;
+    background-color: black;
+  }
+  div#display{
+    justify-content: space-evenly;
+
+    p{
+      padding: 15px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      span{
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .bg{
+      background-color: white;
+      border-radius: 20px;
+      
+    }
+  }
+  button{
+    margin: 5px;
+  }
+}

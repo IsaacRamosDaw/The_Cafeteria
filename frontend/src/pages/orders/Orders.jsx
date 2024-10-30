@@ -1,14 +1,23 @@
 import SearchBar from "../../components/searchBar/SearchBar";
+import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/tabsBar";
+import Order from "../../components/order/Order";
 import './Orders.scss';
 
 function Orders(){
     return(
-        <main>
+        <>
             <SearchBar />
-            <h1>Los pedidos</h1>
+            <Separator/>
+            <main id="orders-container">
+                <h1>Orders</h1>
+                <Order/>    
+                <Order/>    
+                <Order/>    
+                <Order/>    
+            </main>
             <TabsBar />
-        </main>
+        </>
     )
 }
 

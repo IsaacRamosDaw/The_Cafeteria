@@ -1,4 +1,4 @@
-import "./Offers.scss";
+import "./Offer.scss";
 
 function Offers() {
   return (

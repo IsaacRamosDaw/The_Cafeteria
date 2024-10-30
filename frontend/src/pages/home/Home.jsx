@@ -1,20 +1,17 @@
 import SearchBar from "../../components/searchBar/SearchBar";
 import TabsBar from "../../components/tabsBar/tabsBar";
-import Offers from "../../components/offers/Offers";
+import Separator from "../../components/separator/Separator"
 import "./Home.scss";
 
-function Home({ userType = '' }) {
+function Home() {
   return (
-    <main id="home-container">
+    <>
       <SearchBar />
-      <section className="content-home">
-        <Offers />
-        <Offers />
-        <Offers />
-        <Offers />
-      </section>
+      <Separator />
+      <mian id="home-container">
+      </mian>
       <TabsBar />
-    </main>
+    </>
   );
 }
 
