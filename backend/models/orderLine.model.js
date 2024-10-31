@@ -2,12 +2,15 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-    id: {
-        type: DataTypes.INTEGER;
-        primarykey: true;
-    }
-    quantity: {
-        type: DataTypes.INTEGER;
-    }
-    return admin;
+    const orderLine = sequelize.define('OrderLine', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+        },
+        quantity: {
+            type: DataTypes.INTEGER,
+        }
+    });
+
+    return orderLine;
 };

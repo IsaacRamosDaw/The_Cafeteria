@@ -1,5 +1,5 @@
 const express = require("express");
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 
 app.use(express.json());
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.json({ message: "welcome to cafeteria application" });
 });
 
-require("./routes/coffeShop.routes")(app);
+// require("./routes/coffeShop.routes")(app);
 require("./routes/categories.routes")(app);
 
 const PORT = process.env.PORT || 8080;
@@ -23,10 +23,8 @@ app.listen(PORT, () => {
   console.log(`Backend server running on port ${PORT}`);
 });
 
-// var corsOptions = {
-//   origin: "http://localhost:8100"
-// };
+var corsOptions = {
+  origin: "http://localhost:8100"
+};
 
-// app.use(cors(corsOptions));
-
-// const db = require("./models");
+app.use(cors(corsOptions));

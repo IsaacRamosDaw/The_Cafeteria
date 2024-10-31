@@ -1,19 +1,21 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  const order = sequelize.define(() => {
-    id:{
-      type: DataTypes.INTEGER
-      primarykey: true;
-    }
+  const Order = sequelize.define('Order', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     address: {
-      type: DataTypes.STRING;
-    }
-    date:{
-      type: DataTypes.DATE;
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   });
 
-  return order;
+  return Order;
 };

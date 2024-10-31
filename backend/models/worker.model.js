@@ -1,22 +1,25 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  const worker = sequelize.define(() => {
+  const worker = sequelize.define('Worker', {
     id: {
-      type: DataTypes.INTEGER;
-      primaryKey: true;
-    }
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     name: {
-      type: DataTypes.STRING;
-    }
-    phone:{
-      type: DataTypes.STRING;
-    }
-    password:{
-      type: DataTypes.STRING;
-    }
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
 
   return worker;
 };
+

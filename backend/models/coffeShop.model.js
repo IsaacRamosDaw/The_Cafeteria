@@ -1,36 +1,39 @@
-const { DataTypes } = require("sequelize")
-const { sequelize } = require(".")
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const coffeShop = sequelize.define(() => {
+  const CoffeShop = sequelize.define('CoffeShop', {
     id: {
-      type: DataTypes.STRING
-      primaryKey: true
-    }
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     name: {
-      type: DataTypes.STRING
-    }
-    admin: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    adminId: {
+      type: DataTypes.INTEGER,
       references: {
-        model: 'admin.model.js'
+        model: 'Admins',
+        key: 'id'
+      }
+    },
+    schoolId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Schools',
+        key: 'id'
+      }
+    },
+    workerId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Workers',
         key: 'id'
       }
     }
-    school: {
-      type: DataTypes.INTEGER
-      regerences: {
-        model: 'school.model.js'
-        key: 'id'
-      }
-    }
-    worker: {
-      type: DataTypes.INTEGER
-      regerences: {
-        model: 'worker.model.js'
-        key: 'id'
-      }
-    }
+  }, {
+    tableName: 'coffe_shops',
   });
-  return coffeShop;
+
+  return CoffeShop;
 }

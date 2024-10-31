@@ -2,12 +2,14 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  id: {
-    type: DataTypes.NUMBER;
-    primaryKey: true;
-  }
-  amount: {
-    type: DataTypes.INTEGER;
-  }
-  return admin;
+    const Wallet = sequelize.define('Wallet', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+        },
+        amount: {
+            type: DataTypes.INTEGER
+        }
+    });
+    return Wallet;
 };
