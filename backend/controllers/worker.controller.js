@@ -1,5 +1,6 @@
 const db = require("../models");
-const Worker = db.workers;
+const Worker = db.worker;
+const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
     // Validate request

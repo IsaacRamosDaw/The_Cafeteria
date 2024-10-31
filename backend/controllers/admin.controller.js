@@ -1,5 +1,6 @@
 const db = require("../models");
 const Admin = db.admins;
+const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
     // Validate request

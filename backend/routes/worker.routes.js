@@ -1,10 +1,10 @@
-module.exports = app => {
+module.exports = (app) => {
     const worker = require("../controllers/worker.controller.js");
 
     var router = require("express").Router();
 
     //Create a worker
-    router.post("/", worker.createCategory);
+    router.post("/", worker.create);
 
     //List all workers
     router.get("/", worker.findAll);
@@ -15,6 +15,6 @@ module.exports = app => {
     //Delete worker
     router.delete("/:id", worker.delete);
 
-    app.use('/api/admin', router);
+    app.use('/api/worker', router);
 
 };
