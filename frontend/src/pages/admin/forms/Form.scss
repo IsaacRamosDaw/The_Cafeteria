@@ -1,10 +1,12 @@
+@import 'src/global.scss';
+
 main.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
+  @include flex-items(column);
+  min-height: 100vh;
+  width: 100%;
+
   form {
-    width: 400px;
+    width: 90%;
 
     h2 {
       text-align: center;

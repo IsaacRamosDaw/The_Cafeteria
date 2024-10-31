@@ -1,6 +1,7 @@
 import React from "react";
 import "./Form.scss";
 import Label from "../../../components/label/Label";
+import Button from '../../../components/button/Button'
 
 function SchoolForm() {
   const handleCreate = async (e) => {
