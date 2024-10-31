@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import './AdminCard.scss'
 
 function AdminCard({ name, id }) {
-  let data = {name, id}
+  // let data = {name, id}
   return (
     <div className="admin-card">
       <img
@@ -14,7 +14,7 @@ function AdminCard({ name, id }) {
       <hr className="separator-admin-card" />
 
       <div className="info">
-        <h2>{data.name}</h2>
+        <h2>{name}</h2>
         <span>
           <Link className="link-to-register" to="/createAdmins">
             <img src="../../../../public/images/icons/edit.svg" alt="" />
