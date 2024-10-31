@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/categories"; // Cambia el puerto si es necesario
+const API_URL = "http://localhost:8080/api/categories";
 
 export const fetchCategories = async () => {
     const response = await axios.get(API_URL);

@@ -8,15 +8,11 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    position: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      // allowNull: true,
     },
   });
 
