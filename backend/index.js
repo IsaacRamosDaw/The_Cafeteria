@@ -28,3 +28,4 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use('/images', express.static(path.join(__dirname, '../frontend/public/images')));
