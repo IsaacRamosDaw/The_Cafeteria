@@ -5,12 +5,14 @@ import Label from "../../../components/label/Label";
 
 function AdminForm() {
   const handleCreate = async (e) => {
-    e.preventDefault();
     const formData = new FormData(document.getElementById("admin-form"));
-
     try {
       const response = await fetch("http://localhost:8080/api/admin", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          // "Content-Type": "multipart/form-data",
+        },
         body: formData,
       });
       console.log(await response.json());
