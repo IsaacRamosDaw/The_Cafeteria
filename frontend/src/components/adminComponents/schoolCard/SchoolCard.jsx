@@ -7,18 +7,20 @@ export default function SchoolCard({name, image}){
       <div className="school-card">
         <img
           className="item-img"
-          src="../../../../public/images/ImgMenus/sandwiches.jpg"
+          src={image}
           alt="Image school"
         />
+
+        <hr className='separator-school-card' />
         
         <div className='info'>
-          <p>{name}</p>
+          <h2>{name}</h2>
           <span>
-            <Link className="link-to-register" to="/createAdmins">
-              <img src="../../../../public/images/icons/edit.svg" alt="" />
+            <Link className="link-to-register" to="/createSchools">
+              <img src="/images/icons/edit.svg" alt="Img edit" />
             </Link>
-            <Link className="link-to-register" to="/createAdmins">
-              <img src="../../../../public/images/icons/trash.svg" alt="" />
+            <Link className="link-to-register" to="#">
+              <img src="/images/icons/trash.svg" alt="Img trash Can" />
             </Link>
           </span>
         </div>
