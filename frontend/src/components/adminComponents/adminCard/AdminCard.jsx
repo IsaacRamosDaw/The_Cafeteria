@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import './AdminCard.scss'
 
 function AdminCard({ name }) {
   return (
@@ -8,8 +9,11 @@ function AdminCard({ name }) {
         src="../../../../public/images/ImgMenus/sandwiches.jpg"
         alt="Image school"
       />
+
+      <hr className="separator-admin-card" />
+
       <div className="info">
-        <p>{name}</p>
+        <h2>{name}</h2>
         <span>
           <Link className="link-to-register" to="/createAdmins">
             <img src="../../../../public/images/icons/edit.svg" alt="" />

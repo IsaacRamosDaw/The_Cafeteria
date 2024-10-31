@@ -1,0 +1,9 @@
+@import '/src/global.scss';
+
+.section-container-worker-cards {
+    width: 95%;
+    background-color: $dark-mode-text-text-secondary-1;
+    @include flex-items(column);
+    gap: 1em;
+    padding: 1em 0;
+}

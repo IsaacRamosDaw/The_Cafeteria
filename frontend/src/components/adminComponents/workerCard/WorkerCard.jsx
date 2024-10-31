@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import './WorkerCard.scss'
   
 function WorkerCard({ name }) {
   return (
@@ -9,13 +10,15 @@ function WorkerCard({ name }) {
         alt="Image school"
       />
 
+      <hr className="separator-worker-card" />
+
       <div className="info">
-        <p>{name}</p>
+        <h2>{name}</h2>
         <span>
-          <Link className="link-to-register" to="/createAdmins">
+          <Link className="link-to-register" to="/createWorkers">
             <img src="../../../../public/images/icons/edit.svg" alt="" />
           </Link>
-          <Link className="link-to-register" to="/createAdmins">
+          <Link className="link-to-register" to="#">
             <img src="../../../../public/images/icons/trash.svg" alt="" />
           </Link>
         </span>

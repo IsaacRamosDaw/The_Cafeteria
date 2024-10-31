@@ -1,0 +1,25 @@
+@import '/src/global.scss';
+
+.admin-card{
+    width: 90%;
+    max-width: 370px;
+
+    .item-img{
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .separator-admin-card{
+        height: 5px;
+        background-color: #000;
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            margin: 10px;
+        }
+    }
+}
