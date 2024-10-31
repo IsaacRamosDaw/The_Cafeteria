@@ -2,49 +2,47 @@ const db = require("../models");
 const Category = db.categories;
 
 exports.create = (req, res) => {
-    //Validar 
-    if(!req.body.id){
-        res.status(400).send({
-            message: "Content can not empty!"
+    // Validate request
+    if (!req.body.id) {
+        return res.status(400).send({
+            message: "Content cannot be empty!"
         });
     }
-}
 
-// Crear una Categoría
-    const category= {
+    // Create a Category object
+    const category = {
         name: req.body.name
     };
 
-//Guardar categoría en la base de datos
+    // Save Category in the database
     Category.create(category)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message:
-                err.message || "Some error ocurred while creting the category."
-        });
-    });
-
-// Listar todas las categorías de la base de datos
-    exports.findAll = (req, res) => {
-        Category.findAll()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving categories."
+                message: err.message || "Some error occurred while creating the category."
             });
         });
-    }
+};
+
+// Retrieve all categories from the database
+exports.findAll = (req, res) => {
+    Category.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving categories."
+            });
+        });
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    // Validar que el campo "name" esté presente
+    // Validate that the "name" field is present
     if (!req.body.name) {
         return res.status(400).send({
             message: "The name field cannot be empty."
@@ -52,43 +50,44 @@ exports.update = (req, res) => {
     }
 
     const updateCategory = {
-        name: req.body.name,
+        name: req.body.name
     };
 
-    // Intentar actualizar la categoría
-    Category.update(updateCategory, {
-        where: { id: id }
-    })
-    .then(rowsUpdated => {
-        if (rowsUpdated[0] === 0) {
-            // Si no se actualizó ninguna fila, es que no se encontró la categoría
-            return res.status(404).send({
-                message: `Cannot update Category with id=${id}. Category not found.`
+    // Attempt to update the category
+    Category.update(updateCategory, { where: { id: id } })
+        .then(([rowsUpdated]) => {
+            if (rowsUpdated === 0) {
+                // If no rows were updated, the category was not found
+                return res.status(404).send({
+                    message: `Cannot update Category with id=${id}. Category not found.`
+                });
+            }
+            res.send({ message: "Category was updated successfully." });
+        })
+        .catch(err => {
+            // Catch any error
+            res.status(500).send({
+                message: err.message || "An error occurred while updating the category."
             });
-        }
-        res.send({ message: "Category was updated successfully." });
-    })
-    .catch(err => {
-        // Capturar cualquier error
-        res.status(500).send({
-            message: err.message || "An error occurred while updating the Category."
         });
-    });
 };
 
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Category.destroy({ where: { id: id } }).then(deleted => {
-        if (deleted) {
-            console.log("Se borró la categoría con id:", id);
-            res.json({ message: "Categoría eliminada correctamente." });
-        } else {
-            console.log("No se encontró la categoría con id:", id);
-            res.status(404).json({ message: "Categoría no encontrada." });
-        }
-    }).catch(err => {
-        console.error("Error al borrar la categoría:", err);
-        res.status(500).json({ message: "Error al eliminar la categoría." });
-    });
+    // Delete a Category by ID
+    Category.destroy({ where: { id: id } })
+        .then(deleted => {
+            if (deleted) {
+                console.log("Category with id:", id, "was deleted.");
+                res.json({ message: "Category deleted successfully." });
+            } else {
+                console.log("Category with id:", id, "was not found.");
+                res.status(404).json({ message: "Category not found." });
+            }
+        })
+        .catch(err => {
+            console.error("Error deleting category:", err);
+            res.status(500).json({ message: "Error deleting category." });
+        });
 };

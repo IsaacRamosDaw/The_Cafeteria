@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     //Crear una categoría
-    router.post("/", categories.createCategory);
+    router.post("/", categories.create);
 
     //Listar todas las categorías
     router.get("/", categories.findAll);

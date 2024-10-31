@@ -16,7 +16,7 @@ const db = {};
 db.sequelize = sequelize;
 
 db.coffeShop = require("./coffeShop.model.js")(sequelize);
-db.admin = require("./admin.model.js")(sequelize);
+db.admins = require("./admin.model.js")(sequelize);
 db.student = require(".student.model.js")(sequelize);
 db.worker = require("./worker.model.js")(sequelize);
 db.course = require("./course.model.js")(sequelize);
@@ -29,8 +29,8 @@ db.inventory = require("./inventory.model.js")(sequelize);
 db.orderLine = require("./orderLine.model.js")(sequelize);
 
 // TABLA COFFE SHOP
-db.coffeShop.hasMany(db.admin, { foreingKey: 'coffeShopId' });
-db.coffeShop.belongsTo(db.admin, {foreingKey: 'adminId'});
+db.coffeShop.hasMany(db.admins, { foreingKey: 'coffeShopId' });
+db.coffeShop.belongsTo(db.admins, {foreingKey: 'adminId'});
 db.coffeShop.belongsTo(db.product, {foreingKey: 'productId'});
 db.coffeShop.belongsTo(db.worker, {foreingKey: 'workerId'});
 db.coffeShop.belongsTo(db.school, {foreingKey: 'schoolId'})
@@ -49,7 +49,7 @@ db.school.hasMany(db.course, {foreingKey: 'schoolId'});
 db.school.hasMany(db.coffeShop, {foreingKey: 'schoolId'});
 
 // TABLA ADMIN
-db.admin.hasMany(db.coffeShop, {foreingKey: 'adminId'});
+db.admins.hasMany(db.coffeShop, {foreingKey: 'adminId'});
 
 // TABLA WORKER
 db.worker.hasMany(db.coffeShop, {foreingKey: 'workerId'});
