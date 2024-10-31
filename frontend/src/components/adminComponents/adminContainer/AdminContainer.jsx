@@ -1,13 +1,20 @@
+import { get } from "../../../services/adminService";
 import AdminCard from "../adminCard/AdminCard";
-import './AdminContainer.scss';
+import "./AdminContainer.scss";
 
 function AdminContainer() {
+  let data = get();
+
   return (
-      <section className="section-container-admins-cards">
-        <AdminCard name={'Administrador 1'}/>
-        <AdminCard name={'Administrador 2'}/>
-        <AdminCard name={'Administrador 3'}/>      
-      </section>
+    <section className="section-container-admins-cards">
+      {
+      data.map((e, index) => {
+        return <AdminCard key={index} id={e.id} name={e.name} />;
+      })
+      }
+      <AdminCard name={"Administrador 2"} />
+      <AdminCard name={"Administrador 3"} />
+    </section>
   );
 }
 

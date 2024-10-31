@@ -1,6 +1,6 @@
-import React from "react";
 import "./Form.scss";
 import Label from "../../../components/label/Label";
+import Button from "../../../components/button/Button";
 
 function SchoolForm() {
   const handleCreate = async (e) => {
@@ -8,10 +8,11 @@ function SchoolForm() {
     const formData = new FormData(document.getElementById("school-form"));
 
     try {
-      const response = await fetch("http://localhost:8080/api/school", {
+      const response = await fetch("http://localhost:8080/api/createSchools", {
         method: "POST",
         body: formData,
       });
+
       console.log(await response.json());
     } catch (error) {
       console.error("Error al crear:", error);

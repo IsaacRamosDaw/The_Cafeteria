@@ -3,12 +3,6 @@ const coffeShop = db.coffeShop;
 const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-        return res.status(400).send({
-            message: "Content cannot be empty!"
-        });
-    }
 
     // Create an coffeShop object
     const shop = {

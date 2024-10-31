@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileBar from "../../components/profileBar/ProfileBar";
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import SchoolContainer from "../../components/adminComponents/schoolsContainer/SchoolContainers";
