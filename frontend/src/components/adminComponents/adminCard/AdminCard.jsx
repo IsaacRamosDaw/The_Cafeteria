@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom"
-import './AdminCard.scss'
+import { Link } from "react-router-dom";
+import { remove } from "../../../services/adminService";
+import "./AdminCard.scss";
 
-function AdminCard({ name }) {
+function AdminCard({ name, id }) {
+  const handleDelete = () => {
+    remove(id).then((res) => {
+      console.log(res);
+      document.reload()
+    });
+  };
+
   return (
     <div className="admin-card">
       <img
         className="item-img"
-        src="../../../../public/images/ImgMenus/sandwiches.jpg"
-        alt="Image school"
+        src={`/images/ImgMenus/sandwiches.jpg`}
+        alt="Imagen de administrador"
       />
 
       <hr className="separator-admin-card" />
@@ -16,11 +24,14 @@ function AdminCard({ name }) {
         <h2>{name}</h2>
         <span>
           <Link className="link-to-register" to="/createAdmins">
-            <img src="../../../../public/images/icons/edit.svg" alt="" />
+            <img src={`/images/icons/edit.svg`} alt="Editar" />
           </Link>
-          <Link className="link-to-register" to="/createAdmins">
-            <img src="../../../../public/images/icons/trash.svg" alt="" />
-          </Link>
+          <button
+            className="link-to-register delete-button"
+            onClick={handleDelete}
+          >
+            <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+          </button>
         </span>
       </div>
     </div>

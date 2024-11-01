@@ -1,21 +1,25 @@
 import Button from "../../../components/button/Button";
 import Label from "../../../components/label/Label";
-import { create, get } from "../../../services/adminService";
+import { create } from "../../../services/adminService";
 import "./Form.scss";
+import { useNavigate } from "react-router-dom";
 
 function AdminForm() {
+  const navigate = useNavigate();
   const handleCreate = (e) => {
     e.preventDefault();
 
     let nameAdmin = document.querySelector("#name-admin");
     let passwordAdmin = document.querySelector("#password-admin");
-    
+
     const formData = {
       name: nameAdmin.value,
       password: passwordAdmin.value,
     };
 
-    create(formData)
+    create(formData);
+
+    navigate("/admin");
   };
 
   const handleEdit = async (e) => {
@@ -29,7 +33,7 @@ function AdminForm() {
       });
 
       console.log(await response.json());
-    } catch (error) {
+    } catch (error) {+
       console.error("Error al editar:", error);
     }
   };

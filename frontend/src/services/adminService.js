@@ -1,11 +1,18 @@
 const endpoint = "http://localhost:8080/api/admin";
 
-export function get(){
-    return fetch(endpoint).then((response) => {
-        return response.json()
-    }).error((error) => {
-        return error
+export async function get() {
+  const getOperation = fetch(endpoint)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
     })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+  return getOperation;
 }
 
 export function create(formData) {
@@ -23,11 +30,29 @@ export function create(formData) {
     .error((error) => {
       return `Error while retrieving admin data, ${error}`;
     });
-
 }
 
-// export function update(){
+// No lo cambies a delete porque delete es una palabra reservada de js
+export async function remove(id) {
+  const removeOperation = fetch(`${endpoint}/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to delete admin");
+      }
+
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+
+  return removeOperation;
+}
+
+// export function edit(){
 //     let url = endpoint+"/"
 //     fetch(endpoint)
 // }
-
