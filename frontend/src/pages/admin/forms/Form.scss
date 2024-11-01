@@ -12,5 +12,8 @@ main.form-container {
       text-align: center;
       margin-bottom: 40px;
     }
+    div#buttons .welcome-submit:active{
+      transform: translateY(5px);
+    }
   }
 }

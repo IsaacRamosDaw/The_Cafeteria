@@ -1,24 +1,21 @@
-import React from "react";
 import Button from "../../../components/button/Button";
-import "./Form.scss";
 import Label from "../../../components/label/Label";
+import { create, get } from "../../../services/adminService";
+import "./Form.scss";
 
 function AdminForm() {
-  const handleCreate = async (e) => {
-    const formData = new FormData(document.getElementById("admin-form"));
-    try {
-      const response = await fetch("http://localhost:8080/api/admin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          // "Content-Type": "multipart/form-data",
-        },
-        body: formData,
-      });
-      console.log(await response.json());
-    } catch (error) {
-      console.error("Error al crear:", error);
-    }
+  const handleCreate = (e) => {
+    e.preventDefault();
+
+    let nameAdmin = document.querySelector("#name-admin");
+    let passwordAdmin = document.querySelector("#password-admin");
+    
+    const formData = {
+      name: nameAdmin.value,
+      password: passwordAdmin.value,
+    };
+
+    create(formData)
   };
 
   const handleEdit = async (e) => {
