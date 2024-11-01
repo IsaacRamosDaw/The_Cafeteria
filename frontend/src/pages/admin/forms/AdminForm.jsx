@@ -11,7 +11,6 @@ function AdminForm() {
 
     let nameAdmin = document.querySelector("#name-admin");
     let passwordAdmin = document.querySelector("#password-admin");
-
     const formData = {
       name: nameAdmin.value,
       password: passwordAdmin.value,
@@ -27,7 +26,7 @@ function AdminForm() {
     const formData = new FormData(document.getElementById("admin-form"));
 
     try {
-      const response = await fetch("/api/admin", {
+      const response = await fetch(endpoint, {
         method: "PUT",
         body: formData,
       });

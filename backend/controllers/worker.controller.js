@@ -3,12 +3,6 @@ const Worker = db.worker;
 const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-        return res.status(400).send({
-            message: "Content cannot be empty!"
-        });
-    }
 
     // Create a Worker object
     const worker = {
