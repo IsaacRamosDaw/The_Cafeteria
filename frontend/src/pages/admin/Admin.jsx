@@ -1,21 +1,38 @@
 import ProfileBar from "../../components/profileBar/ProfileBar";
-import SchoolContainers from "../../components/adminComponents/schoolContainer/SchoolContainers";
+import SchoolContainer from "../../components/adminComponents/schoolContainer/SchoolContainer";
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
-import Separator from "../../components/separator/Separator";
 import "./Admin.scss";
 
 function Admin() {
   return (
-    <>
+    <div className="page-admin-container">
       <ProfileBar />
-      <Separator />
+
       <main id="admin-home">
-        <SchoolContainers />
-        <AdminContainer />
-        <WorkerContainer />
+        <details>
+          <summary>
+            <h2>Admins</h2>
+          </summary>
+          <AdminContainer />
+        </details>
+
+        <details>
+          <summary>
+            <h2>Schools</h2>
+          </summary>
+          <SchoolContainer />
+        </details>
+
+        <details>
+          <summary>
+            <h2>Workers</h2>
+          </summary>
+          <WorkerContainer />
+        </details>
+        
       </main>
-    </>
+    </div>
   );
 }
 

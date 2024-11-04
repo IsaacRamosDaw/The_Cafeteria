@@ -27,11 +27,11 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/menus" element={<Menu />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/createAdmins" element={<AdminForm />} />
-        <Route path="/createSchools" element={<SchoolForm />} />
-        <Route path="/createCoffeShops" element={<CoffeShopForm />} />
-        <Route path="/createWorkers" element={<WorkerForm />} />
+        <Route path="/dashboard" element={<Admin />} />
+        <Route path="/admin" element={<AdminForm />} />
+        <Route path="/school" element={<SchoolForm />} />
+        <Route path="/coffeShop" element={<CoffeShopForm />} />
+        <Route path="/workers" element={<WorkerForm />} />
       </Routes>
     </Router>
   );

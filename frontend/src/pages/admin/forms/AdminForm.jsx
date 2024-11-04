@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function AdminForm() {
   const navigate = useNavigate();
+  
   const handleCreate = (e) => {
     e.preventDefault();
 
@@ -17,7 +18,7 @@ function AdminForm() {
     };
 
     create(formData);
-
+    
     navigate("/admin");
   };
 

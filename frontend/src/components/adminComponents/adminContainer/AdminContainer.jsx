@@ -17,8 +17,8 @@ function AdminContainer() {
 
   return (
     <section className="section-container-admins-cards">
-      {admins.map((admin) => (
-        <AdminCard key={admin.id} name={admin.name} id={admin.id} />
+      {admins.map((admin, index) => (
+        <AdminCard key={index} name={admin.name} id={admin.id} />
       ))}
     </section>
   );

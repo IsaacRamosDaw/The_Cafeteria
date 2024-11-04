@@ -1,6 +1,17 @@
 @import '/src/global.scss';
 
-main#admin-home{
-  padding-top: 5%;
+.page-admin-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+main#admin-home {
   @include flex-items(column);
+  gap: 1em;
+  padding-top: 100px;
+
+  details {
+    width: 100vw;
+    background-color: $primary-background;
+  }
 }

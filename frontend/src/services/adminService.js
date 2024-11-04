@@ -52,7 +52,8 @@ export async function remove(id) {
   return removeOperation;
 }
 
-// export function edit(){
-//     let url = endpoint+"/"
-//     fetch(endpoint)
-// }
+export function edit(id){
+    let url = endpoint+"/"+id
+
+    console.log(url)
+}

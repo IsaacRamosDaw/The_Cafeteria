@@ -1,27 +1,28 @@
 import { Link } from "react-router-dom";
-import './WorkerCard.scss'
-  
+import "./WorkerCard.scss";
+
 function WorkerCard({ name }) {
   return (
     <div className="worker-card">
-      <img
-        className="item-img"
-        src="../../../../public/images/ImgMenus/sandwiches.jpg"
-        alt="Image school"
-      />
-
-      <hr className="separator-worker-card" />
-
-      <div className="info">
-        <h2>{name}</h2>
-        <span>
-          <Link className="link-to-register" to="/createWorkers">
-            <img src="../../../../public/images/icons/edit.svg" alt="" />
-          </Link>
-          <Link className="link-to-register" to="#">
-            <img src="../../../../public/images/icons/trash.svg" alt="" />
-          </Link>
-        </span>
+      <div className="container-info-worker">
+        <div className="container-name-worker">
+          <h2>{name}</h2>
+        </div>
+        <div className="container-img-worker">
+          <img
+            className="item-img"
+            src="/images/ImgMenus/sandwiches.jpg"
+            alt="Image school"
+          />
+        </div>
+      </div>
+      <div className="container-control-worker">
+        <Link className="link-to-register" to="/createWorkers">
+          <img src="/images/icons/edit.svg" alt="" />
+        </Link>
+        <Link className="link-to-register" to="#">
+          <img src="/images/icons/trash.svg" alt="" />
+        </Link>
       </div>
     </div>
   );
