@@ -1,12 +1,12 @@
 import Button from "../../../components/button/Button";
 import Label from "../../../components/label/Label";
 import { create } from "../../../services/adminService";
-import "./Form.scss";
 import { useNavigate } from "react-router-dom";
+import "./Form.scss";
 
 function AdminForm() {
   const navigate = useNavigate();
-  
+
   const handleCreate = (e) => {
     e.preventDefault();
 
@@ -18,7 +18,7 @@ function AdminForm() {
     };
 
     create(formData);
-    
+
     navigate("/admin");
   };
 
@@ -33,8 +33,8 @@ function AdminForm() {
       });
 
       console.log(await response.json());
-    } catch (error) {+
-      console.error("Error al editar:", error);
+    } catch (error) {
+      +console.error("Error al editar:", error);
     }
   };
 
