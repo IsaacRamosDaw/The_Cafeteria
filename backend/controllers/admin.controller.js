@@ -37,6 +37,16 @@ exports.findAll = (req, res) => {
         });
 };
 
+exports.findOne = (req, res) => {
+    Admin.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((data) => {
+        res.send(data)
+    })
+}
+
 exports.update = (req, res) => {
     const id = req.params.id;
 

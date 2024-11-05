@@ -9,6 +9,9 @@ module.exports = (app) => {
     //List all admins
     router.get("/", admin.findAll);
 
+    // Get one admin
+    router.get("/:id", admin.findOne);
+
     // Update admin
     router.put("/:id", admin.update);
 
