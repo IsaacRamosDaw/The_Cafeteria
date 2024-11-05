@@ -3,6 +3,7 @@
 .admin-card {
     width: 90%;
     max-width: 380px;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
 
@@ -23,7 +24,8 @@
         @include flex-items(column);
 
         a,
-        button {
+        .btn-edit,
+        .btn-trash {
             width: 25px;
             border: 0;
 
@@ -33,5 +35,11 @@
                 object-fit: contain;
             }
         }
+
+        .btn-edit:active,
+        .btn-trash:active {
+            transform: scale(.8);
+        }
+
     }
 }

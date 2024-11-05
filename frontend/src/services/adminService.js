@@ -16,19 +16,23 @@ export async function get() {
 }
 
 export function create(formData) {
-  fetch(endpoint, {
+  return fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      // "Content-Type": "multipart/form-data",
     },
     body: new URLSearchParams(formData),
   })
     .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      
       return response.json();
     })
-    .error((error) => {
-      return `Error while retrieving admin data, ${error}`;
+    .catch((error) => {
+      console.error("Error while retrieving admin data:", error);
+      throw error;
     });
 }
 

@@ -1,23 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import { remove } from "../../../services/adminService";
 import { edit } from "../../../services/adminService";
 import "./AdminCard.scss";
 
 function AdminCard({ name, id }) {
+  const navigate = useNavigate()
+
   const handleDelete = () => {
     remove(id).then((res) => {
       console.log(res);
-      document.reload();
     });
   };
 
   const handleEdit = () => {
     edit(id);
+    navigate("/admin/"+id)
   };
 
   return (
     <div className="admin-card">
-
-      
 
       <div className="container-info">
         <img
@@ -32,11 +33,11 @@ function AdminCard({ name, id }) {
       </div>
 
       <div className="container-control-admin">
-        <button className="link-to-register" onClick={handleEdit}>
+        <button className="btn-edit" onClick={handleEdit}>
           <img src={`/images/icons/edit.svg`} alt="Editar" />
         </button>
         <button
-          className="link-to-register delete-button"
+          className="btn-trash"
           onClick={handleDelete}
         >
           <img src={`/images/icons/trash.svg`} alt="Eliminar" />
