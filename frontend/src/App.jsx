@@ -12,8 +12,8 @@ import CoffeShopForm from "./pages/admin/forms/CoffeShopForm";
 import SchoolForm from "./pages/admin/forms/SchoolForm";
 import WorkerForm from "./pages/admin/forms/WorkerfORM";
 import "./global.scss";
-import CreateAdmin from "./components/adminComponents/forms/adminForms/createAdmin";
-import EditAdmin from "./components/adminComponents/forms/adminForms/editAdmin";
+import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
+import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
 
 function App() {
   return (
