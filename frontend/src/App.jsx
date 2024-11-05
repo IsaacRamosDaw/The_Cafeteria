@@ -9,17 +9,19 @@ import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import CoffeShopForm from "./pages/admin/forms/CoffeShopForm";
-import AdminForm from "./pages/admin/forms/AdminForm";
 import SchoolForm from "./pages/admin/forms/SchoolForm";
 import WorkerForm from "./pages/admin/forms/WorkerfORM";
 import "./global.scss";
+
+// Admin form Components
+import CreateAdmin from "./components/adminComponents/forms/adminForms/createAdmin";
+import EditAdmin from "./components/adminComponents/forms/adminForms/editAdmin";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="*" element={<Welcome />} />
-        <Route path="/" element={<Welcome />} />
         <Route path="/home" element={<Home />} />
         <Route path="/account" element={<Account />} />
         <Route path="/form" element={<Form />} />
@@ -28,10 +30,12 @@ function App() {
         <Route path="/menus" element={<Menu />} />
         <Route path="/products" element={<Products />} />
         <Route path="/dashboard" element={<Admin />} />
-        <Route path="/admin" element={<AdminForm />} />
         <Route path="/school" element={<SchoolForm />} />
         <Route path="/coffeShop" element={<CoffeShopForm />} />
         <Route path="/workers" element={<WorkerForm />} />
+        {/* Admin routes */}
+        <Route path="/admin" element={<CreateAdmin />} />
+        <Route path="/admin/:id" element={<EditAdmin />} />
       </Routes>
     </Router>
   );

@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { remove } from "../../../services/adminService";
-import { edit } from "../../../services/adminService";
 import "./AdminCard.scss";
 
 function AdminCard({ name, id }) {
+
+  const navigate = useNavigate();
+
   const handleDelete = () => {
     remove(id).then((res) => {
       console.log(res);
@@ -11,13 +14,11 @@ function AdminCard({ name, id }) {
   };
 
   const handleEdit = () => {
-    edit(id);
+    navigate("/admin/"+id)
   };
 
   return (
     <div className="admin-card">
-
-      
 
       <div className="container-info">
         <img

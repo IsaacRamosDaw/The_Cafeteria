@@ -21,7 +21,7 @@ function Admin() {
   const actions = [
     { icon: <Work />, name: 'Work', to: '/work' },
     { icon: <School />, name: 'School', to: '/school' },
-    { icon: <AccountCircle />, name: 'account', to: 'admin' },
+    { icon: <AccountCircle />, name: 'account', to: '/admin' },
   ];
 
   const goTo = (page) => {
