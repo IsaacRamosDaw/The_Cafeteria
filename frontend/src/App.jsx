@@ -8,11 +8,9 @@ import Categories from "./pages/categories/Categories";
 import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
-import CoffeShopForm from "./pages/admin/forms/CoffeShopForm";
-import SchoolForm from "./pages/admin/forms/SchoolForm";
-import WorkerForm from "./pages/admin/forms/WorkerForm";
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
 import EditAdmin from "./components/adminComponents/forms/adminForms/editAdmin";
+import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import "./global.scss";
 
 
@@ -29,12 +27,11 @@ function App() {
         <Route path="/menus" element={<Menu />} />
         <Route path="/products" element={<Products />} />
         <Route path="/dashboard" element={<Admin />} />
-        <Route path="/school" element={<SchoolForm />} />
-        <Route path="/coffeShop" element={<CoffeShopForm />} />
-        <Route path="/workers" element={<WorkerForm />} />
+        {/* Worker routes */}
+        <Route path="/worker" element={<CreateWorker />} />
         {/* Admin routes */}
         <Route path="/admin" element={<CreateAdmin />} />
-        <Route path="/admin/:id" element={<EditAdmin />} />
+        <Route path="/admin/edit" element={<EditAdmin />} />
       </Routes>
     </Router>
   );

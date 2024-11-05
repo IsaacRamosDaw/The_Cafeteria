@@ -1,16 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { remove } from "../../../services/adminService";
+import { remove } from "../../../services/workerService";
 import "./WorkerCard.scss";
 
-function WorkerCard({ name }) {
+function WorkerCard({ name , id}) {
     const navigate = useNavigate();
 
     const handleDelete = () => {
       remove(id).then((res) => {
         console.log(res);
-        document.reload();
       });
-    };
+  };
+  
+  const reload = () => {
+    reload();
+  }
 
     const handleEdit = () => {
       navigate("/admin/" + id);
@@ -22,7 +25,7 @@ function WorkerCard({ name }) {
         <div className="container-img-worker">
           <img
             className="item-img"
-            src="/images/ImgMenus/sandwiches.jpg"
+            src={`/images/ImgMenus/sandwiches.jpg`}
             alt="Image school"
           />
         </div>

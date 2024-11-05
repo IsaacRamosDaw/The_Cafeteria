@@ -14,23 +14,21 @@ export async function get() {
 }
 
 export function create(formData) {
-  fetch(endpoint, {
+  return fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      // "Content-Type": "multipart/form-data",
     },
     body: new URLSearchParams(formData),
   })
     .then((response) => {
       return response.json();
     })
-    .error((error) => {
+    .catch((error) => {
       return `Error while retrieving worker data, ${error}`;
     });
 }
 
-// No lo cambies a delete porque delete es una palabra reservada de js
 export async function remove(id) {
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
@@ -39,13 +37,18 @@ export async function remove(id) {
       if (!response.ok) {
         throw new Error("Failed to delete worker");
       }
-
       return response.json();
     })
     .catch((error) => {
       console.log(`error, ${error}`);
       return error;
     });
-
   return removeOperation;
+
+}
+
+export function edit(id) {
+  let url = endpoint + "/" + id;
+
+  console.log(url);
 }

@@ -6,7 +6,6 @@ import "../Form.scss";
 
 export default function EditAdmin() {
   const navigate = useNavigate();
-  const id = 3
 
   const handleEdit = async (e) => {
     e.preventDefault();
