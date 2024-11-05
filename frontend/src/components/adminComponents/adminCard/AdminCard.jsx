@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { remove } from "../../../services/adminService";
-import { edit } from "../../../services/adminService";
 import "./AdminCard.scss";
 
 function AdminCard({ name, id }) {

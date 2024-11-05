@@ -1,13 +1,24 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { remove } from "../../../services/adminService";
 import "./WorkerCard.scss";
 
 function WorkerCard({ name }) {
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+      remove(id).then((res) => {
+        console.log(res);
+        document.reload();
+      });
+    };
+
+    const handleEdit = () => {
+      navigate("/admin/" + id);
+  };
+  
   return (
     <div className="worker-card">
       <div className="container-info-worker">
-        <div className="container-name-worker">
-          <h2>{name}</h2>
-        </div>
         <div className="container-img-worker">
           <img
             className="item-img"
@@ -15,14 +26,20 @@ function WorkerCard({ name }) {
             alt="Image school"
           />
         </div>
+        <div className="container-name-worker">
+          <h2>{name}</h2>
+        </div>
       </div>
       <div className="container-control-worker">
-        <Link className="link-to-register" to="/createWorkers">
-          <img src="/images/icons/edit.svg" alt="" />
-        </Link>
-        <Link className="link-to-register" to="#">
-          <img src="/images/icons/trash.svg" alt="" />
-        </Link>
+        <button className="link-to-register" onClick={handleEdit}>
+          <img src={`/images/icons/edit.svg`} alt="Editar" />
+        </button>
+        <button
+          className="link-to-register delete-button"
+          onClick={handleDelete}
+        >
+          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+        </button>
       </div>
     </div>
   );
