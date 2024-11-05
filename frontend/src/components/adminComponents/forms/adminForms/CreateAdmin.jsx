@@ -1,6 +1,6 @@
 import Button from "../../../button/Button";
 import Label from "../../../label/Label";
-import create from '../../../../services/adminService'
+import {create} from '../../../../services/adminService'
 import { useNavigate } from "react-router-dom";
 import "../Form.scss"
 
