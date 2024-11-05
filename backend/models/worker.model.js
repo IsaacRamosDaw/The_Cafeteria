@@ -1,10 +1,11 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const worker = sequelize.define('Worker', {
+  const worker = sequelize.define("Worker", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
