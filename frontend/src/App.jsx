@@ -8,14 +8,17 @@ import Categories from "./pages/categories/Categories";
 import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
-import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
-import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
-import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
-import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
 import "./global.scss";
 
+// Admin Crud
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
+// School Crud
+import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
+import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
+// Worker Crud
+import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
+import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 
 function App() {
   return (

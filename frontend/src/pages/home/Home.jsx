@@ -6,14 +6,14 @@ import "./Home.scss";
 
 function Home() {
   return (
-    <>
+    <div id="home-container">
       <SearchBar />
       <Separator />
-      <main id="home-container">
+      <main id="container-home-page">
         <Offer/>
       </main>
       <TabsBar />
-    </>
+    </div>
   );
 }
 

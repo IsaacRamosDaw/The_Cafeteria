@@ -1,4 +1,10 @@
 @import "/src/global.scss";
 
-main#home-container{
+#home-container{
+    width: 100%;
+    min-height: 100vh;
+}
+div#container-home-page{
+    width: 100%;
+    min-height: 100vh;
 }
