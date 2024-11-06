@@ -1,7 +1,10 @@
+const { where } = require("sequelize");
 const db = require("../models");
 const Admin = db.admins;
 const Op = db.sequelize.Op;
-
+const utils = require("../utils");
+const bcrypt = require('bcryptjs');
+const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 
 exports.create = (req, res) => {
@@ -22,7 +25,53 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occurred while creating the admin."
             });
         });
-};
+
+    // if (!req.body.password || !req.body.username) {
+    //     res.status(400).send({
+    //         message: "Content can not be empty!"
+    //     });
+    //     return;
+    // }
+
+    // let admin2 = {
+    //     name: req.body.name,
+    //     password: req.body.password
+    // }
+
+    // Admin.findOne({ where: { adminname: admin2.adminname } })
+    //     .then(data => {
+    //         if (data) {
+    //             const result = bcrypt.hashSync(req.body.password);
+    //             if (!result) return res.status(401).send('Password not valid!');
+    //             const token = utils.generateToken(data);
+    //             const adminObj = utils.getCleanUser(data);
+
+    //             return res.json({ admin2: adminObj, access_token: token });
+    //         }
+
+    //         admin.password = bcrypt.hashSync(req.body.password);
+
+    //         Admin.create(admin2)
+    //             .then(data => {
+    //                 const token = utils.generateToken(data);
+    //                 const adminObj = utils.getCleanUser(data);
+
+    //                 return res.json({ admin2: adminObj, access_token: token });
+    //             })
+    //             .catch(err => {
+    //                 res.status(500).send({
+    //                     message:
+    //                         err.message || "Some error while creating the Admin."
+    //                 });
+    //             });
+    //     })
+    //     .catch(err => {
+    //         res.status(500).send({
+    //             message:
+    //                 err.message || "Some error occurred while retrieving tutorials."
+    //         });
+    //     });
+}
 
 // Retrieve all admins
 exports.findAll = (req, res) => {
@@ -45,6 +94,16 @@ exports.findOne = (req, res) => {
     }).then((data) => {
         res.send(data)
     })
+
+    // Admin.findByPk(id)
+    // .then(data => {
+    //     res.send(data);
+    // })
+    // .catch(err => {
+    //     res.status(500).send({
+    //         message: "Error retrieving User with id=" + id
+    //     });
+    // });
 }
 
 exports.update = (req, res) => {
@@ -105,3 +164,19 @@ exports.delete = (req, res) => {
             res.status(500).json({ message: "Error deleting admin." });
         });
 };
+
+// exports.findUserByUsernameAndPassword = (req, res) => {
+//     const admin2 = req.body.adminname;
+//     const pwd = req.body.password;
+
+//     Admin.findOne({ where: {adminname: admin2, password: pwd}})
+//     .then(data => {
+//         res.send(data);
+//     })
+//     .catch(err => {
+//         res.status(500).send({
+//             message:
+//             err.message || "Some error occurred while retrieving tutorials."
+//         });
+//     });
+// }

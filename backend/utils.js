@@ -1,13 +1,13 @@
 // var jwt = require('jsonwebtoken');
 
 // function generateToken(user){
-//     if(!user) return null;
+//     if(!admin) return null;
 
 //     var u = {
-//         id: user.id,
-//         name: user.username,
-//         isAdmin: user.isAdmin,
-//         password: user.password
+//         id: admin.id,
+//         name: admin.username,
+//         isAdmin: admin.isAdmin,
+//         password: admin.password
 //     };
 
 //     return jwt.sign(u, process.env.JWT_SECRET, {
@@ -16,12 +16,12 @@
 // }
 
 // function getCleanUser(user){
-//     if(!user) return null;
+//     if(!admin) return null;
 
 //     return {
-//         id: user.id,
-//         name: user.name,
-//         password: user.password
+//         id: admin.id,
+//         name: admin.name,
+//         password: admin.password
 //       };
 // }
 
