@@ -13,7 +13,22 @@ export async function get() {
   return getOperation;
 }
 
-export function create(formData) {
+export function getOne(id) {
+  const getOneOperation = fetch(`${endpoint}/${id}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+  return getOneOperation;
+}
+
+export async function create(formData) {
   return fetch(endpoint, {
     method: "POST",
     headers: {
@@ -22,10 +37,15 @@ export function create(formData) {
     body: new URLSearchParams(formData),
   })
     .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
       return response.json();
     })
     .catch((error) => {
-      return `Error while retrieving worker data, ${error}`;
+      console.error("Error while retrieving worker data:", error);
+      throw error;
     });
 }
 
@@ -44,11 +64,27 @@ export async function remove(id) {
       return error;
     });
   return removeOperation;
-
 }
 
-export function edit(id) {
-  let url = endpoint + "/" + id;
+export async function edit(id, data) {
+  let url = `${endpoint}/${id}`;
 
-  console.log(url);
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error while updating worker data:", error);
+      throw error;
+    });
 }

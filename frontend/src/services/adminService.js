@@ -66,7 +66,6 @@ export async function remove(id) {
       console.log(`error, ${error}`);
       return error;
     });
-
   return removeOperation;
 }
 

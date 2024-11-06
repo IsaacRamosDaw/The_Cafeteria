@@ -1,8 +1,8 @@
 // AdminContainer.jsx
 import { useEffect, useState } from "react";
 import AdminCard from "../adminCard/AdminCard";
-import "./AdminContainer.scss";
 import { get, remove } from "../../../services/adminService.js";
+import "./AdminContainer.scss";
 
 function AdminContainer() {
   const [admins, setAdmins] = useState([]);

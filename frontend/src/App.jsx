@@ -9,9 +9,10 @@ import Menu from "./pages/menu/MenuPage"
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
-import "./global.scss";
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
+import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
+import "./global.scss";
 
 function App() {
   return (
@@ -28,9 +29,10 @@ function App() {
         <Route path="/dashboard" element={<Admin />} />
         {/* Worker routes */}
         <Route path="/worker" element={<CreateWorker />} />
+        <Route path="/worker/:id" element={<EditWorker />} />
         {/* Admin routes */}
         <Route path="/admin" element={<CreateAdmin />} />
-        <Route path="/admin/edit" element={<EditAdmin />} />
+        <Route path="/admin/:id" element={<EditAdmin />} />
       </Routes>
     </Router>
   );
