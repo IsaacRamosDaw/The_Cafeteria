@@ -1,16 +1,33 @@
-const endpoint = "http://localhost:8080/api/school";
+const endpoint = "http://localhost:8080/api/schools";
 
-export async function get() {
-  const getOperation = fetch(endpoint).then((res) => {
-    if (!res.ok) {
-      throw new Error("Error fetching data");
-    }
-    return res.json();
-  }).catch((err) => {
-    console.log(`error, ${err}`);
-    return err;
-  })
+export function get() {
+  const getOperation = fetch(endpoint)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
   return getOperation;
+}
+
+export function getOne(id) {
+  const getOneOperation = fetch(`${endpoint}/${id}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+  return getOneOperation;
 }
 
 export async function create(formData) {
@@ -22,10 +39,15 @@ export async function create(formData) {
     body: new URLSearchParams(formData),
   })
     .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
       return response.json();
     })
     .catch((error) => {
-      return `Error while retrieving school data, ${error}`;
+      console.error("Error while retrieving admin data:", error);
+      throw error;
     });
 }
 
@@ -35,8 +57,9 @@ export async function remove(id) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Failed to delete school");
+        throw new Error("Failed to delete admin");
       }
+
       return response.json();
     })
     .catch((error) => {
@@ -44,11 +67,27 @@ export async function remove(id) {
       return error;
     });
   return removeOperation;
-
 }
 
-export function edit(id) {
-  let url = endpoint + "/" + id;
+export async function edit(id, data) {
+  let url = `${endpoint}/${id}`;
 
-  console.log(url);
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error while updating admin data:", error);
+      throw error;
+    });
 }

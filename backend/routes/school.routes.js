@@ -9,12 +9,14 @@ module.exports = app => {
     //List all schools
     router.get("/", school.findAll);
 
+    router.get("/:id", school.findOne);
+
     // Update school
     router.put("/:id", school.update);
 
     //Delete school
     router.delete("/:id", school.delete);
 
-    app.use('/api/school', router);
+    app.use('/api/schools', router);
 
 };

@@ -11,7 +11,6 @@ function SchoolContainer() {
     async function fetchData() {
       const data = await get();
       setSchools(data);
-       console.log(data);
     }
 
     fetchData();
@@ -20,13 +19,13 @@ function SchoolContainer() {
     const handleDelete = async (id) => {
       await remove(id);
       setSchools((prevSchool) => prevSchool.filter((school) => school.id !== id));
-    };
+    }
 
   return (
     <section className="section-container-school-cards">
       {schools.map((school) => (
         <SchoolCard
-          key={school.id}
+          key={schools.id}
           name={school.name}
           id={school.id}
           onDelete={handleDelete}

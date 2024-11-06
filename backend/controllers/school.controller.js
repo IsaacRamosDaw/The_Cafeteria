@@ -1,13 +1,7 @@
 const db = require("../models");
-const School = db.schools;
+const School = db.school;
 
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-        return res.status(400).send({
-            message: "Content cannot be empty!"
-        });
-    }
 
     // Create a School object
     const school = {
@@ -31,15 +25,25 @@ exports.create = (req, res) => {
 
 // Retrieve all schools from the database
 exports.findAll = (req, res) => {
-    School.findAll()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving schools."
-            });
-        });
+  School.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving schools.",
+      });
+    });
+};
+
+exports.findOne = (req, res) => {
+  School.findOne({
+    where: {
+      id: req.params.id,
+    },
+  }).then((data) => {
+    res.send(data);
+  });
 };
 
 // Update a school by ID

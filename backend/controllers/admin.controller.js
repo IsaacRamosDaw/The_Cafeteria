@@ -3,9 +3,7 @@ const Admin = db.admins;
 const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
-
     console.log(req.body)
-
     // Create an Admin object
     const admin = {
         name: req.body.name,
