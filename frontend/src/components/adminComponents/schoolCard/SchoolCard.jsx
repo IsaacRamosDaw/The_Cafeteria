@@ -1,29 +1,51 @@
-import { Link } from 'react-router-dom';
-import './SchoolCard.scss'
+import { useNavigate } from "react-router-dom";
+import { remove } from "../../../services/schoolService";
+import ".SchoolCard.scss";
 
-export default function SchoolCard({name, image}){
+function SchoolCard({ name , id}) {
+    const navigate = useNavigate();
 
-    return (
-      <div className="school-card">
-        <img
-          className="item-img"
-          src={image}
-          alt="Image school"
-        />
+    const handleDelete = () => {
+      remove(id).then((res) => {
+        console.log(res);
+      });
+  };
+  
+  const reload = () => {
+    reload();
+  }
 
-        <hr className='separator-school-card' />
-        
-        <div className='info'>
+    const handleEdit = () => {
+      navigate("/school/" + id);
+  };
+  
+  return (
+    <div className="school-card">
+      <div className="container-info-school">
+        <div className="container-img-school">
+          <img
+            className="item-img"
+            src={`/images/ImgMenus/sandwiches.jpg`}
+            alt="Image school"
+          />
+        </div>
+        <div className="container-name-school">
           <h2>{name}</h2>
-          <span>
-            <Link className="link-to-register" to="/createSchools">
-              <img src="/images/icons/edit.svg" alt="Img edit" />
-            </Link>
-            <Link className="link-to-register" to="#">
-              <img src="/images/icons/trash.svg" alt="Img trash Can" />
-            </Link>
-          </span>
         </div>
       </div>
-    );
+      <div className="container-control-school">
+        <button className="link-to-register" onClick={handleEdit}>
+          <img src={`/images/icons/edit.svg`} alt="Editar" />
+        </button>
+        <button
+          className="link-to-register delete-button"
+          onClick={handleDelete}
+        >
+          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+        </button>
+      </div>
+    </div>
+  );
 }
+
+export default SchoolCard;
