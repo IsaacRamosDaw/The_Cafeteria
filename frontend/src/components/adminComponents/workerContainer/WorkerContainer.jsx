@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import WorkerCard from "../workerCard/WorkerCard";
-import './WorkerContainer.scss'
-import { get } from "../../../services/workerService";
+import { get, remove } from "../../../services/workerService";
+import "./WorkerContainer.scss";
 
 function WorkerContainer() {
   const [workers, setWorkers] = useState([]);
@@ -14,12 +14,17 @@ function WorkerContainer() {
 
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    await remove(id);
+    setWorkers((prevWorkers) => prevWorkers.filter((worker) => worker.id !== id));
+  };
   return (
     <section className="section-container-worker-cards">
-      {workers.map((worker, index) => (
-        <WorkerCard key={index} name={worker.name} id={worker.id} />
+      {workers.map((worker) => (
+        <WorkerCard key={worker.id} name={worker.name} id={worker.id} onDelete={handleDelete} />
       ))}
-     </section>
+    </section>
   );
 }
 
