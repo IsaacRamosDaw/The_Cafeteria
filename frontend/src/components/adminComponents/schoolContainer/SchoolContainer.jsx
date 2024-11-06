@@ -1,12 +1,26 @@
-import SchoolCard from '../schoolCard/SchoolCard'
+import { useEffect, useState } from "react";
+import SchoolCard from "../schoolCard/SchoolCard";
 import './SchoolContainer.scss'
+import { get } from "../../../services/schoolService";
 
-export default function SchoolContainer(){
-    return(
-        <section className='section-school-container'>
-            <SchoolCard name={"Colegio 1"} image={"/images/ImgMenus/sandwiches.jpg"} />
-            <SchoolCard name={"Colegio 2"} image={"/images/ImgMenus/sandwiches.jpg"} />
-            <SchoolCard name={"Colegio 3"} image={"/images/ImgMenus/sandwiches.jpg"} />
-        </section>
-    )
+function SchoolContainer() {
+  const [schools, setSchools] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await get();
+      setSchools(data);
+    }
+
+    fetchData();
+  }, []);
+  return (
+    <section className="section-container-school-cards">
+      {schools.map((school, index) => (
+        <SchoolCard key={index} name={school.name} id={school.id} />
+      ))}
+     </section>
+  );
 }
+
+export default SchoolContainer;

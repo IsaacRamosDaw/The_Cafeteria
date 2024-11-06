@@ -1,17 +1,38 @@
 import Button from "../../../button/Button";
 import Label from "../../../label/Label";
-import { edit } from "../../../../services/workerService";
-import { useNavigate } from "react-router-dom";
+import { edit, getOne } from "../../../../services/workerService";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../Form.scss";
+
 export default function EditWorker() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-    const handleEdit = async (e) => {
-      e.preventDefault();
+  const [workerData, setWorkerData] = useState({ name: "", phone: "" });
 
-      edit(id);
+  useEffect(() => {
+    getOne(id)
+      .then((data) => setWorkerData(data))
+      .catch((error) => console.log("Error fetching worker data:", error));
+  }, [id]);
 
-      navigate("/dashboard");
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    let nameWorker = document.querySelector("#name-worker");
+    let passwordWorker = document.querySelector("#password-worker");
+    let phoneWorker = document.querySelector("#phone-worker");
+
+    const formData = {
+      name: nameWorker.value,
+      password: passwordWorker.value,
+      phone: phoneWorker.value,
+    };
+
+    edit(id, formData).then(() => {
+      navigate(-1);
+    });
   };
   
   return (
@@ -20,7 +41,7 @@ export default function EditWorker() {
         <h2>worker</h2>
         <Label
           id={"name-worker"}
-          placeHolder={"Nombre del worker"}
+          placeHolder={workerData.name}
           title={"Nombre"}
           type={"text"}
         />
@@ -32,9 +53,9 @@ export default function EditWorker() {
         />
         <Label
           id={"phone-worker"}
-          placeHolder={"Teléfono del worker"}
-          title={"Contraseña"}
-          type={"phone"}
+          placeHolder={workerData.phone}
+          title={"Teléfono"}
+          type={"text"}
         />
 
         <div id="buttons">

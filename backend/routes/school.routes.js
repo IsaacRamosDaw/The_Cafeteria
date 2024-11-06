@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     //Create a school
-    router.post("/", school.createCategory);
+    router.post("/", school.create);
 
     //List all schools
     router.get("/", school.findAll);
@@ -15,6 +15,6 @@ module.exports = app => {
     //Delete school
     router.delete("/:id", school.delete);
 
-    app.use('/api/admin', router);
+    app.use('/api/school', router);
 
 };

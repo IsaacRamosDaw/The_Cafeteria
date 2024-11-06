@@ -2,8 +2,8 @@ import Button from "../../../button/Button";
 import Label from "../../../label/Label";
 import { edit, getOne } from "../../../../services/adminService";
 import { useNavigate, useParams } from "react-router-dom";
-import "../Form.scss";
 import { useEffect, useState } from "react";
+import "../Form.scss";
 
 export default function EditAdmin() {
   const navigate = useNavigate();
