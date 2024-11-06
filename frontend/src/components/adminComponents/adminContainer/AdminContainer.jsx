@@ -1,3 +1,4 @@
+// AdminContainer.jsx
 import { useEffect, useState } from "react";
 import AdminCard from "../adminCard/AdminCard";
 import { get, remove } from "../../../services/adminService.js";

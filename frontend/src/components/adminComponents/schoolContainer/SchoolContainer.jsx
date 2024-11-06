@@ -14,10 +14,11 @@ function SchoolContainer() {
 
     fetchData();
   }, []);
+
   return (
     <section className="section-container-school-cards">
-      {schools.map((school, index) => (
-        <SchoolCard key={index} name={school.name} id={school.id} />
+      {schools.map((school) => (
+        <SchoolCard key={school.id} name={school.name} id={school.id} />
       ))}
      </section>
   );
