@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { remove } from "../../../services/schoolService";
-import ".SchoolCard.scss";
+import "./SchoolCard.scss";
 
 function SchoolCard({ name , id}) {
     const navigate = useNavigate();
@@ -10,10 +10,6 @@ function SchoolCard({ name , id}) {
         console.log(res);
       });
   };
-  
-  const reload = () => {
-    reload();
-  }
 
     const handleEdit = () => {
       navigate("/school/" + id);

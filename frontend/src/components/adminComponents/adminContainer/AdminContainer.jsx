@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-// AdminContainer.jsx
->>>>>>> 3d6e623c149b7e83ebfbc3ba32bb394e0c77b15b
 import { useEffect, useState } from "react";
 import AdminCard from "../adminCard/AdminCard";
 import { get, remove } from "../../../services/adminService.js";
