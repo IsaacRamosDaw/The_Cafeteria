@@ -1,6 +1,8 @@
 const db = require("../models");
 const Admin = db.admins;
-const Op = db.sequelize.Op
+const Op = db.sequelize.Op;
+
+
 
 exports.create = (req, res) => {
     console.log(req.body)
