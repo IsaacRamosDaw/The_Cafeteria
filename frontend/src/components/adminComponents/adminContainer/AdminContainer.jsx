@@ -24,7 +24,12 @@ function AdminContainer() {
   return (
     <section className="section-container-admins-cards">
       {admins.map((admin) => (
-        <AdminCard key={admin.id} name={admin.name} id={admin.id} onDelete={handleDelete} />
+        <AdminCard
+          key={admin.id}
+          name={admin.name}
+          id={admin.id}
+          onDelete={handleDelete}
+        />
       ))}
     </section>
   );

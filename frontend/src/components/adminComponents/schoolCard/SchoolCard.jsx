@@ -1,19 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { remove } from "../../../services/schoolService";
 import "./SchoolCard.scss";
 
-function SchoolCard({ name , id}) {
+function SchoolCard({ name , id, onDelete}) {
     const navigate = useNavigate();
 
     const handleDelete = () => {
-      remove(id).then((res) => {
-        console.log(res);
-      });
-  };
+      onDelete(id);
+    };
 
     const handleEdit = () => {
       navigate("/school/" + id);
-  };
+    };
   
   return (
     <div className="school-card">
@@ -33,10 +30,7 @@ function SchoolCard({ name , id}) {
         <button className="link-to-register" onClick={handleEdit}>
           <img src={`/images/icons/edit.svg`} alt="Editar" />
         </button>
-        <button
-          className="link-to-register delete-button"
-          onClick={handleDelete}
-        >
+        <button className="btn-trash" onClick={handleDelete}>
           <img src={`/images/icons/trash.svg`} alt="Eliminar" />
         </button>
       </div>
