@@ -16,12 +16,6 @@ function SchoolContainer() {
     fetchData();
   }, []);
 
-<<<<<<< HEAD
-  return (
-    <section className="section-container-school-cards">
-      {schools.map((school) => (
-        <SchoolCard key={school.id} name={school.name} id={school.id} />
-=======
     const handleDelete = async (id) => {
       await remove(id);
       setSchools((prevSchool) => prevSchool.filter((school) => school.id !== id));
@@ -36,7 +30,6 @@ function SchoolContainer() {
           id={school.id}
           onDelete={handleDelete}
         />
->>>>>>> 986291ef8a93c526b70af33c5629c97813e8a98d
       ))}
     </section>
   );
