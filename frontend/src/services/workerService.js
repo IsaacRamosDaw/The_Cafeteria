@@ -1,6 +1,6 @@
 const endpoint = "http://localhost:8080/api/worker";
 
-export async function get() {
+export function get() {
   const getOperation = fetch(endpoint).then((res) => {
     if (!res.ok) {
       throw new Error("Error fetching data");

@@ -10,7 +10,7 @@ function AdminCard({ name, id, onDelete }) {
   };
 
   const handleEdit = () => {
-    navigate("/admin/edit");
+    navigate("/admin/" + id);
   };
 
   return (

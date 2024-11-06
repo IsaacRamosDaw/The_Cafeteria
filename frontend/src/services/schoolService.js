@@ -13,7 +13,7 @@ export async function get() {
   return getOperation;
 }
 
-export function create(formData) {
+export async function create(formData) {
   return fetch(endpoint, {
     method: "POST",
     headers: {
