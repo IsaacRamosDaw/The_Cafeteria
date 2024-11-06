@@ -1,25 +1,28 @@
 @import '/src/global.scss';
 
-.worker-card{
-    width: 90%;
-    max-width: 370px;
+.worker-card {
+    width: 95%;
+    max-width: 380px;
+    @include flex-items(column);
 
-    .item-img{
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .separator-worker-card{
-        height: 5px;
-        background-color: #000;
-    }
-
-    .info {
+    .container-info-worker {
         display: flex;
         justify-content: space-between;
 
-        a {
-            margin: 10px;
+        .container-img-worker {
+            width: 50%;
+
+            .item-img {
+                width: 100%;
+                object-fit: cover;
+            }
         }
+
+    }
+
+    .container-control-worker {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 }

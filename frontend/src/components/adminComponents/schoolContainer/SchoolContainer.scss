@@ -1,8 +1,8 @@
 @import '/src/global.scss';
 
-.section-container-worker-cards {
+.section-school-container {
     width: 100%;
-    background-color: $dark-mode-text-text-secondary-1;
+    background-color: $dark-mode-text-text-secondary-2;
     @include flex-items(column);
     gap: 1em;
     padding: 1em 0;

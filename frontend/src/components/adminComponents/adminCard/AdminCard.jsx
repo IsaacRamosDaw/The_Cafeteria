@@ -1,38 +1,38 @@
-import { Link } from "react-router-dom";
-import { remove } from "../../../services/adminService";
+// AdminCard.jsx
+import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
 
-function AdminCard({ name, id }) {
+function AdminCard({ name, id, onDelete }) {
+  const navigate = useNavigate();
+
   const handleDelete = () => {
-    remove(id).then((res) => {
-      console.log(res);
-      document.reload()
-    });
+    onDelete(id);
+  };
+
+  const handleEdit = () => {
+    navigate("/admin/" + id);
   };
 
   return (
     <div className="admin-card">
-      <img
-        className="item-img"
-        src={`/images/ImgMenus/sandwiches.jpg`}
-        alt="Imagen de administrador"
-      />
+      <div className="container-info">
+        <img
+          className="item-img"
+          src={`/images/ImgMenus/sandwiches.jpg`}
+          alt="Imagen de administrador"
+        />
+        <div className="container-name">
+          <h2>{name}</h2>
+        </div>
+      </div>
 
-      <hr className="separator-admin-card" />
-
-      <div className="info">
-        <h2>{name}</h2>
-        <span>
-          <Link className="link-to-register" to="/createAdmins">
-            <img src={`/images/icons/edit.svg`} alt="Editar" />
-          </Link>
-          <button
-            className="link-to-register delete-button"
-            onClick={handleDelete}
-          >
-            <img src={`/images/icons/trash.svg`} alt="Eliminar" />
-          </button>
-        </span>
+      <div className="container-control-admin">
+        <button className="btn-edit" onClick={handleEdit}>
+          <img src={`/images/icons/edit.svg`} alt="Editar" />
+        </button>
+        <button className="btn-trash" onClick={handleDelete}>
+          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+        </button>
       </div>
     </div>
   );

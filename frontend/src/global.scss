@@ -79,6 +79,12 @@ body {
   box-sizing: border-box;
 }
 
+body,
+#root,
+html {
+  min-height: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -110,4 +116,17 @@ a {
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+details {
+  width: 100%;
+  font-size: 1.2rem;
+  @include flex-items(column);
+
+  summary {
+    list-style-position: outside;
+    margin-left: 30px;
+    padding: 10px 10px 10px 20px;
+    border-radius: 5px;
+  }
 }
