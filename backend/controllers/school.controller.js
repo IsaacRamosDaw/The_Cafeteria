@@ -2,9 +2,9 @@ const { where } = require("sequelize");
 const db = require("../models");
 const School = db.school;
 const Op = db.sequelize.Op;
-const utils = require("../utils");
-const bcrypt = require('bcryptjs');
-const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
+// const utils = require("../utils");
+// const bcrypt = require('bcryptjs');
+// const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 exports.create = (req, res) => {
 

@@ -1,5 +1,8 @@
 const db = require("../models");
 const Worker = db.worker;
+// const utils = require("../utils");
+// const bcrypt = require('bcryptjs');
+// const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 exports.create = (req, res) => {
 
