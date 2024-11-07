@@ -8,8 +8,8 @@ export default function MenuContainer() {
         <p className="title-card-home">RECOMENDADOS</p>
       </div>
       <div className="carrusel-menu-cards">
-        <CardMenuHome />
-        <CardMenuHome />
+        <CardMenuHome image={""} title={"Super bocota combo"} description={"Dos bocadillos de atun y queso"} time={`${20}-${45} min`} />
+        <CardMenuHome image={""} title={"Super bocota combo"} description={"Dos bocadillos de atun y queso"} time={`${20}-${45} min`} />
       </div>
     </section>
   );
