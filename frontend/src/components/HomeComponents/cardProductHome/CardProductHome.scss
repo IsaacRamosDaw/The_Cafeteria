@@ -1,7 +1,8 @@
 @import '/src/global.scss';
 
-.card-recommended-container{
+.card-product-container{
     display: flex;
+    justify-content: space-between;
     width: 100%;
     max-width: 328px;
     height: 180px;
@@ -9,28 +10,29 @@
     flex-shrink: 0;
     background-color: $dark-mode-background-2;
 
-    .container-img-card-recommended{
-        width: 60%;
+    .container-img-card-product{
+        width: 55%;
 
-        .img-card-recommended{
+        .img-card-product{
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
     }
-    .container-info-card-recommended{
+    .container-info-card-product{
+        width: 30%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         margin: 10px;
         
-        .title-card-recommended{
+        .title-card-product{
             color: $dark-mode-text-2;
-            font-size: $text-big-size;
-        }
-        .price-card-recommended{
-            color: $dark-mode-text-3;
             font-size: $text-medium-size;
+        }
+        .price-card-product{
+            color: $dark-mode-text-3;
+            font-size: $text-medium-small-size;
             font-weight: 600;
         }
     }

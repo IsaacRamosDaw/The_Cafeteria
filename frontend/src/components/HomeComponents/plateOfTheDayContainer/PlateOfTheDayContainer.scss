@@ -1,6 +1,6 @@
 @import '/src/global.scss';
 
-.container-recommended-cards{
+.container-plate-of-day-cards{
     width: 100%;
     min-height: 244px;
     background-color: $dark-mode-background-1;
@@ -10,6 +10,7 @@
 
     .container-title-card-home{
         width: 100%;
+        display: flex;
         .title-card-home{
             margin: 0 10px;
             font-weight: 600;
@@ -17,12 +18,8 @@
             color: $default-white;
         }
     }
-    .carrusel-recommended-cards{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
+    .container-plate-cards{
+        @include flex-items;
         width: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
     }
 }
