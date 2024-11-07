@@ -1,29 +1,30 @@
-// var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 
-// function generateToken(user){
-//     if(!user) return null;
+function generateToken(user){
+    if(!user) return null;
 
-//     const u = {
-//         id: user.id,
-//         name: user.username,
-//         role: role
-//     };
+    const u = {
+        id: user.id,
+        name: user.username,
+        role: user.role
+    };
 
-//     return jwt.sign(u, process.env.JWT_SECRET, {
-//         expiresIn: 60 * 60 * 24
-//     });
-// }
+    return jwt.sign(u, process.env.JWT_SECRET, {
+        expiresIn: 60 * 60 * 24
+    });
+}
 
-// function getCleanUser(user){
-//     if(!user) return null;
+function getCleanUser(user){
+    if(!user) return null;
 
-//     return {
-//         id: user.id,
-//         name: user.name,
-//       };
-// }
+    return {
+        id: user.id,
+        name: user.name,
+        role: user.role
+      };
+}
 
-// module.exports = {
-//     generateToken,
-//     getCleanUser
-// }
+module.exports = {
+    generateToken,
+    getCleanUser
+}

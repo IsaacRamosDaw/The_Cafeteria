@@ -13,49 +13,46 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }))
-
 const db = require("./models");
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db");
 });
 
-// app.use(function (req, res, next){
-//   var token= req.headers['authorization'];
-//   if (!token) return next();
+app.use(function (req, res, next){
+  var token= req.headers['authorization'];
+  if (!token) return next();
 
-//   if(req.headers.authorization.indexOf('Basic ') === 0){
+  if(req.headers.authorization.indexOf('Basic ') === 0){
 
-//     const base64Credentials = req.headers.authorization.split(' ')[1];
-//     const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-//     const [username, password] = credentials.split(':');
+    const base64Credentials = req.headers.authorization.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    const [username, password] = credentials.split(':');
 
-//     req.body.username = username;
-//     req.body.password = password;
+    req.body.username = username;
+    req.body.password = password;
     
-//     return next();
-//   }
+    return next();
+  }
 
-//   token = token.replace('Bearer ', '');
-//   jwt.verify(token, process.env.JWT_SECRET, function(err, user){
-//     if(err){
-//       return res.status(401).json({
-//         error: true,
-//         message: "Invalid user."
-//       });
-//     } else{
-//       req.user = user;
-//       req.token = token;
-//       next();
-//     }
-//   });
-// });
+  token = token.replace('Bearer ', '');
+  jwt.verify(token, process.env.JWT_SECRET, function(err, user){
+    if(err){
+      return res.status(401).json({
+        error: true,
+        message: "Invalid user."
+      });
+    } else{
+      req.user = user;
+      req.token = token;
+      next();
+    }
+  });
+});
 
-// app.get("/", (req, res) => {
-//   res.json({ message: "welcome to cafeteria application" });
-// });
+app.get("/", (req, res) => {
+  res.json({ message: "welcome to cafeteria application" });
+});
 
 require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);
