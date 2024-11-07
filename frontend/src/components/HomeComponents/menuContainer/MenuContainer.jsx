@@ -1,11 +1,16 @@
-import CardMenuHome from '../cardMenuHome/CardMenuHome'
-import './MenuContainer.scss'
+import CardMenuHome from "../cardMenuHome/CardMenuHome";
+import "./MenuContainer.scss";
 
-export default function MenuContainer(){
-    return (
-        <section className='menu-section-container'>
-            <p>Contenedor de menus</p>
-            <CardMenuHome />
-        </section>
-    )
+export default function MenuContainer() {
+  return (
+    <section className="container-menu-cards">
+      <div className="container-title-card-home">
+        <p className="title-card-home">RECOMENDADOS</p>
+      </div>
+      <div className="carrusel-menu-cards">
+        <CardMenuHome />
+        <CardMenuHome />
+      </div>
+    </section>
+  );
 }
