@@ -30,23 +30,23 @@ db.sequelize.sync({ force: true }).then(() => {
 
 //     const base64Credentials = req.headers.authorization.split(' ')[1];
 //     const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-//     const [adminname, password] = credentials.split(':');
+//     const [username, password] = credentials.split(':');
 
-//     req.body.adminname = adminname;
+//     req.body.username = username;
 //     req.body.password = password;
     
 //     return next();
 //   }
 
 //   token = token.replace('Bearer ', '');
-//   jwt.verify(token, process.env.JWT_SECRET, function(err, admin){
+//   jwt.verify(token, process.env.JWT_SECRET, function(err, user){
 //     if(err){
 //       return res.status(401).json({
 //         error: true,
-//         message: "Invalid admin."
+//         message: "Invalid user."
 //       });
 //     } else{
-//       req.admin = admin;
+//       req.user = user;
 //       req.token = token;
 //       next();
 //     }

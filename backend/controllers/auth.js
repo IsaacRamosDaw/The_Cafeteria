@@ -1,41 +1,46 @@
 // const jwt = require('jsonwebtoken');
 // const utils = require('../utils');
 // const bcrypt = require('bcryptjs');
-
 // const db = require("../models");
-// const User = db.user;
 
-// exports.signin = (req, res) => {
-//   const user = req.body.username;
-//   const pwd = req.body.password;
-
-//   // return 400 status if username/password is not exist
-//   if (!user || !pwd) {
-//     return res.status(400).json({
-//       error: true,
-//       message: "Username or Password required."
-//     });
+// exports.signin = async (req, res) => {
+//   const {username, password} = req.body;
+//   if (!username || !password) {
+//     return res.status(400).json({ 
+//      error: 'Username and password required' });
 //   }
 
-//   // return 401 status if the credential is not match.
-//   User.findOne({ where: { username: user } })
-//     .then(data => {
-//       const result = bcrypt.compareSync(pwd, data.password);
-//       if(!result) return  res.status(401).send('Password not valid!');
+// let User;
+// switch (userType){
+// case 'admin':
+// User= db.admin
+// break;
+// case 'worker':
+// User= db.worker
+// break;
+// case 'school':
+// User= db.school
+// break;
+// default;
+// return res.status(400).json({ error: 'Invalid user type' });
+// }
 
-//       // generate token
-//       const token = utils.generateToken(data);
-//       // get basic user details
-//       const userObj = utils.getCleanUser(data);
-//       // return the token along with user details
-//       return res.json({ user: userObj, access_token: token });
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving tutorials."
-//       });
-//     });
+// try {
+//     const user = await User.findOne({ where: { username } });
+//     if (!user) return res.status(404).json({ error: 'User not found' });
+
+//     // Validamos la contraseña
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) return res.status(401).json({ error: 'Incorrect password' });
+
+//     // Generamos el token
+//     const token = utils.generateToken(user, userType);
+//     const userObj = utils.getCleanUser(user);
+
+//     res.json({ user: userObj, token });
+// } catch (err) {
+//     res.status(500).json({ error: 'Internal error' });
+// }
 // };
 
 // exports.isAuthenticated = (req, res, next) => {

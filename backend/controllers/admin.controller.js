@@ -49,7 +49,7 @@ exports.create = (req, res) => {
     //             return res.json({ admin2: adminObj, access_token: token });
     //         }
 
-    //         admin.password = bcrypt.hashSync(req.body.password);
+    //         admin2.password = bcrypt.hashSync(req.body.password);
 
     //         Admin.create(admin2)
     //             .then(data => {
@@ -101,7 +101,7 @@ exports.findOne = (req, res) => {
     // })
     // .catch(err => {
     //     res.status(500).send({
-    //         message: "Error retrieving User with id=" + id
+    //         message: "Error retrieving User with id= " + id
     //     });
     // });
 }
