@@ -1,19 +1,18 @@
-const { where } = require("sequelize");
 const db = require("../models");
 const Admin = db.admins;
 const Op = db.sequelize.Op;
 const utils = require("../utils");
 const bcrypt = require('bcryptjs');
-const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 
 exports.create = (req, res) => {
-    console.log(req.body)
+    
+    // console.log(req.body)
     // Create an Admin object
-    const admin = {
-        name: req.body.username,
-        password: req.body.password
-    };
+    // const admin = {
+    //     name: req.body.username,
+    //     password: req.body.password
+    // };
 
     // Save Admin in the database
     // Admin.create(admin)
@@ -33,15 +32,17 @@ exports.create = (req, res) => {
         return;
     }
 
-    // let admin = {
-    //     name: req.body.username,
-    //     password: req.body.password
-    // }
+    let admin = {
+        username: req.body.username,
+        password: req.body.password
+    }
 
-    Admin.findOne({ where: { name: admin.name } })
+
+    Admin.findOne({ where: { username: admin.username } })
         .then(data => {
             if (data) {
-                const result = bcrypt.hashSync(req.body.password);
+                const result = bcrypt.compareSync(req.body.password, data.password);
+                //  const result = bcrypt.hashSync(req.body.password);
                 if (!result) return res.status(401).send('Password not valid!');
                 const token = utils.generateToken(data);
                 const adminObj = utils.getCleanUser(data);
@@ -123,7 +124,7 @@ exports.update = (req, res) => {
     }
 
     const update = {
-        name: req.body.name,
+        username: req.body.username,
         password: req.body.password
     };
 
