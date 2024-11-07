@@ -1,0 +1,25 @@
+@import '/src/global.scss';
+
+.container-recommended-cards{
+    width: 100%;
+    background-color: $dark-mode-background-1;
+    @include flex-items(column);
+
+    .container-title-card-home{
+        width: 100%;
+        .title-card-home{
+            margin: 0 10px;
+            font-weight: 600;
+            font-size: $text-big-size;
+            color: $default-white;
+        }
+    }
+    .carrusel-recommended-cards{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
