@@ -1,0 +1,19 @@
+div#setting {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  background-color: rgb(29, 29, 29);
+  color: white;
+  border-radius: 10px;
+
+  img {
+    width: 40px;
+    filter: invert(100%) sepia(2%) saturate(160%) hue-rotate(204deg)
+      brightness(115%) contrast(93%);
+  }
+}

@@ -1,0 +1,30 @@
+main#student-setttings{
+  background-color: grey;
+  height: 100vh;
+
+  > div{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+
+  }
+  
+  div#wallet{
+    border-radius: 20px;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: 0 auto;
+    
+    p:nth-child(2){
+      color: green;
+    }
+  }
+}
