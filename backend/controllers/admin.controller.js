@@ -34,7 +34,8 @@ exports.create = (req, res) => {
 
     let admin = {
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role,
     }
 
 
@@ -54,8 +55,11 @@ exports.create = (req, res) => {
 
             Admin.create(admin)
                 .then(data => {
+                    console.log("Después de crear", data);
                     const token = utils.generateToken(data);
+                    console.log("Después de crear el token", token);
                     const adminObj = utils.getCleanUser(data);
+                    console.log("Después de limpiar el usuario", adminObj);
 
                     return res.json({ admin: adminObj, access_token: token });
                 })
@@ -112,7 +116,7 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     // Validate request
-    if (!req.body.name) {
+    if (!req.body.username) {
         return res.status(400).send({
             message: "The name field cannot be empty."
         });
@@ -125,7 +129,8 @@ exports.update = (req, res) => {
 
     const update = {
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role,
     };
 
     // Attempt to update the admin
