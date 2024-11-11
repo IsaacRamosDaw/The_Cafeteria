@@ -6,24 +6,6 @@ const bcrypt = require('bcryptjs');
 
 
 exports.create = (req, res) => {
-    
-    // console.log(req.body)
-    // Create an Admin object
-    // const admin = {
-    //     name: req.body.username,
-    //     password: req.body.password
-    // };
-
-    // Save Admin in the database
-    // Admin.create(admin)
-    //     .then(data => {
-    //         res.send(data);
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message: err.message || "Some error occurred while creating the admin."
-    //         });
-    //     });
 
     if (!req.body.password || !req.body.username) {
         res.status(400).send({
@@ -43,7 +25,6 @@ exports.create = (req, res) => {
         .then(data => {
             if (data) {
                 const result = bcrypt.compareSync(req.body.password, data.password);
-                //  const result = bcrypt.hashSync(req.body.password);
                 if (!result) return res.status(401).send('Password not valid!');
                 const token = utils.generateToken(data);
                 const adminObj = utils.getCleanUser(data);
@@ -92,24 +73,17 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    // Admin.findOne({
-    //     where: {
-    //         id: req.params.id
-    //     }
-    // }).then((data) => {
-    //     res.send(data)
-    // })
     const id = req.params.id;
 
     Admin.findByPk(id)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error retrieving User with id= " + id
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Error retrieving User with id= " + id
+            });
         });
-    });
 }
 
 exports.update = (req, res) => {
@@ -176,17 +150,18 @@ exports.findUserByUsernameAndPassword = (req, res) => {
     const admin = req.body.username;
     const pwd = req.body.password;
 
-    Admin.findOne({ where: {username: admin, password: pwd}})
-    .then(data => {
-        if (data && bcrypt.compareSync(pwd, data.password)) {
-            res.send(data);
-        } else {
-            res.status(401).send("Username or password is incorrect.");
+    Admin.findOne({ where: { username: admin, password: pwd } })
+        .then(data => {
+            if (data && bcrypt.compareSync(pwd, data.password)) {
+                res.send(data);
+            } else {
+                res.status(401).send("Username or password is incorrect.");
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving the user."
+            });
         }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving the user."
-        });
-    }
-)};
+        )
+};

@@ -1,74 +1,61 @@
 const db = require("../models");
 const Worker = db.worker;
-// const utils = require("../utils");
-// const bcrypt = require('bcryptjs');
-// const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
+const Op = db.sequelize.Op;
+const utils = require("../utils");
+const bcrypt = require('bcryptjs');
+
 
 exports.create = (req, res) => {
 
-    // Create a Worker object
-    const worker = {
-        name: req.body.name,
-        phone: req.body.phone,
-        password: req.body.password
-    };
+    // Create a Worker object and save Worker in the database
+   
+         if (!req.body.password || !req.body.username) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
 
-    // Save Worker in the database
-    Worker.create(worker)
+    let worker = {
+        username: req.body.username,
+        password: req.body.password,
+        phone: req.body.phone,
+        role: req.body.role,
+    }
+
+    Worker.findOne({ where: { username: worker.username } })
         .then(data => {
-            res.send(data);
+            if (data) {
+                const result = bcrypt.compareSync(req.body.password, data.password);
+                if (!result) return res.status(401).send('Password not valid!');
+                const token = utils.generateToken(data);
+                const workerObj = utils.getCleanUser(data);
+
+                return res.json({ worker: workerObj, access_token: token });
+            }
+
+            worker.password = bcrypt.hashSync(req.body.password);
+
+            Worker.create(worker2)
+                .then(data => {
+                    const token = utils.generateToken(data);
+                    const workerObj = utils.getCleanUser(data);
+
+                    return res.json({ worker: workerObj, access_token: token });
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error while creating the Worker."
+                    });
+                });
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the worker."
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
             });
         });
-
-         // if (!req.body.password || !req.body.username) {
-    //     res.status(400).send({
-    //         message: "Content can not be empty!"
-    //     });
-    //     return;
-    // }
-
-    // let worker2 = {
-    //     name: req.body.name,
-    //     password: req.body.password
-    // }
-
-    // Worker.findOne({ where: { workername: worker2.workername } })
-    //     .then(data => {
-    //         if (data) {
-    //             const result = bcrypt.hashSync(req.body.password);
-    //             if (!result) return res.status(401).send('Password not valid!');
-    //             const token = utils.generateToken(data);
-    //             const workerObj = utils.getCleanUser(data);
-
-    //             return res.json({ worker2: workerObj, access_token: token });
-    //         }
-
-    //         worker2.password = bcrypt.hashSync(req.body.password);
-
-    //         Worker.create(worker2)
-    //             .then(data => {
-    //                 const token = utils.generateToken(data);
-    //                 const workerObj = utils.getCleanUser(data);
-
-    //                 return res.json({ worker2: workerObj, access_token: token });
-    //             })
-    //             .catch(err => {
-    //                 res.status(500).send({
-    //                     message:
-    //                         err.message || "Some error while creating the Worker."
-    //                 });
-    //             });
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message:
-    //                 err.message || "Some error occurred while retrieving tutorials."
-    //         });
-    //     });
     };
 
 // Retrieve all workers from the database
@@ -85,23 +72,17 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Worker.findOne({
-      where: {
-        id: req.params.id,
-      },
-    }).then((data) => {
-      res.send(data);
-    });
+    const id = req.params.id;
 
-     // Worker.findByPk(id)
-    // .then(data => {
-    //     res.send(data);
-    // })
-    // .catch(err => {
-    //     res.status(500).send({
-    //         message: "Error retrieving User with id= " + id
-    //     });
-    // });
+     Worker.findByPk(id)
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving User with id= " + id
+        });
+    });
   };
 
 // Update a worker by ID
@@ -128,7 +109,8 @@ exports.update = (req, res) => {
     const updateWorker = {
         name: req.body.name,
         phone: req.body.phone,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role,
     };
 
     // Attempt to update the worker
@@ -170,19 +152,19 @@ exports.delete = (req, res) => {
         });
 };
 
-// exports.findUserByUsernameAndPassword = (req, res) => {
-//     const worker2 = req.body.workername;
-//     const pwd = req.body.password;
+exports.findUserByUsernameAndPassword = (req, res) => {
+    const worker = req.body.username;
+    const pwd = req.body.password;
 
-//     Worker.findOne({ where: {workername: worker2, password: pwd}})
-//     .then(data => {
-//         res.send(data);
-//     })
-//     .catch(err => {
-//         res.status(500).send({
-//             message:
-//             err.message || "Some error occurred while retrieving tutorials."
-//         });
-//     });
-// }
+    Worker.findOne({ where: {username: worker, password: pwd}})
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+    });
+}
 
