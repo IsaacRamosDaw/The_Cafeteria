@@ -5,7 +5,7 @@ div.label-option,div.label-input {
   flex-direction: column;
   
   .label-text {
-    font-size: $text-medium-size;
+    font-size: $font-size-medium;
     text-align: left;
     margin-bottom: 8px;
   }
@@ -13,8 +13,8 @@ div.label-option,div.label-input {
   input,select {
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--borders-separators-2);
     margin-bottom: 20px;
-    font-size: $text-small-size;
+    font-size: $font-size-small;
   }
 }

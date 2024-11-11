@@ -2,7 +2,7 @@
 
 .section-container-worker-cards {
     width: 100%;
-    background-color: #EEEEEE;
+    background-color: var(--background-1);
     @include flex-items(column);
     gap: 1em;
     padding: 1em 0;

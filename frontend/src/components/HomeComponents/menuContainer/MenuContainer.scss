@@ -3,27 +3,29 @@
 .container-menu-cards {
     width: 100%;
     min-height: 200px;
-    background-color: $dark-mode-background-1;
+    background-color: var(--background-1);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 
     .container-title-card-home {
         width: 100%;
+        margin: 10px 0;
 
         .title-card-home {
             margin: 0 10px;
-            font-weight: 600;
-            font-size: $text-big-size;
-            color: $default-white;
+            font-weight: 800;
+            font-size: $font-size-big;
+            color: var(--text-1);
         }
     }
 
-    .carrusel-menu-cards {
+    .container-menu-cards {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: start;
+        gap: 10px;
         width: 100%;
     }
 }

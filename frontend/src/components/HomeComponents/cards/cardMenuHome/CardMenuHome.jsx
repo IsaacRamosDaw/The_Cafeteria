@@ -1,16 +1,19 @@
 import "./CardMenuHome.scss";
+import { useTheme } from "../../../../contexts/ThemeContext";
 
 export default function CardMenuHome({ image, title, description, time }) {
+  const { theme, toggleTheme } = useTheme();
+  
   return (
     <div className="container-card-menu">
       <div className="container-img-card-menu">
         <img
-          className="img-card-product"
+          className="img-card-menu"
           src="/images/ImgMenus/sandwiches.jpg"
           alt="Img card"
         />
       </div>
-      <div className="content-img-card-menu">
+      <div className="content-card-menu">
         <div className="container-title-card-menu">
           <h2>{title}</h2>
         </div>
@@ -18,7 +21,7 @@ export default function CardMenuHome({ image, title, description, time }) {
           <p> {description} </p>
         </div>
         <div className="container-time-card-menu">
-            <img src="/frontend/public/images/icons/edit.svg" alt="" />
+          <img src="/images/icons/clock.svg" alt="" />
           <p> {time} </p>
         </div>
       </div>

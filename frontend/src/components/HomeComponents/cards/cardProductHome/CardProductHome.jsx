@@ -1,6 +1,9 @@
 import "./CardProductHome.scss";
+import { useTheme } from "../../../../contexts/ThemeContext";
 
 export default function CardProductHome({ type = 1, image, title, price }) {
+  const { theme, toggleTheme } = useTheme();
+
   if (type === 1) {
     return (
       <div className="card-product-container">

@@ -5,7 +5,7 @@ import Welcome from "./pages/welcome/Welcome";
 import Form from "./pages/form/Form";
 import Orders from "./pages/orders/Orders";
 import Categories from "./pages/categories/Categories";
-import Menu from "./pages/menu/MenuPage"
+import Menu from "./pages/menu/MenuPage";
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import "./global.scss";
@@ -19,31 +19,34 @@ import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchoo
 // Worker Crud
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/menus" element={<Menu />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/dashboard" element={<Admin />} />
-        {/* Worker routes */}
-        <Route path="/worker" element={<CreateWorker />} />
-        <Route path="/worker/:id" element={<EditWorker />} />
-        {/* Admin routes */}
-        <Route path="/admin" element={<CreateAdmin />} />
-        <Route path="/admin/:id" element={<EditAdmin />} />
-        {/* School routes */}
-        <Route path="/school" element={<CreateSchool />} />
-        <Route path="/school/:id" element={<EditSchool />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/menus" element={<Menu />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/dashboard" element={<Admin />} />
+          {/* Worker routes */}
+          <Route path="/worker" element={<CreateWorker />} />
+          <Route path="/worker/:id" element={<EditWorker />} />
+          {/* Admin routes */}
+          <Route path="/admin" element={<CreateAdmin />} />
+          <Route path="/admin/:id" element={<EditAdmin />} />
+          {/* School routes */}
+          <Route path="/school" element={<CreateSchool />} />
+          <Route path="/school/:id" element={<EditSchool />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

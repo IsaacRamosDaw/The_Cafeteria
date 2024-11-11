@@ -2,7 +2,7 @@
 
 .section-school-container {
     width: 100%;
-    background-color: $gray;
+    background-color: $third-color;
     @include flex-items(column);
     gap: 1em;
     padding: 1em 0;

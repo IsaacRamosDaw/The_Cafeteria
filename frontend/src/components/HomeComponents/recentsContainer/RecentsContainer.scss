@@ -1,6 +1,6 @@
 @import '/src/global.scss';
 
-.container-recommended-cards{
+.section-recents-container{
     width: 100%;
     min-height: 244px;
     background-color: var(--background-1);
@@ -10,6 +10,7 @@
 
     .container-title-card-home{
         width: 100%;
+        margin: 10px 0;
         .title-card-home{
             margin: 0 10px;
             font-weight: 800;
@@ -17,12 +18,14 @@
             color: var(--text-1);
         }
     }
-    .carrusel-recommended-cards{
+    .carrusel-recents-cards{
         display: flex;
+        height: 300px;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-start;
         width: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 }

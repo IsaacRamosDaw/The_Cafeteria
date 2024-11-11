@@ -8,7 +8,7 @@
     height: 180px;
     margin: 10px;
     flex-shrink: 0;
-    background-color: $dark-mode-background-2;
+    background-color: var(--background-2);
 
     .container-img-card-product{
         width: 55%;
@@ -27,12 +27,12 @@
         margin: 10px;
         
         .title-card-product{
-            color: $dark-mode-text-2;
-            font-size: $text-medium-size;
+            color: var(--text-2);
+            font-size: $font-size-medium;
         }
         .price-card-product{
-            color: $dark-mode-text-3;
-            font-size: $text-medium-small-size;
+            color: var(--text-3);
+            font-size: $font-size-medium-small;
             font-weight: 600;
         }
     }

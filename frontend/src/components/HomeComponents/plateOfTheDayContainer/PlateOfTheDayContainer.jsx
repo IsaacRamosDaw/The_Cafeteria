@@ -1,4 +1,4 @@
-import CardProductHome from "../cardProductHome/CardProductHome";
+import CardProductHome from "../cards/cardProductHome/CardProductHome";
 import "./PlateOfTheDayContainer.scss";
 
 export default function PlateOfTheDayContainer() {

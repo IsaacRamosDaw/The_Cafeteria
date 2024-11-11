@@ -3,12 +3,14 @@
 #home-container{
     width: 100%;
     min-height: 100vh;
-    background-color: $dark-mode-background-2;
+    background-color: var(--background-1);
+    
+    #content-home{
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 72px;
 }
-main#content-home{
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }

@@ -1,6 +1,8 @@
+@import "/src/global.scss";
+
 nav#header-container{
     color: white;
-    background-color: #2B2927;
+    background-color: $secondary-color;
     top: 0;
     width: 100%;
     position: fixed;
@@ -32,6 +34,7 @@ nav#header-container{
         font-size: 1.2rem;
         width: 100%;
         margin-left: 5px;
+        color: $third-color;
     }
     
     input:focus{
