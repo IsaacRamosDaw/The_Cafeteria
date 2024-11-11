@@ -1,0 +1,53 @@
+@import '/src/global.scss';
+
+.container-card-menu{
+    width: 100%;
+    max-width: 360px;
+    min-height: 273px;
+    background-color: var(--background-2);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .container-img-card-menu{
+        width: 100%;
+        height: 174px;
+        .img-card-menu{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .content-card-menu{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 30%;
+        gap: 5px;
+        margin: 10px;
+
+        div{
+            width: 100%;
+            display: flex;
+            gap: 5px;
+        }
+        .container-title-card-menu h2{
+            font-size: $font-size-big;
+            color: var(--text-2);
+            font-weight: 600;
+        }
+        .container-description-card-menu{
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            p{
+                font-size: $font-size-small;
+                color: var(--text-3);
+            }
+        }
+        .container-time-card-menu p{
+            font-size: $font-size-small;
+            color: var(--text-3);
+        }
+    }
+
+}

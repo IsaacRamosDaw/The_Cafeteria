@@ -1,0 +1,28 @@
+@import '/src/global.scss';
+
+.container-recommended-cards{
+    width: 100%;
+    min-height: 244px;
+    background-color: var(--background-1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .container-title-card-home{
+        width: 100%;
+        .title-card-home{
+            margin: 0 10px;
+            font-weight: 800;
+            font-size: $font-size-big;
+            color: var(--text-1);
+        }
+    }
+    .carrusel-recommended-cards{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
