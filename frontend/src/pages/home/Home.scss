@@ -3,7 +3,7 @@
 #home-container{
     width: 100%;
     min-height: 100vh;
-    background-color: var(--background-1);
+    background-color: var(--background-2);
     
     #content-home{
         width: 100%;
@@ -12,5 +12,6 @@
         flex-direction: column;
         gap: 10px;
         padding-bottom: 72px;
+        background-color: transparent;
 }
 }

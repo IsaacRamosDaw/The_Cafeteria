@@ -1,8 +1,6 @@
 import "./CardProductHome.scss";
-import { useTheme } from "../../../../contexts/ThemeContext";
 
 export default function CardProductHome({ type = 1, image, title, price }) {
-  const { theme, toggleTheme } = useTheme();
 
   if (type === 1) {
     return (
@@ -16,7 +14,7 @@ export default function CardProductHome({ type = 1, image, title, price }) {
         </div>
         <div className="container-info-card-product">
           <h2 className="title-card-product"> {title} </h2>
-          <p className="price-card-product"> {price}$ </p>
+          <p className="price-card-product"> {price} $ </p>
         </div>
       </div>
     );
@@ -25,7 +23,7 @@ export default function CardProductHome({ type = 1, image, title, price }) {
     <div className="card-product-container">
       <div className="container-info-card-product">
         <h2 className="title-card-product"> {title} </h2>
-        <p className="price-card-product"> {price}</p>
+        <p className="price-card-product"> {price} $ </p>
       </div>
       <div className="container-img-card-product">
         <img

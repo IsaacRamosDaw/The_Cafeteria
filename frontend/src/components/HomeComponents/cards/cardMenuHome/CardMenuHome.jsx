@@ -1,8 +1,6 @@
 import "./CardMenuHome.scss";
-import { useTheme } from "../../../../contexts/ThemeContext";
 
 export default function CardMenuHome({ image, title, description, time }) {
-  const { theme, toggleTheme } = useTheme();
   
   return (
     <div className="container-card-menu">
