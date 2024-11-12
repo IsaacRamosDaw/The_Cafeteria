@@ -10,16 +10,16 @@ module.exports = (app) => {
     router.post("/", worker.create);
 
     //List all workers
-    router.get("/", auth.isAuthenticated, workerController.findAll);
+    router.get("/", auth.isAuthenticated, worker.findAll);
 
     // Find a worker with his id
-    router.get("/:id", auth.isAuthenticated, workerController.findOne);
+    router.get("/:id", auth.isAuthenticated, worker.findOne);
 
     // Update worker
-    router.put("/:id", auth.isAuthenticated, workerController.update);
+    router.put("/:id", auth.isAuthenticated, worker.update);
 
     //Delete worker
-    router.delete("/:id", auth.isAuthenticated, workerController.delete);
+    router.delete("/:id", auth.isAuthenticated, worker.delete);
 
     app.use('/api/worker', router);
 

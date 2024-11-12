@@ -46,7 +46,7 @@ exports.signin = async (req, res) => {
 
 exports.isAuthenticated = (req, res, next) => {
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token;
+    var token = req.body.token;
     if (!token) {
         return res.status(400).json({
             error: true,
@@ -60,6 +60,8 @@ exports.isAuthenticated = (req, res, next) => {
             error: true,
             message: "Invalid token."
         });
+
+        const {role: userType} = user;
 
         let User;
         switch (userType) {
@@ -80,13 +82,16 @@ exports.isAuthenticated = (req, res, next) => {
         User.findByPk(user.id)
             .then(data => {
                 // return 401 status if the userId does not match.
-                if (!user.id) {
+                console.log("Los datos están llegando", data);
+                if (!data) {
+                    console.log("El id no es válido", user.id);
                     return res.status(401).json({
                         error: true,
                         message: "Invalid user."
                     });
                 }
                 // get basic user details
+                req.user = data;
                 next();
             })
             .catch(err => {

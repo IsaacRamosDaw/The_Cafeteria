@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 
 exports.create = (req, res) => {
 
-    if (!req.body.password || !req.body.username) {
+    if (!req.body.password || !req.body.username || !req.body.role) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -18,6 +18,7 @@ exports.create = (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
+        id: req.body.id,
     }
 
 
@@ -105,6 +106,7 @@ exports.update = (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
+        id: req.body.id,
     };
 
     // Attempt to update the admin

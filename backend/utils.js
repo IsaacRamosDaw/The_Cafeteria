@@ -17,7 +17,7 @@ function getCleanUser(user){
 
     return {
         id: user.id,
-        name: user.name,
+        name: user.username,
         role: user.role
       };
 }
