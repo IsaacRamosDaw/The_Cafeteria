@@ -2,7 +2,7 @@
 
 .section-container-admins-cards {
     width: 100%;
-    background-color: $third-color;
+    // background-color: var(--background-3);
     @include flex-items(column);
     gap: 1em;
 }
