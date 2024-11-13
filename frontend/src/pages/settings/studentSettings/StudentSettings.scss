@@ -1,30 +1,46 @@
-main#student-setttings{
+main#student-setttings {
   background-color: grey;
   height: 100vh;
 
-  > div{
+  div#wallet-container {
     padding-top: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    gap: 20px;
     width: 80%;
     margin: 0 auto;
-
+    margin-bottom: 80px;
   }
-  
-  div#wallet{
-    border-radius: 20px;
+
+  div#wallet {
+    border-radius: 20px 0 0 20px;
     padding: 20px;
     background-color: white;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     width: 60%;
-    margin: 0 auto;
-    
-    p:nth-child(2){
+
+    p:nth-child(2) {
       color: green;
     }
+  }
+
+  div#add-money {
+    width: 10%;
+    background-color: black;
+    border-radius: 0 20px 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: random($limit: 1);
+  }
+  
+  form#delete h2{
+    background-color: red;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
   }
 }
