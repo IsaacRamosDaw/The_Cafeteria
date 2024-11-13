@@ -12,8 +12,8 @@ function TabsBar() {
           </Link>
         </li>
         <li>
-          <Link to="/categories">
-            <img  className="img-tab-icon" src="/images/icons/menu.svg" alt="categories" />
+          <Link to="/menu">
+            <img  className="img-tab-icon" src="/images/icons/menu.svg" alt="menu" />
             <p>Menu</p>
           </Link>
         </li>

@@ -1,1 +1,7 @@
 @import "/src/global.scss";
+
+.menu-page-container{
+    background-color: var(--background-2);
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+}

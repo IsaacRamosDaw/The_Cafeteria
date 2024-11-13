@@ -1,38 +1,38 @@
-import Category from "../../components/menu/Category";
-import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
-import "./Categories.scss";
+import CategoryCard from "../categoryCard/CategoryCard";
+import "./CategoriesContainer.scss";
 
-function CategoriesPage() {
+function CategoriesContainer() {
   return (
-    <>
-      <SearchBar />
-      <main id="category-container">
-        <h2>Qué te apetece tomar</h2>
-        <Category
+    <section className="category-cards-container" >
+      <main id="category-container-card">
+        <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
           title={"Desayunos"}
         />
-        <Category
+        <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
           title={"cafes"}
         />
-        <Category
+        <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
           title={"dulces"}
         />
-        <Category
+        <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
           title={"Zumos"}
         />
-        <Category
+        <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
           title={"refrescos"}
         />
       </main>
-      <TabsBar />
-    </>
+    </section>
   );
 }
 
-export default CategoriesPage;
+export default CategoriesContainer;

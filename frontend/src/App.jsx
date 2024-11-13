@@ -4,8 +4,6 @@ import Account from "./pages/account/Account";
 import Welcome from "./pages/welcome/Welcome";
 import Form from "./pages/form/Form";
 import Orders from "./pages/orders/Orders";
-import Categories from "./pages/categories/Categories";
-import Menu from "./pages/menu/MenuPage";
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import "./global.scss";
@@ -20,6 +18,7 @@ import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchoo
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import MenuPage from "./pages/Menu/MenuPage";
 
 function App() {
   return (
@@ -28,11 +27,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/account" element={<Account />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/menus" element={<Menu />} />
           <Route path="/products" element={<Products />} />
           <Route path="/dashboard" element={<Admin />} />
           {/* Worker routes */}
