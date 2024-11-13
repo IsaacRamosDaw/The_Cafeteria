@@ -1,3 +1,6 @@
+import { ThemeProvider } from "./contexts/ThemeContext";
+import "./global.scss";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Account from "./pages/account/Account";
@@ -7,7 +10,6 @@ import Orders from "./pages/orders/Orders";
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import "./global.scss";
-
 // Admin Crud
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
@@ -17,9 +19,10 @@ import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchoo
 // Worker Crud
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
-import { ThemeProvider } from "./contexts/ThemeContext";
 import MenuPage from "./pages/Menu/MenuPage";
-
+// Settings
+import StudentSettings from "./pages/settings/studentSettings/StudentSettings";
+import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
 function App() {
   return (
     <ThemeProvider>
@@ -42,6 +45,9 @@ function App() {
           {/* School routes */}
           <Route path="/school" element={<CreateSchool />} />
           <Route path="/school/:id" element={<EditSchool />} />
+          {/* Settings routes */}
+          <Route path="/studentsettings" element={<StudentSettings />} />
+          <Route path="/ownersettings" element={<OwnerSettings />} />
         </Routes>
       </Router>
     </ThemeProvider>

@@ -1,0 +1,70 @@
+@import '/src/global.scss';
+
+main#student-setttings {
+  background-color: var(--background-1);
+  height: 100vh;
+  color: var(--text-2);
+  div#wallet-container {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 80px;
+  }
+
+  div#wallet {
+    border-radius: 20px 0 0 20px;
+    padding: 20px;
+    background-color: var(--background-2);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 60%;
+
+    p:nth-child(2) {
+      color: green;
+    }
+  }
+
+  div#add-money {
+    width: 10%;
+    background-color: black;
+    border-radius: 0 20px 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: random($limit: 1);
+  }
+  
+  form#delete h2{
+    background-color: red;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  div#change-theme {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.2em;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 35px 5px 30px;
+
+
+    div{
+      display: flex;
+      gap: 18px;
+      justify-content: left;
+
+      img{
+        height: 30px;
+      }
+    }
+
+  }
+}
