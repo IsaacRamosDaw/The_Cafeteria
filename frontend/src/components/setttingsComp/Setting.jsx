@@ -1,51 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./Setting.scss";
 
-function Setting({ title, text, placeholder, type = 'text' }) {
-  const [isFormVisible, setFormVisible] = useState(false);
-  const formRef = useRef(null);
+function Setting({icon, text, to,}) {
 
-  const handleClick = () => {
-    setFormVisible(!isFormVisible);
-  };
-
-    const handleOutsideClick = (e) => {
-      if (formRef.current && !formRef.current.contains(e.target)) {
-        setFormVisible(false);
-      }
-  };
-  
-    const handleFormSubmit = (e) => {
-      e.preventDefault(); // Evita el comportamiento de recarga de página por defecto
-      // Aquí puedes añadir la lógica de envío de datos, por ejemplo:
-      console.log("Formulario enviado");
-      setFormVisible(false); // Oculta el formulario después del envío
-    };
-
-  useEffect(() => {
-    if (isFormVisible) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isFormVisible]);
 
   return (
-    <div id="setting">
-      <p onClick={handleClick}>{title}</p>
-      <form
-        id="modal"
-        ref={formRef}
-        className={isFormVisible ? "visible" : ""}
-        onSubmit={handleFormSubmit}
-      >
-        <h3>{text}</h3>
-        <input type={type} id="inpu" placeholder={placeholder} />
-      </form>
-    </div>
+    <Link to={to}>
+      <div className="settings-item">
+        <div>
+          <img className="menu-item-icon" src={icon} alt={""} />
+          <span className="menu-item-text">{text}</span>
+        </div>
+        <img className="menu-item-arrow" src="/public/images/icons/arrow.svg"/>
+      </div>
+    </Link>
   );
 }
 

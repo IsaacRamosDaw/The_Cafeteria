@@ -1,61 +1,20 @@
-div#setting {
-  margin: 0 auto;
-  margin-bottom: 50px;
-  background-color: rgb(29, 29, 29);
-  color: white;
-  border-radius: 10px;
-  width: 65%;
-  position: relative;
+div.settings-item {
   display: flex;
-  flex-direction: column;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.2em;
+  justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  border-radius: 20px 20px 0 0;
-  padding: 10px;
-  -webkit-box-shadow: 0px 20px 54px 7px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 20px 54px 7px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 20px 54px 7px rgba(0, 0, 0, 0.75);
+  padding: 15px 50px 15px 30px;
+  color: var(--text-2);
 
-  p {
-    text-align: center;
+  div{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 2em;
+    gap: 30px;
+    justify-content: left;
   }
 
-  form#modal {
-    background-color: white;
-    position: absolute;
-    top: 80%; // Parte inicial desde abajo
-    left: 50%;
-    transform: translate(-50%, 100%); // Sale desde abajo
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%;
-
-    h3 {
-      text-align: center;
-      color: black;
-      margin-bottom: 30px;
-    }
-
-    input {
-      display: block;
-      margin: 0 auto;
-      padding: 10px;
-      border: 1px solid blue;
-      border-radius: 20px;
-    }
-  }
-
-  form#modal.visible {
-    transform: translate(-50%, -50%); // Subir hacia arriba en la pantalla
-    opacity: 1;
-    z-index: 100;
+  img.menu-item-arrow, img.menu-item-icon {
+    height: 20px;
   }
 }

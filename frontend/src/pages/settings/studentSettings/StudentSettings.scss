@@ -1,7 +1,9 @@
-main#student-setttings {
-  background-color: grey;
-  height: 100vh;
+@import '/src/global.scss';
 
+main#student-setttings {
+  background-color: var(--background-1);
+  height: 100vh;
+  color: var(--text-2);
   div#wallet-container {
     padding-top: 20px;
     display: flex;
@@ -15,7 +17,7 @@ main#student-setttings {
   div#wallet {
     border-radius: 20px 0 0 20px;
     padding: 20px;
-    background-color: white;
+    background-color: var(--background-2);
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -42,5 +44,27 @@ main#student-setttings {
     text-align: center;
     width: 80%;
     margin: 0 auto;
+  }
+
+  div#change-theme {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.2em;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 35px 5px 30px;
+
+
+    div{
+      display: flex;
+      gap: 18px;
+      justify-content: left;
+
+      img{
+        height: 30px;
+      }
+    }
+
   }
 }
