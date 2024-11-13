@@ -4,11 +4,11 @@ module.exports = (sequelize) => {
   const Admin = sequelize.define(
     "Admin",
     {
-      id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
+    //   id: {
+    //   type: DataTypes.INTEGER,
+    //   autoIncrement: true,
+    //   primaryKey: true,
+    // },
       username: {
         type: DataTypes.STRING,
         allowNull: false,

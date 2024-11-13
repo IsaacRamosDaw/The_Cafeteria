@@ -9,7 +9,7 @@ exports.create = (req, res) => {
 
     // Create a Worker object and save Worker in the database
    
-         if (!req.body.password || !req.body.username) {
+         if (!req.body.password || !req.body.username || !req.body.role) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -36,7 +36,7 @@ exports.create = (req, res) => {
 
             worker.password = bcrypt.hashSync(req.body.password);
 
-            Worker.create(worker2)
+            Worker.create(worker)
                 .then(data => {
                     const token = utils.generateToken(data);
                     const workerObj = utils.getCleanUser(data);
@@ -107,7 +107,7 @@ exports.update = (req, res) => {
     }
 
     const updateWorker = {
-        name: req.body.name,
+        username: req.body.username,
         phone: req.body.phone,
         password: req.body.password,
         role: req.body.role,

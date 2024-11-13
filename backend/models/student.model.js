@@ -6,6 +6,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,14 +22,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    }
   });
 
   return student;

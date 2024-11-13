@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const db = require("../models");
 const Student = db.student;
 const Op = db.sequelize.Op;
@@ -6,7 +5,7 @@ const utils = require("../utils");
 const bcrypt = require('bcryptjs');
 
 exports.create = (req, res) => {
-    if (!req.body.password || !req.body.username) {
+    if (!req.body.password || !req.body.username || !req.body.role) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -96,7 +95,7 @@ exports.update = (req, res) => {
         });
     }
 
-    const update = {
+    const updateStudent = {
         username: req.body.username,
         password: req.body.password,
         age: req.body.age,
@@ -104,7 +103,7 @@ exports.update = (req, res) => {
         role: req.body.role,
     };
 
-    Student.update(update, { where: { id: id } })
+    Student.update(updateStudent, { where: { id: id } })
         .then(([rowsUpdated]) => {
             if (rowsUpdated === 0) {
                 // If no rows were updated, the admin was not found
@@ -148,11 +147,7 @@ exports.findUserByUsernameAndPassword = (req, res) => {
 
     Admin.findOne({ where: { username: student, password: pwd } })
         .then(data => {
-            if (data && bcrypt.compareSync(pwd, data.password)) {
-                res.send(data);
-            } else {
-                res.status(401).send("Username or password is incorrect.");
-            }
+            res.send(data);
         })
         .catch(err => {
             res.status(500).send({

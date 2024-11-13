@@ -18,7 +18,6 @@ exports.create = (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
-        id: req.body.id,
     }
 
 
@@ -106,7 +105,6 @@ exports.update = (req, res) => {
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
-        id: req.body.id,
     };
 
     // Attempt to update the admin

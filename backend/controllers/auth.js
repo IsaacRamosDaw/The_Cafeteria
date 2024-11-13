@@ -4,8 +4,9 @@ const bcrypt = require('bcryptjs');
 const db = require("../models");
 
 exports.signin = async (req, res) => {
-    const { username, password, userType } = req.body;
-    if (!username || !password || !userType) {
+    const { username, password} = req.body;
+
+    if (!username || !password) {
         return res.status(400).json({
             error: 'Username and password required'
         });
@@ -19,8 +20,8 @@ exports.signin = async (req, res) => {
         case 'worker':
             User = db.worker
             break;
-        case 'school':
-            User = db.school
+        case 'student':
+            User = db.student
             break;
         default:
             return res.status(400).json({ error: 'Invalid user type' });
@@ -46,7 +47,7 @@ exports.signin = async (req, res) => {
 
 exports.isAuthenticated = (req, res, next) => {
     // check header or url parameters or post parameters for token
-    var token = req.body.token;
+    var token = req.token;
     if (!token) {
         return res.status(400).json({
             error: true,
@@ -82,16 +83,14 @@ exports.isAuthenticated = (req, res, next) => {
         User.findByPk(user.id)
             .then(data => {
                 // return 401 status if the userId does not match.
-                console.log("Los datos están llegando", data);
-                if (!data) {
-                    console.log("El id no es válido", user.id);
+                if (!user.id) {
                     return res.status(401).json({
                         error: true,
                         message: "Invalid user."
                     });
                 }
                 // get basic user details
-                req.user = data;
+                // req.user = data;
                 next();
             })
             .catch(err => {
