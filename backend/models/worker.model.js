@@ -2,12 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   const worker = sequelize.define("Worker", {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -19,6 +14,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   });
 
   return worker;

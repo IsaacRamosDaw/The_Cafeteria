@@ -1,26 +1,62 @@
 const db = require("../models");
 const Worker = db.worker;
+const Op = db.sequelize.Op;
+const utils = require("../utils");
+const bcrypt = require('bcryptjs');
+
 
 exports.create = (req, res) => {
 
-    // Create a Worker object
-    const worker = {
-        name: req.body.name,
-        phone: req.body.phone,
-        password: req.body.password
-    };
+    // Create a Worker object and save Worker in the database
+   
+         if (!req.body.password || !req.body.username || !req.body.role) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
 
-    // Save Worker in the database
-    Worker.create(worker)
+    let worker = {
+        username: req.body.username,
+        password: req.body.password,
+        phone: req.body.phone,
+        role: req.body.role,
+    }
+
+    Worker.findOne({ where: { username: worker.username } })
         .then(data => {
-            res.send(data);
+            if (data) {
+                const result = bcrypt.compareSync(req.body.password, data.password);
+                if (!result) return res.status(401).send('Password not valid!');
+                const token = utils.generateToken(data);
+                const workerObj = utils.getCleanUser(data);
+
+                return res.json({ worker: workerObj, access_token: token });
+            }
+
+            worker.password = bcrypt.hashSync(req.body.password);
+
+            Worker.create(worker)
+                .then(data => {
+                    const token = utils.generateToken(data);
+                    const workerObj = utils.getCleanUser(data);
+
+                    return res.json({ worker: workerObj, access_token: token });
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error while creating the Worker."
+                    });
+                });
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the worker."
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
             });
         });
-};
+    };
 
 // Retrieve all workers from the database
 exports.findAll = (req, res) => {
@@ -34,6 +70,20 @@ exports.findAll = (req, res) => {
             });
         });
 };
+
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+     Worker.findByPk(id)
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving User with id= " + id
+        });
+    });
+  };
 
 // Update a worker by ID
 exports.update = (req, res) => {
@@ -57,9 +107,10 @@ exports.update = (req, res) => {
     }
 
     const updateWorker = {
-        name: req.body.name,
+        username: req.body.username,
         phone: req.body.phone,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role,
     };
 
     // Attempt to update the worker
@@ -100,3 +151,20 @@ exports.delete = (req, res) => {
             res.status(500).json({ message: "Error deleting worker." });
         });
 };
+
+exports.findUserByUsernameAndPassword = (req, res) => {
+    const worker = req.body.username;
+    const pwd = req.body.password;
+
+    Worker.findOne({ where: {username: worker, password: pwd}})
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+    });
+}
+
