@@ -109,9 +109,12 @@ exports.update = (req, res) => {
     const updateWorker = {
         username: req.body.username,
         phone: req.body.phone,
-        password: req.body.password,
         role: req.body.role,
     };
+
+    if(req.body.password){
+        updateWorker.password = bcrypt.hashSync(req.body.password);
+    }
 
     // Attempt to update the worker
     Worker.update(updateWorker, { where: { id: id } })

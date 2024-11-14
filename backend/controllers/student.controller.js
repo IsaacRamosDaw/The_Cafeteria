@@ -97,11 +97,14 @@ exports.update = (req, res) => {
 
     const updateStudent = {
         username: req.body.username,
-        password: req.body.password,
         age: req.body.age,
         phone: req.body.phone,
         role: req.body.role,
     };
+
+    if(req.body.password){
+        updateStudent.password = bcrypt.hashSync(req.body.password);
+    }
 
     Student.update(updateStudent, { where: { id: id } })
         .then(([rowsUpdated]) => {
