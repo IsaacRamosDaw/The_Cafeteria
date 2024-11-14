@@ -1,26 +1,26 @@
 module.exports = (app) => {
-    const admin = require("../controllers/admin.controller.js");
-    const auth = require("../controllers/auth.js"); 
+  const admin = require("../controllers/admin.controller.js");
+  const auth = require("../controllers/auth.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    router.post('/signin', (req, res) => auth.signin(req, res, 'admin'));
-    
-    //Create an admin
-    router.post("/", admin.create);
+  router.post("/signin", (req, res) => auth.signin(req, res, "admin"));
 
-    //List all admins
-    router.get("/", auth.isAuthenticated, admin.findAll);
+  //Create an admin
+  router.post("/", admin.create);
 
-    // Get one admin
-    router.get("/:id", auth.isAuthenticated, admin.findOne);
+  //List all admins
+//   router.get("/", auth.isAuthenticated, admin.findAll);
+  router.get("/", admin.findAll);
 
-    // Update admin
-    router.put("/:id", auth.isAuthenticated, admin.update);
+  // Get one admin
+  router.get("/:id", auth.isAuthenticated, admin.findOne);
 
-    //Delete admin
-    router.delete("/:id", auth.isAuthenticated, admin.delete);
+  // Update admin
+  router.put("/:id", auth.isAuthenticated, admin.update);
 
-    app.use('/api/admin', router);
+  //Delete admin
+  router.delete("/:id", auth.isAuthenticated, admin.delete);
 
+  app.use("/api/admin", router);
 };

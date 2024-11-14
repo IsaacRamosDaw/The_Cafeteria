@@ -58,14 +58,14 @@ function Admin() {
           <summary>
             <h2>Schools</h2>
           </summary>
-          <SchoolContainer />
+          {/* <SchoolContainer /> */}
         </details>
 
         <details>
           <summary>
             <h2>Workers</h2>
           </summary>
-          <WorkerContainer />
+          {/* <WorkerContainer /> */}
         </details>
       </main>
     </div>

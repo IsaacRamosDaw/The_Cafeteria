@@ -22,7 +22,12 @@ function WorkerContainer() {
   return (
     <section className="section-container-worker-cards">
       {workers.map((worker) => (
-        <WorkerCard key={worker.id} name={worker.name} id={worker.id} onDelete={handleDelete} />
+        <WorkerCard
+          key={worker.id}
+          username={worker.username}
+          id={worker.id}
+          onDelete={handleDelete}
+        />
       ))}
     </section>
   );
