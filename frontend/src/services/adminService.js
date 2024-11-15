@@ -1,22 +1,38 @@
 const endpoint = "http://localhost:8080/api/admin";
 
-export function get() {
-  const getOperation = fetch(endpoint)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
+export async function login(username, password) {
+  try {
+    const response = await fetch(`${endpoint}/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
     });
-  return getOperation;
+
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
+
+    const data = await response.json();
+    localStorage.setItem("token", data.token); // Save token
+    return data;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
 }
 
-export function getOne(id) {
-  const getOneOperation = fetch(`${endpoint}/${id}`)
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+
+export function get() {
+  return fetch(endpoint, {
+    headers: getAuthHeaders(),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -27,22 +43,66 @@ export function getOne(id) {
       console.log(`error, ${error}`);
       return error;
     });
-  return getOneOperation;
 }
+
+// export function get() {
+//   const getOperation = fetch(endpoint)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error fetching data");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.log(`error, ${error}`);
+//       return error;
+//     });
+//   return getOperation;
+// }
+
+export function getOne(id) {
+  return fetch(`${endpoint}/${id}`, {
+    headers: getAuthHeaders(),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+}
+
+// export function getOne(id) {
+//   const getOneOperation = fetch(`${endpoint}/${id}`)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error fetching data");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.log(`error, ${error}`);
+//       return error;
+//     });
+//   return getOneOperation;
+// }
 
 export async function create(formData) {
   return fetch(endpoint, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
     },
-    body: new URLSearchParams(formData),
+    body: JSON.stringify(formData),
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }
-
       return response.json();
     })
     .catch((error) => {
@@ -51,9 +111,11 @@ export async function create(formData) {
     });
 }
 
+
 export async function remove(id) {
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   })
     .then((response) => {
       if (!response.ok) {
@@ -75,6 +137,7 @@ export async function edit(id, data) {
   return fetch(url, {
     method: "PUT",
     headers: {
+      ...getAuthHeaders(),
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams(data),
