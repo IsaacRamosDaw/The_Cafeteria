@@ -100,6 +100,7 @@ main#student-setttings {
     justify-content: space-between;
     align-items: center;
     padding: 5px 35px 5px 30px;
+    margin-bottom: 30px;
 
     div {
       display: flex;
@@ -109,6 +110,27 @@ main#student-setttings {
       img {
         height: 30px;
       }
+    }
+  }
+
+  section#section-log-out{
+    padding-bottom: 90px;
+
+    a{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    svg{
+      margin: 0 auto;
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    p{
+      color: grey;
     }
   }
 }

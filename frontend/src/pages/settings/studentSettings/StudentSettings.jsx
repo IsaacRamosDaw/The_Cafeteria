@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import './StudentSettings.scss'
 import Setting from "../../../components/setttingsComp/Setting";
 import { useTheme } from "../../../contexts/ThemeContext";
+import { IoIosLogOut } from "react-icons/io";
 
 import { FiUser } from "react-icons/fi";
 
@@ -75,12 +76,15 @@ function StudentSettings() {
             <span className="menu-item-text"> Cambiar tema</span>
           </div>
         </div>
+
+        <section id="section-log-out">
+            <Link to='/'>
+              <IoIosLogOut />
+              <p>v0.03</p>
+            </Link>
+        </section>
       </main>
 
-      <section id="section-log-out">
-        <div id="log-out"></div>
-        <div id="version"></div>
-      </section>
 
       <TabsBar />
     </>
