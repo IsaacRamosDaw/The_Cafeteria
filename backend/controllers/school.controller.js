@@ -1,19 +1,15 @@
-const { where } = require("sequelize");
 const db = require("../models");
 const School = db.school;
-const Op = db.sequelize.Op;
-// const utils = require("../utils");
-// const bcrypt = require('bcryptjs');
-// const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 exports.create = (req, res) => {
 
+    console.log("Request body:", req.body);
     // Create a School object
     const school = {
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
-        phone: req.body.phone
+        phone: parseInt(req.body.phone, 10),
     };
 
     // Save School in the database
@@ -26,52 +22,6 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occurred while creating the school."
             });
         });
-
-    // if (!req.body.password || !req.body.username) {
-    //     res.status(400).send({
-    //         message: "Content can not be empty!"
-    //     });
-    //     return;
-    // }
-
-    // let school2 = {
-    //     name: req.body.name,
-    //     password: req.body.password
-    // }
-
-    // School.findOne({ where: { schoolname: school2.schoolname } })
-    //     .then(data => {
-    //         if (data) {
-    //             const result = bcrypt.hashSync(req.body.password);
-    //             if (!result) return res.status(401).send('Password not valid!');
-    //             const token = utils.generateToken(data);
-    //             const schoolObj = utils.getCleanUser(data);
-
-    //             return res.json({ school2: schoolObj, access_token: token });
-    //         }
-
-    //         school2.password = bcrypt.hashSync(req.body.password);
-
-    //         School.create(school2)
-    //             .then(data => {
-    //                 const token = utils.generateToken(data);
-    //                 const schoolObj = utils.getCleanUser(data);
-
-    //                 return res.json({ school2: schoolObj, access_token: token });
-    //             })
-    //             .catch(err => {
-    //                 res.status(500).send({
-    //                     message:
-    //                         err.message || "Some error while creating the School."
-    //                 });
-    //             });
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message:
-    //                 err.message || "Some error occurred while retrieving tutorials."
-    //         });
-    //     });
 };
 
 // Retrieve all schools from the database
@@ -95,16 +45,6 @@ exports.findOne = (req, res) => {
   }).then((data) => {
     res.send(data);
   });
-
-    // School.findByPk(id)
-    // .then(data => {
-    //     res.send(data);
-    // })
-    // .catch(err => {
-    //     res.status(500).send({
-    //         message: "Error retrieving User with id= " + id
-    //     });
-    // });
 };
 
 // Update a school by ID
@@ -178,19 +118,3 @@ exports.delete = (req, res) => {
             res.status(500).json({ message: "Error deleting school." });
         });
 };
-
-// exports.findUserByUsernameAndPassword = (req, res) => {
-//     const school2 = req.body.schoolname;
-//     const pwd = req.body.password;
-
-//     School.findOne({ where: {schoolname: school2, password: pwd}})
-//     .then(data => {
-//         res.send(data);
-//     })
-//     .catch(err => {
-//         res.status(500).send({
-//             message:
-//             err.message || "Some error occurred while retrieving tutorials."
-//         });
-//     });
-// }

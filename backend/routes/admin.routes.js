@@ -10,7 +10,8 @@ module.exports = (app) => {
     router.post("/", admin.create);
 
     //List all admins
-    router.get("/", auth.isAuthenticated, admin.findAll);
+    // router.get("/", auth.isAuthenticated, admin.findAll);
+    router.get("/", admin.findAll);
 
     // Get one admin
     router.get("/:id", auth.isAuthenticated, admin.findOne);

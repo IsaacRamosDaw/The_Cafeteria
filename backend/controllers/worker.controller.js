@@ -1,6 +1,5 @@
 const db = require("../models");
 const Worker = db.worker;
-const Op = db.sequelize.Op;
 const utils = require("../utils");
 const bcrypt = require('bcryptjs');
 
@@ -60,6 +59,7 @@ exports.create = (req, res) => {
 
 // Retrieve all workers from the database
 exports.findAll = (req, res) => {
+    
     Worker.findAll()
         .then(data => {
             res.send(data);
