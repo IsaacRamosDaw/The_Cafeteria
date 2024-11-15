@@ -14,18 +14,41 @@ function StudentSettings() {
     <>
       <SearchBar />
       <Separator />
+
       <main id="student-setttings">
-        <div id="wallet-container">
-          <div id="wallet">
-            <p>Créditos</p>
-            <p id="money">37€</p>
+        <section id="section-money">
+          <p>Your balance</p>
+          <h2>Dinero</h2>
+        </section>
+
+        <section id="section-visa">
+          <div id="visa-container">
+            <div id="visa">
+              <h2>VISA</h2>
+            </div>
+            <div id="visa-add">
+              <img src="" alt="" />
+              <h3>Añade tu visa</h3>
+            </div>
           </div>
-          <div id="add-money">
-            <Link>
-              <img src="/public/images/icons/plus.svg" alt="add your money" />
-            </Link>
-          </div>
-        </div>
+          <h2>**** **** **** 7955</h2>
+        </section>
+
+        <section id="visa-options">
+          <Link className="option">
+            <img src="../../../../public/images/icons/card-plus.svg" alt="" />
+            <h2>Add Money</h2>
+          </Link>
+          <Link className="option">
+            <img src="../../../../public/images/icons/card-settinggs.svg" alt="" />
+            <h2>Add Money</h2>
+          </Link>
+          <Link className="option">
+            <img src="../../../../public/images/icons/card-remove.svg" alt="" />
+            <h2>Add Money</h2>
+          </Link>
+        </section>
+
         <div id="settings-container">
           <Setting icon={"/public/images/icons/fav.svg"} text={"Cuenta"} />
           <Setting
@@ -53,6 +76,11 @@ function StudentSettings() {
           <Switch defaultChecked onClick={toggleTheme} />
         </div>
       </main>
+
+      <section id="section-log-out">
+        <div id="log-out"></div>
+        <div id="version"></div>
+      </section>
 
       <TabsBar />
     </>
