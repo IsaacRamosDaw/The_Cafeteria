@@ -2,14 +2,15 @@ import SearchBar from "../../../components/searchBar/SearchBar"
 import TabsBar from "../../../components/tabsBar/tabsBar"
 import Separator from "../../../components/separator/Separator"
 import { Link } from "react-router-dom";
-import Switch from "@mui/material/Switch"
 import './StudentSettings.scss'
 import Setting from "../../../components/setttingsComp/Setting";
 import { useTheme } from "../../../contexts/ThemeContext";
 
+import { FiUser } from "react-icons/fi";
+
 function StudentSettings() {
   const { theme, toggleTheme } = useTheme();
-  
+
   return (
     <>
       <SearchBar />
@@ -22,23 +23,23 @@ function StudentSettings() {
           </div>
           <div id="add-money">
             <Link>
-              <img src="/public/images/icons/plus.svg" alt="add your money" />
+              <img src="/images/icons/plus.svg" alt="add your money" />
             </Link>
           </div>
         </div>
         <div id="settings-container">
-          <Setting icon={"/public/images/icons/fav.svg"} text={"Cuenta"} />
+          <Setting icon={<FiUser /> } text={"Cuenta"} />
           <Setting
-            icon={"/public/images/icons/fav.svg"}
+            icon={<FiUser /> }
             text={"Notificaciones"}
           />
           <Setting
-            icon={"/public/images/icons/fav.svg"}
+            icon={<FiUser /> }
             text={"Politica de privacidad"}
           />
-          <Setting icon={"/public/images/icons/fav.svg"} text={"Contáctanos"} />
+          <Setting icon={<FiUser /> } text={"Contáctanos"} />
           <Setting
-            icon={"/public/images/icons/fav.svg"}
+            icon={<FiUser /> }
             text={"Politica de privacidad"}
           />
         </div>
@@ -46,11 +47,10 @@ function StudentSettings() {
           <div>
             <img
               className="menu-item-icon"
-              src="../../../../public/images/icons/theme.svg"
+              src={<FiUser /> }
             />
-            <span className="menu-item-text">Cambiar tema</span>
+            <span className="menu-item-text"> Cambiar tema</span>
           </div>
-          <Switch defaultChecked onClick={toggleTheme} />
         </div>
       </main>
 

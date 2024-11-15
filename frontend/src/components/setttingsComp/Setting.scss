@@ -12,6 +12,11 @@ div.settings-item {
     display: flex;
     gap: 30px;
     justify-content: left;
+    
+    svg{
+      width: 100%;
+      height: 100%;
+    }
   }
 
   img.menu-item-arrow, img.menu-item-icon {
