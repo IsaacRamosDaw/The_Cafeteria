@@ -26,7 +26,7 @@ function AdminContainer() {
       {admins.map((admin) => (
         <AdminCard
           key={admin.id}
-          name={admin.name}
+          username={admin.username}
           id={admin.id}
           onDelete={handleDelete}
         />

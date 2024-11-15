@@ -3,7 +3,7 @@ const utils = require('../utils');
 const bcrypt = require('bcryptjs');
 const db = require("../models");
 
-exports.signin = async (req, res) => {
+exports.signin = async (req, res, userType) => {
     const { username, password} = req.body;
 
     if (!username || !password) {

@@ -1,70 +1,114 @@
-@import '/src/global.scss';
+@import "/src/global.scss";
 
 main#student-setttings {
   background-color: var(--background-1);
   height: 100vh;
   color: var(--text-2);
-  div#wallet-container {
-    padding-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 80%;
-    margin: 0 auto;
-    margin-bottom: 80px;
+
+  // visa settings
+  section#section-money {
+    text-align: center;
+
+    p {
+      padding-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    margin-bottom: 20px;
   }
 
-  div#wallet {
-    border-radius: 20px 0 0 20px;
-    padding: 20px;
-    background-color: var(--background-2);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 60%;
+  section#section-visa {
+    div#visa-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      margin-bottom: 20px;
 
-    p:nth-child(2) {
-      color: green;
+      div#visa {
+        border-radius: 10px;
+        width: 288px;
+        height: 182px;
+        padding: 10px;
+        margin-right: 20px;
+        
+        background: rgb(224, 224, 224);
+        background: linear-gradient(
+          125deg,
+          rgba(224, 224, 224, 1) 14%,
+          rgba(149, 149, 149, 1) 56%,
+          rgba(17, 17, 17, 1) 99%
+        );
+
+        -webkit-box-shadow: 4px 8px 32px -1px rgba(0, 0, 0, 0.39);
+        -moz-box-shadow: 4px 8px 32px -1px rgba(0, 0, 0, 0.39);
+        box-shadow: 4px 8px 32px -1px rgba(0, 0, 0, 0.39);
+
+        h2 {
+          color: black;
+          margin-bottom: 10px;
+        }
+      }
+
+      div#visa-add {
+        border: 5px dotted white;
+        height: 130px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+
+
+    > h2{
+      text-align: center;
     }
   }
 
-  div#add-money {
-    width: 10%;
-    background-color: black;
-    border-radius: 0 20px 20px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: random($limit: 1);
-  }
+      section#visa-options{
+      display: flex;
+      justify-content: center;
+      gap: 10%;
+
+      a{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-top: 30px;
+        margin-bottom: 50px;
+        
+        img{
+          height: 40px;
+        }
   
-  form#delete h2{
-    background-color: red;
-    border-radius: 10px;
-    text-align: center;
-    width: 80%;
-    margin: 0 auto;
-  }
+        h2{
+          font-size: .8em;
+        }
+      }
+      
+    }
 
   div#change-theme {
-  display: flex;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 1.2em;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 35px 5px 30px;
+    display: flex;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.2em;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 35px 5px 30px;
 
-
-    div{
+    div {
       display: flex;
       gap: 18px;
       justify-content: left;
 
-      img{
+      img {
         height: 30px;
       }
     }
-
   }
 }

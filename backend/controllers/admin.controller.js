@@ -103,10 +103,13 @@ exports.update = (req, res) => {
 
     const update = {
         username: req.body.username,
-        password: req.body.password,
+        // password: req.body.password,
         role: req.body.role,
     };
 
+    if(req.body.password){
+        update.password = bcrypt.hashSync(req.body.password);
+    }
     // Attempt to update the admin
     Admin.update(update, { where: { id: id } })
         .then(([rowsUpdated]) => {
