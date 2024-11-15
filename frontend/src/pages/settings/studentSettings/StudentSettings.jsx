@@ -1,10 +1,10 @@
-import SearchBar from "../../../components/searchBar/SearchBar"
-import TabsBar from "../../../components/tabsBar/tabsBar"
-import Separator from "../../../components/separator/Separator"
-import { Link } from "react-router-dom";
-import './StudentSettings.scss'
+import SearchBar from "../../../components/searchBar/SearchBar";
+import TabsBar from "../../../components/tabsBar/tabsBar";
+import Separator from "../../../components/separator/Separator";
 import Setting from "../../../components/setttingsComp/Setting";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
+import "./StudentSettings.scss";
 
 import { FiUser } from "react-icons/fi";
 
@@ -12,14 +12,14 @@ function StudentSettings() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <>
+    <div id="page-settings-student">
       <SearchBar />
       <Separator />
 
       <main id="student-setttings">
         <section id="section-money">
           <p>Your balance</p>
-          <h2>Dinero</h2>
+          <h2> €45.02 </h2>
         </section>
 
         <section id="section-visa">
@@ -41,7 +41,10 @@ function StudentSettings() {
             <h2>Add Money</h2>
           </Link>
           <Link className="option">
-            <img src="../../../../public/images/icons/card-settinggs.svg" alt="" />
+            <img
+              src="../../../../public/images/icons/card-settinggs.svg"
+              alt=""
+            />
             <h2>Add Money</h2>
           </Link>
           <Link className="option">
@@ -51,27 +54,15 @@ function StudentSettings() {
         </section>
 
         <div id="settings-container">
-          <Setting icon={<FiUser /> } text={"Cuenta"} />
-          <Setting
-            icon={<FiUser /> }
-            text={"Notificaciones"}
-          />
-          <Setting
-            icon={<FiUser /> }
-            text={"Politica de privacidad"}
-          />
-          <Setting icon={<FiUser /> } text={"Contáctanos"} />
-          <Setting
-            icon={<FiUser /> }
-            text={"Politica de privacidad"}
-          />
+          <Setting icon={<FiUser />} text={"Cuenta"} />
+          <Setting icon={<FiUser />} text={"Notificaciones"} />
+          <Setting icon={<FiUser />} text={"Politica de privacidad"} />
+          <Setting icon={<FiUser />} text={"Contáctanos"} />
+          <Setting icon={<FiUser />} text={"Politica de privacidad"} />
         </div>
         <div id="change-theme">
           <div>
-            <img
-              className="menu-item-icon"
-              src={<FiUser /> }
-            />
+            <img className="menu-item-icon" src={<FiUser />} />
             <span className="menu-item-text"> Cambiar tema</span>
           </div>
         </div>
@@ -83,8 +74,8 @@ function StudentSettings() {
       </section>
 
       <TabsBar />
-    </>
+    </div>
   );
 }
 
-export default StudentSettings
+export default StudentSettings;
