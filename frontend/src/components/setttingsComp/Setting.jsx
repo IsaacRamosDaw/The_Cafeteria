@@ -1,15 +1,34 @@
 import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
+import Switch from "@mui/material/Switch";
+import { useTheme } from "../../contexts/ThemeContext";
 import "./Setting.scss";
 
-function Setting({ icon, text, to }) {
+function Setting({ icon, text, to, toggle }) {
+  const { theme, toggleTheme } = useTheme();
+
+  if (toggle) {
+    return (
+      <div className="settings-card">
+        <div className="content-setting">
+          <div className="menu-item-icon">{icon}</div>
+          <span className="menu-item-text">{text} </span>
+        </div>
+        <span>
+          <Switch onClick={toggleTheme} defaultChecked color="default" />
+        </span>
+      </div>
+    );
+  }
+
   return (
-    <Link to={to}>
-      <div className="settings-item">
+    <Link to={"/" + to}>
+      <div className="settings-card">
         <div className="content-setting">
           <div className="menu-item-icon">{icon}</div>
           <span className="menu-item-text">{text}</span>
         </div>
-        <img className="menu-item-arrow" src="/public/images/icons/arrow.svg" />
+        <FaChevronRight className="arrow-right-icon" />
       </div>
     </Link>
   );
