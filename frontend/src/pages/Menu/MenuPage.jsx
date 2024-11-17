@@ -5,7 +5,7 @@ import "./MenuPage.scss";
 
 function MenuPage() {
   return (
-    <div className="menu-page-container">
+    <div id="menu-page-container">
       <SearchBar />
       <CategoriesContainer />
       <TabsBar />

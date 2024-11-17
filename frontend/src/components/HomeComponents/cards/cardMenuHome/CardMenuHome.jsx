@@ -1,3 +1,4 @@
+import { FiClock } from "react-icons/fi";
 import "./CardMenuHome.scss";
 
 export default function CardMenuHome({ image, title, description, time }) {
@@ -19,7 +20,7 @@ export default function CardMenuHome({ image, title, description, time }) {
           <p> {description} </p>
         </div>
         <div className="container-time-card-menu">
-          <img src="/images/icons/clock.svg" alt="" />
+        <FiClock />
           <p> {time} </p>
         </div>
       </div>

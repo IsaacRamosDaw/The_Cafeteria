@@ -30,6 +30,11 @@ function CategoriesContainer() {
           count={122}
           title={"refrescos"}
         />
+        <CategoryCard
+          img={"../../../public/images/ImgMenus/bebidas.jpg"}
+          count={122}
+          title={"refrescos"}
+        />
       </main>
     </section>
   );
