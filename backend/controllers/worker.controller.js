@@ -7,8 +7,8 @@ const bcrypt = require('bcryptjs');
 exports.create = (req, res) => {
 
     // Create a Worker object and save Worker in the database
-   
-         if (!req.body.password || !req.body.username || !req.body.role) {
+
+    if (!req.body.password || !req.body.username || !req.body.role) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -55,54 +55,108 @@ exports.create = (req, res) => {
                     err.message || "Some error occurred while retrieving tutorials."
             });
         });
-    };
+};
 
 // Retrieve all workers from the database
 exports.findAll = (req, res) => {
-    
-    Worker.findAll()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving workers."
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
+    }
+
+    if (req.user.role == 'admin') {
+        Worker.findAll()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving workers."
+                });
+            });
+    } else if (req.user.role == 'worker') {
+        Worker.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Worker not found."
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving worker."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
 };
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-     Worker.findByPk(id)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error retrieving User with id= " + id
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
-    });
-  };
+    }
+
+    if (req.user.role === 'admin') {
+        Worker.findByPk(id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: `Worker with id=${id} not found.`
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || `Error retrieving worker with id=${id}.`
+                });
+            });
+    } else if (req.user.role === 'worker') {
+        if (parseInt(id) !== req.user.id) {
+            return res.status(403).json({
+                message: "Access denied. Workers can only access their own data."
+            });
+        }
+
+        Worker.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Worker not found."
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Error retrieving worker."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
+};
+
 
 // Update a worker by ID
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    // Validate that required fields are present
-    if (!req.body.name) {
-        return res.status(400).send({
-            message: "The name field cannot be empty."
-        });
-    }
-    if (!req.body.phone) {
-        return res.status(400).send({
-            message: "The phone field cannot be empty."
-        });
-    }
-    if (!req.body.password) {
-        return res.status(400).send({
-            message: "The password field cannot be empty."
+    if (req.user.role !== 'admin' && parseInt(id) !== req.user.id) {
+        return res.status(403).send({
+            message: "Access denied. You can only update your own data."
         });
     }
 
@@ -136,6 +190,12 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
+    if (req.user.role !== 'admin' && parseInt(id) !== req.user.id) {
+        return res.status(403).send({
+            message: "Access denied. You can only update your own data."
+        });
+    }
+
     Worker.destroy({ where: { id: id } })
         .then(deleted => {
             if (deleted) {
@@ -153,18 +213,31 @@ exports.delete = (req, res) => {
 };
 
 exports.findUserByUsernameAndPassword = (req, res) => {
-    const worker = req.body.username;
-    const pwd = req.body.password;
+    const { username, password } = req.body;
 
-    Worker.findOne({ where: {username: worker, password: pwd}})
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Some error occurred while retrieving tutorials."
+    Worker.findOne({ where: { username } })
+        .then(worker => {
+            if (!worker) {
+                return res.status(404).send({ message: "User not found." });
+            }
+
+            if (req.user.role !== 'admin' && req.user.id !== worker.id) {
+                return res.status(403).send({
+                    message: "Access denied. You can only view your own data."
+                });
+            }
+
+            const isMatch = bcrypt.compareSync(password, worker.password);
+            if (!isMatch) {
+                return res.status(401).send({ message: "Invalid credentials." });
+            }
+
+            res.send(worker);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving the user."
+            });
         });
-    });
-}
+};
 

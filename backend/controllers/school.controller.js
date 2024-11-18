@@ -2,8 +2,6 @@ const db = require("../models");
 const School = db.school;
 
 exports.create = (req, res) => {
-
-    console.log("Request body:", req.body);
     // Create a School object
     const school = {
         name: req.body.name,

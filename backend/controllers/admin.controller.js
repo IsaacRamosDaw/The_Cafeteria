@@ -58,33 +58,77 @@ exports.create = (req, res) => {
             });
         });
 }
+exports.findAll = (req, res) => {
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
+        });
+    }
+
+    if (req.user, role == 'admin') {
+        Admin.findAll()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving admins."
+                });
+            });
+
+        Admin.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Admin not found"
+                    })
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving worker."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
+};
 
 // Retrieve all admins
-exports.findAll = (req, res) => {
-    Admin.findAll()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving admins."
-            });
-        });
-};
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Admin.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Error retrieving User with id= " + id
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
-}
+    }
+
+    if (req.user.role === 'admin') {
+        Admin.findByPk(id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: `Admin with id=${id} not found.`
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || `Error retrieving worker with id=${id}.`
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;

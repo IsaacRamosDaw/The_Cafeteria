@@ -56,29 +56,95 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req, res) => {
-    Student.findAll()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving students."
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
+    }
+
+    if (req.user.role == 'admin') {
+        Student.findAll()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving students."
+                });
+            });
+    } else if (req.user.role == 'student') {
+        Student.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Student not found"
+                    })
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving worker."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
 };
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Student.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Error retrieving User with id= " + id
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
+    }
+
+    if(req.user.role === 'admin'){
+        Student.findByPk(id)
+            .then(data => {
+                if(!data){
+                    return res.status(404).json({
+                        message: `Student with id=${id} not found.`
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || `Error retrieving worker with id=${id}.`
+                });
+            });
+    } else if (req.user.role === 'student') {
+        if (parseInt(id) !== req.user.id) {
+            return res.status(403).json({
+                message: "Access denied. Students can only access their own data."
+            });
+        }
+
+        Student.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Student not found."
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Error retrieving student."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
+
 }
 
 exports.update = (req, res) => {
@@ -121,24 +187,24 @@ exports.update = (req, res) => {
         });
 };
 
-exports.delete= (req,res) => {
+exports.delete = (req, res) => {
     const id = req.params.id;
 
     // Delete a Student by ID
-    Student.destroy({ where: {id:id}})
-    .then(deleted => {
-        if (deleted) {
-            console.log("Student with id:", id, "was deleted.");
-            res.json({ message: "Student deleted successfully." });
-        } else {
-            console.log("Student with id:", id, "was not found.");
-            res.status(404).json({ message: "Student not found." });
-        }
-    })
-    .catch(err => {
-        console.error("Error deleting student:", err);
-        res.status(500).json({ message: "Error deleting student." });
-    });
+    Student.destroy({ where: { id: id } })
+        .then(deleted => {
+            if (deleted) {
+                console.log("Student with id:", id, "was deleted.");
+                res.json({ message: "Student deleted successfully." });
+            } else {
+                console.log("Student with id:", id, "was not found.");
+                res.status(404).json({ message: "Student not found." });
+            }
+        })
+        .catch(err => {
+            console.error("Error deleting student:", err);
+            res.status(500).json({ message: "Error deleting student." });
+        });
 };
 
 exports.findUserByUsernameAndPassword = (req, res) => {
