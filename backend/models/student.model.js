@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const student = sequelize.define('Student', {
+  const Student = sequelize.define('Student', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,8 +22,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    studentImage:{
+      type: DataTypes.BLOB('medium')
+    }
   });
 
-  return student;
-};
+  return Student;
+}
 

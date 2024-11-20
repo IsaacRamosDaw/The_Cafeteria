@@ -65,7 +65,7 @@ exports.findAll = (req, res) => {
         });
     }
 
-    if (req.user, role == 'admin') {
+    if (req.user.role === 'admin') {
         Admin.findAll()
             .then(data => {
                 res.send(data);
@@ -87,7 +87,7 @@ exports.findAll = (req, res) => {
             })
             .catch(err => {
                 res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving worker."
+                    message: err.message || "Some error occurred while retrieving admin."
                 });
             });
     } else {
@@ -120,7 +120,7 @@ exports.findOne = (req, res) => {
             })
             .catch(err => {
                 res.status(500).send({
-                    message: err.message || `Error retrieving worker with id=${id}.`
+                    message: err.message || `Error retrieving admin with id=${id}.`
                 });
             });
     } else {
@@ -134,6 +134,13 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     // Validate request
+
+    if(Number(id) !== req.user.id){
+        return res.status(403).send({
+            message: "Access denied. You can only update your own data."
+        });
+    }
+
     if (!req.body.username) {
         return res.status(400).send({
             message: "The name field cannot be empty."
@@ -173,6 +180,12 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
+    if(Number(id) !== req.user.id){
+        return res.status(403).send({
+            message: "Access denied. You can only update your own data."
+        });
+    }
+
     // Delete an Admin by ID
     Admin.destroy({ where: { id: id } })
         .then(deleted => {
@@ -190,22 +203,32 @@ exports.delete = (req, res) => {
         });
 };
 
+// Find user by username and password
 exports.findUserByUsernameAndPassword = (req, res) => {
-    const admin = req.body.username;
-    const pwd = req.body.password;
+    const { username, password } = req.body;
 
-    Admin.findOne({ where: { username: admin, password: pwd } })
-        .then(data => {
-            if (data && bcrypt.compareSync(pwd, data.password)) {
-                res.send(data);
-            } else {
-                res.status(401).send("Username or password is incorrect.");
+    Admin.findOne({ where: { username } })
+        .then(admin => {
+            if (!admin) {
+                return res.status(404).send({ message: "User not found." });
             }
+
+            if (req.user.role !== 'admin' && req.user.id !== admin.id) {
+                return res.status(403).send({
+                    message: "Access denied. You can only view your own data."
+                });
+            }
+
+            const isMatch = bcrypt.compareSync(password, admin.password);
+            if (!isMatch) {
+                return res.status(401).send({ message: "Invalid credentials." });
+            }
+
+            res.send(admin);
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving the user."
             });
-        }
-        )
+        });
 };

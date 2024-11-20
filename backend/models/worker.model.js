@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
     role:{
       type: DataTypes.STRING,
       allowNull: false,
+    }, 
+    workerImage:{
+      type: DataTypes.BLOB('medium')
     }
   });
 
