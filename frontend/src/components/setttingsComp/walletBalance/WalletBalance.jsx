@@ -14,29 +14,12 @@ import { useState } from "react";
 import InputFormSetting from "../../../components/setttingsComp/inputFormSetting/InputFormSetting";
 
 export default function WalletBalance() {
-  
-  const [cards, setCards] = useState([
-    {
-      number: `${4234678912345678}`,
-      date: `12/06/2014`,
-      cvc: 521,
-      balance: 45.02,
-    },
-    {
-      number: `${5299384789732592}`,
-      date: `26/11/2022`,
-      cvc: 146,
-      balance: 0.20,
-    },
-    {
-      number: `${4908549028489045}`,
-      date: `01/01/2023`,
-      cvc: 521,
-      balance: 100.01,
-    }
-  ])
-
-  const [card, setCard] = useState(cards[0]);
+  const [card, setCard] = useState({
+    number: `${0}`,
+    date: `-`,
+    cvc: `${0}`,
+    balance: 0,
+  });
 
   const [openMoney, setOpenMoney] = useState(false);
   const handleOpenMoney = () => setOpenMoney(true);
@@ -52,15 +35,33 @@ export default function WalletBalance() {
     console.log(e.target);
   };
 
-  const handleAddCard = (e) => {
-    e.preventDefault()
-
-    console.log(e.target)
-  }
-
   const [openAddCard, setOpenAddCard] = useState(false);
   const handleOpenAddCard = () => setOpenAddCard(true);
   const handleCloseAddCard = () => setOpenAddCard(false);
+
+  const handleAddCard = (e) => {
+    e.preventDefault();
+
+    const numberCard = document.getElementById("numero");
+    const dateCard = document.getElementById("fecha");
+    const cvcCard = document.getElementById("cvc");
+
+    console.log(numberCard, dateCard, cvcCard);
+
+    setCard(
+      {
+      number: numberCard,
+      date: dateCard,
+      cvc: cvcCard,
+    }
+  );
+
+    handleCloseAddCard();
+  };
+
+  const handleRemoveCard = () => {
+
+  };
 
   return (
     <section id="wallet-balance-container">
@@ -70,43 +71,65 @@ export default function WalletBalance() {
       </div>
       <div id="container-card-credit">
         <div id="carusel-credit-card">
-          <div className="credit-card">
-            {card.number[0] == 4 ? <RiVisaLine /> : <RiMastercardFill />}
-          </div>
-          <div onClick={handleOpenAddCard} id="credit-card-add">
-            <IoIosAddCircle />
-            <h3 className="text-add-card">Añade tu visa</h3>
-
-          </div>
-          <Modal open={openAddCard} onClose={handleCloseAddCard}>
-          <Box className="modal-container">
-            <div className="container-exit-icon">
-              <IoClose className="icon-exit" onClick={handleCloseAddCard} />
+          {card.number == 0 ? (
+            ""
+          ) : (
+            <div className="credit-card">
+              {card.number[0] == 4 ? (
+                <RiVisaLine />
+              ) : card.number[0] == 5 ? (
+                <RiMastercardFill />
+              ) : (
+                ""
+              )}
             </div>
-            <form onSubmit={handleAddCard} className="content-modal">
-              <InputFormSetting
-                title={"Numero de tarjeta"}
-                subvalue={card.number}
-                disable={false}
-              />
-              <InputFormSetting
-                title={"Fecha de caducidad"}
-                subvalue={card.date}
-                disable={false}
-              />
-              <InputFormSetting
-                title={"CVC"}
-                subvalue={card.cvc}
-                disable={false}
-              />
-              <button type="submit" className="btn-modal">
+          )}
+
+          {card.number != 0 ? (
+            ""
+          ) : (
+            <div onClick={handleOpenAddCard} id="credit-card-add">
+              <IoIosAddCircle />
+              <h3 className="text-add-card">Añade tu tarjeta</h3>
+            </div>
+          )}
+
+          <Modal open={openAddCard} onClose={handleCloseAddCard}>
+            <Box className="modal-container">
+              <div className="container-exit-icon">
+                <IoClose className="icon-exit" onClick={handleCloseAddCard} />
+              </div>
+              <form onSubmit={handleAddCard} className="content-modal">
+                <InputFormSetting
+                  title={"Numero de tarjeta"}
+                  placeholder={card.number}
+                  disable={false}
+                  type={"number"}
+                />
+                <InputFormSetting
+                  title={"Fecha de caducidad"}
+                  placeholder={card.date}
+                  disable={false}
+                  type={"date"}
+                />
+                <InputFormSetting
+                  title={"CVC"}
+                  placeholder={card.cvc}
+                  disable={false}
+                  type={"number"}
+                />
+                <button
+                  onClick={handleAddCard}
+                  type="submit"
+                  className="btn-modal"
+                >
                   Añadir
                 </button>
-            </form>
-          </Box>
-        </Modal>
+              </form>
+            </Box>
+          </Modal>
         </div>
-        <h2>{card.number}</h2>
+        <h2>{card.number == 0 ? "- - - -" : card.number}</h2>
       </div>
 
       <div id="card-options">
@@ -122,10 +145,14 @@ export default function WalletBalance() {
             <form onSubmit={handleAddMoney} className="content-modal">
               <InputFormSetting
                 title={"Cuenta"}
-                subvalue={card.number}
+                placeholder={card.number}
                 disable={true}
               />
-              <InputFormSetting title={"Importe"} subvalue={"0,00 €"} />
+              <InputFormSetting
+                title={"Importe"}
+                placeholder={"0,00 €"}
+                type={"number"}
+              />
               <div className="container-btn-recargar">
                 <button type="submit" className="btn-modal">
                   Recargar
@@ -147,24 +174,27 @@ export default function WalletBalance() {
             <div className="content-modal">
               <InputFormSetting
                 title={"Numero de tarjeta"}
-                subvalue={card.number}
+                placeholder={card.number}
                 disable={true}
+                type={"number"}
               />
               <InputFormSetting
                 title={"Fecha de caducidad"}
-                subvalue={card.date}
+                placeholder={card.date}
                 disable={true}
+                type={"text"}
               />
               <InputFormSetting
                 title={"CVC"}
-                subvalue={card.cvc}
+                placeholder={card.cvc}
                 disable={true}
+                type={"number"}
               />
             </div>
           </Box>
         </Modal>
 
-        <div className="option-card">
+        <div onClick={handleRemoveCard} className="option-card">
           <MdOutlineRemoveCircleOutline className="card-icon-option trash" />
           <h2>Remove Card</h2>
         </div>

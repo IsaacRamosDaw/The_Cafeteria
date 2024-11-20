@@ -14,6 +14,7 @@ main#student-setttings {
   margin-top: 60px;
   display: flex;
   gap: 20px;
+  width: 90%;
 
   section#container-balance {
     @include flex-items(column);
