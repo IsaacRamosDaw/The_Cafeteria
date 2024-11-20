@@ -1,0 +1,63 @@
+@import "/src/global.scss";
+
+.container-inputform-setting {
+    width: 90%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+    .text-inputform-setting-1,
+    .text-inputform-setting-2,
+    .input-inputform-setting-1,
+    .input-inputform-setting-2 {
+        width: calc(100% - 20px);
+    }
+
+    // Type 1 input form styles
+    .text-inputform-setting-1,
+    .input-inputform-setting-1 {
+        color: var(--text-1);
+        font-size: $font-size-medium-big;
+    }
+
+    .text-inputform-setting-1{
+        font-weight: 300;
+    }
+    .input-inputform-setting-1{
+        font-weight: bold;
+    }
+
+    .input-inputform-setting-1 {
+        border: 1px solid var(--text-1);
+        background-color: transparent;
+        border-radius: 5px;
+        height: 20px;
+        padding: 10px 10px;
+    }
+
+    // Type 2 input form styles
+    .text-inputform-setting-2,
+    .input-inputform-setting-2 {
+        color: var(--text-1);
+        font-size: $font-size-medium-small;
+    }
+
+    .text-inputform-setting-2{
+        font-weight: 300;
+    }
+    .input-inputform-setting-2{
+        font-weight: 400;
+    }
+
+    .input-inputform-setting-2 {
+        border: 1px solid var(--text-1);
+        background-color: var(--background-3);
+        border-radius: 5px;
+        height: 20px;
+        padding: 10px 10px;
+    }
+
+
+}

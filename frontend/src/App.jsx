@@ -1,5 +1,4 @@
 import { ThemeProvider } from "./contexts/ThemeContext";
-import "./global.scss";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -10,6 +9,7 @@ import Orders from "./pages/orders/Orders";
 import Products from "./pages/products/Products";
 import Admin from "./pages/admin/Admin";
 import "./global.scss";
+
 // Admin Crud
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
@@ -23,6 +23,14 @@ import MenuPage from "./pages/Menu/MenuPage";
 // Settings
 import StudentSettings from "./pages/settings/studentSettings/StudentSettings";
 import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
+
+// Settings components
+import AccountSettings from "./pages/settings/studentSettings/accountSettings/AccountSettings.jsx";
+import CreditSetting from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
+import Favorites from "./pages/settings/studentSettings/favorites/Favorites.jsx";
+import MyCafeteria from "./pages/settings/studentSettings/myCafeteria/MyCafeteria.jsx";
+import Policy from "./pages/settings/studentSettings/policy/Policy.jsx";
+
 function App() {
   return (
     <ThemeProvider>
@@ -48,6 +56,14 @@ function App() {
           {/* Settings routes */}
           <Route path="/studentsettings" element={<StudentSettings />} />
           <Route path="/ownersettings" element={<OwnerSettings />} />
+
+          {/* Setting components routes */}
+          <Route path={"/accountSetting"} element={ <AccountSettings /> } />
+          <Route path={"/credits"} element={ <CreditSetting /> } />
+          <Route path={"/favorites"} element={ <Favorites /> } />
+          <Route path={"/mycafeteria"} element={ <MyCafeteria /> } />
+          <Route path={"/policy"} element={ <Policy /> } />
+
         </Routes>
       </Router>
     </ThemeProvider>

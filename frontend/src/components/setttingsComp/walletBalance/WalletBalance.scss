@@ -1,21 +1,12 @@
 @import "/src/global.scss";
 
-#page-settings-student {
-  background-color: var(--background-1);
-  min-height: 100vh;
-  // display: grid;
-  // grid-template-rows: auto 1fr auto;
-  @include flex-items(column);
-}
-
-main#student-setttings {
+#wallet-balance-container {
   @include flex-items(column);
   color: var(--text-2);
-  margin-top: 60px;
   display: flex;
   gap: 20px;
 
-  section#container-balance {
+  #container-balance {
     @include flex-items(column);
     max-height: 70px;
     padding: 10px;
@@ -33,11 +24,11 @@ main#student-setttings {
 
   }
 
-  section#container-card-credit {
+  #container-card-credit {
     @include flex-items(column);
     gap: 20px;
 
-    div#carusel-credit-card {
+    #carusel-credit-card {
       width: 100%;
       max-width: 90vw;
       display: flex;
@@ -48,14 +39,14 @@ main#student-setttings {
       scroll-behavior: smooth;
       gap: 20px;
       scrollbar-width: none;
-      -ms-overflow-style: none;
 
+      -ms-overflow-style: none;
       ::-webkit-scrollbar {
         display: none;
 
       }
 
-      div#credit-card {
+      .credit-card {
         border-radius: 10px;
         min-width: 280px; // Real Size of a credit Card in inches
         aspect-ratio: 1.586; // Real Aspect Ratio
@@ -73,7 +64,7 @@ main#student-setttings {
         }
       }
 
-      div#credit-card-add {
+      #credit-card-add {
         border: 4px dashed var(--borders-separators-2);
         border-radius: 10px;
         width: 178px;
@@ -93,13 +84,12 @@ main#student-setttings {
     }
 
 
-
     >h2 {
       text-align: center;
     }
   }
 
-  section#card-options {
+  #card-options {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -203,19 +193,20 @@ main#student-setttings {
     width: 100%;
 
     @include flex-items;
-    #btn-recargar{
-      width: 70%;
-      height: 48px;
-      font-size: $font-size-medium-big;
-      font-weight: bold;
-      background-color: var(--background-3);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-1);
-    }
-    #btn-recargar:active{
-      transform: scale(.9);
-      transition-duration: .3s;
-    }
   }
+}
+
+.btn-modal{
+  width: 70%;
+  height: 48px;
+  font-size: $font-size-medium-big;
+  font-weight: bold;
+  background-color: var(--background-3);
+  border: none;
+  border-radius: 5px;
+  color: var(--text-1);
+}
+#btn-recargar:active{
+  transform: scale(.9);
+  transition-duration: .3s;
 }

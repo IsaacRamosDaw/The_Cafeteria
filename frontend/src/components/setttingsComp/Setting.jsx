@@ -22,7 +22,7 @@ function Setting({ icon, text, to, toggle }) {
   }
 
   return (
-    <Link to={"/" + to}>
+    <Link to={to}>
       <div className="settings-card">
         <div className="content-setting">
           <div className="menu-item-icon">{icon}</div>
