@@ -1,4 +1,4 @@
-const dbConfig = require("../config/db.config")
+const dbConfig = require("../config/holadb.config.js")
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
