@@ -24,8 +24,8 @@ module.exports = (app) => {
     router.delete("/:id", auth.isAuthenticated, worker.delete);
 
     //Create an image
-    router.post("/:id/uploadImage", auth.isAuthenticated,
-        upload.single("image"), worker.uploadImage);
+    // router.post("/:id/uploadImage", auth.isAuthenticated,
+    //     upload.single("image"), worker.uploadImage);
 
     app.use('/api/worker', router);
 

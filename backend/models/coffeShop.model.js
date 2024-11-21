@@ -6,9 +6,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    coffeShopImage:{
-      type: DataTypes.BLOB('medium')
-    },
+    // coffeShopImage:{
+    //   type: DataTypes.BLOB('medium')
+    // },
   });
 
   return CoffeShop;

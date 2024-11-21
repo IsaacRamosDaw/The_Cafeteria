@@ -198,42 +198,42 @@ exports.findUserByUsernameAndPassword = (req, res) => {
         });
 };
 
-exports.uploadImage = async (req, res) => {
-    const id = req.params.id;
+// exports.uploadImage = async (req, res) => {
+//     const id = req.params.id;
 
-    if(req.user.role !== 'admin' && req.user.id !== Number(id)){
-        return res.status(403).json({
-            message: "Access denied."
-        });
-    }
+//     if(req.user.role !== 'admin' && req.user.id !== Number(id)){
+//         return res.status(403).json({
+//             message: "Access denied."
+//         });
+//     }
 
-    if(!req.file){
-        return res.status(400).json({
-            message: "Image can not upload"
-        })
-    }
+//     if(!req.file){
+//         return res.status(400).json({
+//             message: "Image can not upload"
+//         })
+//     }
 
-    Worker.findByPk(worker)
-    .then((worker) => {
-      if (!worker) {
-        return res.status(404).json({ message: "Trabajador no encontrado." });
-      }
+//     Worker.findByPk(worker)
+//     .then((worker) => {
+//       if (!worker) {
+//         return res.status(404).json({ message: "Trabajador no encontrado." });
+//       }
 
-      worker.workerImage = req.file.buffer;
+//       worker.workerImage = req.file.buffer;
 
-      return worker.save();
-    })
-    .then(() => {
-        res.json({
-            message: "Picture upload successfully"
-        });
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).json({
-            message: "Error upload the image."
-        });
-    });
-}
+//       return worker.save();
+//     })
+//     .then(() => {
+//         res.json({
+//             message: "Picture upload successfully"
+//         });
+//     })
+//     .catch((error) => {
+//         console.error(error);
+//         res.status(500).json({
+//             message: "Error upload the image."
+//         });
+//     });
+// }
 
 
