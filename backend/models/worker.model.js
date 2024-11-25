@@ -18,9 +18,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     }, 
-    // workerImage:{
-    //   type: DataTypes.BLOB('medium')
-    // }
+    filename:{
+      type: DataTypes.STRING
+    }
   });
 
   return worker;

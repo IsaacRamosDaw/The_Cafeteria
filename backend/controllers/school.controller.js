@@ -12,7 +12,8 @@ exports.create = (req, res) => {
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
-        phone: parseInt(req.body.phone, 10),
+        phone: req.body.phone,
+        filename: req.file ? req.file.filename : ""
     };
 
     // Save School in the database
@@ -80,7 +81,8 @@ exports.update = (req, res) => {
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        filename: req.file ? req.file.filename : ""
     };
 
     // Attempt to update the school

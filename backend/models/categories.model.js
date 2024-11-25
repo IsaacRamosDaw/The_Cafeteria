@@ -6,8 +6,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    categoriesImage:{
-      type: DataTypes.BLOB('medium')
+    filename:{
+      type: DataTypes.STRING
     }
   });
 

@@ -6,9 +6,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    productImage:{
-      type: DataTypes.BLOB('medium')
-    },
+    filename:{
+      type: DataTypes.STRING
+    }
   });
 
   return Product;

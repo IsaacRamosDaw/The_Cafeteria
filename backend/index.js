@@ -2,7 +2,13 @@ const jwt = require('jsonwebtoken');
 const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
+
+var path = require('path');
+
 const app = express();
+
+//public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

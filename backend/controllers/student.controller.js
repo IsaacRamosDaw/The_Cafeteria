@@ -18,6 +18,7 @@ exports.create = (req, res) => {
         age: req.body.age,
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     }
 
     Student.findOne({ where: { username: student.username } })
@@ -150,6 +151,7 @@ exports.update = (req, res) => {
         age: req.body.age,
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     };
 
     Student.update(updateStudent, { where: { id: id } })
@@ -157,7 +159,7 @@ exports.update = (req, res) => {
             if (rowsUpdated === 0) {
                 // If no rows were updated, the admin was not found
                 return res.status(404).send({
-                    message: `Cannot update Admin with id=${id}. Student not found.`
+                    message: `Cannot update Student with id=${id}. Student not found.`
                 });
             }
             res.send({ message: "Student was updated successfully." });

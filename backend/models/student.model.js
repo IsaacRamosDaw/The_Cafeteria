@@ -22,8 +22,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    studentImage:{
-      type: DataTypes.BLOB('medium')
+    filename:{
+      type: DataTypes.STRING
     }
   });
 

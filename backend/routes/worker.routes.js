@@ -1,5 +1,4 @@
 module.exports = (app) => {
-    const upload = require("../middleware/uploadImage.js")
     const worker = require("../controllers/worker.controller.js");
     const auth = require("../controllers/auth.js");
 
@@ -8,7 +7,7 @@ module.exports = (app) => {
     router.post('/signin', (req, res) => auth.signin(req, res, 'worker'));
 
     //Create a worker
-    router.post("/", worker.create);
+    router.post("/", upload.single('file'), worker.create);
 
     //List all workers
     router.get("/", auth.isAuthenticated, worker.findAll);
@@ -18,14 +17,11 @@ module.exports = (app) => {
     router.get("/:id", auth.isAuthenticated, worker.findOne);
 
     // Update worker
-    router.put("/:id", auth.isAuthenticated, worker.update);
+    router.put("/:id", upload.single('file'), auth.isAuthenticated, worker.update);
 
     //Delete worker
     router.delete("/:id", auth.isAuthenticated, worker.delete);
 
-    //Create an image
-    // router.post("/:id/uploadImage", auth.isAuthenticated,
-    //     upload.single("image"), worker.uploadImage);
 
     app.use('/api/worker', router);
 

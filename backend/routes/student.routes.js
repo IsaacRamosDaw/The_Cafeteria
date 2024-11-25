@@ -7,7 +7,7 @@ module.exports = (app) => {
     router.post('/signin', (req, res) => auth.signin(req, res, 'student'));
     
     //Create an student
-    router.post("/", student.create);
+    router.post("/", upload.single('file'), student.create);
 
     //List all students
     router.get("/", auth.isAuthenticated, student.findAll);
@@ -16,7 +16,7 @@ module.exports = (app) => {
     router.get("/:id", auth.isAuthenticated, student.findOne);
 
     // Update student
-    router.put("/:id", auth.isAuthenticated, student.update);
+    router.put("/:id", upload.single('file'), auth.isAuthenticated, student.update);
 
     //Delete student 
     router.delete("/:id", auth.isAuthenticated, student.delete);

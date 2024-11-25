@@ -18,9 +18,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // schoolImage:{
-      //   type: DataTypes.BLOB('medium')
-      // }
+      filename:{
+        type: DataTypes.STRING
+      }
     });
 
     return School;

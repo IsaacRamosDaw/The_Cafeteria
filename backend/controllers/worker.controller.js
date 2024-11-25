@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         password: req.body.password,
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     };
 
     Worker.findOne({ where: { username: worker.username } })
@@ -130,6 +131,7 @@ exports.update = (req, res) => {
         password: bcrypt.hashSync(req.body.password),
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     };
 
     Worker.update(updateWorker, { where: { id } })
