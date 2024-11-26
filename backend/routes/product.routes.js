@@ -5,7 +5,7 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     //Create an coffeShop
-    router.post("/", auth.isAuthenticated, auth.hasRole(['admin', 'worker']), product.create);
+    router.post("/", auth.isAuthenticated, product.create);
 
     //List all coffeShops
     router.get("/", auth.isAuthenticated, product.findAll);
@@ -14,10 +14,10 @@ module.exports = (app) => {
     router.get("/:id", auth.isAuthenticated, product.findOne);
 
     // Update coffeShop
-    router.put("/:id", auth.isAuthenticated, auth.hasRole(['admin', 'worker']),  product.update);
+    router.put("/:id", auth.isAuthenticated, product.update);
 
     //Delete coffeShop
-    router.delete("/:id", auth.isAuthenticated, auth.hasRole(['admin', 'worker']),  product.delete);
+    router.delete("/:id", auth.isAuthenticated, product.delete);
 
     app.use('/api/coffeShop', router);
 
