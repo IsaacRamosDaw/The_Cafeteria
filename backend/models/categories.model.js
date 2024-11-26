@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
     filename:{
       type: DataTypes.STRING
     }
+  },
+  {
+    timestamps: false,
   });
 
   return category;

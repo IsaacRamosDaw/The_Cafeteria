@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
         quantity: {
             type: DataTypes.INTEGER,
         },
+    },
+    {
+      timestamps: false,
     });
 
     return inventory;

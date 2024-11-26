@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      timeStamps: false,
+      timestamps: false
     }
   );
   return Admin;
