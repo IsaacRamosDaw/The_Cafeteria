@@ -17,7 +17,13 @@ module.exports = (sequelize) => {
     role:{
       type: DataTypes.STRING,
       allowNull: false,
+    }, 
+    filename:{
+      type: DataTypes.STRING
     }
+  },
+  {
+    timestamps: false
   });
 
   return worker;

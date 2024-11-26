@@ -1,14 +1,13 @@
 const { DataTypes } = require("sequelize");
+const {
+  defaultValueSchemable,
+  toDefaultValue,
+} = require("sequelize/lib/utils");
 
 module.exports = (sequelize) => {
   const Admin = sequelize.define(
     "Admin",
     {
-    //   id: {
-    //   type: DataTypes.INTEGER,
-    //   autoIncrement: true,
-    //   primaryKey: true,
-    // },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,12 +16,18 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      role:{
+      role: {
         type: DataTypes.STRING,
         allowNull: false,
-      }
+        defaultValue: "admin",
+        // preguntar tibu
+        // defaultValueSchemable
+        // toDefaultValue
+      },
+    },
+    {
+      timestamps: false
     }
   );
-
   return Admin;
 };

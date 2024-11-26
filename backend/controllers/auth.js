@@ -90,7 +90,7 @@ exports.isAuthenticated = (req, res, next) => {
                     });
                 }
                 // get basic user details
-                // req.user = data;
+                req.user = data;
                 next();
             })
             .catch(err => {

@@ -25,7 +25,7 @@ function SchoolContainer() {
     <section className="section-container-school-cards">
       {schools.map((school) => (
         <SchoolCard
-          key={schools.id}
+          key={school.id}
           name={school.name}
           id={school.id}
           onDelete={handleDelete}

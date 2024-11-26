@@ -42,7 +42,6 @@ export async function create(formData) {
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }
-
       return response.json();
     })
     .catch((error) => {
@@ -50,6 +49,7 @@ export async function create(formData) {
       throw error;
     });
 }
+
 
 export async function remove(id) {
   const removeOperation = fetch(`${endpoint}/${id}`, {

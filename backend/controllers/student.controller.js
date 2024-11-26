@@ -18,6 +18,7 @@ exports.create = (req, res) => {
         age: req.body.age,
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     }
 
     Student.findOne({ where: { username: student.username } })
@@ -56,33 +57,82 @@ exports.create = (req, res) => {
 }
 
 exports.findAll = (req, res) => {
-    Student.findAll()
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving students."
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
+    }
+
+    if (req.user.role == 'admin' || req.user.role == 'worker') {
+        Student.findAll()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving students."
+                });
+            });
+    } else if (req.user.role == 'student') {
+        Student.findByPk(req.user.id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: "Student not found"
+                    })
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving student."
+                });
+            });
+    } else {
+        res.status(403).json({
+            message: "Access denied. Invalid role."
+        });
+    }
 };
 
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const id = Number(req.params.id);
 
-    Student.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Error retrieving User with id= " + id
-            });
+    if (!req.user) {
+        return res.status(403).json({
+            message: "Access denied. Authentication required."
         });
-}
+    }
+
+    if (req.user.role === 'admin' || id === req.user.id) {
+        Student.findByPk(id)
+            .then(data => {
+                if (!data) {
+                    return res.status(404).json({
+                        message: `Student with id=${id} not found.`
+                    });
+                }
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || `Error retrieving student with id=${id}.`
+                });
+            });
+    } else {
+        res.status(403).json({ message: "Access denied. You can only access your own data." });
+    };
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;
+
+    if(req.user.role !== 'admin' && Number(id) !== req.user.id){
+        return res.status(403).send({
+            message: "Access denied. You can only update your own data."
+        })
+
+    }
 
     if (!req.body.username) {
         return res.status(400).send({
@@ -100,6 +150,7 @@ exports.update = (req, res) => {
         age: req.body.age,
         phone: req.body.phone,
         role: req.body.role,
+        filename: req.file ? req.file.filename : ""
     };
 
     if(req.body.password){
@@ -111,7 +162,7 @@ exports.update = (req, res) => {
             if (rowsUpdated === 0) {
                 // If no rows were updated, the admin was not found
                 return res.status(404).send({
-                    message: `Cannot update Admin with id=${id}. Student not found.`
+                    message: `Cannot update Student with id=${id}. Student not found.`
                 });
             }
             res.send({ message: "Student was updated successfully." });
@@ -124,38 +175,60 @@ exports.update = (req, res) => {
         });
 };
 
-exports.delete= (req,res) => {
+exports.delete = (req, res) => {
     const id = req.params.id;
 
+    if(req.user.role !== 'admin' && Number(id) !== req.user.id){
+        return res.status(403).send({
+            message: "Access denied. You can only delete your own data."
+        })
+
+    };
+
     // Delete a Student by ID
-    Student.destroy({ where: {id:id}})
-    .then(deleted => {
-        if (deleted) {
-            console.log("Student with id:", id, "was deleted.");
-            res.json({ message: "Student deleted successfully." });
-        } else {
-            console.log("Student with id:", id, "was not found.");
-            res.status(404).json({ message: "Student not found." });
-        }
-    })
-    .catch(err => {
-        console.error("Error deleting student:", err);
-        res.status(500).json({ message: "Error deleting student." });
-    });
+    Student.destroy({ where: { id: id } })
+        .then(deleted => {
+            if (deleted) {
+                console.log("Student with id:", id, "was deleted.");
+                res.json({ message: "Student deleted successfully." });
+            } else {
+                console.log("Student with id:", id, "was not found.");
+                res.status(404).json({ message: "Student not found." });
+            }
+        })
+        .catch(err => {
+            console.error("Error deleting student:", err);
+            res.status(500).json({ message: "Error deleting student." });
+        });
 };
 
+// Find user by username and password
 exports.findUserByUsernameAndPassword = (req, res) => {
-    const student = req.body.username;
-    const pwd = req.body.password;
+    const { username, password } = req.body;
 
-    Admin.findOne({ where: { username: student, password: pwd } })
-        .then(data => {
-            res.send(data);
+    Student.findOne({ where: { username } })
+        .then(student => {
+            if (!student) {
+                return res.status(404).send({ message: "User not found." });
+            }
+
+            if (req.user.role !== 'admin' && req.user.id !== student.id) {
+                return res.status(403).send({
+                    message: "Access denied. You can only view your own data."
+                });
+            }
+
+            const isMatch = bcrypt.compareSync(password, student.password);
+            if (!isMatch) {
+                return res.status(401).send({ message: "Invalid credentials." });
+            }
+
+            res.send(student);
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving the user."
             });
-        }
-        )
-}
+        });
+};
+

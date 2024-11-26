@@ -1,19 +1,19 @@
-const { where } = require("sequelize");
 const db = require("../models");
 const School = db.school;
-const Op = db.sequelize.Op;
-// const utils = require("../utils");
-// const bcrypt = require('bcryptjs');
-// const userModel = require("../../../Ej/Ionic8NodeAuthBasic/backend/models/user.model");
 
 exports.create = (req, res) => {
 
+    if (!req.body.name || !req.body.address || !req.body.email || !req.body.phone) {
+        return res.status(400).send({ message: "All fields are required." });
+    }
+    
     // Create a School object
     const school = {
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        filename: req.file ? req.file.filename : ""
     };
 
     // Save School in the database
@@ -81,7 +81,8 @@ exports.update = (req, res) => {
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        filename: req.file ? req.file.filename : ""
     };
 
     // Attempt to update the school

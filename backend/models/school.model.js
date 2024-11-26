@@ -2,11 +2,6 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     const School = sequelize.define("School", {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -23,6 +18,12 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      filename:{
+        type: DataTypes.STRING
+      }
+    },
+    {
+      timestamps: false
     });
 
     return School;
