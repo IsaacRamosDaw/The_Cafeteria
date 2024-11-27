@@ -11,6 +11,8 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useState } from "react";
 
 export default function AccountSettings() {
+  let endPoint = "http://localhost:8080/images/"
+
   const handleAccount = (e) => {
     e.preventDefault();
 
@@ -23,7 +25,9 @@ export default function AccountSettings() {
     course: "1º Bachillerato",
     email: "hola@gmail.com",
     edad: 14,
+    phone: 1234567890,
     contrasenia: "1234",
+    imgProfile: "image-1732653502736.jpg"
   });
 
   return (
@@ -37,7 +41,7 @@ export default function AccountSettings() {
           <div className="container-img-profile">
             <Avatar
               alt={user.name}
-              src="/static/images/avatar/1.jpg"
+              src={ `${endPoint}${user.imgProfile}` || "/static/images/avatar/1.jpg" }
               sx={{ bgcolor: deepOrange[500], width: 70, height: 70 }}
             />
           </div>
@@ -71,6 +75,11 @@ export default function AccountSettings() {
             title={"Curso"}
             option={2}
             placeholder={user.course}
+          />
+          <InputFormSetting
+            title={"phone"}
+            option={2}
+            placeholder={user.phone}
           />
           <div className="container-btn-account">
             <Button text={"Actualizar"} submit={true} />
