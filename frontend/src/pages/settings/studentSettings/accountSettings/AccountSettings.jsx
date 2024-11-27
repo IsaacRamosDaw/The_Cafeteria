@@ -19,7 +19,7 @@ export default function AccountSettings() {
     console.log(e.target);
   };
 
-  const [user, setUser] = useState({
+  const [user, setUser] = useState( {
     name: "John Doe",
     school: "IES El Rincon",
     course: "1º Bachillerato",
