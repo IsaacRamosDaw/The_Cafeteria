@@ -4,14 +4,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "admin",
+      "admins",
       [
         {
-          name: "Juan",
-          address: "c/ peloponeso, 3",
-          email: "pepe@pepe.com",
-          phone: "928443322",
-          createdAt: ""
+          username: "Mansour",
+          password: "1234",
+          role: "admin"
         },
       ],
       {}
@@ -19,6 +17,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("schools", null, {});
+    await queryInterface.bulkDelete("Admin", null, {});
   },
 };
+
+// npx sequelize-cli db:seed --seed 20241127165345-admin-seeder.js
+// npx sequelize-cli db:seed:all 

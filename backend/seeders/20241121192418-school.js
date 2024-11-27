@@ -7,10 +7,11 @@ module.exports = {
       "schools",
       [
         {
-          name: "Juan",
+          name: "Ies el rinc",
+          filename: "hola",
           address: "c/ peloponeso, 3",
           email: "pepe@pepe.com",
-          phone: "928443322"
+          phone: "928443322",
         },
       ],
       {}
@@ -21,3 +22,5 @@ module.exports = {
     await queryInterface.bulkDelete("schools", null, {});
   },
 };
+
+// npx sequelize-cli db:seed:all 

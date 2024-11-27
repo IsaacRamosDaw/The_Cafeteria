@@ -2,236 +2,236 @@ const db = require("../models");
 const Admin = db.admins;
 const Op = db.sequelize.Op;
 const utils = require("../utils");
-const bcrypt = require('bcryptjs');
-
+const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
+  if (!req.body.password || !req.body.username || !req.body.role) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
 
-    if (!req.body.password || !req.body.username || !req.body.role) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
+  let admin = {
+    username: req.body.username,
+    password: req.body.password,
+    role: req.body.role,
+  };
 
-    let admin = {
-        username: req.body.username,
-        password: req.body.password,
-        role: req.body.role,
-    }
+  admin.password = bcrypt.hashSync(req.body.password);
 
+  Admin.findOne({ where: { username: admin.username } })
+    .then((data) => {
+      if (data) {
+        const result = bcrypt.compareSync(req.body.password, data.password);
+        if (!result) return res.status(401).send("Password not valid!");
+        const token = utils.generateToken(data);
+        const adminObj = utils.getCleanUser(data);
 
-    Admin.findOne({ where: { username: admin.username } })
-        .then(data => {
-            if (data) {
-                const result = bcrypt.compareSync(req.body.password, data.password);
-                if (!result) return res.status(401).send('Password not valid!');
-                const token = utils.generateToken(data);
-                const adminObj = utils.getCleanUser(data);
+        return res.json({ admin: adminObj, access_token: token });
+      }
 
-                return res.json({ admin: adminObj, access_token: token });
-            }
+      Admin.create(admin)
+        .then((data) => {
+          console.log("Después de crear", data);
+          const token = utils.generateToken(data);
+          console.log("Después de crear el token", token);
+          const adminObj = utils.getCleanUser(data);
+          console.log("Después de limpiar el usuario", adminObj);
 
-            admin.password = bcrypt.hashSync(req.body.password);
-
-            Admin.create(admin)
-                .then(data => {
-                    console.log("Después de crear", data);
-                    const token = utils.generateToken(data);
-                    console.log("Después de crear el token", token);
-                    const adminObj = utils.getCleanUser(data);
-                    console.log("Después de limpiar el usuario", adminObj);
-
-                    return res.json({ admin: adminObj, access_token: token });
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message:
-                            err.message || "Some error while creating the Admin."
-                    });
-                });
+          return res.json({ admin: adminObj, access_token: token });
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
+        .catch((err) => {
+          res.status(500).send({
+            message: err.message || "Some error while creating the Admin.",
+          });
         });
-}
+    })
+
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+};
+
 exports.findAll = (req, res) => {
-    if (!req.user) {
-        return res.status(403).json({
-            message: "Access denied. Authentication required."
-        });
-    }
+  if (!req.user) {
+    return res.status(403).json({
+      message: "Access denied. Authentication required.",
+    });
+  }
 
-    if (req.user.role === 'admin') {
-        Admin.findAll()
-            .then(data => {
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving admins."
-                });
-            });
-
-        Admin.findByPk(req.user.id)
-            .then(data => {
-                if (!data) {
-                    return res.status(404).json({
-                        message: "Admin not found"
-                    })
-                }
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving admin."
-                });
-            });
-    } else {
-        res.status(403).json({
-            message: "Access denied. Invalid role."
+  if (req.user.role === "admin") {
+    Admin.findAll()
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving admins.",
         });
-    }
+      });
+
+    Admin.findByPk(req.user.id)
+      .then((data) => {
+        if (!data) {
+          return res.status(404).json({
+            message: "Admin not found",
+          });
+        }
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while retrieving admin.",
+        });
+      });
+  } else {
+    res.status(403).json({
+      message: "Access denied. Invalid role.",
+    });
+  }
 };
 
 // Retrieve all admins
 
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    if (!req.user) {
-        return res.status(403).json({
-            message: "Access denied. Authentication required."
-        });
-    }
+  if (!req.user) {
+    return res.status(403).json({
+      message: "Access denied. Authentication required.",
+    });
+  }
 
-    if (req.user.role === 'admin') {
-        Admin.findByPk(id)
-            .then(data => {
-                if (!data) {
-                    return res.status(404).json({
-                        message: `Admin with id=${id} not found.`
-                    });
-                }
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || `Error retrieving admin with id=${id}.`
-                });
-            });
-    } else {
-        res.status(403).json({
-            message: "Access denied. Invalid role."
+  if (req.user.role === "admin") {
+    Admin.findByPk(id)
+      .then((data) => {
+        if (!data) {
+          return res.status(404).json({
+            message: `Admin with id=${id} not found.`,
+          });
+        }
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || `Error retrieving admin with id=${id}.`,
         });
-    }
+      });
+  } else {
+    res.status(403).json({
+      message: "Access denied. Invalid role.",
+    });
+  }
 };
 
 exports.update = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    // Validate request
+  // Validate request
 
-    if(Number(id) !== req.user.id){
-        return res.status(403).send({
-            message: "Access denied. You can only update your own data."
+  if (Number(id) !== req.user.id) {
+    return res.status(403).send({
+      message: "Access denied. You can only update your own data.",
+    });
+  }
+
+  if (!req.body.username) {
+    return res.status(400).send({
+      message: "The name field cannot be empty.",
+    });
+  }
+  if (!req.body.password) {
+    return res.status(400).send({
+      message: "The password field cannot be empty.",
+    });
+  }
+
+  const update = {
+    username: req.body.username,
+    // password: req.body.password,
+    role: req.body.role,
+  };
+
+  if (req.body.password) {
+    update.password = bcrypt.hashSync(req.body.password);
+  }
+  // Attempt to update the admin
+  Admin.update(update, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        // If no rows were updated, the admin was not found
+        return res.status(404).send({
+          message: `Cannot update Admin with id=${id}. Admin not found.`,
         });
-    }
-
-    if (!req.body.username) {
-        return res.status(400).send({
-            message: "The name field cannot be empty."
-        });
-    }
-    if (!req.body.password) {
-        return res.status(400).send({
-            message: "The password field cannot be empty."
-        });
-    }
-
-    const update = {
-        username: req.body.username,
-        // password: req.body.password,
-        role: req.body.role,
-    };
-
-    if(req.body.password){
-        update.password = bcrypt.hashSync(req.body.password);
-    }
-    // Attempt to update the admin
-    Admin.update(update, { where: { id: id } })
-        .then(([rowsUpdated]) => {
-            if (rowsUpdated === 0) {
-                // If no rows were updated, the admin was not found
-                return res.status(404).send({
-                    message: `Cannot update Admin with id=${id}. Admin not found.`
-                });
-            }
-            res.send({ message: "Admin was updated successfully." });
-        })
-        .catch(err => {
-            // Catch any error
-            res.status(500).send({
-                message: err.message || "An error occurred while updating the Admin."
-            });
-        });
+      }
+      res.send({ message: "Admin was updated successfully." });
+    })
+    .catch((err) => {
+      // Catch any error
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the Admin.",
+      });
+    });
 };
 
 exports.delete = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    if(Number(id) !== req.user.id){
-        return res.status(403).send({
-            message: "Access denied. You can only update your own data."
-        });
-    }
+  if (Number(id) !== req.user.id) {
+    return res.status(403).send({
+      message: "Access denied. You can only update your own data.",
+    });
+  }
 
-    // Delete an Admin by ID
-    Admin.destroy({ where: { id: id } })
-        .then(deleted => {
-            if (deleted) {
-                console.log("Admin with id:", id, "was deleted.");
-                res.json({ message: "Admin deleted successfully." });
-            } else {
-                console.log("Admin with id:", id, "was not found.");
-                res.status(404).json({ message: "Admin not found." });
-            }
-        })
-        .catch(err => {
-            console.error("Error deleting admin:", err);
-            res.status(500).json({ message: "Error deleting admin." });
-        });
+  // Delete an Admin by ID
+  Admin.destroy({ where: { id: id } })
+    .then((deleted) => {
+      if (deleted) {
+        console.log("Admin with id:", id, "was deleted.");
+        res.json({ message: "Admin deleted successfully." });
+      } else {
+        console.log("Admin with id:", id, "was not found.");
+        res.status(404).json({ message: "Admin not found." });
+      }
+    })
+    .catch((err) => {
+      console.error("Error deleting admin:", err);
+      res.status(500).json({ message: "Error deleting admin." });
+    });
 };
 
 // Find user by username and password
 exports.findUserByUsernameAndPassword = (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    Admin.findOne({ where: { username } })
-        .then(admin => {
-            if (!admin) {
-                return res.status(404).send({ message: "User not found." });
-            }
+  Admin.findOne({ where: { username } })
+    .then((admin) => {
+      if (!admin) {
+        return res.status(404).send({ message: "User not found." });
+      }
 
-            if (req.user.role !== 'admin' && req.user.id !== admin.id) {
-                return res.status(403).send({
-                    message: "Access denied. You can only view your own data."
-                });
-            }
-
-            const isMatch = bcrypt.compareSync(password, admin.password);
-            if (!isMatch) {
-                return res.status(401).send({ message: "Invalid credentials." });
-            }
-
-            res.send(admin);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving the user."
-            });
+      if (req.user.role !== "admin" && req.user.id !== admin.id) {
+        return res.status(403).send({
+          message: "Access denied. You can only view your own data.",
         });
+      }
+
+      const isMatch = bcrypt.compareSync(password, admin.password);
+      if (!isMatch) {
+        return res.status(401).send({ message: "Invalid credentials." });
+      }
+
+      res.send(admin);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving the user.",
+      });
+    });
 };
