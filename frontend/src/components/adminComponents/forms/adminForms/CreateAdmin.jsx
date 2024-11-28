@@ -12,14 +12,16 @@ function CreateAdmin() {
 
     let nameAdmin = document.querySelector("#name-admin");
     let passwordAdmin = document.querySelector("#password-admin");
+    
     const formData = {
-      name: nameAdmin.value,
+      username: nameAdmin.value,
       password: passwordAdmin.value,
     };
 
-    create(formData).then(() => {
+    console.log('bbbbbb', create(formData).then(() => {
       navigate(-1);
-    })
+    }));
+    
   };
 
   return (

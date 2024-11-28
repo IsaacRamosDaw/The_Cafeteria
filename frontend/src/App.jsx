@@ -30,6 +30,7 @@ import CreditSetting from "./pages/settings/studentSettings/creditSettings/Credi
 import Favorites from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import MyCafeteria from "./pages/settings/studentSettings/myCafeteria/MyCafeteria.jsx";
 import Policy from "./pages/settings/studentSettings/policy/Policy.jsx";
+import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
 
 function App() {
   return (
@@ -63,6 +64,8 @@ function App() {
           <Route path={"/favorites"} element={ <Favorites /> } />
           <Route path={"/mycafeteria"} element={ <MyCafeteria /> } />
           <Route path={"/policy"} element={ <Policy /> } />
+
+          <Route path={"/error"} element={ <ErrorPage /> } />
 
         </Routes>
       </Router>

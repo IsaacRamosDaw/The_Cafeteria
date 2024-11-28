@@ -1,16 +1,19 @@
 const endpoint = "http://localhost:8080/api/admin";
 
-
 export function get() {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
 
   const getOperation = fetch(endpoint, {
     method: "GET",
     headers: new Headers({
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
-  }), 
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -26,7 +29,20 @@ export function get() {
 }
 
 export function getOne(id) {
-  const getOneOperation = fetch(`${endpoint}/${id}`)
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOneOperation = fetch(`${endpoint}/${id}`, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -40,15 +56,18 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export async function create(formData) {
+export function create(formData) {
+  console.log("Function create admin")
   return fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(formData),
+    headers:  new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
+    }),
+    body: new URLSearchParams({role: 'admin'}),
   })
     .then((response) => {
+      console.log("THEN Function create admin")
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }
@@ -60,10 +79,21 @@ export async function create(formData) {
     });
 }
 
-
 export async function remove(id) {
+  let token = localStorage.getItem("token")
+
+  if(!token){
+    window.location.href='/error'
+  }
+  
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
+    headers: {
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    
   })
     .then((response) => {
       if (!response.ok) {
@@ -80,12 +110,20 @@ export async function remove(id) {
 }
 
 export async function edit(id, data) {
-  let url = `${endpoint}/${id}`
+  let token = localStorage.getItem("token")
+
+  if(!token){
+    window.location.href='/error'
+  }
+
+  let url = `${endpoint}/${id}`;
 
   return fetch(url, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams(data),
   })

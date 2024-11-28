@@ -17,6 +17,7 @@ exports.create = (req, res) => {
     password: req.body.password,
     role: req.body.role,
   };
+  console.log('AAAAAAAAAA', req.body);
 
   admin.password = bcrypt.hashSync(req.body.password);
 
