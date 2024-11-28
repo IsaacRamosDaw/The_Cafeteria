@@ -12,6 +12,10 @@
     .img-avatar{
         color: blue;
     }
+    .welcome-submit:active{
+        transform: translateY(-4px);
+        transition-duration: .3s;
+    }
 
     .register-form-text {
         color: $primary-color;

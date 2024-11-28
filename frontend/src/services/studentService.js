@@ -1,17 +1,7 @@
-const endpoint = "http://localhost:8080/api/admin";
-
+const endpoint = "http://localhost:8080/api/student";
 
 export function get() {
-  let token = localStorage.getItem("token")
-
-  const getOperation = fetch(endpoint, {
-    method: "GET",
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
-  }), 
-  })
+  const getOperation = fetch(endpoint)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -60,7 +50,6 @@ export async function create(formData) {
     });
 }
 
-
 export async function remove(id) {
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
@@ -80,7 +69,7 @@ export async function remove(id) {
 }
 
 export async function edit(id, data) {
-  let url = `${endpoint}/${id}`
+  let url = `${endpoint}/${id}`;
 
   return fetch(url, {
     method: "PUT",
@@ -98,6 +87,26 @@ export async function edit(id, data) {
     })
     .catch((error) => {
       console.error("Error while updating admin data:", error);
+      throw error;
+    });
+}
+
+export async function login(formData) {
+  return fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams(formData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error while retrieving admin data:", error);
       throw error;
     });
 }

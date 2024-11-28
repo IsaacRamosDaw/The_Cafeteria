@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
 
-function AdminCard({ name, id, onDelete }) {
+function AdminCard({ username, id, onDelete }) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -22,7 +22,7 @@ function AdminCard({ name, id, onDelete }) {
           alt="Imagen de administrador"
         />
         <div className="container-name">
-          <h2>{name}</h2>
+          <h2>{username}</h2>
         </div>
       </div>
 

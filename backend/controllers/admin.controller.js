@@ -56,47 +56,31 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = (req, res) => {
+
+exports.findAll = async (req, res) => {
   if (!req.user) {
     return res.status(403).json({
       message: "Access denied. Authentication required.",
     });
   }
 
-  if (req.user.role === "admin") {
-    Admin.findAll()
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving admins.",
-        });
-      });
-
-    Admin.findByPk(req.user.id)
-      .then((data) => {
-        if (!data) {
-          return res.status(404).json({
-            message: "Admin not found",
-          });
-        }
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving admin.",
-        });
-      });
-  } else {
-    res.status(403).json({
+  if (req.user.role !== "admin") {
+    return res.status(403).json({
       message: "Access denied. Invalid role.",
     });
   }
-};
 
-// Retrieve all admins
+  try {
+    const admins = await Admin.findAll();
+
+    return res.json(admins);
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message || "Some error occurred while retrieving data.",
+    });
+  }
+  
+};
 
 exports.findOne = (req, res) => {
   const id = req.params.id;

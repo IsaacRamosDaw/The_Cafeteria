@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     role:{
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "student"
     },
     age: {
       type: DataTypes.INTEGER,

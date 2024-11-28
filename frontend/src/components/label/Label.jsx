@@ -6,11 +6,8 @@ export default function Label({
   type = "text",
   id,
   select,
-  schools
 }) {
-  let courses = ["1ºEso", "2ºEso", "3ºEso", "4ºEso", "1ºBachiller", "2ºBachiller"];
-  
-  let schoolsArray = ["Ies El Rincon","Ies Santa Isabel","Ies Siete Palmas","Ies Guanrteme","Ies Alonso quesada"];
+
   
 
   if (select) {
@@ -19,13 +16,6 @@ export default function Label({
         <label className="label-text" htmlFor={id}>
           {title}
         </label>
-        <select name={id} id={id}>
-          {courses.map((c, index) => (
-                <option key={index} value={c}>
-                  {c}
-                </option>
-              ))}
-        </select>
       </div>
     );
   }

@@ -20,9 +20,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "admin",
-        // preguntar tibu
-        // defaultValueSchemable
-        // toDefaultValue
       },
     },
     {
