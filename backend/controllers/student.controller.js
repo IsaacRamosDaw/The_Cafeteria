@@ -5,7 +5,7 @@ const utils = require("../utils");
 const bcrypt = require('bcryptjs');
 
 exports.create = (req, res) => {
-    if (!req.body.password || !req.body.username || !req.body.role) {
+    if (!req.body.password || !req.body.username) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
         password: req.body.password,
         age: req.body.age,
         phone: req.body.phone,
-        role: req.body.role,
+        role: "student",
         filename: req.file ? req.file.filename : ""
     }
 
@@ -148,7 +148,7 @@ exports.update = (req, res) => {
         username: req.body.username,
         age: req.body.age,
         phone: req.body.phone,
-        role: req.body.role,
+        role: "student",
         filename: req.file ? req.file.filename : ""
     };
 

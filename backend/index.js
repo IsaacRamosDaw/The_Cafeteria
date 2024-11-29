@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
-app.use(upload.none()) // Use form-data HTTP headers
+app.use(upload.any()) // Use form-data HTTP headers
 
 var corsOptions = {
   origin: "http://localhost:5173",
@@ -68,9 +68,9 @@ require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);
 require("./routes/school.routes")(app);
 
+require("./routes/site.routes")(app)
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Backend server running on port ${PORT}`);
 });
-
-app.use(express.static(path.join(__dirname, 'public')))

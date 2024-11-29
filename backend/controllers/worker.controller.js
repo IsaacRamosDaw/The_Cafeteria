@@ -5,11 +5,7 @@ const bcrypt = require('bcryptjs');
 
 // Create a new Worker
 exports.create = (req, res) => {
-    if (!req.body.password || !req.body.username || !req.body.role) {
-        console.log(req.body)
-        console.log(req.body.password)
-        console.log(req.body.username)
-        console.log(req.body.role)
+    if (!req.body.password || !req.body.username) {
         res.status(400).send({ message: "Content cannot be empty!" });
     }
 
@@ -17,7 +13,7 @@ exports.create = (req, res) => {
         username: req.body.username,
         password: req.body.password,
         phone: req.body.phone,
-        role: req.body.role,
+        role: "worker",
         filename: req.file ? req.file.filename : ""
     };
 
@@ -134,7 +130,7 @@ exports.update = (req, res) => {
         username: req.body.username,
         password: bcrypt.hashSync(req.body.password),
         phone: req.body.phone,
-        role: req.body.role,
+        role: "worker",
         filename: req.file ? req.file.filename : ""
     };
 
