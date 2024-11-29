@@ -4,7 +4,7 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  router.post("/signin", (req, res) => auth.signin(req, res, "admin"));
+  // router.post("/signin", (req, res) => auth.signin(req, res, "admin"));
 
   //Create an admin
   router.post("/", admin.create);

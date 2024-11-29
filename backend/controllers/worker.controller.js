@@ -6,7 +6,11 @@ const bcrypt = require('bcryptjs');
 // Create a new Worker
 exports.create = (req, res) => {
     if (!req.body.password || !req.body.username || !req.body.role) {
-        return res.status(400).send({ message: "Content cannot be empty!" });
+        console.log(req.body)
+        console.log(req.body.password)
+        console.log(req.body.username)
+        console.log(req.body.role)
+        res.status(400).send({ message: "Content cannot be empty!" });
     }
 
     const worker = {

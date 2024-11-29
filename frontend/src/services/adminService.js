@@ -57,7 +57,6 @@ export function getOne(id) {
 }
 
 export function create(formData) {
-  console.log("Function create admin")
   return fetch(endpoint, {
     method: "POST",
     headers:  new Headers({
@@ -67,7 +66,6 @@ export function create(formData) {
     body: new URLSearchParams({role: 'admin'}),
   })
     .then((response) => {
-      console.log("THEN Function create admin")
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }

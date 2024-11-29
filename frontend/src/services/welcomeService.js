@@ -1,12 +1,8 @@
-let endpoints = [
-  "http://localhost:8080/api/admin/signin",
-  "http://localhost:8080/api/worker/signin",
-  "http://localhost:8080/api/student/signin",
-];
+let endpoint = "http://localhost:8080/api/site"
 
 export async function login(formData) {
   try {
-    const response = await fetch("http://localhost:8080/api/admin/signin", {
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
