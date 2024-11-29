@@ -4,9 +4,9 @@ export async function login(formData) {
   try {
     const response = await fetch(endpoint, {
       method: "POST",
-      headers: {
+      headers: new Headers({
         "Content-Type": "application/x-www-form-urlencoded",
-      },
+      }),
       body: new URLSearchParams(formData),
     });
 

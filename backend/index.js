@@ -5,13 +5,16 @@ require('dotenv').config();
 
 var path = require('path');
 
+const upload = require('./multer/upload')
+
 const app = express();
 
 //public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
+app.use(upload.none()) // Use form-data HTTP headers
 
 var corsOptions = {
   origin: "http://localhost:5173",
