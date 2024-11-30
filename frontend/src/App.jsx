@@ -25,7 +25,7 @@ import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchoo
 
 // Worker 
 import HomeWorker from "./pages/home/HomeWorker.jsx";
-import MenuPageWorker from "./pages/Menu/MenuPageWorker.jsx";
+// import MenuPageWorker from "./pages/Menu/MenuPageWorker.jsx";
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
@@ -53,7 +53,7 @@ function App() {
           <Route path="/worker" element={<CreateWorker />} />
           <Route path="/worker/:id" element={<EditWorker />} />
           <Route path="/homeworker" element={<HomeWorker />} />
-          <Route path="/menuworker" element={<MenuPageWorker />} />
+          {/* <Route path="/menuworker" element={<MenuPageWorker />} /> */}
 
           {/* Admin routes */}
           <Route path="/admin" element={<CreateAdmin />} />
