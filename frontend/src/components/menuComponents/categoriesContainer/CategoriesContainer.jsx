@@ -1,7 +1,8 @@
 import CategoryCard from "../categoryCard/CategoryCard";
 import "./CategoriesContainer.scss";
+import Plus from '../../workerComponents/Plus';
 
-function CategoriesContainer() {
+function CategoriesContainer({worker}) {
   return (
     <section className="category-cards-container" >
       <main id="category-container-card">
@@ -35,6 +36,7 @@ function CategoriesContainer() {
           count={122}
           title={"refrescos"}
         />
+        {worker && <Plus/>}
       </main>
     </section>
   );

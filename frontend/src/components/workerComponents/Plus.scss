@@ -1,0 +1,18 @@
+#plus-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid #000000;
+  font-size: xx-large;
+  margin: 20px;
+}
+
+#plus-container:hover {
+  background-color: #bb750c;
+  transition: 0.2s;
+}
+

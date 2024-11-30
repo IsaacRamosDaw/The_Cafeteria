@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CardProductHome from "../cards/cardProductHome/CardProductHome";
 import "./PlateOfTheDayContainer.scss";
+import Plus from '../../workerComponents/Plus'
 
-export default function PlateOfTheDayContainer() {
+export default function PlateOfTheDayContainer({worker}) {
   const [plate, setPlate] = useState({});
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function PlateOfTheDayContainer() {
           title={plate.title}
           price={plate.price}
         />
+      {worker && <Plus/>}
       </div>
     </section>
   );

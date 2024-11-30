@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CardMenuHome from "../cards/cardMenuHome/CardMenuHome";
 import "./MenuContainer.scss";
+import Plus from '../../workerComponents/Plus'
 
-export default function MenuContainer() {
+export default function MenuContainer({worker}) {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function MenuContainer() {
             time={menu.time}
           />
         ))}
+      {worker && <Plus/>}
       </div>
     </section>
   );

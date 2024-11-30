@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CardProductHome from "../cards/cardProductHome/CardProductHome";
+import Plus from '../../workerComponents/Plus'
 import "./RecentsContainer.scss";
 
-export default function RecentsContainer() {
+export default function RecentsContainer({worker}) {
   const [recents, setRecents] = useState([]);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function RecentsContainer() {
             price={recent.price}
           />
         ))}
+      {worker && <Plus/>}
       </div>
     </section>
   );
