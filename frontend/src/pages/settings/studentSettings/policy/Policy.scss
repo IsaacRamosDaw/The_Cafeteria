@@ -1,0 +1,85 @@
+.privacy-container {
+  padding: 20px;
+  background-color: #1c1c1c;
+  color: white;
+  font-family: Arial, sans-serif;
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .back-button {
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+      margin-right: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .card {
+      flex: 1;
+      background-color: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #444;
+
+      h2 {
+        margin-top: 0;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .description {
+    text-align: center;
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .image-container {
+      margin: 0 auto 20px auto;
+
+      img {
+        width: 100px;
+        height: auto;
+      }
+    }
+
+    .privacy-button {
+      padding: 10px 20px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #005bb5;
+      }
+    }
+  }
+}
