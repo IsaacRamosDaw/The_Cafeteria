@@ -8,6 +8,9 @@
   border-radius: 10px;
 
   .container-content-card-category {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/ImgMenus/bebidas.jpg');
+    background-position: center;
+    background-size: cover;
     width: 100%;
     height: 100%;
     position: relative;
@@ -16,30 +19,33 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: $neutral-default-black;
+    // background-color: $neutral-default-black;
     opacity: .6;
     .title-category-card{
+      z-index: 1;
       font-size: $font-size-medium-big;
       color: var(--text-1);
     }
     .count-category-card{
+      z-index: 1;
       font-size: $font-size-tiny;
       color: var(--text-2);
     }
   }
 
-  .container-img-category-card {
+}
+.container-img-category-card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  img {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    object-fit: cover;
+    z-index: 0;
   }
 }
