@@ -5,10 +5,12 @@ module.exports = (app) => {
 
     var router = require("express").Router();
 
-    router.post('/signin', (req, res) => auth.signin(req, res, 'student'));
+    // router.post('/signin', (req, res) => auth.signin(req, res, 'student'));
     
     //Create an student
-    router.post("/", upload.single('file'), student.create);
+    router.post("/", student.create);
+
+    router.put("/upload/:id", upload.single('file'), student.imgUpdate);
 
     //List all students
     router.get("/", auth.isAuthenticated, student.findAll);
