@@ -153,6 +153,45 @@ exports.update = (req, res) => {
         });
 };
 
+
+exports.imgUpdate = (req, res) => {
+    const id = req.params.id;
+  
+    console.log(req.user);
+  
+    if (
+      !(
+        req.user.role == "admin" ||
+        (req.user.role == "worker" && Number(id) == req.user.id)
+      )
+    ) {
+      return res.status(403).send({
+        message: "Access denied. You can only update your own data.",
+      });
+    }
+  
+    const updateWorker = {
+      filename: req.file ? req.file.filename : "",
+    };
+  
+    Worker.update(updateWorker, { where: { id: id } })
+      .then(([rowsUpdated]) => {
+        if (rowsUpdated === 0) {
+          // If no rows were updated, the worker was not found
+          return res.status(404).send({
+            message: `Cannot update worker with id=${id}. worker not found.`,
+          });
+        }
+        res.send({ message: "worker was updated successfully." });
+      })
+      .catch((err) => {
+        // Catch any error
+        res.status(500).send({
+          message: err.message || "An error occurred while updating the worker.",
+        });
+      });
+  };
+
 // Delete a worker by ID
 exports.delete = (req, res) => {
     const id =req.params.id;

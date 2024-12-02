@@ -5,12 +5,11 @@ const utils = require("../utils");
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
-  // if (!req.body.password || !req.body.username) {
-
-  //     return res.status(400).send({
-  //         message: "Content can not be empty!"
-  //     });
-  // }
+  if (!req.body.password || !req.body.username) {
+    return res.status(400).send({
+      message: "Content can not be empty!",
+    });
+  }
 
   let student = {
     username: req.body.username,
@@ -20,10 +19,6 @@ exports.create = (req, res) => {
     role: "student",
     filename: req.file ? req.file.filename : "",
   };
-
-  console.log(req.body.file);
-  console.log(req.file);
-  console.log(student);
 
   Student.findOne({ where: { username: student.username } })
     .then((data) => {
@@ -204,7 +199,7 @@ exports.imgUpdate = (req, res) => {
   Student.update(updateStudent, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the admin was not found
+        // If no rows were updated, the student was not found
         return res.status(404).send({
           message: `Cannot update Student with id=${id}. Student not found.`,
         });

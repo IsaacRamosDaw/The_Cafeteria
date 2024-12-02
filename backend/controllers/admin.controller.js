@@ -17,7 +17,6 @@ exports.create = (req, res) => {
     password: req.body.password,
     role: "admin",
   };
-  console.log('AAAAAAAAAA', req.body);
 
   admin.password = bcrypt.hashSync(req.body.password);
 
@@ -57,7 +56,6 @@ exports.create = (req, res) => {
     });
 };
 
-
 exports.findAll = async (req, res) => {
   if (!req.user) {
     return res.status(403).json({
@@ -80,7 +78,6 @@ exports.findAll = async (req, res) => {
       message: err.message || "Some error occurred while retrieving data.",
     });
   }
-  
 };
 
 exports.findOne = (req, res) => {
@@ -160,6 +157,39 @@ exports.update = (req, res) => {
       // Catch any error
       res.status(500).send({
         message: err.message || "An error occurred while updating the Admin.",
+      });
+    });
+};
+
+exports.imgUpdate = (req, res) => {
+  const id = req.params.id;
+
+  console.log(req.user);
+
+  if (req.user.role != "admin" ) {
+    return res.status(403).send({
+      message: "Access denied. You can only update your own data.",
+    });
+  }
+
+  const updateAdmin = {
+    filename: req.file ? req.file.filename : "",
+  };
+
+  Admin.update(updateAdmin, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        // If no rows were updated, the admin was not found
+        return res.status(404).send({
+          message: `Cannot update admin with id=${id}. admin not found.`,
+        });
+      }
+      res.send({ message: "admin was updated successfully." });
+    })
+    .catch((err) => {
+      // Catch any error
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the admin.",
       });
     });
 };

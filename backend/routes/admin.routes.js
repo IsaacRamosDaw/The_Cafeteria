@@ -1,6 +1,7 @@
 module.exports = (app) => {
   const admin = require("../controllers/admin.controller.js");
   const auth = require("../controllers/auth.js");
+  var upload = require("../multer/upload.js")
 
   var router = require("express").Router();
 
@@ -8,6 +9,8 @@ module.exports = (app) => {
 
   //Create an admin
   router.post("/", admin.create);
+
+  router.put("/upload/:id", upload.single('file'), admin.imgUpdate);
 
   //List all admins
 //   router.get("/", auth.isAuthenticated, admin.findAll);

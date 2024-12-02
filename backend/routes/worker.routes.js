@@ -8,7 +8,9 @@ module.exports = (app) => {
     router.post('/signin', (req, res) => auth.signin(req, res, 'worker'));
 
     //Create a worker
-    router.post("/", upload.single('file'), worker.create);
+    router.post("/", worker.create);
+
+    router.put("/upload/:id", upload.single('file'), worker.imgUpdate);
 
     //List all workers
     router.get("/", auth.isAuthenticated, worker.findAll);
@@ -22,7 +24,6 @@ module.exports = (app) => {
 
     //Delete worker
     router.delete("/:id", auth.isAuthenticated, worker.delete);
-
 
     app.use('/api/worker', router);
 

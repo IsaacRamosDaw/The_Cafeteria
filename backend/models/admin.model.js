@@ -21,6 +21,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "admin",
       },
+      filename:{
+        type: DataTypes.STRING
+      }
     },
     {
       timestamps: false
