@@ -76,7 +76,6 @@ function App() {
           <Route path={"/favorites"} element={ <Favorites /> } />
           <Route path={"/mycafeteria"} element={ <MyCafeteria /> } />
           <Route path={"/policy"} element={ <Policy /> } />
-
           <Route path={"/error"} element={ <ErrorPage /> } />
 
         </Routes>
