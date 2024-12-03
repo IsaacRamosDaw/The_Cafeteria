@@ -1,15 +1,13 @@
-.privacy-container {
+div#privacy-container {
   padding: 20px;
   background-color: #1c1c1c;
   color: white;
   font-family: Arial, sans-serif;
 
-  .header {
-    display: flex;
-    align-items: center;
+  section#header {
     margin-bottom: 20px;
 
-    .back-button {
+    a {
       text-decoration: none;
       font-size: 20px;
       color: white;
@@ -18,16 +16,22 @@
 
     h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 2vh;
+    }
+
+    p{
+      text-align: center;
     }
   }
 
-  .card-container {
+  #card-container {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
 
-    .card {
+    div {
       flex: 1;
       background-color: #2a2a2a;
       padding: 15px;
@@ -46,8 +50,7 @@
     }
   }
 
-  .description {
-    text-align: center;
+  section#description {
 
     h2 {
       font-size: 18px;
@@ -59,7 +62,7 @@
       margin-bottom: 20px;
     }
 
-    .image-container {
+    #image-container {
       margin: 0 auto 20px auto;
 
       img {
@@ -68,7 +71,7 @@
       }
     }
 
-    .privacy-button {
+    button {
       padding: 10px 20px;
       background-color: #0078d4;
       color: white;
