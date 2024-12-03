@@ -3,6 +3,7 @@ const Student = db.student;
 const Op = db.sequelize.Op;
 const utils = require("../utils");
 const bcrypt = require("bcryptjs");
+const Wallet = require("../controllers/wallet.controller")
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
@@ -38,6 +39,30 @@ exports.create = (req, res) => {
           const token = utils.generateToken(data);
           const studentObj = utils.getCleanUser(data);
 
+          // CREACION DE WALLET /PREGUNTAR
+          //1
+          // preguntar
+          try {
+            const wallet = {
+              ammount: req.body.ammount || 0, //valor inicial
+              // FK DEL ESTUDIANTE
+              // studentId: req.user.id,
+            }
+            return Wallet.create(wallet, req.user.id).then(() => {
+              const token = utils.generateToken(data);
+              const walletObj = utils.getCleanUser(data);
+
+              res.status(201).json({
+                student: studentObj,
+                acces_token: token,
+                mesage: "wallet from this student created succesfully",
+              })
+            })
+          } catch (err) {
+            // No sé que poner
+          }
+
+
           return res.json({ student: studentObj, access_token: token });
         })
         .catch((err) => {
@@ -52,6 +77,8 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while retrieving tutorials.",
       });
     });
+
+
 };
 
 exports.findAll = (req, res) => {
@@ -120,9 +147,7 @@ exports.findOne = (req, res) => {
         });
       });
   } else {
-    res
-      .status(403)
-      .json({ message: "Access denied. You can only access your own data." });
+    res.status(403).json({ message: "Access denied. You can only access your own data." });
   }
 };
 

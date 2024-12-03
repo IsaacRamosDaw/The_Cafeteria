@@ -5,10 +5,6 @@ module.exports = (sequelize) => {
   const Wallet = sequelize.define(
     "Wallet",
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
       amount: {
         type: DataTypes.INTEGER,
       },
