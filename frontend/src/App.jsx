@@ -35,7 +35,7 @@ import AccountSettings from "./pages/settings/studentSettings/accountSettings/Ac
 import CreditSetting from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
 import MyCafeteria from "./pages/settings/studentSettings/myCafeteria/MyCafeteria.jsx";
 import Favorites from "./pages/settings/studentSettings/favorites/Favorites.jsx";
-import Policy from "./pages/settings/studentSettings/policy/Policy.jsx";
+import Policy from "./pages/settings/policy/Policy.jsx";
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
 
 function App() {
