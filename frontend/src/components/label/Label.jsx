@@ -7,9 +7,6 @@ export default function Label({
   id,
   select,
 }) {
-
-  
-
   if (select) {
     return (
       <div className="label-option">
@@ -19,12 +16,12 @@ export default function Label({
       </div>
     );
   }
-    return (
-      <div className="label-input">
-        <label className="label-text" htmlFor={id}>
-          {title}
-        </label>
-        <input type={type} placeholder={placeHolder} id={id} name={id} />
-      </div>
-    );
+  return (
+    <div className="label-input">
+      <label className="label-text" htmlFor={id}>
+        {title}
+      </label>
+      <input type={type} placeholder={placeHolder} id={id} name={id} />
+    </div>
+  );
 }

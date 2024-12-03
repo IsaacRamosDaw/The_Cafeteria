@@ -56,42 +56,45 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export function create(formData) {
-  return fetch(endpoint, {
-    method: "POST",
-    headers:  new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
-    }),
-    body: new URLSearchParams({role: 'admin'}),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while retrieving admin data:", error);
-      throw error;
+export async function create(formData) {
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${btoa(
+          formData.username + ":" + formData.password
+        )}`,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+
+    const user = await response.json(); // Resolviendo la promesa de la respuesta
+    console.log("Usuario creado:", user.admin);
+
+    return user;
+  } catch (error) {
+    console.error("Error while retrieving admin data:", error);
+    throw error;
+  }
 }
 
 export async function remove(id) {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
-  if(!token){
-    window.location.href='/error'
+  if (!token) {
+    window.location.href = "/error";
   }
-  
+
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json"
     },
-    
   })
     .then((response) => {
       if (!response.ok) {
@@ -108,10 +111,10 @@ export async function remove(id) {
 }
 
 export async function edit(id, data) {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
-  if(!token){
-    window.location.href='/error'
+  if (!token) {
+    window.location.href = "/error";
   }
 
   let url = `${endpoint}/${id}`;
@@ -119,9 +122,9 @@ export async function edit(id, data) {
   return fetch(url, {
     method: "PUT",
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams(data),
   })
@@ -136,4 +139,42 @@ export async function edit(id, data) {
       console.error("Error while updating admin data:", error);
       throw error;
     });
+}
+
+export async function editImg(id, data) {
+  try {
+    let token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "/error";
+      return; // Asegúrate de detener la ejecución si no hay token
+    }
+
+    let url = `${endpoint}/upload/${id}`;
+
+    // Crear un objeto FormData
+    const formData = new FormData();
+    formData.append("file", data);
+
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+      body: formData, // Pasar directamente el objeto FormData
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+
+    const updatedData = await response.json(); // Resolviendo la promesa de la respuesta
+    console.log("Imagen actualizada:", updatedData);
+
+    return updatedData; // Retornar los datos actualizados
+  } catch (error) {
+    console.error("Error while updating admin data:", error);
+    throw error;
+  }
 }

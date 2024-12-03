@@ -58,7 +58,7 @@ function Admin() {
           <summary>
             <h2>Schools</h2>
           </summary>
-          {/* <SchoolContainer /> */}
+          <SchoolContainer />
         </details>
 
         <details>

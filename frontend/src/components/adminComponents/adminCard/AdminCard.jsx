@@ -2,8 +2,10 @@
 import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
 
-function AdminCard({ username, id, onDelete }) {
+function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
+
+  const endPoint = 'http://localhost:8080/images/'
 
   const handleDelete = () => {
     onDelete(id);
@@ -18,7 +20,7 @@ function AdminCard({ username, id, onDelete }) {
       <div className="container-info">
         <img
           className="item-img"
-          src={`/images/ImgMenus/sandwiches.jpg`}
+          src={`${endPoint}${photo}`}
           alt="Imagen de administrador"
         />
         <div className="container-name">

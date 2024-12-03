@@ -1,27 +1,44 @@
 import Button from "../../../button/Button";
 import Label from "../../../label/Label";
-import { create } from "../../../../services/adminService";
+import { create, editImg } from "../../../../services/adminService";
 import { useNavigate } from "react-router-dom";
 import "../Form.scss";
 
 function CreateAdmin() {
   const navigate = useNavigate();
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
 
     let nameAdmin = document.querySelector("#name-admin");
     let passwordAdmin = document.querySelector("#password-admin");
-    
+    let photoAdmin = document.querySelector("#photo-admin").files[0];
+
     const formData = {
       username: nameAdmin.value,
       password: passwordAdmin.value,
+      file: photoAdmin,
     };
 
-    console.log('bbbbbb', create(formData).then(() => {
+    try {
+      // Crear el usuario y esperar el resultado
+      const user = await create(formData);
+
+      console.log("Usuario creado:", user);
+
+      // Verificar si el ID existe
+      if (user.admin && user.admin.id) {
+        const updatedImg = await editImg(user.admin.id, formData.file);
+        console.log("Imagen actualizada:", updatedImg);
+      } else {
+        console.error("No se pudo obtener el ID del usuario.");
+      }
+
+      // Redirigir a la página anterior
       navigate(-1);
-    }));
-    
+    } catch (error) {
+      console.error("Error en el proceso de creación:", error);
+    }
   };
 
   return (
@@ -40,7 +57,12 @@ function CreateAdmin() {
           title={"Contraseña"}
           type={"password"}
         />
-
+        <Label
+          id={"photo-admin"}
+          placeHolder={"Foto del administrador"}
+          title={"Foto de perfil"}
+          type={"file"}
+        />
         <div id="buttons">
           <Button submit={true} text={"Crear"} />
         </div>

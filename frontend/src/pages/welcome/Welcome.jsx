@@ -3,9 +3,16 @@ import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
 import "./Welcome.scss";
 import { login } from "../../services/welcomeService";
+import { useState } from "react";
+
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { tabScrollButtonClasses } from "@mui/material";
 
 function Welcome() {
   const navigate = useNavigate();
+
+  const [invalidUser, setInvalidUser] = useState(true);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,11 +23,12 @@ function Welcome() {
     const password = inputPassword.value;
 
     try {
-      const role = await login({ username: name, password: password });
+      const user = await login({ username: name, password: password });
 
-      role === "admin" ? navigate("/dashboard") : navigate("/home");
+      user.role === "admin" ? navigate("/dashboard") : navigate("/home");
     } catch (error) {
-      console.error("Login failed:", error.message);
+      // console.error("Login failed:", error.message);
+      setInvalidUser(false);
     }
   }
 
@@ -31,6 +39,13 @@ function Welcome() {
         data="/images/icons/userLogin.svg"
         type="image/svg+xml"
       ></object>
+      <Stack
+        sx={{ display: `${invalidUser ? "none" : "block"}`, width: "90%" }}
+        spacing={2}
+      >
+        <Alert severity="error">Usuario invalido</Alert>
+      </Stack>
+
       <form id="form" onSubmit={handleSubmit}>
         <Label title="Name" placeHolder="John Doe" id="name" />
 

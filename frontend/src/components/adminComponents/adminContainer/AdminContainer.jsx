@@ -27,6 +27,7 @@ function AdminContainer() {
         <AdminCard
           key={admin.id}
           username={admin.username}
+          photo={admin.filename}
           id={admin.id}
           onDelete={handleDelete}
         />

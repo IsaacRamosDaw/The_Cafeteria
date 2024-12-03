@@ -197,7 +197,9 @@ exports.imgUpdate = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  if (Number(id) !== req.user.id) {
+  console.log(req.params, req.user)
+
+  if (parseInt(id) !== parseInt(req.user.id)) {
     return res.status(403).send({
       message: "Access denied. You can only update your own data.",
     });

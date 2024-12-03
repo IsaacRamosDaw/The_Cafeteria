@@ -27,6 +27,7 @@ export function getOne(id) {
       console.log(`error, ${error}`);
       return error;
     });
+    
   return getOneOperation;
 }
 
