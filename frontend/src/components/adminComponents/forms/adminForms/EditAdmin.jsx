@@ -29,6 +29,7 @@ export default function EditAdmin() {
     };
 
     edit(id, formData).then(() => {
+      console.log(formData)
       navigate(-1);
     });
   };

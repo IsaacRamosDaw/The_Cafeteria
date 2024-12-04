@@ -1,20 +1,11 @@
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-
-import Welcome from "./pages/welcome/Welcome";
-import Account from "./pages/account/Account";
-import Orders from "./pages/orders/Orders";
-import Product from "./pages/product/Product.jsx";
-=======
->>>>>>> dev-backend-i
 import "./global.scss";
 
 // Shared Pages
 import Welcome from "./pages/welcome/Welcome";
 import Home from "./pages/home/Home.jsx";
 import Orders from "./pages/orders/Orders";
-import Products from "./pages/products/Products";
 import MenuPage from "./pages/Menu/MenuPage";
 import Policy from "./pages/settings/policy/Policy.jsx";
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
@@ -33,13 +24,14 @@ import StudentCredits from "./pages/settings/studentSettings/creditSettings/Cred
 import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import StudentData from "./pages/account/Account";
 import ProductsList from "./pages/ProductsList/ProductsList.jsx";
-
+import Product from "./pages/product/Product.jsx"
 // Worker 
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 import WorkerSettings from "./pages/settings/workerSettings/WorkerSettings.jsx";
 import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/WorkerCoffeShop.jsx";
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.jsx";
+
 // School 
 import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
 import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
