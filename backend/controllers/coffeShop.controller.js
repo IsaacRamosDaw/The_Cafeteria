@@ -1,30 +1,35 @@
 const db = require("../models");
-const coffeShop = db.coffeShop;
+const CoffeShop = db.coffeShop;
 const Op = db.sequelize.Op
 
 exports.create = (req, res) => {
 
-    // Create an coffeShop object
-    const shop = {
-        name: req.body.name,
-        password: req.body.password
-    };
+        // Create an coffeShop object
+        const shop = {
+            name: req.body.name,
+            filename: req.file ? req.file.filename : "",
+        };
 
-    // Save coffeShop in the database
-    coffeShop.create(shop)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the coffeShop."
+        // Save coffeShop in the database
+        CoffeShop.create(shop)
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while creating the coffeShop."
+                });
             });
-        });
 };
 
 // Retrieve all coffeShops
 exports.findAll = (req, res) => {
-    coffeShop.findAll()
+    if (!req.user) {
+        return res.status(403).json({
+          message: "Access denied. Authentication required.",
+        });
+      }
+    CoffeShop.findAll()
         .then(data => {
             res.send(data);
         })
@@ -39,24 +44,19 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     // Validate request
-    if (!req.body.name) {
-        return res.status(400).send({
-            message: "The name field cannot be empty."
-        });
-    }
-    if (!req.body.password) {
-        return res.status(400).send({
-            message: "The password field cannot be empty."
-        });
-    }
+  if (req.user.role !== "admin" && req.user.role !== "worker") {
+    return res.status(403).send({
+      message: "Access denied.",
+    });
+  }
 
     const update = {
         name: req.body.name,
-        password: req.body.password
+        filename: req.file ? req.file.filename : "",
     };
 
     // Attempt to update the coffeShop
-    coffeShop.update(update, { where: { id: id } })
+    CoffeShop.update(update, { where: { id: id } })
         .then(([rowsUpdated]) => {
             if (rowsUpdated === 0) {
                 // If no rows were updated, the coffeShop was not found
@@ -74,11 +74,51 @@ exports.update = (req, res) => {
         });
 };
 
+exports.imgUpdate = (req, res) => {
+    const id = req.params.id;
+  
+    console.log(req.user);
+  
+    if (
+      !(req.user.role == "admin" || req.user.role == "worker")
+    ) {
+      return res.status(403).send({
+        message: "Access denied to update.",
+      });
+    }
+  
+    const updateCoffe = {
+      filename: req.file ? req.file.filename : "",
+    };
+  
+    CoffeShop.update(updateCoffe, { where: { id: id } })
+      .then(([rowsUpdated]) => {
+        if (rowsUpdated === 0) {
+          // If no rows were updated, the admin was not found
+          return res.status(404).send({
+            message: `Cannot update Student with id=${id}. Student not found.`,
+          });
+        }
+        res.send({ message: "CoffeShop was updated successfully." });
+      })
+      .catch((err) => {
+        // Catch any error
+        res.status(500).send({
+          message: err.message || "An error occurred while updating the Student.",
+        });
+      });
+  };
+
 exports.delete = (req, res) => {
     const id = req.params.id;
+    if (req.user.role !== "admin" && req.user.role !== "worker") {
+        return res.status(403).send({
+          message: "Access denied.",
+        });
+      }
 
     // Delete an coffeShop by ID
-    coffeShop.destroy({ where: { id: id } })
+    CoffeShop.destroy({ where: { id: id } })
         .then(deleted => {
             if (deleted) {
                 console.log("coffeShop with id:", id, "was deleted.");

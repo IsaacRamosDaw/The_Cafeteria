@@ -16,7 +16,7 @@ export default function WalletBalance() {
   return (
     <section id="wallet-balance-container">
       <div id="container-balance">
-        <p className="balance-title">Your balance</p>
+        <p className="balance-title">Tu saldo</p>
         <h1 className="amount-balance"> € </h1>
       </div>
       <div id="container-card-credit">
@@ -63,7 +63,7 @@ export default function WalletBalance() {
       <div id="card-options">
         <div className="option-card add" onClick={handleAddMoney}>
           <IoMdAddCircleOutline className="card-icon-option" />
-          <h2>Add Money</h2>
+          <h2>Añadir dinero</h2>
         </div>
         {/* <Modal open={openMoney} onClose={handleAddMoney}>
           <Box className="modal-container">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./SearchBar.scss";
+import { LuCircleUser } from "react-icons/lu";
 
 function SearchBar(perfil) {
   return (
@@ -7,8 +8,8 @@ function SearchBar(perfil) {
       <div>
         <img src="/images/icons/magnifying-glass.svg" alt="" />
         <input placeholder="Type to search..." />
-        <Link id="icon-user" to="/student/profile">
-          <img src="/images/icons/user.svg" alt="" />
+        <Link id="icon-user" to="/studentsettings">
+          <LuCircleUser/>
         </Link>
       </div>
     </nav>
