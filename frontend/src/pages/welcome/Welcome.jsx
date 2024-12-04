@@ -47,21 +47,21 @@ function Welcome() {
       </Stack>
 
       <form id="form" onSubmit={handleSubmit}>
-        <Label title="Name" placeHolder="John Doe" id="name" />
+        <Label title="Nombre" placeHolder="John Doe" id="name" />
 
         <Label
-          title="Password"
-          placeHolder="Your password"
+          title="Contraseña"
+          placeHolder="Tu contraseña"
           id="password"
           type="password"
         />
 
-        <Button submit={true} text="Sing in" />
+        <Button submit={true} text="Iniciar sesión" />
       </form>
       <p className="register-form-text">
-        {`Don't`} you have a account?
+        {`¿No`} tienes una cuenta?
         <Link className="link-to-register" to="/form">
-          , <u>Log In</u>
+          , <u>Registrarse</u>
         </Link>
       </p>
     </div>

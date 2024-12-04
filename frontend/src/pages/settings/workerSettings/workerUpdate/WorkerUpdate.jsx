@@ -1,6 +1,6 @@
 import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
-import "./AccountSettings.scss";
+import "./WorkerUpdate.scss";
 import Button from "../../../../components/button/Button";
 
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
@@ -10,7 +10,7 @@ import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useState } from "react";
 
-export default function AccountSettings() {
+function WorkerUpdate() {
   let endPoint = "http://localhost:8080/images/"
 
   const handleAccount = (e) => {
@@ -19,21 +19,16 @@ export default function AccountSettings() {
     console.log(e.target);
   };
 
-  const [user, setUser] = useState( {
+    const [user, setUser] = useState( {
     name: "John Doe",
-    school: "IES El Rincon",
-    course: "1º Bachillerato",
-    email: "hola@gmail.com",
-    edad: 14,
-    phone: 1234567890,
     contrasenia: "1234",
+    phone: 1234567890,
     imgProfile: "image-1732653502736.jpg"
   });
-
   return (
     <div id="page-account-client">
       <SearchBar />
-      <main id="content-account-client">
+            <main id="content-account-client">
         <section className="container-back">
           <FaArrowLeftLong />
         </section>
@@ -57,24 +52,14 @@ export default function AccountSettings() {
             placeholder={user.name}
           />
           <InputFormSetting
-             title={"Email"}
-             option={2}
-             placeholder={user.email}
-          />
-          <InputFormSetting 
-          title={"Edad"} 
-          option={2} 
-          placeholder={user.edad} 
-          />
-          <InputFormSetting
             title={"Contraseña"}
             option={2}
             placeholder={user.contrasenia}
           />
           <InputFormSetting
-            title={"Curso"}
+            title={"phone"}
             option={2}
-            placeholder={user.course}
+            placeholder={user.phone}
           />
           <InputFormSetting
             title={"phone"}
@@ -88,5 +73,7 @@ export default function AccountSettings() {
       </main>
       <TabsBar />
     </div>
-  );
+  )
 }
+
+export default WorkerUpdate

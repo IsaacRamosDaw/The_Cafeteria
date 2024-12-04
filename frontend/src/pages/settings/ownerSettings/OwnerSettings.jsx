@@ -1,6 +1,6 @@
 import SearchBar from "../../../components/searchBar/SearchBar";
 import Separator from "../../../components/separator/Separator";
-import TabsBar from "../../../components/tabsBar/tabsBar";
+import TabsBar from "../../../components/tabsBar/TabsBar";
 import './OwnerSettings.scss'
 function OwnerSettings() {
   return (
@@ -16,7 +16,7 @@ function OwnerSettings() {
               <div id="fields">
                 <p>Pedidots totales</p>
                 <p>Pedidos Hechos</p>
-                <p>Pedidosno hechos</p>
+                <p>Pedidos no hechos</p>
                 <p>Productos totaless</p>
               </div>
               <div id="results">

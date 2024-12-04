@@ -1,0 +1,63 @@
+div#myCafeteria {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #222;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+
+  #user-content {
+    flex: 1;
+    padding: 20px;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2.5vh;
+    }
+
+    > div {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 5vh;
+
+      img {
+        width: 80%;
+        border-radius: 10px;
+      }
+    }
+
+    section {
+      text-align: center;
+
+      h2 {
+        font-size: 1.5em;
+        margin-bottom: 2.5vh;
+      }
+
+      > div {
+        // display: flex;
+        flex-direction: column;
+        background: #333;
+				border-radius: 10px;
+
+
+        .handler-item {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding: 10px;
+          border-radius: 5px;
+
+          span {
+            font-size: 16px;
+          }
+          
+					img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+    }
+  }
+}

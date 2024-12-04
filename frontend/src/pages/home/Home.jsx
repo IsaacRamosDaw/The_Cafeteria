@@ -1,5 +1,5 @@
 import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import Separator from "../../components/separator/Separator";
 import RecommendedContainer from "../../components/HomeComponents/recommendedContainer/RecommendedContainer";
 import PlateOfTheDayContainer from "../../components/HomeComponents/plateOfTheDayContainer/PlateOfTheDayContainer";
@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <div id="home-container">
-      <SearchBar />
+      <SearchBar input="true"/>
       <Separator />
       <main id="content-home">
         <RecommendedContainer />
