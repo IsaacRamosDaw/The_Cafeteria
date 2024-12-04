@@ -58,7 +58,9 @@ function Policy() {
           las decisiones de privacidad que consideres adecuadas.
         </p>
 
-        <img src="../../../../public/images/settings/security.jpg" alt="" />
+        <div>
+          <img src="../../../../public/images/settings/security.jpg" alt="" />
+        </div>
 
 
         {/* <button>Administración de privacidad</button> */}

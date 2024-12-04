@@ -1,45 +1,60 @@
 @import "/src/global.scss";
 
-nav#header-container{
-    color: white;
-    background-color: $secondary-color;
-    top: 0;
-    width: 100%;
-    position: fixed;
-    z-index: 1000; 
-    padding: 10px;
-    box-sizing: border-box;
-    
-    div{
-        background-color: #fff;
-        width: 100%;
-        border-radius: 10px;
-        height: 2.5rem;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-        border-radius: 20px;
+nav#header-container {
+	color: white;
+	background-color: $secondary-color;
+	top: 0;
+	width: 100%;
+	position: fixed;
+	z-index: 1000;
+	padding: 10px;
+	box-sizing: border-box;
 
-        #icon-user{
-            display: grid;
-            place-items: center;
-            font-size: 30px;
-        }
-    }
-    
-    input{
-        background-color: transparent;
-        border: none;
-        height: 100%;
-        font-size: 1.2rem;
-        width: 100%;
-        margin-left: 5px;
-        color: $third-color;
-    }
-    
-    input:focus{
-        outline: none;
-    }
+	div {
+		background-color: #fff;
+		width: 100%;
+		border-radius: 10px;
+		height: 2.5rem;
+		padding: 0 15px;
+		display: flex;
+		align-items: center;
+		box-sizing: border-box;
+		border-radius: 20px;
+		justify-content: space-between;
+
+
+		h2 {
+			font-size: 1.5em;
+			color: black;
+		}
+
+		input {
+			color: rgb(71, 71, 71);
+			font-weight: bold;
+		}
+		a{
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			
+				.go-profile{
+					font-size: 2em;
+					text-align: center;
+				}
+		}
+	}
+
+	input {
+		background-color: transparent;
+		border: none;
+		height: 100%;
+		font-size: 1.2rem;
+		width: 100%;
+		margin-left: 5px;
+		color: $third-color;
+	}
+
+	input:focus {
+		outline: none;
+	}
 }
-

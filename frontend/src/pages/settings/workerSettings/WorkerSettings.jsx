@@ -41,7 +41,7 @@ function WorkerSettings() {
           <Setting
             icon={<MdOutlinePrivacyTip />}
             to={"/profile/policy"}
-            text={"Politica de privacidad"}
+            text={"Política de privacidad"}
           />
         </div>
 
@@ -49,7 +49,7 @@ function WorkerSettings() {
           <Link to="/">
             <div className="container-logout">
               <IoIosLogOut />
-              <h1>Logout</h1>
+              <h1>Cerrar sesión</h1>
             </div>
             <p>v0.03</p>
           </Link>

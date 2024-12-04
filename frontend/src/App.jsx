@@ -4,7 +4,7 @@ import "./global.scss";
 
 // Shared Pages
 import Welcome from "./pages/welcome/Welcome";
-import Home from "./pages/home/HomeStudent.jsx";
+import Home from "./pages/home/Home.jsx";
 import Orders from "./pages/orders/Orders";
 import Products from "./pages/products/Products";
 import MenuPage from "./pages/Menu/MenuPage";
@@ -61,9 +61,6 @@ function App() {
           <Route path="/worker/profile" element={<WorkerSettings />} />
           <Route path="/worker/profile/mycafeteria" element={<WorkerCoffeShop />} />
           <Route path="/worker/profile/update" element={<WorkerUpdate />} />
-          {/* <Route path="/homeworker" element={<HomeWorker />} /> */}
-          {/* PREGUNTAR A MANSOUR */}
-          {/* <Route path="/menuworker" element={<MenuPageWorker />} /> */}
 
           {/* student routes */}
           <Route path="/student/profile" element={<StudentProfile />} />
@@ -74,8 +71,8 @@ function App() {
           <Route path="/student/profile/update" element={<StudentUpdate />} />
 
           {/* Setting components routes */}
-          <Route path={"/profile/policy"} element={<Policy />} />
-          <Route path={"/error"} element={<ErrorPage />} />
+          <Route path="/profile/policy" element={<Policy />} />
+          <Route path="/error" element={<ErrorPage />} />
 
           {/* School routes */}
           <Route path="/school" element={<CreateSchool />} />

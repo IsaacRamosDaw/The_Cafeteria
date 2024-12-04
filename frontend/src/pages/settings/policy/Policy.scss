@@ -3,6 +3,7 @@ div#privacy-container {
   background-color: #1c1c1c;
   color: white;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 
   section#header {
     margin-bottom: 20px;
@@ -31,14 +32,17 @@ div#privacy-container {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    overflow-x: scroll;
 
     div {
-      flex: 1;
       background-color: #2a2a2a;
       padding: 15px;
       border-radius: 8px;
       border: 1px solid #dddddd;
       margin-bottom: 3vh;
+      width: 230px;
+      height: 140px;
+      flex-shrink: 0;
 
       h2 {
         font-size: 18px;
@@ -73,6 +77,10 @@ div#privacy-container {
     p {
       font-size: 1.1em;
       margin-bottom: 20px;
+    }
+
+    div{
+      text-align: center;
     }
 
     img{

@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <div id="home-container">
-      <SearchBar />
+      <SearchBar input="true"/>
       <Separator />
       <main id="content-home">
         <RecommendedContainer />

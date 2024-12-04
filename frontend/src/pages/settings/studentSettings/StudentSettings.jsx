@@ -34,21 +34,21 @@ function StudentSettings() {
             text={"Tema"}
             toggle={true}
           />
-          <Setting
+          {/* <Setting
             icon={<MdFavoriteBorder />}
             to={"/student/profile/favs"}
             text={"Favoritos"}
-          />
+          /> */}
           <Setting
             icon={<MdOutlineLocalCafe />}
             to={"/student/profile/mycafeteria"}
-            text={"Mi Cafeteria"}
+            text={"Mi Cafetería"}
           />
           <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} />
           <Setting
             icon={<MdOutlinePrivacyTip />}
             to={"/profile/policy"}
-            text={"Politica de privacidad"}
+            text={"Política de privacidad"}
           />
         </div>
 
