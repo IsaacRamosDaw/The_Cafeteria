@@ -127,7 +127,7 @@ exports.update = (req, res) => {
 
   if (!req.body.username) {
     return res.status(400).send({
-      message: "The name field cannot be empty.",
+      message: "The name field cannot be emptyyyyyyyyy.",
     });
   }
   if (!req.body.password) {

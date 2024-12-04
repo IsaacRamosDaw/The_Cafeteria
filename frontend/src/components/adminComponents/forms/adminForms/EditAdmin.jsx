@@ -22,11 +22,14 @@ export default function EditAdmin() {
 
     let nameAdmin = document.querySelector("#name-admin");
     let passwordAdmin = document.querySelector("#password-admin");
+    console.log(nameAdmin.value, passwordAdmin.value)
 
     const formData = {
-      name: nameAdmin.value,
+      username: nameAdmin.value,
       password: passwordAdmin.value,
     };
+    console.log(nameAdmin.value, passwordAdmin.value)
+
 
     edit(id, formData).then(() => {
       navigate(-1);
