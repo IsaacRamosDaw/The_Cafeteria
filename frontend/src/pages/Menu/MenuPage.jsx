@@ -1,5 +1,5 @@
 import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import CategoriesContainer from "../../components/menuComponents/categoriesContainer/CategoriesContainer";
 import "./MenuPage.scss";
 

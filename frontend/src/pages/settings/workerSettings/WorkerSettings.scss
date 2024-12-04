@@ -1,0 +1,61 @@
+@import "/src/global.scss";
+
+#page-settings-worker {
+  background-color: var(--background-1);
+  min-height: 100vh;
+  // display: grid;
+  // grid-template-rows: auto 1fr auto;
+  @include flex-items(column);
+
+  // h2{
+  //   margin-top: 4vh;
+  // }
+  
+  img#coffeShop-image {
+    margin-top: 1.5vh;
+    height: 25vh;
+  }
+
+  main#worker-setttings {
+    @include flex-items(column);
+    color: var(--text-2);
+    margin-top: 60px;
+    display: flex;
+    gap: 20px;
+    width: 90%;
+  }
+
+  #settings-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+  }
+
+  section#section-log-out {
+   padding-bottom: 100px;
+   width: 100%;
+   @include flex-items;
+
+    .container-logout{
+      @include flex-items;
+      color: var(--text-2);
+      gap: 10px;
+    }
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    svg {
+      margin: 0 auto;
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: grey;
+    }
+  }
+}

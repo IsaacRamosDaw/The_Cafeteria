@@ -1,15 +1,14 @@
-.privacy-container {
+div#privacy-container {
   padding: 20px;
   background-color: #1c1c1c;
   color: white;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 
-  .header {
-    display: flex;
-    align-items: center;
+  section#header {
     margin-bottom: 20px;
 
-    .back-button {
+    a {
       text-decoration: none;
       font-size: 20px;
       color: white;
@@ -18,57 +17,77 @@
 
     h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 2vh;
     }
+
+    P{
+      font-size: 1.1em;
+    }
+
   }
 
-  .card-container {
+  #card-container {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    overflow-x: scroll;
 
-    .card {
-      flex: 1;
+    div {
       background-color: #2a2a2a;
       padding: 15px;
       border-radius: 8px;
-      border: 1px solid #444;
+      border: 1px solid #dddddd;
+      margin-bottom: 3vh;
+      width: 230px;
+      height: 140px;
+      flex-shrink: 0;
 
       h2 {
-        margin-top: 0;
         font-size: 18px;
       }
 
-      p {
+      p{
+        font-weight: bolder;
+        font-size: 1em;
+        margin-bottom: .5em;
+      }
+
+      p:last-child {
         margin: 5px 0;
         font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+
+      .icons{
+        color: orange;
       }
     }
   }
 
-  .description {
-    text-align: center;
+  section#description {
 
     h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: 2em;
+      margin-bottom: .7em;
     }
 
     p {
-      font-size: 14px;
+      font-size: 1.1em;
       margin-bottom: 20px;
     }
 
-    .image-container {
-      margin: 0 auto 20px auto;
-
-      img {
-        width: 100px;
-        height: auto;
-      }
+    div{
+      text-align: center;
     }
 
-    .privacy-button {
+    img{
+      border-radius: 10px;
+    }
+
+    button {
       padding: 10px 20px;
       background-color: #0078d4;
       color: white;

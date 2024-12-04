@@ -1,6 +1,6 @@
 import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
 import './Orders.scss';
 

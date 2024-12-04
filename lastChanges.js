@@ -1,5 +1,3 @@
-// añadir la ruta al index
+// rutas cambiadas
 
-// crear el controlador
-
-// crear la ruta
+// PREGUNTAR TABSBAR
