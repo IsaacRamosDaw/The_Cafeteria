@@ -1,0 +1,36 @@
+@import 'src/global.scss';
+
+.container-product-card{
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--background-3);
+  width: 170px;
+  height: 184px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-between;
+
+  .img-product-card{
+    max-height: 124px;
+    // flex: 1 0 auto;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .content-product-card{
+    width: 100%;
+    height: 100%;
+    margin: 0 5px;
+    @include flex-items;
+
+    h3{
+      color: var(--text-2);
+      text-align: center;
+      font-size: clamp($font-small, 4vw, $font-subtitle-2);
+    }
+  }
+}

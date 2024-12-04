@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Welcome from "./pages/welcome/Welcome";
 import Account from "./pages/account/Account";
 import Orders from "./pages/orders/Orders";
-import Products from "./pages/products/Products";
+import Product from "./pages/product/Product.jsx";
 import "./global.scss";
 
 // Student
@@ -37,16 +37,17 @@ import MyCafeteria from "./pages/settings/studentSettings/myCafeteria/MyCafeteri
 import Favorites from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import Policy from "./pages/settings/studentSettings/policy/Policy.jsx";
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
+import ProductsList from "./pages/ProductsList/ProductsList.jsx";
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <Routes>
+          <Route path="*" element={<Welcome />} />
           <Route path="/" element={<Welcome />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/products" element={<Products />} />
           <Route path="/dashboard" element={<Admin />} />
 
           {/* Worker routes */}
@@ -69,6 +70,9 @@ function App() {
           <Route path="/studentsettings" element={<StudentSettings />} />
           <Route path="/ownersettings" element={<OwnerSettings />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/menu/:category" element={<ProductsList />} />
+          <Route path="/:menu/:category/:name" element={<Product />} />
+          
 
           {/* Setting components routes */}
           <Route path={"/accountSetting"} element={ <AccountSettings /> } />

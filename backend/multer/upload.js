@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
         if(file.mimetype === 'image/jpg'){
             filetype = 'jpg';
         }
+        
         cb(null, 'image-' + Date.now() + '.' + filetype);
     }
 });

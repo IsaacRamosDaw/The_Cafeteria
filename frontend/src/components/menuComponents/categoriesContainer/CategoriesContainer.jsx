@@ -10,31 +10,31 @@ function CategoriesContainer() {
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
           count={122}
           title={"Desayunos"}
+          category={"/menu/Desayunos"}
         />
         <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
           count={122}
-          title={"cafes"}
+          title={"Cafes"}
+          category={"/menu/Cafes"}
         />
         <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
           count={122}
           title={"dulces"}
+          category={"/menu/Dulces"}
         />
         <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
           count={122}
           title={"Zumos"}
+          category={"/menu/Zumos"}
         />
         <CategoryCard
           img={"../../../public/images/ImgMenus/bebidas.jpg"}
           count={122}
           title={"refrescos"}
-        />
-        <CategoryCard
-          img={"../../../public/images/ImgMenus/bebidas.jpg"}
-          count={122}
-          title={"refrescos"}
+          category={"/menu/Zumos"}
         />
         <Plus/>
       </main>
