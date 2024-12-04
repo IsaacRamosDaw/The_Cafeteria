@@ -44,13 +44,13 @@ function StudentSettings() {
           <Setting
             icon={<MdOutlineLocalCafe />}
             to={"/mycafeteria"}
-            text={"Mi Cafeteria"}
+            text={"Mi Cafetería"}
           />
-          <Setting icon={<GoGraph />} to={"/credits"} text={"Creditos"} />
+          <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} />
           <Setting
             icon={<MdOutlinePrivacyTip />}
             to={"/policy"}
-            text={"Politica de privacidad"}
+            text={"Política de privacidad"}
           />
         </div>
 
@@ -58,7 +58,7 @@ function StudentSettings() {
           <Link to="/">
             <div className="container-logout">
               <IoIosLogOut />
-              <h1>Logout</h1>
+              <h1>Cerrar sesión</h1>
             </div>
             <p>v0.03</p>
           </Link>

@@ -77,7 +77,7 @@ export default function AccountSettings() {
             placeholder={user.course}
           />
           <InputFormSetting
-            title={"phone"}
+            title={"Teléfono"}
             option={2}
             placeholder={user.phone}
           />
