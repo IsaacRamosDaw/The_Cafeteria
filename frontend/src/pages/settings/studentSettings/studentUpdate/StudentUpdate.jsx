@@ -1,6 +1,6 @@
 import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
-import "./AccountSettings.scss";
+import "./StudentUpdate.scss";
 import Button from "../../../../components/button/Button";
 
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";

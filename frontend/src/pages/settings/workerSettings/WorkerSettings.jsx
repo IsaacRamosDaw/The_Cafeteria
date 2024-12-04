@@ -1,31 +1,30 @@
 import SearchBar from "../../../components/searchBar/SearchBar";
 import TabsBar from "../../../components/tabsBar/TabsBar";
 import Setting from "../../../components/setttingsComp/Setting";
-import "./StudentSettings.scss";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
-
 import { FiUser } from "react-icons/fi";
 import { MdOutlineLocalCafe } from "react-icons/md";
-import { MdFavoriteBorder } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
 
-import WalletBalance from "../../../components/setttingsComp/walletBalance/WalletBalance";
+import "./WorkerSettings.scss";
 
-function StudentSettings() {
+function WorkerSettings() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div id="page-settings-student">
+    <div id="page-settings-worker">
       <SearchBar />
-      <WalletBalance/>
-      <main id="student-setttings">
+      <h2>The muggings</h2>
+      <img id="coffeShop-image" src="../../../../public/images/settings/coffeImage.jpg" alt="" />
+      <main id="worker-setttings">
+
         <div id="settings-container">
-          <Setting icon={<FiUser />} to={"/student/profile/update"} text={"Cuenta"} />
+          <Setting icon={<FiUser />} to={"/worker/profile/update"} text={"Cuenta"} />
 
           <Setting
             icon={
@@ -35,16 +34,10 @@ function StudentSettings() {
             toggle={true}
           />
           <Setting
-            icon={<MdFavoriteBorder />}
-            to={"/student/profile/favs"}
-            text={"Favoritos"}
-          />
-          <Setting
             icon={<MdOutlineLocalCafe />}
-            to={"/student/profile/mycafeteria"}
+            to={"/worker/profile/mycafeteria"}
             text={"Mi Cafeteria"}
           />
-          <Setting icon={<GoGraph />} to={"/credits"} text={"Creditos"} />
           <Setting
             icon={<MdOutlinePrivacyTip />}
             to={"/profile/policy"}
@@ -68,4 +61,4 @@ function StudentSettings() {
   );
 }
 
-export default StudentSettings;
+export default WorkerSettings;

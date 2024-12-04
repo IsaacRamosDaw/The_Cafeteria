@@ -21,9 +21,10 @@ div#privacy-container {
       margin-bottom: 2vh;
     }
 
-    p{
-      text-align: center;
+    P{
+      font-size: 1.1em;
     }
+
   }
 
   #card-container {
@@ -36,16 +37,28 @@ div#privacy-container {
       background-color: #2a2a2a;
       padding: 15px;
       border-radius: 8px;
-      border: 1px solid #444;
+      border: 1px solid #dddddd;
+      margin-bottom: 3vh;
 
       h2 {
-        margin-top: 0;
         font-size: 18px;
       }
 
-      p {
+      p{
+        font-weight: bolder;
+        font-size: 1em;
+        margin-bottom: .5em;
+      }
+
+      p:last-child {
         margin: 5px 0;
         font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+
+      .icons{
+        color: orange;
       }
     }
   }
@@ -53,22 +66,17 @@ div#privacy-container {
   section#description {
 
     h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: 2em;
+      margin-bottom: .7em;
     }
 
     p {
-      font-size: 14px;
+      font-size: 1.1em;
       margin-bottom: 20px;
     }
 
-    #image-container {
-      margin: 0 auto 20px auto;
-
-      img {
-        width: 100px;
-        height: auto;
-      }
+    img{
+      border-radius: 10px;
     }
 
     button {

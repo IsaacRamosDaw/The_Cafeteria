@@ -1,5 +1,5 @@
 import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import Separator from "../../components/separator/Separator";
 import RecommendedContainer from "../../components/HomeComponents/recommendedContainer/RecommendedContainer";
 import PlateOfTheDayContainer from "../../components/HomeComponents/plateOfTheDayContainer/PlateOfTheDayContainer";
