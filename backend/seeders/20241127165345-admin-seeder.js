@@ -1,33 +1,44 @@
 "use strict";
 
+const { generateToken } = require("../utils");
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(
-      "admins",
-      [
-        {
-          username: "mansour",
-          password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
-          role: "admin"
-        },
-        {
-          username: "isaac",
-          password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
-          role: "admin"
-        },
-        {
-          username: "cynthia",
-          password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
-          role: "admin"
-        },
-      ],
-      {}
+    // Datos iniciales de los usuarios
+    const admins = [
+      {
+        username: "mansour",
+        password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
+      },
+      {
+        username: "isaac",
+        password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
+      },
+      {
+        username: "cynthia",
+        password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
+      }
+    ];
+
+    // Inserta los datos iniciales
+    await queryInterface.bulkInsert("admins", admins, {});
+
+    // Recupera los usuarios insertados para generar los tokens
+    const insertedAdmins = await queryInterface.sequelize.query(
+      `SELECT id, username, role FROM admins`,
+      { type: Sequelize.QueryTypes.SELECT }
     );
+
+    // Genera tokens para cada usuario y muestra en consola (o los guardas)
+    insertedAdmins.forEach((admin) => {
+      const token = generateToken(admin);
+      console.log(`Token for ${admin.username}: ${token}`);
+    });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Admin", null, {});
+    await queryInterface.bulkDelete("admins", null, {});
   },
 };
 

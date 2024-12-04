@@ -167,12 +167,6 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  if (Number(id) !== req.user.id) {
-    return res.status(403).send({
-      message: "Access denied. You can only update your own data.",
-    });
-  }
-
   // Delete an Admin by ID
   Admin.destroy({ where: { id: id } })
     .then((deleted) => {
