@@ -49,23 +49,37 @@ function Admin() {
 
         <details>
           <summary>
-            <h2>Admins</h2>
+            <h2>Administradores</h2>
           </summary>
           <AdminContainer />
         </details>
-
+        
         <details>
           <summary>
-            <h2>Schools</h2>
+            <h2>Trabajadores</h2>
+            {/* <WorkerContainer /> */}
           </summary>
-          {/* <SchoolContainer /> */}
         </details>
 
         <details>
           <summary>
-            <h2>Workers</h2>
+            <h2>Cafeterías</h2>
+            {/* <WorkerContainer /> */}
           </summary>
-          {/* <WorkerContainer /> */}
+        </details>
+
+        <details>
+          <summary>
+            <h2>Colegios</h2>
+          </summary>
+          <SchoolContainer />
+        </details>
+
+        <details>
+          <summary>
+            <h2>Cursos</h2>
+            {/* <WorkerContainer /> */}
+          </summary>
         </details>
       </main>
     </div>
