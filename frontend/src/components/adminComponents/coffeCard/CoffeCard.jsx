@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import "./AdminCard.scss";
-import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import "./CoffeCard.scss";
 
-function AdminCard({ username, id, onDelete }) {
+function CoffeCard({ username, id, onDelete }) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -11,33 +9,33 @@ function AdminCard({ username, id, onDelete }) {
   };
 
   const handleEdit = () => {
-    console.log("Navigating to:", "/admin/" + id);
-    navigate("/admin/" + id);
+    console.log("Navigating to:", "/coffeShop/" + id);
+    navigate("/coffeShop/" + id);
   };
 
   return (
-    <div className="admin-card">
+    <div className="coffe-card">
       <div className="container-info">
         <img
           className="item-img"
           src={`/images/ImgMenus/sandwiches.jpg`}
-          alt="Imagen de administrador"
+          alt="Imagen de cafetería"
         />
         <div className="container-name">
-          <h2>{username}</h2>
+          <h2>{name}</h2>
         </div>
       </div>
 
-      <div className="container-control-admin">
+      <div className="container-control-coffe">
         <button className="btn-edit" onClick={handleEdit}>
-          < FaEdit />
+          <img src={`/images/icons/edit.svg`} alt="Editar" />
         </button>
         <button className="btn-trash" onClick={handleDelete}>
-          < RiDeleteBin6Line />
+          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
         </button>
       </div>
     </div>
   );
 }
 
-export default AdminCard;
+export default CoffeCard;

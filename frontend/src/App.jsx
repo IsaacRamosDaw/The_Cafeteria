@@ -30,6 +30,9 @@ import CreateWorker from "./components/adminComponents/forms/workerForms/CreateW
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
 
+//CoffeShop
+import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
+
 // Settings components
 import AccountSettings from "./pages/settings/studentSettings/accountSettings/AccountSettings.jsx";
 import CreditSetting from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
@@ -63,12 +66,15 @@ function App() {
           <Route path="/school" element={<CreateSchool />} />
           <Route path="/school/:id" element={<EditSchool />} />
 
-          {/* student routes */}
+          {/* Student routes */}
           <Route path="/home" element={<HomeStudent />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/studentsettings" element={<StudentSettings />} />
           <Route path="/ownersettings" element={<OwnerSettings />} />
           <Route path="/account" element={<Account />} />
+
+          {/* CoffeShop routes */}
+          <Route path="/coffeShop" element={<CreateCoffeShop/>}/>
 
           {/* Setting components routes */}
           <Route path={"/accountSetting"} element={ <AccountSettings /> } />

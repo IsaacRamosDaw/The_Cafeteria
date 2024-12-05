@@ -4,6 +4,9 @@ import AdminContainer from "../../components/adminComponents/adminContainer/Admi
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
 import "./Admin.scss";
 
+//React icons
+
+
 // Speed dial components
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
@@ -12,15 +15,19 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Work from "@mui/icons-material/Work";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import School from "@mui/icons-material/School";
+import MenuBook from "@mui/icons-material/MenuBook";
+import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const navigate = useNavigate();
 
   const actions = [
-    { icon: <Work />, name: "Worker", to: "/worker" },
-    { icon: <School />, name: "School", to: "/school" },
+    { icon: <Work />, name: "Trabajador", to: "/worker" },
+    { icon: <School />, name: "Colegio", to: "/school" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
+    { icon: <MenuBook />, name: "Curso"},
+    { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
   const goTo = (page) => {
