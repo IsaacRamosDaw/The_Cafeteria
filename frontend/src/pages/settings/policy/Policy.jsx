@@ -1,20 +1,20 @@
-import "./Policy.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGear, FaChildren, } from "react-icons/fa6";
 import { MdOutlineSecurity } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { FaArrowLeftLong } from "react-icons/fa6";
+import "./Policy.scss";
 
 function Policy() {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1); // Navega hacia atrás en el historial
+    navigate(-1); 
   };
   return (
     <div id="privacy-container">
       <section id="header">
         <Link onClick={handleBack}>
-          ←
+          <FaArrowLeftLong />
         </Link>
         <h1>Centro de privacidad</h1>
         <p>Elige las opciones de privacidad que consideres adecuadas. Obténinformación sobre cómo administrar y controlar tu privacidad en esta aplicación</p>

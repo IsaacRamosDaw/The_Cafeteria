@@ -1,13 +1,12 @@
 import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
-import "./WorkerUpdate.scss";
 import Button from "../../../../components/button/Button";
-
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
-
 import Avatar from "@mui/material/Avatar";
+
 import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function WorkerUpdate() {
@@ -15,7 +14,6 @@ function WorkerUpdate() {
 
   const handleAccount = (e) => {
     e.preventDefault();
-
     console.log(e.target);
   };
 
@@ -25,21 +23,27 @@ function WorkerUpdate() {
     phone: 1234567890,
     imgProfile: "image-1732653502736.jpg"
   });
+
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div id="page-account-client">
       <SearchBar />
             <main id="content-account-client">
-        <section className="container-back">
+        <Link onClick={handleBack} className="container-back">
           <FaArrowLeftLong />
-        </section>
+        </Link>
         <section className="container-info">
-          <div className="container-img-profile">
+          <Link to={'/worker/profile'} className="container-img-profile">
             <Avatar
               alt={user.name}
               src={ `${endPoint}${user.imgProfile}` || "/static/images/avatar/1.jpg" }
               sx={{ bgcolor: deepOrange[500], width: 70, height: 70 }}
             />
-          </div>
+          </Link>
           <div className="container-info-student">
             <h1>{user.name}</h1>
             <h5>{`${user.course}, ${user.school}`}</h5>
@@ -55,11 +59,6 @@ function WorkerUpdate() {
             title={"Contraseña"}
             option={2}
             placeholder={user.contrasenia}
-          />
-          <InputFormSetting
-            title={"phone"}
-            option={2}
-            placeholder={user.phone}
           />
           <InputFormSetting
             title={"phone"}

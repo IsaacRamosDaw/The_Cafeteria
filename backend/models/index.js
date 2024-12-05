@@ -29,48 +29,45 @@ db.wallet = require("./wallet.model.js")(sequelize);
 db.inventory = require("./inventory.model.js")(sequelize);
 db.orderLine = require("./orderLine.model.js")(sequelize);
 
-// // TABLA COFFE SHOP
-// db.coffeShop.hasMany(db.admins, { foreingKey: 'coffeShopId' });
-// db.coffeShop.belongsTo(db.admins, {foreingKey: 'adminId'});
-// db.coffeShop.belongsTo(db.product, {foreingKey: 'productId'});
-// db.coffeShop.belongsTo(db.worker, {foreingKey: 'workerId'});
-// db.coffeShop.belongsTo(db.school, {foreingKey: 'schoolId'})
+// TABLA COFFE SHOP
+db.coffeShop.belongsTo(db.admins, {foreingKey: 'admin'});
+db.coffeShop.belongsTo(db.product, {foreingKey: 'product'});
+db.coffeShop.belongsTo(db.worker, {foreingKey: 'worker'});
+db.coffeShop.belongsTo(db.school, {foreingKey: 'school'});
 
-// // TABLA STUDENT
-// db.student.hasMany(db.order, {foreingKey: 'studentId'});
-// db.student.belongsTo(db.course, {foreingKey: 'courseId'});
-// db.student.belongsTo(db.wallet, {foreingKey: 'walletId'});
+// TABLA STUDENT
+db.student.hasMany(db.order, {foreingKey: 'student'});
+db.student.belongsTo(db.course, {foreingKey: 'course'});
 
-// // TABLA COURSE
-// db.course.hasMany(db.student, {foreingKey: 'courseId'});
-// db.course.belongsTo(db.school, {foreingKey: 'schoolId'});
+// TABLA COURSE
+db.course.hasMany(db.student, {foreingKey: 'course'});
 
-// // TABLA SCHOOL
-// db.school.hasMany(db.course, {foreingKey: 'schoolId'});
-// db.school.hasMany(db.coffeShop, {foreingKey: 'schoolId'});
+// TABLA SCHOOL
+db.school.hasMany(db.course, {foreingKey: 'school'});
+db.school.hasMany(db.coffeShop, {foreingKey: 'school'});
 
-// // TABLA ADMIN
-// db.admins.hasMany(db.coffeShop, {foreingKey: 'adminId'});
+// TABLA ADMIN
+db.admins.hasMany(db.coffeShop, {foreingKey: 'admin'});
 
-// // TABLA WORKER
-// db.worker.hasMany(db.coffeShop, {foreingKey: 'workerId'});
+// TABLA WORKER
+db.worker.hasMany(db.coffeShop, {foreingKey: 'worker'});
 
-// // TABLA PRODUCT
-// db.product.hasMany(db.orderLine, {foreingKey: 'productId'});
-// db.product.hasMany(db.coffeShop, {foreingKey: 'productId'});
-// db.product.belongsTo(db.categories, {foreingKey: 'categoriesId'});
+// TABLA PRODUCT
+db.product.hasMany(db.orderLine, {foreingKey: 'product'});
+db.product.hasMany(db.coffeShop, {foreingKey: 'product'});
+db.product.belongsTo(db.categories, {foreingKey: 'categories'});
 
-// // TABLA WALLET
-// db.wallet.hasMany(db.student, {foreingKey: 'walletId'});
+// TABLA WALLET
+db.wallet.hasMany(db.student, {foreingKey: 'wallet'});
 
-// // TABLA CATEGORY
-// db.categories.hasMany(db.product, {foreingKey: 'categoriesId'});
+// TABLA CATEGORY
+db.categories.hasMany(db.product, {foreingKey: 'categories'});
 
-// // TABLA ORDER
-// db.order.belongsTo(db.student, {foreingKey: 'studentId'});
+// TABLA ORDER
+db.order.belongsTo(db.student, {foreingKey: 'student'});
 
-// // TABLA ORDERLINE
-// db.orderLine.belongsTo(db.product, {foreingKey: 'productId'});
-// db.orderLine.belongsTo(db.order, {foreingKey: 'orderId'});
+// TABLA ORDERLINE
+db.orderLine.belongsTo(db.product, {foreingKey: 'product'});
+db.orderLine.belongsTo(db.order, {foreingKey: 'order'});
 
 module.exports = db;
