@@ -138,7 +138,7 @@ exports.update = (req, res) => {
 
   const update = {
     username: req.body.username,
-    // password: req.body.password,
+    password: req.body.password,
     role: "admin",
   };
 

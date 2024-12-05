@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./WorkerCard.scss";
 
-function WorkerCard({ name , id, onDelete}) {
+function WorkerCard({ username , id, onDelete}) {
     const navigate = useNavigate();
 
     const handleDelete = () => {
@@ -21,7 +21,7 @@ function WorkerCard({ name , id, onDelete}) {
           alt="Image school"
         />
         <div className="container-name">
-          <h2>{name}</h2>
+          <h2>{username}</h2>
         </div>
       </div>
       <div className="container-control-worker">

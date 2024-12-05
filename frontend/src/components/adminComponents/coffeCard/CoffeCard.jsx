@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./CoffeCard.scss";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-function CoffeCard({ username, id, onDelete }) {
+function CoffeCard({ name, id, onDelete }) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -28,10 +30,10 @@ function CoffeCard({ username, id, onDelete }) {
 
       <div className="container-control-coffe">
         <button className="btn-edit" onClick={handleEdit}>
-          <img src={`/images/icons/edit.svg`} alt="Editar" />
+          < FaEdit />
         </button>
         <button className="btn-trash" onClick={handleDelete}>
-          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+          < RiDeleteBin6Line />
         </button>
       </div>
     </div>

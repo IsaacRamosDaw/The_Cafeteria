@@ -2,6 +2,7 @@ import ProfileBar from "../../components/profileBar/ProfileBar";
 import SchoolContainer from "../../components/adminComponents/schoolContainer/SchoolContainer";
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
+import CoffeContainer from "../../components/adminComponents/coffeShopContainer/CoffeShopContainer";
 import "./Admin.scss";
 
 //React icons
@@ -62,24 +63,24 @@ function Admin() {
         </details>
         
         <details>
-          <summary>
-            <h2>Trabajadores</h2>
-            {/* <WorkerContainer /> */}
+          <summary> 
+            <h2>Trabajadores</h2> 
           </summary>
+          <WorkerContainer />
         </details>
 
         <details>
           <summary>
             <h2>Cafeterías</h2>
-            {/* <WorkerContainer /> */}
           </summary>
+            <CoffeContainer/>
         </details>
 
         <details>
           <summary>
             <h2>Colegios</h2>
           </summary>
-          <SchoolContainer />
+          {/* <SchoolContainer /> */}
         </details>
 
         <details>

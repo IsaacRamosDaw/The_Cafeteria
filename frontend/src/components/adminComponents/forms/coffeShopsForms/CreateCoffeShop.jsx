@@ -11,9 +11,11 @@ function CreateCoffeShop() {
     e.preventDefault();
 
     let nameCoffeShop = document.querySelector("#name-coffeshop");
+    let fileCoffeShop = document.querySelector("#file-coffeshop")
     
     const formData = {
         name: nameCoffeShop.value,
+        file: fileCoffeShop.value
     };
 
     console.log('bbbbbb', create(formData).then(() => {
@@ -32,6 +34,12 @@ function CreateCoffeShop() {
           title={"Nombre"}
           type={"text"}
         />
+        <Label
+          id={"file-coffeshop"}
+          placeHolder={"Imagen de la cafetería"}
+          title={"Imagen"}
+          type={"file"}
+        />
         <div id="buttons">
           <Button submit={true} text={"Crear"} />
         </div>
@@ -41,3 +49,4 @@ function CreateCoffeShop() {
 }
 
 export default CreateCoffeShop;
+

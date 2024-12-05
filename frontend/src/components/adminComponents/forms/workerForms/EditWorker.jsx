@@ -9,43 +9,48 @@ export default function EditWorker() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [workerData, setWorkerData] = useState({ name: "", phone: "" });
+  const [workerData, setAdminData] = useState({ name: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
   useEffect(() => {
     getOne(id)
-      .then((data) => setWorkerData(data))
-      .catch((error) => console.log("Error fetching worker data:", error));
+      .then((data) => {
+        setAdminData(data);
+        setFormData({ username: data.name, password: "" });
+      })
+      .catch((error) => console.error("Error fetching admin data:", error));
   }, [id]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
 
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    let nameWorker = document.querySelector("#name-worker");
-    let passwordWorker = document.querySelector("#password-worker");
-    let phoneWorker = document.querySelector("#phone-worker");
-
-    const formData = {
-      name: nameWorker.value,
-      password: passwordWorker.value,
-      phone: phoneWorker.value,
-    };
-
-    edit(id, formData).then(() => {
+    try {
+      await edit(id, formData);
       navigate(-1);
-    });
+    } catch (error) {
+      console.error("Error al editar:", error);
+    }
   };
   
   return (
     <main className="form-container">
       <form id="worker-form">
-        <h2>worker</h2>
-        <Label
+        <h2>Worker</h2>
+        {/* <Label
           id={"name-worker"}
-          placeHolder={workerData.name}
+          placeHolder={formData.name}
           title={"Nombre"}
           type={"text"}
-        />
-        <Label
+        /> */}
+        {/* <Label
           id={"password-worker"}
           placeHolder={"Contraseña del worker"}
           title={"Contraseña"}
@@ -53,10 +58,30 @@ export default function EditWorker() {
         />
         <Label
           id={"phone-worker"}
-          placeHolder={workerData.phone}
+          placeHolder={formData.phone}
           title={"Teléfono"}
           type={"text"}
-        />
+        /> */}
+        <div className="form-group">
+          <label htmlFor="username">Nombre</label>
+          <input
+            id="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Nombre del trabajador"
+            type="text"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Contraseña del trabajador"
+            type="password"
+          />
+        </div>
 
         <div id="buttons">
           <Button onClick={handleEdit} text={"Editar"} />

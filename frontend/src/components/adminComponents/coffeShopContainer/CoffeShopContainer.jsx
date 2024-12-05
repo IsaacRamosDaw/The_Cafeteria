@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import CoffeCard from "../coffeCard/CoffeCard.jsx";
-import { get, remove } from "../../../services/adminService.js";
+import { get, remove } from "../../../services/coffeshopService.js";
 import "./CoffeContainer.scss";
 
-function AdminContainer() {
+function CoffeContainer() {
   const [coffeShops, setCoffeShops] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function AdminContainer() {
 
   const handleDelete = async (id) => {
     await remove(id);
-    setAdmins((prevCoffeShops) => prevCoffeShops.filter((coffeShop) => coffeShop.id !== id));
+    setCoffeShops((prevCoffeShops) => prevCoffeShops.filter((coffeShop) => coffeShop.id !== id));
   };
 
   return (
@@ -34,4 +34,4 @@ function AdminContainer() {
   );
 }
 
-export default AdminContainer;
+export default CoffeContainer;

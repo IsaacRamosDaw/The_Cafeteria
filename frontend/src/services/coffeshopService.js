@@ -59,11 +59,7 @@ export function getOne(id) {
 export function create(formData) {
   return fetch(endpoint, {
     method: "POST",
-    headers:  new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
-    }),
-    body: new URLSearchParams({role: 'admin'}),
+    body: formData,
   })
     .then((response) => {
       if (!response.ok) {

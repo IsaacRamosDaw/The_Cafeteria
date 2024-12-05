@@ -49,34 +49,60 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all workers
-exports.findAll = (req, res) => {
+// exports.findAll = (req, res) => {
+//     if (!req.user) {
+//         return res.status(403).json({ message: "Access denied. Authentication required." });
+//     }
+//         Worker.findAll()
+//             .then(data => res.send(data))
+//             .catch(err => {
+//                 res.status(500).send({
+//                     message: err.message || "Some error occurred while retrieving workers."
+//                 });
+//             });
+//     if (req.user.role === 'worker') {
+//         Worker.findByPk(req.user.id)
+//             .then(data => {
+//                 if (!data) {
+//                     return res.status(404).json({ message: "Worker not found." });
+//                 }
+//                 res.send(data);
+//             })
+//             .catch(err => {
+//                 res.status(500).send({
+//                     message: err.message || "Some error occurred while retrieving worker."
+//                 });
+//             });
+//     } else {
+//         res.status(403).json({ message: "Access denied. Invalid role." });
+//     }
+// };
+
+exports.findAll = async (req, res) => {
     if (!req.user) {
-        return res.status(403).json({ message: "Access denied. Authentication required." });
+      return res.status(403).json({
+        message: "Access denied. Authentication required.",
+      });
     }
-        Worker.findAll()
-            .then(data => res.send(data))
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving workers."
-                });
-            });
-    if (req.user.role === 'worker') {
-        Worker.findByPk(req.user.id)
-            .then(data => {
-                if (!data) {
-                    return res.status(404).json({ message: "Worker not found." });
-                }
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving worker."
-                });
-            });
-    } else {
-        res.status(403).json({ message: "Access denied. Invalid role." });
+  
+    if (req.user.role !== "admin") {
+      return res.status(403).json({
+        message: "Access denied. Invalid role.",
+      });
     }
-};
+  
+    try {
+      const workers = await Worker.findAll();
+  
+      return res.json(workers);
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message || "Some error occurred while retrieving data.",
+      });
+    }
+    
+  };
+  
 
 // Retrieve a single worker by ID
 exports.findOne = (req, res) => {

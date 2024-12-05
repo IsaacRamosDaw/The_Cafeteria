@@ -1,20 +1,45 @@
 const endpoint = "http://localhost:8080/api/worker";
 
 export function get() {
-  const getOperation = fetch(endpoint).then((res) => {
-    if (!res.ok) {
-      throw new Error("Error fetching data");
-    }
-    return res.json();
-  }).catch((err) => {
-    console.log(`error, ${err}`);
-    return err;
+  let token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
+  const getOperation = fetch(endpoint, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      // "Content-Type": "application/x-www-form-urlencoded",
+    }),
   })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching dataaaaaa");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error,xsgjhcgshjmgcsamhnjmgh ${error}`);
+      return error;
+    });
   return getOperation;
 }
 
 export function getOne(id) {
-  const getOneOperation = fetch(`${endpoint}/${id}`)
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+  const getOneOperation = fetch(`${endpoint}/${id}`, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -31,9 +56,10 @@ export function getOne(id) {
 export async function create(formData) {
   return fetch(endpoint, {
     method: "POST",
-    headers: {
+    headers:   new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
-    },
+      'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
+    }),
     body: new URLSearchParams(formData),
   })
     .then((response) => {
@@ -50,8 +76,18 @@ export async function create(formData) {
 }
 
 export async function remove(id) {
+  let token = localStorage.getItem("token")
+
+  if(!token){
+    window.location.href='/error'
+  }
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
+    headers: {
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
   })
     .then((response) => {
       if (!response.ok) {
@@ -67,12 +103,21 @@ export async function remove(id) {
 }
 
 export async function edit(id, data) {
-  let url = `${endpoint}/${id}`;
+  console.log(id, data);
+  let token = localStorage.getItem("token")
 
-  return fetch(url, {
+  if(!token){
+    window.location.href='/error'
+  }
+
+  // let url = `${endpoint}/${id}`;
+
+  return fetch(`${endpoint}/${id}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams(data),
   })
@@ -84,7 +129,7 @@ export async function edit(id, data) {
       return response.json();
     })
     .catch((error) => {
-      console.error("Error while updating worker data:", error);
+      console.error("Error while updating admin data:", error);
       throw error;
     });
 }
