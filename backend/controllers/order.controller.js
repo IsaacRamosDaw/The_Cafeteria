@@ -30,6 +30,7 @@ let fullDate = `${month}-${day}-${year}`
         message: "Some error ocurred while retrieving tutorial" || err.message,
       });
     });
+  
 };
 
 exports.findAll = async (req, res) => {

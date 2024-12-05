@@ -1,5 +1,6 @@
 module.exports = (app) => {
     const student = require("../controllers/student.controller.js");
+    const wallet = require("../controllers/wallet.controller.js");
     const auth = require("../controllers/auth.js"); 
     var upload = require("../multer/upload.js")
 
@@ -9,11 +10,14 @@ module.exports = (app) => {
     
     //Create an student
     router.post("/", student.create);
-
+    // Update phot
     router.put("/upload/:id", upload.single('file'), student.imgUpdate);
 
     //List all students
     router.get("/", auth.isAuthenticated, student.findAll);
+
+    // Wallet
+    router.get("/:id/wallet/", auth.isAuthenticated, wallet.findOne);
 
     // Get one student
     router.get("/:id", auth.isAuthenticated, student.findOne);

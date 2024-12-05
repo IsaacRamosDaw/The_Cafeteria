@@ -1,9 +1,8 @@
 const db = require("../models");
 const Student = db.student;
-const Op = db.sequelize.Op;
+const Wallet = db.wallet;
 const utils = require("../utils");
 const bcrypt = require("bcryptjs");
-const Wallet = require("../controllers/wallet.controller")
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
@@ -39,31 +38,26 @@ exports.create = (req, res) => {
           const token = utils.generateToken(data);
           const studentObj = utils.getCleanUser(data);
 
-          // CREACION DE WALLET /PREGUNTAR
-          //1
-          // preguntar
           try {
-            const wallet = {
-              ammount: req.body.ammount || 0, //valor inicial
-              // FK DEL ESTUDIANTE
-              // studentId: req.user.id,
+            const walletData = {
+              amount: 50,
+              StudentId: data.id,
             }
-            return Wallet.create(wallet, req.user.id).then(() => {
-              const token = utils.generateToken(data);
-              const walletObj = utils.getCleanUser(data);
+              Wallet.create(walletData).then((wallet) => {
 
               res.status(201).json({
+                message: "Student adn wallet created succesfully",
                 student: studentObj,
-                acces_token: token,
-                mesage: "wallet from this student created succesfully",
+                wallet: wallet,
+                token: token,
               })
             })
           } catch (err) {
-            // No sé que poner
+            return res.status(500).json({
+              message: err.message || "Some error while crating the wallet of this student",
+            });
           }
-
-
-          return res.json({ student: studentObj, access_token: token });
+          // return res.json({ student: studentObj, access_token: token });
         })
         .catch((err) => {
           res.status(500).send({

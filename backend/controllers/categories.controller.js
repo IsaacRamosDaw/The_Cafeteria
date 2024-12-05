@@ -2,15 +2,15 @@ const db = require("../models");
 const Category = db.categories;
 
 exports.create = (req, res) => {
-
     // Create an Category object
-    const shop = {
+    const category = {
         name: req.body.name,
+        amount: req.body.amount,
         filename: req.file ? req.file.filename : "",
     };
 
     // Save Category in the database
-    Category.create(shop)
+    Category.create(category)
         .then(data => {
             res.send(data);
         })
