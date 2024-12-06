@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import WorkerCard from "../workerCard/WorkerCard";
-import { get, remove } from "../../../services/workerService";
+import { get, remove } from "../../../services/workerService.js";
 import "./WorkerContainer.scss";
 
 function WorkerContainer() {
@@ -20,7 +20,7 @@ function WorkerContainer() {
     setWorkers((prevWorkers) => prevWorkers.filter((worker) => worker.id !== id));
   };
   return (
-    <section className="section-container-worker-cards">
+    <section className="section-container-admins-cards">
       {workers.map((worker) => (
         <WorkerCard
           key={worker.id}

@@ -1,6 +1,6 @@
 @import '/src/global.scss';
 
-.admin-card {
+.coffe-card {
     width: 90%;
     max-width: 380px;
     padding: 10px 0;
@@ -20,7 +20,7 @@
         }
     }
 
-    .container-control-admin {
+    .container-control-coffe {
         @include flex-items(column);
 
         a,
@@ -28,7 +28,12 @@
         .btn-trash {
             width: 25px;
             border: 0;
-            font-size: 30px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
         }
 
         .btn-edit:active,

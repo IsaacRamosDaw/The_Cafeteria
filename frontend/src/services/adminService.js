@@ -111,15 +111,16 @@ export async function remove(id) {
 }
 
 export async function edit(id, data) {
-  let token = localStorage.getItem("token");
+  console.log(id, data);
+  let token = localStorage.getItem("token")
 
   if (!token) {
     window.location.href = "/error";
   }
 
-  let url = `${endpoint}/${id}`;
+  // let url = `${endpoint}/${id}`;
 
-  return fetch(url, {
+  return fetch(`${endpoint}/${id}`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,

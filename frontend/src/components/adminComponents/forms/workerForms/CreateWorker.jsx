@@ -14,7 +14,7 @@ function CreateWorker() {
       let passwordWorker = document.querySelector("#password-worker");
       let phoneWorker = document.querySelector("#phone-worker");
       const formData = {
-        name: nameWorker.value,
+        username: nameWorker.value,
         password: passwordWorker.value,
         phone: phoneWorker.value
       };

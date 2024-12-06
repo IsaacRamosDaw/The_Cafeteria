@@ -1,26 +1,28 @@
-const endpoint = "http://localhost:8080/api/worker";
+const endpoint = "http://localhost:8080/api/coffeShop";
 
 export function get() {
   let token = localStorage.getItem("token");
+
   if (!token) {
     window.location.href = "/error";
   }
+
   const getOperation = fetch(endpoint, {
     method: "GET",
     headers: new Headers({
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
-      // "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching dataaaaaa");
+        throw new Error("Error fetching data");
       }
       return response.json();
     })
     .catch((error) => {
-      console.log(`error,xsgjhcgshjmgcsamhnjmgh ${error}`);
+      console.log(`error, ${error}`);
       return error;
     });
   return getOperation;
@@ -32,6 +34,7 @@ export function getOne(id) {
   if (!token) {
     window.location.href = "/error";
   }
+
   const getOneOperation = fetch(`${endpoint}/${id}`, {
     method: "GET",
     headers: new Headers({
@@ -53,24 +56,19 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export async function create(formData) {
+export function create(formData) {
   return fetch(endpoint, {
     method: "POST",
-    headers:   new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-      'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
-    }),
-    body: new URLSearchParams(formData),
+    body: formData,
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }
-
       return response.json();
     })
     .catch((error) => {
-      console.error("Error while retrieving worker data:", error);
+      console.error("Error while retrieving admin data:", error);
       throw error;
     });
 }
@@ -81,6 +79,7 @@ export async function remove(id) {
   if(!token){
     window.location.href='/error'
   }
+  
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
@@ -88,11 +87,13 @@ export async function remove(id) {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded'
     },
+    
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Failed to delete worker");
+        throw new Error("Failed to delete admin");
       }
+
       return response.json();
     })
     .catch((error) => {
