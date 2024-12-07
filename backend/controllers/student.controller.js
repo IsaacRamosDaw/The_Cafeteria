@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 		password: req.body.password,
 		age: parseInt(req.body.age),
 		phone: req.body.phone,
-		course: req.body.course,
+		CourseId: req.body.CourseId,
 		role: "student",
 		filename: req.file ? req.file.filename : "",
 	};
@@ -49,7 +49,7 @@ exports.create = (req, res) => {
 							res.status(201).json({
 								message: "Student and wallet added created succesfully",
 								student: studentObj,
-								course: student.course,
+								CourseId: student.CourseId,
 								token: token,
 								wallet: wallet,
 							})
