@@ -3,17 +3,13 @@
 #page-settings-worker {
   background-color: var(--background-1);
   min-height: 100vh;
-  // display: grid;
-  // grid-template-rows: auto 1fr auto;
   @include flex-items(column);
-
-  // h2{
-  //   margin-top: 4vh;
-  // }
   
   img#coffeShop-image {
     margin-top: 1.5vh;
     height: 25vh;
+    border-radius: 15px;
+    box-shadow: 0 0 25px 2px black;
   }
 
   main#worker-setttings {
@@ -42,12 +38,14 @@
       color: var(--text-2);
       gap: 10px;
     }
+
     a {
       display: flex;
       flex-direction: column;
       justify-content: center;
       text-align: center;
     }
+
     svg {
       margin: 0 auto;
       font-size: 2em;

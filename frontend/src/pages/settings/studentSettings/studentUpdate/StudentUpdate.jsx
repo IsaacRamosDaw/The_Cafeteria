@@ -1,14 +1,14 @@
 import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
-import "./StudentUpdate.scss";
 import Button from "../../../../components/button/Button";
-
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
-
 import Avatar from "@mui/material/Avatar";
+
 import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useState } from "react";
+
+import "./StudentUpdate.scss";
 
 export default function AccountSettings() {
   let endPoint = "http://localhost:8080/images/"

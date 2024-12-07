@@ -32,9 +32,18 @@ import EditWorker from "./components/adminComponents/forms/workerForms/EditWorke
 import WorkerSettings from "./pages/settings/workerSettings/WorkerSettings.jsx";
 import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/WorkerCoffeShop.jsx";
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.jsx";
+
 // School 
-import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
+// import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
 import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
+
+//CoffeShop
+// import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
+import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx"
+
+//Course
+import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx"
+import EditCourse from "./components/adminComponents/forms/coursesForms/EditCourse.jsx"
 
 function App() {
   return (
@@ -69,6 +78,8 @@ function App() {
           <Route path="/student/profile/credits" element={<StudentCredits />} />
           <Route path="/student/profile/favs" element={<StudentFavs />} />
           <Route path="/student/profile/update" element={<StudentUpdate />} />
+
+          {/* Menu routes */}
           <Route path="/menu/:category" element={<ProductsList />} />
           <Route path="/menu/:category/:name" element={<Product />} />
 
@@ -76,9 +87,18 @@ function App() {
           <Route path="/profile/policy" element={<Policy />} />
           <Route path="/error" element={<ErrorPage />} />
 
+          {/* Course routes */}
+          <Route path="/course" element={<CreateCourse/>}/>
+          <Route path="/course/:id" element={<EditCourse/>}/>
+          
           {/* School routes */}
-          <Route path="/school" element={<CreateSchool />} />
+          {/* <Route path="/school" element={<CreateSchool />} /> */}
           <Route path="/school/:id" element={<EditSchool />} />
+
+          {/* CoffeShop routes */}
+          {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
+          <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/>
+          
 
         </Routes>
       </Router>

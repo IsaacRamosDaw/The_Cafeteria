@@ -2,32 +2,35 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
       "categories",
       [
         {
           name: "Bebidas",
-          filename: "ieselerincon.jpg",
+          filename: "../public/images/ImgMenus/bebidas.jpg",
         },
         {
           name: "Refrescos",
-          filename: "ieselerincon.jpg",
+          filename: "../public/images/ImgMenus/bebidas.jpg",
+
         },
         {
           name: "Bocadillos",
-          filename: "ieselerincon.jpg",
+          filename: "../public/images/ImgMenus/bebidas.jpg",
+
         },
         {
           name: "Sandwiches",
-          filename: "ieselerincon.jpg",
+          filename: "../public/images/ImgMenus/bebidas.jpg",
+
         },
       ],
       {}
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete("categories", null, {});
   }
 };

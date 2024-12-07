@@ -2,7 +2,12 @@ import ProfileBar from "../../components/profileBar/ProfileBar";
 import SchoolContainer from "../../components/adminComponents/schoolContainer/SchoolContainer";
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
+import CoffeContainer from "../../components/adminComponents/coffeShopContainer/CoffeShopContainer";
+import CourseContainer from "../../components/adminComponents/courseContainer/CourseContainer";
 import "./Admin.scss";
+
+//React icons
+
 
 // Speed dial components
 import SpeedDial from "@mui/material/SpeedDial";
@@ -11,16 +16,20 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 
 import Work from "@mui/icons-material/Work";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import School from "@mui/icons-material/School";
+// import School from "@mui/icons-material/School";
+import MenuBook from "@mui/icons-material/MenuBook";
+// import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const navigate = useNavigate();
 
   const actions = [
-    { icon: <Work />, name: "Worker", to: "/worker" },
-    { icon: <School />, name: "School", to: "/school" },
+    { icon: <Work />, name: "Trabajador", to: "/worker" },
+    // { icon: <School />, name: "Colegio", to: "/school" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
+    { icon: <MenuBook />, name: "Curso", to: "/course"},
+    // { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
   const goTo = (page) => {
@@ -55,17 +64,17 @@ function Admin() {
         </details>
         
         <details>
-          <summary>
-            <h2>Trabajadores</h2>
-            {/* <WorkerContainer /> */}
+          <summary> 
+            <h2>Trabajadores</h2> 
           </summary>
+          <WorkerContainer />
         </details>
 
         <details>
           <summary>
             <h2>Cafeterías</h2>
-            {/* <WorkerContainer /> */}
           </summary>
+            <CoffeContainer/>
         </details>
 
         <details>
@@ -78,8 +87,8 @@ function Admin() {
         <details>
           <summary>
             <h2>Cursos</h2>
-            {/* <WorkerContainer /> */}
           </summary>
+            <CourseContainer />
         </details>
       </main>
     </div>

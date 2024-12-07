@@ -1,19 +1,22 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const category = sequelize.define("Category", {
+  const Category = sequelize.define("Category", {
     name: {
       type: DataTypes.STRING,
       allowNull: false
     },
     filename:{
       type: DataTypes.STRING
+    },
+    amount:{
+      type: DataTypes.INTEGER
     }
   },
   {
     timestamps: false,
   });
 
-  return category;
+  return Category;
 };
 

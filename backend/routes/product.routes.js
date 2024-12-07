@@ -1,24 +1,26 @@
 module.exports = (app) => {
-    const product = require("../controllers/product.controller");
-    const auth = require("../controllers/auth.js"); 
+    const product = require("../controllers/product.controller.js");
 
     var router = require("express").Router();
 
-    //Create an coffeShop
-    router.post("/", auth.isAuthenticated, product.create);
+    //Create an Product
+    router.post("/", product.create);
 
-    //List all coffeShops
-    router.get("/", auth.isAuthenticated, product.findAll);
+    // List all products
+    router.get("/", product.findAll);
+
+    //List products by category
+    router.get("/categories/:id", product.findByCategory);
 
     // Get one student
-    router.get("/:id", auth.isAuthenticated, product.findOne);
+    router.get("/:id", product.findOne);
 
-    // Update coffeShop
-    router.put("/:id", auth.isAuthenticated, product.update);
+    // Update Product
+    router.put("/:id", product.update);
 
-    //Delete coffeShop
-    router.delete("/:id", auth.isAuthenticated, product.delete);
+    //Delete Product
+    router.delete("/:id",  product.delete);
 
-    app.use('/api/coffeShop', router);
+    app.use('/api/products', router);
 
-};
+};  

@@ -1,6 +1,7 @@
-// AdminCard.jsx
 import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function AdminCard({ username, id, onDelete, photo }) {
   };
 
   const handleEdit = () => {
+    console.log("Navigating to:", "/admin/" + id);
     navigate("/admin/" + id);
   };
 
@@ -30,10 +32,10 @@ function AdminCard({ username, id, onDelete, photo }) {
 
       <div className="container-control-admin">
         <button className="btn-edit" onClick={handleEdit}>
-          <img src={`/images/icons/edit.svg`} alt="Editar" />
+          < FaEdit />
         </button>
         <button className="btn-trash" onClick={handleDelete}>
-          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
+          < RiDeleteBin6Line />
         </button>
       </div>
     </div>

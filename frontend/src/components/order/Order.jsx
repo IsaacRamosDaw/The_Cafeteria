@@ -1,29 +1,41 @@
 import Button from "../button/Button";
 import "./Order.scss";
 
-function Order({ ID_order, date, studentName ,product, quantity }) {
+function Order({ ID_order, date, studentName ,product, course }) {
+
+  const role = () => {
+    const token = localStorage.getItem("token"); 
+    if (!token) return null;
+    try {
+      const base64Payload = token.split(".")[1];
+      const decodedPayload = JSON.parse(atob(base64Payload));
+      return decodedPayload.role; 
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
+  };
+
   return (
     <section className="order-card">
       <header className="card-order-header">
         <p>ID: {ID_order} </p>
         <p> {date} </p>
       </header>
-      <h2 className="text-name-student" > {studentName} </h2>
+      <h2 className="text-name-student" > {studentName}<span></span>{course}</h2>
       <ul className="card-order-content">
         <li>
           <p> {product} </p>
-          <span> {quantity} </span>
         </li>
         <li>
           <p> {product} </p>
-          <span> {quantity} </span>
         </li>
         <li>
           <p> {product} </p>
-          <span> {quantity} </span>
         </li>
       </ul>
       <form className="card-order-container-btn">
+        {role === "worker" ? <Button text={"Terminado"} submit={true} /> : ""}
         <Button text={"Cancelar"} submit={true} />
       </form>
     </section>

@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  const orderLine = sequelize.define(
+  const OrderLine = sequelize.define(
     "OrderLine",
     {
       quantity: {
@@ -14,5 +14,5 @@ module.exports = (sequelize) => {
     }
   );
 
-  return orderLine;
+  return OrderLine;
 };

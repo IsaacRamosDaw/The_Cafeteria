@@ -1,13 +1,11 @@
 const db = require("../models");
 const School = db.school;
 
-exports.create = (req, res) => {
 
-    if (!req.body.name || !req.body.address || !req.body.email || !req.body.phone) {
-        return res.status(400).send({ message: "All fields are required." });
-    }
-    
-    // Create a School object
+exports.create = (req, res) => {
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
+
     const school = {
         name: req.body.name,
         address: req.body.address,
@@ -16,7 +14,6 @@ exports.create = (req, res) => {
         filename: req.file ? req.file.filename : ""
     };
 
-    // Save School in the database
     School.create(school)
         .then(data => {
             res.send(data);
@@ -28,27 +25,28 @@ exports.create = (req, res) => {
         });
 };
 
+
 // Retrieve all schools from the database
 exports.findAll = (req, res) => {
-  School.findAll()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving schools.",
-      });
-    });
+    School.findAll()
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving schools.",
+            });
+        });
 };
 
 exports.findOne = (req, res) => {
-  School.findOne({
-    where: {
-      id: req.params.id,
-    },
-  }).then((data) => {
-    res.send(data);
-  });
+    School.findOne({
+        where: {
+            id: req.params.id,
+        },
+    }).then((data) => {
+        res.send(data);
+    });
 };
 
 // Update a school by ID

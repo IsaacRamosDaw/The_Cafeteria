@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
     "Wallet",
     {
       amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
       },
     },
     {

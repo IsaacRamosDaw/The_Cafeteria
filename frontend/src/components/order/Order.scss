@@ -20,6 +20,10 @@
   .text-name-student {
     text-align: center;
     color: var(--text-1);
+
+    span{
+      margin: 0 .1em;
+    }
   }
 
   .card-order-content {

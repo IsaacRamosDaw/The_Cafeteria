@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SchoolCard from "../schoolCard/SchoolCard";
-import { get, remove } from "../../../services/schoolService";
+import { get} from "../../../services/schoolService";
 import './SchoolContainer.scss'
 
 
@@ -16,10 +16,10 @@ function SchoolContainer() {
     fetchData();
   }, []);
 
-    const handleDelete = async (id) => {
-      await remove(id);
-      setSchools((prevSchool) => prevSchool.filter((school) => school.id !== id));
-    }
+    // const handleDelete = async (id) => {
+    //   await remove(id);
+    //   setSchools((prevSchool) => prevSchool.filter((school) => school.id !== id));
+    // }
 
   return (
     <section className="section-container-school-cards">
@@ -28,7 +28,7 @@ function SchoolContainer() {
           key={school.id}
           name={school.name}
           id={school.id}
-          onDelete={handleDelete}
+          // onDelete={handleDelete}
         />
       ))}
     </section>

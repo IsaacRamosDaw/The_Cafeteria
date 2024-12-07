@@ -6,7 +6,7 @@ module.exports = app => {
 
     //Create a school
 
-    router.post("/", upload.single('file'), school.create);
+    router.post("/", school.create);
 
     //List all schools
     router.get("/", school.findAll);
@@ -14,7 +14,9 @@ module.exports = app => {
     router.get("/:id", school.findOne);
 
     // Update school
-    router.put("/:id", upload.single('file'), school.update);
+    router.put("/:id", school.update);
+
+    // router.put("/upload/:id", upload.single('file'), school.imgUpdate);
 
     //Delete school
     router.delete("/:id", school.delete);

@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-    const inventory = sequelize.define('Inventory', {
+    const Inventory = sequelize.define('Inventory', {
         name: {
             type: DataTypes.STRING,
         },
@@ -14,5 +14,5 @@ module.exports = (sequelize) => {
       timestamps: false,
     });
 
-    return inventory;
+    return Inventory;
 };

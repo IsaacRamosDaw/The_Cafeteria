@@ -2,15 +2,15 @@ const db = require("../models");
 const Category = db.categories;
 
 exports.create = (req, res) => {
-
     // Create an Category object
-    const shop = {
+    const category = {
         name: req.body.name,
+        amount: req.body.amount,
         filename: req.file ? req.file.filename : "",
     };
 
     // Save Category in the database
-    Category.create(shop)
+    Category.create(category)
         .then(data => {
             res.send(data);
         })
@@ -23,11 +23,6 @@ exports.create = (req, res) => {
 
 // Retrieve all categories
 exports.findAll = (req, res) => {
-if (!req.user) {
-    return res.status(403).json({
-      message: "Access denied. Authentication required.",
-    });
-  }
   Category.findAll()
     .then(data => {
         res.send(data);
@@ -39,77 +34,90 @@ if (!req.user) {
     });
 };
 
-exports.update = (req, res) => {
-const id = req.params.id;
+// Retrieve one category
+exports.findOne = (req, res) => {
+  const id = Number(req.params.id);
 
-// Validate request
-if (req.user.role !== "admin" && req.user.role !== "worker") {
-return res.status(403).send({
-  message: "Access denied.",
-});
-}
-
-const update = {
-    name: req.body.name,
-    filename: req.file ? req.file.filename : "",
+  Category.findByPk(id)
+    .then(category => 
+      res.send(category))
+    .catch(err => 
+      res.status(500).send({
+       message: err.message || "Some error occurred while retrieving categories."
+      })
+    );
 };
 
-// Attempt to update the Category
-Category.update(update, { where: { id: id } })
-    .then(([rowsUpdated]) => {
-        if (rowsUpdated === 0) {
-            // If no rows were updated, the Category was not found
-            return res.status(404).send({
-                message: `Cannot update Category with id=${id}. Category not found.`
-            });
-        }
-        res.send({ message: "Category was updated successfully." });
-    })
-    .catch(err => {
-        // Catch any error
-        res.status(500).send({
-            message: err.message || "An error occurred while updating the Category."
-        });
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+// Validate request
+  if (req.user.role !== "admin" && req.user.role !== "worker") {
+    return res.status(403).send({
+      message: "Access denied.",
     });
+  }
+
+  const update = {
+      name: req.body.name,
+      filename: req.file ? req.file.filename : "",
+  };
+
+  // Attempt to update the Category
+  Category.update(update, { where: { id: id } })
+      .then(([rowsUpdated]) => {
+          if (rowsUpdated === 0) {
+              return res.status(404).send({
+                  message: `Cannot update Category with id=${id}. Category not found.`
+              });
+          }
+          res.send({ message: "Category was updated successfully." });
+      })
+      .catch(err => {
+          res.status(500).send({
+              message: err.message || "An error occurred while updating the Category."
+          });
+      });
 };
 
 exports.imgUpdate = (req, res) => {
-const id = req.params.id;
+  const id = req.params.id;
 
-console.log(req.user);
+  console.log(req.user);
 
-if (
-  !(req.user.role == "admin" || req.user.role == "worker")
-) {
-  return res.status(403).send({
-    message: "Access denied to update.",
-  });
-}
-
-const updateCoffe = {
-  filename: req.file ? req.file.filename : "",
-};
-
-Category.update(updateCoffe, { where: { id: id } })
-  .then(([rowsUpdated]) => {
-    if (rowsUpdated === 0) {
-      // If no rows were updated, the admin was not found
-      return res.status(404).send({
-        message: `Cannot update Student with id=${id}. Student not found.`,
-      });
-    }
-    res.send({ message: "Category was updated successfully." });
-  })
-  .catch((err) => {
-    // Catch any error
-    res.status(500).send({
-      message: err.message || "An error occurred while updating the Student.",
+  if (
+    !(req.user.role == "admin" || req.user.role == "worker")
+  ) {
+    return res.status(403).send({
+      message: "Access denied to update.",
     });
-  });
+  }
+
+  const updateCoffe = {
+    filename: req.file ? req.file.filename : "",
+  };
+
+  Category.update(updateCoffe, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        // If no rows were updated, the admin was not found
+        return res.status(404).send({
+          message: `Cannot update Student with id=${id}. Student not found.`,
+        });
+      }
+      res.send({ message: "Category was updated successfully." });
+    })
+    .catch((err) => {
+      // Catch any error
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the Student.",
+      });
+    });
 };
 
 exports.delete = (req, res) => {
 const id = req.params.id;
+
 if (req.user.role !== "admin" && req.user.role !== "worker") {
     return res.status(403).send({
       message: "Access denied.",

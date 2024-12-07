@@ -1,0 +1,46 @@
+div#worker-coffe-shop{
+  padding-top: 2vh;
+
+  a {
+    font-size: 1.5em;
+    margin-left: 2vw;
+    color: gray;
+    margin-bottom: 2vh;
+  }
+
+  #workers-container{
+    h2{
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 2vh;
+    }
+
+    .worker-card{
+      display: flex;
+      justify-content: space-between;
+      width: 50vw;
+      margin: 0 auto;
+      margin-bottom: 2vh;
+    }
+  }
+
+  #resume{
+    h2{
+      text-align: center;
+      border-bottom: 2px solid grey;
+      width: 50%;
+      margin: 0 auto;
+      margin-bottom: 2vh;
+    }
+    
+    #data{
+      padding: 0 15vw;
+      .data-field{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2vh;
+      }
+    }
+  }
+  
+}
