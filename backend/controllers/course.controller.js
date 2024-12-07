@@ -68,7 +68,6 @@ exports.findOne = (req, res) => {
     });
   });
 };
-
 exports.update = (req, res) => {
   const id = req.params.id;
 
@@ -103,7 +102,6 @@ exports.update = (req, res) => {
     })
   )
 }
-
 exports.delete = (req, res) => {
   const id = req.params.id;
 

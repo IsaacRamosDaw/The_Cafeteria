@@ -1,0 +1,8 @@
+@import '/src/global.scss';
+
+.section-container-course-cards {
+    width: 100%;
+    // background-color: var(--background-3);
+    @include flex-items(column);
+    gap: 1em;
+}

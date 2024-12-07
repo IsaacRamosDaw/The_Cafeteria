@@ -33,9 +33,35 @@ import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/Wor
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.jsx";
 
 // School 
-import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
+// import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
 import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
 
+<<<<<<< HEAD
+=======
+// Worker 
+import HomeWorker from "./pages/home/HomeWorker.jsx";
+// import MenuPageWorker from "./pages/Menu/MenuPageWorker.jsx";
+import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
+import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
+import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
+
+//CoffeShop
+// import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
+import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx"
+
+//Course
+import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx"
+import EditCourse from "./components/adminComponents/forms/coursesForms/EditCourse.jsx"
+
+// Settings components
+import AccountSettings from "./pages/settings/studentSettings/accountSettings/AccountSettings.jsx";
+import CreditSetting from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
+import MyCafeteria from "./pages/settings/studentSettings/myCafeteria/MyCafeteria.jsx";
+import Favorites from "./pages/settings/studentSettings/favorites/Favorites.jsx";
+import Policy from "./pages/settings/studentSettings/policy/Policy.jsx";
+import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
+
+>>>>>>> dev-backend-c
 function App() {
   return (
     <ThemeProvider>
@@ -77,9 +103,36 @@ function App() {
           <Route path="/error" element={<ErrorPage />} />
 
           {/* School routes */}
-          <Route path="/school" element={<CreateSchool />} />
+          {/* <Route path="/school" element={<CreateSchool />} /> */}
           <Route path="/school/:id" element={<EditSchool />} />
 
+<<<<<<< HEAD
+=======
+          {/* Student routes */}
+          <Route path="/home" element={<HomeStudent />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/studentsettings" element={<StudentSettings />} />
+          <Route path="/ownersettings" element={<OwnerSettings />} />
+          <Route path="/account" element={<Account />} />
+
+          {/* CoffeShop routes */}
+          {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
+          <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/>
+
+          {/* Course routes */}
+          <Route path="/course" element={<CreateCourse/>}/>
+          <Route path="/course/:id" element={<EditCourse/>}/>
+
+          {/* Setting components routes */}
+          <Route path={"/accountSetting"} element={ <AccountSettings /> } />
+          <Route path={"/credits"} element={ <CreditSetting /> } />
+          <Route path={"/favorites"} element={ <Favorites /> } />
+          <Route path={"/mycafeteria"} element={ <MyCafeteria /> } />
+          <Route path={"/policy"} element={ <Policy /> } />
+
+          <Route path={"/error"} element={ <ErrorPage /> } />
+
+>>>>>>> dev-backend-c
         </Routes>
       </Router>
     </ThemeProvider>

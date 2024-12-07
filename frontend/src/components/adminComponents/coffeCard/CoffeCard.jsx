@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./CoffeCard.scss";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+// import { RiDeleteBin6Line } from "react-icons/ri";
 
-function CoffeCard({ name, id, onDelete }) {
+function CoffeCard({ name, id}) {
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    onDelete(id);
-  };
+  // const handleDelete = () => {
+  //   onDelete(id);
+  // };
 
   const handleEdit = () => {
     console.log("Navigating to:", "/coffeShop/" + id);
@@ -32,9 +32,9 @@ function CoffeCard({ name, id, onDelete }) {
         <button className="btn-edit" onClick={handleEdit}>
           < FaEdit />
         </button>
-        <button className="btn-trash" onClick={handleDelete}>
+        {/* <button className="btn-trash" onClick={handleDelete}>
           < RiDeleteBin6Line />
-        </button>
+        </button> */}
       </div>
     </div>
   );
