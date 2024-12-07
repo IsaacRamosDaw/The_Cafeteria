@@ -26,7 +26,7 @@ function Product() {
       title: "Bocata Combo con doble de cangrejo y salsa de queso",
       description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
       price: 14.95,
-      img: "/images/ImgMenus/sandwiches.jpg"
+      img: "/images/ImgMenus/sandwiches.jpg",
     };
 
     setProduct(data);

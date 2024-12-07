@@ -6,7 +6,8 @@ export default function InputFormSetting({
   placeholder,
   option = 1,
   disable = false,
-  type = "text"
+  type = "text",
+  required = false
 }) {
 
   const id = title.split(" ")[0].toLowerCase()
@@ -25,6 +26,7 @@ export default function InputFormSetting({
             type={type}
             placeholder={`${placeholder}`}
             disabled={disable}
+            required={required}
           />
         </>
       ) : (
@@ -39,6 +41,7 @@ export default function InputFormSetting({
             type={type}
             placeholder={placeholder}
             disabled={disable}
+            required={required}
           />
         </>
       )}

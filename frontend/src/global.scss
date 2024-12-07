@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-$primary-font: "Roboto",
-sans-serif;
+$font-kameron: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+$font-segoe-ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+$font-instrument-sans: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 $font-size-tiny: 10pt;
 $font-size-small: 12pt;
@@ -12,6 +15,13 @@ $font-size-big: 20pt;
 
 $font-size-subtitle: 22pt;
 $font-size-title: 28pt;
+
+@mixin H2-22-Regular{
+  font-weight: 200;
+  font-size: 22px;
+  font-family: sans-serif;
+}
+
 
 // Tamaños predeterminado Figma
 $font-H1: 28pt;
@@ -25,7 +35,6 @@ $font-body-small: 14pt;
 
 $font-small: 12pt;
 $font-tiny: 10pt;
-
 
 // Colores
 $primary-color: #EB5E28;
@@ -87,7 +96,7 @@ html {
 * {
   margin: 0;
   padding: 0;
-  font-family: $primary-font;
+  font-family: $font-segoe-ui;
 }
 
 ul {
@@ -106,7 +115,7 @@ a {
     min-width: 35%;
     max-width: 400px;
     width: 90%;
-    font-family: $primary-font;
+    font-family: $font-segoe-ui;
   }
 }
 

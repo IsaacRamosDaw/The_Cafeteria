@@ -14,7 +14,7 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
 
-import WalletBalance from "../../../components/setttingsComp/walletBalance/WalletBalance";
+import CreditBalance from "../../../components/setttingsComp/creditBalance/CreditBalance";
 
 function StudentSettings() {
   const { theme, toggleTheme } = useTheme();
@@ -22,7 +22,7 @@ function StudentSettings() {
   return (
     <div id="page-settings-student">
       <SearchBar />
-      <WalletBalance/>
+      <CreditBalance/>
       <main id="student-setttings">
         <div id="settings-container">
           <Setting icon={<FiUser />} to={"/student/profile/update"} text={"Cuenta"} />

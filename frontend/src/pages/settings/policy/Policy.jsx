@@ -59,7 +59,7 @@ function Policy() {
         </p>
 
         <div>
-          <img src="../../../../public/images/settings/security.jpg" alt="" />
+          <img src="/images/settings/security.jpg" alt="" />
         </div>
 
 

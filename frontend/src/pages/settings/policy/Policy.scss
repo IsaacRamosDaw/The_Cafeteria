@@ -22,7 +22,7 @@ div#privacy-container {
       margin-bottom: 2vh;
     }
 
-    P{
+    P {
       font-size: 1.1em;
     }
 
@@ -48,7 +48,7 @@ div#privacy-container {
         font-size: 18px;
       }
 
-      p{
+      p {
         font-weight: bolder;
         font-size: 1em;
         margin-bottom: .5em;
@@ -61,7 +61,7 @@ div#privacy-container {
         margin-bottom: 0;
       }
 
-      .icons{
+      .icons {
         color: orange;
       }
     }
@@ -79,12 +79,14 @@ div#privacy-container {
       margin-bottom: 20px;
     }
 
-    div{
+    div {
       text-align: center;
     }
 
-    img{
+    img {
       border-radius: 10px;
+      width: 100%;
+      max-width: 800px;
     }
 
     button {

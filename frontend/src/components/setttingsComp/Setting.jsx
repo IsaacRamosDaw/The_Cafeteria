@@ -15,7 +15,7 @@ function Setting({ icon, text, to, toggle }) {
           <span className="menu-item-text">{text} </span>
         </div>
         <span>
-          <Switch onClick={toggleTheme} defaultChecked color="default" />
+          <Switch onClick={toggleTheme} color="default" />
         </span>
       </div>
     );

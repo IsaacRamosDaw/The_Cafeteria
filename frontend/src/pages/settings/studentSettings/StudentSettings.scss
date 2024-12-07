@@ -5,13 +5,15 @@
   min-height: 100vh;
   // display: grid;
   // grid-template-rows: auto 1fr auto;
-  @include flex-items(column);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 main#student-setttings {
   @include flex-items(column);
   color: var(--text-2);
-  margin-top: 60px;
   display: flex;
   gap: 20px;
   width: 90%;
@@ -82,11 +84,12 @@ main#student-setttings {
         @include flex-items(column);
         flex-shrink: 0;
 
-        svg{
+        svg {
           font-size: 40px;
           color: var(--text-1);
         }
-        .text-add-card{
+
+        .text-add-card {
           color: var(--text-2);
         }
 
@@ -125,12 +128,12 @@ main#student-setttings {
 
   }
 
-  #settings-container{
+  #settings-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    
+
   }
 
   section#section-log-out {
@@ -138,7 +141,7 @@ main#student-setttings {
     width: 100%;
     @include flex-items;
 
-    .container-logout{
+    .container-logout {
       @include flex-items;
       color: var(--text-2);
       gap: 10px;
@@ -163,7 +166,7 @@ main#student-setttings {
   }
 }
 
-.modal-container{
+.modal-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -177,22 +180,24 @@ main#student-setttings {
   align-items: center;
   justify-content: start;
 
-  .container-exit-icon{
+  .container-exit-icon {
     width: 100%;
     text-align: end;
     display: flex;
     align-items: center;
     justify-content: end;
-    .icon-exit{
+
+    .icon-exit {
       font-size: 35px;
       margin: 5px 10px;
     }
-    .icon-exit:active{
+
+    .icon-exit:active {
       transform: scale(.8);
     }
   }
 
-  .content-modal{
+  .content-modal {
     width: 100%;
     height: 100%;
     @include flex-items(column);
@@ -200,11 +205,12 @@ main#student-setttings {
     margin-bottom: 30px;
   }
 
-  .container-btn-recargar{
+  .container-btn-recargar {
     width: 100%;
 
     @include flex-items;
-    #btn-recargar{
+
+    #btn-recargar {
       width: 70%;
       height: 48px;
       font-size: $font-size-medium-big;
@@ -214,7 +220,8 @@ main#student-setttings {
       border-radius: 5px;
       color: var(--text-1);
     }
-    #btn-recargar:active{
+
+    #btn-recargar:active {
       transform: scale(.9);
       transition-duration: .3s;
     }
