@@ -28,17 +28,14 @@ function CategoriesContainer() {
       <main id="category-container-card">
         {
           categories.map((category) => (
-            <>
-              <CategoryCard
-                key={category.id} // Asegúrate de usar una clave única
-                img={"../../../public/images/ImgMenus/bebidas.jpg"}
+            <div key={category.id}>
+              <CategoryCard    
                 count={category.amount}
                 title={category.name}
                 category={`/menu/${category.name}`}
-
               />
-              <Link onClick={handleDelete}>BORRAME</Link>
-            </>
+              <button onClick={() => handleDelete(category.id)}>BORRAME</button>
+            </div>
           ))
         }
         {/* <CategoryCard

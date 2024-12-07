@@ -1,5 +1,5 @@
 import ProductCard from "../../components/productCard/ProductCard";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import "./ProductsList.scss";
 import { useNavigate, useParams } from "react-router-dom";

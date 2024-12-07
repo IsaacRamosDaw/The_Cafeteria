@@ -18,16 +18,16 @@ export async function get() {
 
 // In progress
 export async function remove(id) {
-  let token = localStorage.getItem("token");
+  // let token = localStorage.getItem("token");
 
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const removeOperation = fetch(`${endpoint}/${id}`, {
+  // if (!token) {
+  //   window.location.href = "/error";
+  // }
+  console.log(id);
+  const removeOperation = await fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
       Accept: "application/json"
     },
   })
@@ -38,9 +38,11 @@ export async function remove(id) {
 
       return res.json();
     })
-    .catch((error) => {
-      console.log(`errordsafadsfsda, ${error}`);
-      return error;
+    .catch((err) => {
+      // console.log(`errordsafadsfsda, ${id} variable`);
+      console.log(`errordsafadsfsda, ${err}`);
+      console.log(`errordsafadsfsda, ${err.message}`);
+      return err;
     });
   return removeOperation;
 }

@@ -16,7 +16,7 @@ function CategoryCard({ title, img, count, category }) {
         <div className="container-content-card-category">
           <h4 className="title-category-card">{title}</h4>
           <p className="count-category-card">
-            {count} {title}{" "}
+            {count} {" Existencias "}
           </p>
         </div>
       </Link>
