@@ -3,6 +3,7 @@ import SchoolContainer from "../../components/adminComponents/schoolContainer/Sc
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
 import CoffeContainer from "../../components/adminComponents/coffeShopContainer/CoffeShopContainer";
+import CourseContainer from "../../components/adminComponents/courseContainer/CourseContainer";
 import "./Admin.scss";
 
 //React icons
@@ -15,9 +16,9 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 
 import Work from "@mui/icons-material/Work";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import School from "@mui/icons-material/School";
+// import School from "@mui/icons-material/School";
 import MenuBook from "@mui/icons-material/MenuBook";
-import LocalCafe from "@mui/icons-material/LocalCafe";
+// import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 
 function Admin() {
@@ -25,10 +26,10 @@ function Admin() {
 
   const actions = [
     { icon: <Work />, name: "Trabajador", to: "/worker" },
-    { icon: <School />, name: "Colegio", to: "/school" },
+    // { icon: <School />, name: "Colegio", to: "/school" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
-    { icon: <MenuBook />, name: "Curso"},
-    { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
+    { icon: <MenuBook />, name: "Curso", to: "/course"},
+    // { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
   const goTo = (page) => {
@@ -80,14 +81,14 @@ function Admin() {
           <summary>
             <h2>Colegios</h2>
           </summary>
-          {/* <SchoolContainer /> */}
+          <SchoolContainer />
         </details>
 
         <details>
           <summary>
             <h2>Cursos</h2>
-            {/* <WorkerContainer /> */}
           </summary>
+            <CourseContainer />
         </details>
       </main>
     </div>

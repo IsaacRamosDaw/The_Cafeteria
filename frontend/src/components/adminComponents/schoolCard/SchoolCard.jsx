@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./SchoolCard.scss";
+import { FaEdit } from "react-icons/fa";
 
-function SchoolCard({ name , id, onDelete}) {
+function SchoolCard({ name , id}) {
     const navigate = useNavigate();
 
-    const handleDelete = () => {
-      onDelete(id);
-    };
+    // const handleDelete = () => {
+    //   onDelete(id);
+    // };
 
     const handleEdit = () => {
       navigate("/school/" + id);
@@ -15,24 +16,23 @@ function SchoolCard({ name , id, onDelete}) {
   return (
     <div className="school-card">
       <div className="container-info-school">
-        <div className="container-img-school">
           <img
             className="item-img"
             src={`/images/ImgMenus/sandwiches.jpg`}
             alt="Image school"
           />
-        </div>
         <div className="container-name-school">
           <h2>{name}</h2>
         </div>
       </div>
+
       <div className="container-control-school">
         <button className="link-to-register" onClick={handleEdit}>
-          <img src={`/images/icons/edit.svg`} alt="Editar" />
+        < FaEdit />
         </button>
-        <button className="btn-trash" onClick={handleDelete}>
+        {/* <button className="btn-trash" onClick={handleDelete}>
           <img src={`/images/icons/trash.svg`} alt="Eliminar" />
-        </button>
+        </button> */}
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdm
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
 
 // School 
-import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
+// import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
 import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
 
 // Worker 
@@ -31,7 +31,12 @@ import EditWorker from "./components/adminComponents/forms/workerForms/EditWorke
 import OwnerSettings from "./pages/settings/ownerSettings/OwnerSettings"
 
 //CoffeShop
-import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
+// import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
+import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx"
+
+//Course
+import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx"
+import EditCourse from "./components/adminComponents/forms/coursesForms/EditCourse.jsx"
 
 // Settings components
 import AccountSettings from "./pages/settings/studentSettings/accountSettings/AccountSettings.jsx";
@@ -63,7 +68,7 @@ function App() {
           <Route path="/admin/:id" element={<EditAdmin />} />
 
           {/* School routes */}
-          <Route path="/school" element={<CreateSchool />} />
+          {/* <Route path="/school" element={<CreateSchool />} /> */}
           <Route path="/school/:id" element={<EditSchool />} />
 
           {/* Student routes */}
@@ -74,7 +79,12 @@ function App() {
           <Route path="/account" element={<Account />} />
 
           {/* CoffeShop routes */}
-          <Route path="/coffeShop" element={<CreateCoffeShop/>}/>
+          {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
+          <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/>
+
+          {/* Course routes */}
+          <Route path="/course" element={<CreateCourse/>}/>
+          <Route path="/course/:id" element={<EditCourse/>}/>
 
           {/* Setting components routes */}
           <Route path={"/accountSetting"} element={ <AccountSettings /> } />

@@ -56,52 +56,56 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export function create(formData) {
-  return fetch(endpoint, {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while retrieving admin data:", error);
-      throw error;
-    });
-}
+// export function create(formData) {
+//   return fetch(endpoint, {
+//     method: "POST",
+//     headers:  new Headers({
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//     }),
+//     body: new URLSearchParams({role: 'admin'}),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error en la solicitud");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while retrieving admin data:", error);
+//       throw error;
+//     });
+// }
 
-export async function remove(id) {
-  let token = localStorage.getItem("token")
 
-  if(!token){
-    window.location.href='/error'
-  }
+// export async function remove(id) {
+//   let token = localStorage.getItem("token")
+
+//   if(!token){
+//     window.location.href='/error'
+//   }
   
-  const removeOperation = fetch(`${endpoint}/${id}`, {
-    method: "DELETE",
-    headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
+//   const removeOperation = fetch(`${endpoint}/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       'Authorization': `Bearer ${token}`, 
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
     
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to delete admin");
-      }
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Failed to delete admin");
+//       }
 
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return removeOperation;
-}
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.log(`error, ${error}`);
+//       return error;
+//     });
+//   return removeOperation;
+// }
 
 export async function edit(id, data) {
   console.log(id, data);

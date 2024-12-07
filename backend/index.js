@@ -79,6 +79,7 @@ require("./routes/admin.routes")(app);
 require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);
 require("./routes/school.routes")(app);
+require("./routes/course.routes")(app);
 
 require("./routes/site.routes")(app);
 

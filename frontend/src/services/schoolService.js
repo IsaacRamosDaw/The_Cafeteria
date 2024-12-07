@@ -1,7 +1,20 @@
 const endpoint = "http://localhost:8080/api/schools";
 
 export function get() {
-  const getOperation = fetch(endpoint)
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOperation = fetch(endpoint, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -16,7 +29,20 @@ export function get() {
 }
 
 export function getOne(id) {
-  const getOneOperation = fetch(`${endpoint}/${id}`)
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOneOperation = fetch(`${endpoint}/${id}`, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -30,52 +56,73 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export async function create(formData) {
-  return fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(formData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
+// export function create(formData) {
+//   return fetch(endpoint, {
+//     method: "POST",
+//     headers:  new Headers({
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
+//     }),
+//     body: new URLSearchParams({role: 'admin'}),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error en la solicitud");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while retrieving admin data:", error);
+//       throw error;
+//     });
+// }
 
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while retrieving admin data:", error);
-      throw error;
-    });
-}
+// export async function remove(id) {
+//   let token = localStorage.getItem("token")
 
-export async function remove(id) {
-  const removeOperation = fetch(`${endpoint}/${id}`, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to delete admin");
-      }
+//   if(!token){
+//     window.location.href='/error'
+//   }
+  
+//   const removeOperation = fetch(`${endpoint}/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       'Authorization': `Bearer ${token}`, 
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+    
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Failed to delete admin");
+//       }
 
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return removeOperation;
-}
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.log(`error, ${error}`);
+//       return error;
+//     });
+//   return removeOperation;
+// }
 
 export async function edit(id, data) {
-  let url = `${endpoint}/${id}`;
+  console.log(id, data);
+  let token = localStorage.getItem("token")
 
-  return fetch(url, {
+  if(!token){
+    window.location.href='/error'
+  }
+
+  // let url = `${endpoint}/${id}`;
+
+  return fetch(`${endpoint}/${id}`, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams(data),
   })
