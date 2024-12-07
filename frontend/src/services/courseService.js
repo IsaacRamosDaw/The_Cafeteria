@@ -56,19 +56,44 @@ export function get() {
     return getOneOperation;
   }
   
+  // export function create(formData) {
+  //   // let token = localStorage.getItem("token")
+  //   // if(!token){
+  //   //       window.location.href='/error'
+  //   //      }
+  //   return fetch(endpoint, {
+  //     method: "POST",
+  //     headers:  new Headers({
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //       'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
+  //     }),
+  //     body: new URLSearchParams({role: 'admin'}),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Error en la solicitud");
+  //       }
+  //       return response.json();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error while retrieving course data:", error);
+  //       throw error;
+  //     });
+  // }
+  
   export function create(formData) {
-    // let token = localStorage.getItem("token")
-    // if(!token){
-    //       window.location.href='/error'
-    //      }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/error";
+    }
+  
     return fetch(endpoint, {
       method: "POST",
-      headers:  new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-        'Authorization': `Basic ${btoa( formData.name)}`,
-      }),
-      body: new URLSearchParams({role: 'admin'}),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name: formData.name }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -81,7 +106,6 @@ export function get() {
         throw error;
       });
   }
-  
   
   export async function remove(id) {
     let token = localStorage.getItem("token")
