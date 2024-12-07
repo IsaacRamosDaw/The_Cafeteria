@@ -23,7 +23,7 @@ import StudentUpdate from "./pages/settings/studentSettings/studentUpdate/Studen
 import StudentCredits from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
 import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import StudentData from "./pages/account/Account";
-import ProductsList from "./pages/ProductsList/ProductsList.jsx";
+import ProductsList from "./pages/productsList/ProductsList.jsx";
 import Product from "./pages/product/Product.jsx";
 
 // Worker 

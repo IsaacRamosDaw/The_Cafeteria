@@ -1,15 +1,15 @@
-import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import "./Product.scss";
+
+import { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import Separator from "../../components/separator/Separator";
-import Button from "../../components/button/Button";
-
-import Divider from "@mui/material/Divider";
-
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
-import "./Product.scss";
-import { useEffect, useState } from "react";
+
+import TabsBar from "../../components/tabsBar/TabsBar";
+import Button from "../../components/button/Button";
+import SearchBar from "../../components/searchBar/SearchBar";
+import Separator from "../../components/separator/Separator";
+import Divider from "@mui/material/Divider";
 
 function Product() {
   const navigate = useNavigate();

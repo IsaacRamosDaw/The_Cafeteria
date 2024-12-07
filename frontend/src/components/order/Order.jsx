@@ -1,15 +1,15 @@
 import Button from "../button/Button";
 import "./Order.scss";
 
-function Order({ ID_order, date, studentName ,product, course }) {
+function Order({ ID_order, date, studentName, product, course }) {
 
   const role = () => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (!token) return null;
     try {
       const base64Payload = token.split(".")[1];
       const decodedPayload = JSON.parse(atob(base64Payload));
-      return decodedPayload.role; 
+      return decodedPayload.role;
     } catch (error) {
       console.error("Error decoding token:", error);
       return null;
@@ -34,10 +34,18 @@ function Order({ ID_order, date, studentName ,product, course }) {
           <p> {product} </p>
         </li>
       </ul>
-      <form className="card-order-container-btn">
-        {role === "worker" ? <Button text={"Terminado"} submit={true} /> : ""}
+      <form id="cancel-order-btn">
         <Button text={"Cancelar"} submit={true} />
       </form>
+      {!(role === "worker") ?
+        ""
+        :
+        <>
+          <form id="finished-order-btn">
+            <Button text={"Terminado"} submit={true} />
+          </form>
+        </>
+      }
     </section>
   );
 }
