@@ -1,20 +1,11 @@
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-
-import Welcome from "./pages/welcome/Welcome";
-import Account from "./pages/account/Account";
-import Orders from "./pages/orders/Orders";
-import Product from "./pages/product/Product.jsx";
-=======
->>>>>>> dev-backend-i
 import "./global.scss";
 
 // Shared Pages
 import Welcome from "./pages/welcome/Welcome";
 import Home from "./pages/home/Home.jsx";
 import Orders from "./pages/orders/Orders";
-import Products from "./pages/products/Products";
 import MenuPage from "./pages/Menu/MenuPage";
 import Policy from "./pages/settings/policy/Policy.jsx";
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
@@ -33,6 +24,7 @@ import StudentCredits from "./pages/settings/studentSettings/creditSettings/Cred
 import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import StudentData from "./pages/account/Account";
 import ProductsList from "./pages/ProductsList/ProductsList.jsx";
+import Product from "./pages/product/Product.jsx";
 
 // Worker 
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
@@ -78,7 +70,7 @@ function App() {
           <Route path="/student/profile/favs" element={<StudentFavs />} />
           <Route path="/student/profile/update" element={<StudentUpdate />} />
           <Route path="/menu/:category" element={<ProductsList />} />
-          <Route path="/:menu/:category/:name" element={<Product />} />
+          <Route path="/menu/:category/:name" element={<Product />} />
 
           {/* Setting components routes */}
           <Route path="/profile/policy" element={<Policy />} />

@@ -1,6 +1,6 @@
 import { Link} from "react-router-dom";
 import "./SearchBar.scss";
-import { LuCircleUser } from "react-icons/lu";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 function SearchBar({input = 'false'}) {
 
@@ -22,7 +22,7 @@ function SearchBar({input = 'false'}) {
     <nav id="header-container">
       <div>
       {
-        input == "true" ? <input type="text" name="" id="" /> :
+        input == "true" ? <input placeholder="Qué quieres comer..." type="text" name="" id="" /> :
         <h2>Isaac Ramos Pérez</h2>
       }
         <Link id="icon-user" 
@@ -32,7 +32,7 @@ function SearchBar({input = 'false'}) {
           "/worker/profile" : 
           "/student/profile"
         }>
-          <LuCircleUser className="go-profile"/>
+          <FaRegCircleUser className="go-profile"/>
         </Link>
       </div>
     </nav>
