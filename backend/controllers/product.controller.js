@@ -4,36 +4,51 @@ const Product = db.product;
 exports.create = (req, res) => {
 	let productData = {
 		name: req.body.name,
-		CategoryId: req.body.category,
+		CategoryId: req.body.CategoryId,
 		filename: req.file ? req.file.filename : ""
 	}
 
-	try {
-		Product.create(productData).then(product => {
-			res.status(201).json({
+		Product.create(productData)
+		.then(product => res.status(201)
+		.json({
 				message: "Producto creado correctamente",
 				product: product,
-			})
-		})
-			.catch(err => {
+			}))
+			.catch(err => 
 				res.status(500).send({
 					message:
 						err.message || "Some error while creating the product."
-				});
-			});
-	} catch (err) {
-		return res.status(500).json({
-			message: err.message || "Some error while crating the wallet of this student",
-		});
-	}
+				})
+			);
 }
 
+exports.findAll = (req, res) => {
+	Product.findAll()
+		.then(products => {
+			if (!products) {
+				return res.status(404).json({
+					message: `Product didn't found.`
+				});
+			}
+			res.send(products);
+		})
+		.catch(err => 
+			res.status(500).send({
+				message: err.message || "Some error occurred while retrieving products."
+			})
+		);
+};
 
 exports.findByCategory = (req, res) => {
 	const categoryId = Number(req.params.id); 
 
 	Product.findAll({ where: { CategoryId: categoryId }})
 		.then(products => {
+			if (!products) {
+				return res.status(404).json({
+					message: `Product didn't found.`
+				});
+			}
 			res.send(products);
 		})
 		.catch(err => {
@@ -46,20 +61,14 @@ exports.findByCategory = (req, res) => {
 exports.findOne = (req, res) => {
 	const id = Number(req.params.id);
 
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required."
-		});
-	}
-
 	Product.findByPk(id)
-		.then(data => {
-			if (!data) {
+		.then(products => {
+			if (!products) {
 				return res.status(404).json({
 					message: `Product with id=${id} not found.`
 				});
 			}
-			res.send(data);
+			res.send(products);
 		})
 		.catch(err => {
 			res.status(500).send({
@@ -96,19 +105,21 @@ exports.update = (req, res) => {
 		});
 };
 
-
 exports.delete = (req, res) => {
 	const id = req.params.id;
 
 	Product.destroy({ where: { id: id } })
-		.then(deleted => {
-			if (deleted) {
-				res.json({ message: "Product deleted successfully." });
+	.then(productDeleted => {
+			if (productDeleted) {
+				res.json({ message: `Product with id: ${id} deleted successfully.` });
 			} else {
 				res.status(404).json({ message: "Product not found." });
 			}
 		})
-		.catch(err => {
-			res.status(500).json({ message: "Error deleting product." });
-		});
+		.catch(err =>
+			res.status(500)
+			.json({ 
+				message: err.message || "Error deleting product." 
+			})
+		);
 };

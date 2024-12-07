@@ -1,4 +1,3 @@
-import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
 import Button from "../../../../components/button/Button";
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
@@ -31,7 +30,6 @@ function WorkerUpdate() {
 
   return (
     <div id="page-account-client">
-      <SearchBar />
             <main id="content-account-client">
         <Link onClick={handleBack} className="container-back">
           <FaArrowLeftLong />

@@ -1,72 +1,94 @@
 const db = require("../models");
 const Order = db.order;
-const utils = require("../utils");
 
-exports.create = (req, res, product) => {
-const date = new Date()
+exports.create = (req, res) => {
+  const date = new Date()
 
-let day = date.getDate()
-let month = date.getMonth() + 1
-let year = date.getFullYear()
+  let day = date.getDate()
+  let month = date.getMonth() + 1
+  let year = date.getFullYear()
 
-let fullDate = `${month}-${day}-${year}`
+  let fullDate = `${month}-${day}-${year}`
 
-  let order = {
-    // studentId: req.body.,
-    // schoolId: req.body.,
+  let orderData = {
+    StudentId: req.body.StudentId,
+    ProductId: req.body.ProductId,
     date: fullDate,
   };
 
-  Order.create(order).then((data) => {
-
-    console.log("Después de crear", data);
-    const token = utils.generateToken(data);
-    console.log("Después de crear el token", token);
-    const orderObj = utils.getCleanUser(data);
-    console.log("Después de limpiar el usuario", orderObj);
-
-  }).catch((err) => {
+  Order.create(orderData)
+  .then((order) => 
+    res.status(201).json({
+      message: "Order creada correctamente",
+      order: order,
+    })
+  )
+  .catch((err) => 
       res.status(500).send({
         message: "Some error ocurred while retrieving tutorial" || err.message,
-      });
-    });
-  
+      })
+    );
 };
 
-exports.findAll = async (req, res) => {
-  try {
-    const order = await Order.findAll();
+exports.findAll = (req, res) => {
+  Order.findAll()
+  .then((orders) => {
+    if(!orders){
+				return res.status(404).json({
+					message: `Order with id: ${id} didn't found`
+				});
+    }
+    res.send(orders);
+  })
+  .catch(err => 
+    res.status(500).send({
+				message: err.message || "Some error occurred while retrieving Orders."
+			})
+  );
+};
 
-    return res.json(order);
-  } catch (err) {
-    return res.status(500).json({
-      message: "Some error occurred while retrieving data." || err.message,
-    });
-  };
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+
+  Order.findByPk(id)
+  .then((order) => {
+    if(!order){
+      return res.status(404).json({
+        message: `order with id=${id} not found`,
+      });
+    }
+    res.send(order);
+  })
+  .catch(err => 
+    res.status(500).send({
+				message: err.message || "Some error occurred while retrieving Orders."
+			})
+  );
 };
 
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  if (req.user.role !== "admin") {
+  if (req.user.role !== "student") {
     return res.status(403).send({
       message: "Access denied. You can only delete your own data.",
     });
   }
 
-  Order.destroy({ where: { id: id } }).then((deleted) => {
-    if (deleted) {
-      console.log("Order with id:", id, "was deleted.");
-      res.json({ message: "Order not found" });
-
-    } else {
-      console.log("Order with id:", id, "was not found");
-      res.status(404).json({ message: "order not found" });
-    }
-    
-
-  }).catch((err) => {
-    console.error("Error deleting order:", err);
-    res.status(500).json({ message: "Error deleting order." });
+  Order.destroy({ where: { id: id } })
+  .then((orderDeleted) => {
+    if (!orderDeleted) {
+      return res.status(404).json({ 
+        message: "order not found" 
+      });
+    } 
+    res.json({ 
+        message: `Order with id: ${id} was deleted`
+    });
   })
+  .catch((err) => 
+    res.status(500).json({ 
+      message:"Error deleting order: " || err.message
+    })
+  )
 }

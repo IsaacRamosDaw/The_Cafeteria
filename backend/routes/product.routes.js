@@ -6,11 +6,11 @@ module.exports = (app) => {
     //Create an Product
     router.post("/", product.create);
 
-    //List products by category
-    router.get("/category/:id", product.findByCategory);
-
     // List all products
-    // router.get("/category/:id", product.findAll);
+    router.get("/", product.findAll);
+
+    //List products by category
+    router.get("/categories/:id", product.findByCategory);
 
     // Get one student
     router.get("/:id", product.findOne);
