@@ -11,22 +11,22 @@ module.exports = {
         username: "worker1",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        file: "file.jpg",
+        filename: "file.jpg",
       },
       {
         username: "worker2",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        file: "file.jpg",
+        filename: "file.jpg",
       },
       {
         username: "worker3",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        file: "file.jpg",
+        filename: "file.jpg",
       },
     ];
-    
+
     await queryInterface.bulkInsert("workers", workers, {});
 
     const insertedWorkers = await queryInterface.sequelize.query(

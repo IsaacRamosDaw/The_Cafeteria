@@ -118,11 +118,11 @@ exports.imgUpdate = (req, res) => {
 exports.delete = (req, res) => {
 const id = req.params.id;
 
-if (req.user.role !== "admin" && req.user.role !== "worker") {
-    return res.status(403).send({
-      message: "Access denied.",
-    });
-  }
+// if (req.user.role !== "admin" && req.user.role !== "worker") {
+//     return res.status(403).send({
+//       message: "Access denied.",
+//     });
+//   }
 
 // Delete an Category by ID
 Category.destroy({ where: { id: id } })
