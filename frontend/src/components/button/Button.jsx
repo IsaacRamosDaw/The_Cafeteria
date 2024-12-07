@@ -1,14 +1,12 @@
 import "./button.scss";
-export default function Button({ submit, text, onClick }) {
-  if (submit) {
-    return (
-      <button onClick={onClick} className="welcome-submit" type="submit">
-        {text}
-      </button>
-    );
-  }
+
+export default function Button({ className = "welcome-submit", submit = true, text, onClick }) {
   return (
-    <button onClick={onClick} className="welcome-submit">
+    <button
+      onClick={onClick}
+      className={className}
+      type={submit ? "submit" : "button"}
+    >
       {text}
     </button>
   );

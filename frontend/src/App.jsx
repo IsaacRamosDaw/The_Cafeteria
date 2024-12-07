@@ -24,7 +24,7 @@ import StudentCredits from "./pages/settings/studentSettings/creditSettings/Cred
 import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 import StudentData from "./pages/account/Account";
 import ProductsList from "./pages/ProductsList/ProductsList.jsx";
-import Product from "./pages/product/Product.jsx"
+import Product from "./pages/product/Product.jsx";
 
 // Worker 
 import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
@@ -81,7 +81,7 @@ function App() {
 
           {/* Menu routes */}
           <Route path="/menu/:category" element={<ProductsList />} />
-          <Route path="/:menu/:category/:name" element={<Product />} />
+          <Route path="/menu/:category/:name" element={<Product />} />
 
           {/* Setting components routes */}
           <Route path="/profile/policy" element={<Policy />} />
