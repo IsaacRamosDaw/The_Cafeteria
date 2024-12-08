@@ -67,7 +67,7 @@ exports.isAuthenticated = (req, res, next) => {
         message: "Invalid token.",
       });
 
-    const { role: userType } = user;
+    const { role: userType , id: userId} = user;
 
     let User;
     switch (userType) {
@@ -84,10 +84,10 @@ exports.isAuthenticated = (req, res, next) => {
         return res.status(400).json({ error: "Invalid user type" });
     }
 
-    User.findByPk(user.id)
+    User.findByPk(userId)
       .then((data) => {
         // return 401 status if the userId does not match.
-        if (!user.id) {
+        if (!userId) {
           return res.status(401).json({
             error: true,
             message: "Invalid user.",
@@ -99,7 +99,7 @@ exports.isAuthenticated = (req, res, next) => {
       })
       .catch((err) => {
         res.status(500).send({
-          message: "Error retrieving User with id=" + id,
+          message: `Error retrieving User with id=${userId}`,
         });
       });
   });

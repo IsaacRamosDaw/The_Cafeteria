@@ -74,7 +74,7 @@ function App() {
           {/* Student routes */}
           <Route path="/home" element={<HomeStudent />} />
           <Route path="/menu" element={<MenuPage />} />
-          <Route path="/studentsettings" element={<StudentSettings />} />
+          <Route path="/studentsettings/:id" element={<StudentSettings />} />
           <Route path="/ownersettings" element={<OwnerSettings />} />
           <Route path="/account" element={<Account />} />
 
@@ -87,7 +87,7 @@ function App() {
           <Route path="/course/:id" element={<EditCourse/>}/>
 
           {/* Setting components routes */}
-          <Route path={"/accountSetting"} element={ <AccountSettings /> } />
+          <Route path={"/accountSetting/:id"} element={ <AccountSettings /> } />
           <Route path={"/credits"} element={ <CreditSetting /> } />
           <Route path={"/favorites"} element={ <Favorites /> } />
           <Route path={"/mycafeteria"} element={ <MyCafeteria /> } />

@@ -18,6 +18,7 @@ exports.create = (req, res) => {
     age: parseInt(req.body.age),
     phone: req.body.phone,
     role: "student",
+    CourseId: req.body.CourseId,
     filename: req.file ? req.file.filename : "",
   };
 
@@ -156,6 +157,7 @@ exports.update = (req, res) => {
     age: req.body.age,
     phone: req.body.phone,
     role: "student",
+    CourseId: req.body.CourseId,
     filename: req.file ? req.file.filename : "",
   };
 

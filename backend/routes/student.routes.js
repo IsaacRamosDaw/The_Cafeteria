@@ -19,7 +19,7 @@ module.exports = (app) => {
     router.get("/:id", auth.isAuthenticated, student.findOne);
 
     // Update student
-    router.put("/:id", upload.single('file'), auth.isAuthenticated, student.update);
+    router.put("/:id", auth.isAuthenticated, student.update);
 
     //Delete student 
     router.delete("/:id", auth.isAuthenticated, student.delete);

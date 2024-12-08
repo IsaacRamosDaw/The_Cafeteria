@@ -42,8 +42,7 @@ db.orderLine = require("./orderLine.model.js")(sequelize);
 // db.student.belongsTo(db.wallet, {foreingKey: 'walletId'});
 
 // // TABLA COURSE
-// db.course.hasMany(db.student, {foreingKey: 'courseId'});
-// db.course.belongsTo(db.school, {foreingKey: 'schoolId'});
+db.student.belongsTo(db.course, { foreingKey: 'courseId' });
 
 // // TABLA SCHOOL
 // db.school.hasMany(db.course, {foreingKey: 'schoolId'});
