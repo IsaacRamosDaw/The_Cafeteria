@@ -7,6 +7,7 @@ import CourseContainer from "../../components/adminComponents/courseContainer/Co
 import "./Admin.scss";
 
 //React icons
+import { IoIosLogOut } from "react-icons/io";
 
 
 // Speed dial components
@@ -36,14 +37,19 @@ function Admin() {
     navigate(page);
   };
 
+  const clearToken = () => {
+    localStorage.removeItem("token")
+    navigate("/")
+  }
+
   return (
     <div className="page-admin-container">
+        
       <ProfileBar />
 
-      <main id="admin-home">
         <SpeedDial
           ariaLabel="SpeedDial basic example"
-          sx={{ position: "absolute", bottom: 16, right: 16 }}
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
           icon={<SpeedDialIcon />}
         >
           {actions.map((action) => (
@@ -55,6 +61,8 @@ function Admin() {
             />
           ))}
         </SpeedDial>
+
+      <main id="admin-home">
 
         <details>
           <summary>
@@ -91,6 +99,16 @@ function Admin() {
             <CourseContainer />
         </details>
       </main>
+
+      <section id="section-log-out">
+          <div onClick={clearToken} >
+            <div className="container-logout">
+              <IoIosLogOut />
+              <h1>Cerrar sesión</h1>
+            </div>
+            <p>v0.03</p>
+          </div>
+        </section>
     </div>
   );
 }

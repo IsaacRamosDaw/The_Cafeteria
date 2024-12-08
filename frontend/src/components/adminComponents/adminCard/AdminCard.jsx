@@ -6,7 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
 
-  const endPoint = 'http://localhost:8080/images/'
+  const folder = 'http://localhost:8080/images/'
 
   const handleDelete = () => {
     onDelete(id);
@@ -22,7 +22,7 @@ function AdminCard({ username, id, onDelete, photo }) {
       <div className="container-info">
         <img
           className="item-img"
-          src={`${endPoint}${photo}`}
+          src={`${folder}${photo}`}
           alt="Imagen de administrador"
         />
         <div className="container-name">

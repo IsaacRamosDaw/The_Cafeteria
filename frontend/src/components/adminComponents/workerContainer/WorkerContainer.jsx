@@ -27,6 +27,7 @@ function WorkerContainer() {
           username={worker.username}
           id={worker.id}
           onDelete={handleDelete}
+          img={worker.filename}
         />
       ))}
     </section>

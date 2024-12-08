@@ -2,7 +2,7 @@
 
 .page-admin-container {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 main#admin-home {
@@ -13,5 +13,39 @@ main#admin-home {
   details {
     width: 100vw;
     background-color: var(--background-1);
+  }
+}
+
+section#section-log-out {
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  @include flex-items;
+  // background-color: $third-color;
+
+  .container-logout {
+    display: flex;
+    align-items: normal;
+    justify-content: center;
+    color: $neutral-default-black;
+    gap: 10px;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  svg {
+    margin: 0 auto;
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+
+  p {
+    color: grey;
+    text-align: center;
   }
 }

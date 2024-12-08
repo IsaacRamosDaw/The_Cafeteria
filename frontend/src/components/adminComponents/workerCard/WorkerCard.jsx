@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./WorkerCard.scss";
 
-function WorkerCard({ username , id, onDelete}) {
+function WorkerCard({ username, img, id, onDelete}) {
     const navigate = useNavigate();
+    const folder = 'http://localhost:8080/images/'
 
     const handleDelete = () => {
       onDelete(id);
@@ -17,7 +18,7 @@ function WorkerCard({ username , id, onDelete}) {
       <div className="container-info">
         <img
           className="item-img"
-          src={`/images/ImgMenus/sandwiches.jpg`}
+          src={`${folder}/${img}`}
           alt="Image school"
         />
         <div className="container-name">

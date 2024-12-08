@@ -2,7 +2,7 @@ import SearchBar from "../../../components/searchBar/SearchBar";
 import TabsBar from "../../../components/tabsBar/TabsBar";
 import Setting from "../../../components/setttingsComp/Setting";
 import "./StudentSettings.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
 
 import { FiUser } from "react-icons/fi";
@@ -18,6 +18,12 @@ import CreditBalance from "../../../components/setttingsComp/creditBalance/Credi
 
 function StudentSettings() {
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate()
+
+  const clearToken = () => {
+    localStorage.removeItem("token")
+    navigate("/")
+  }
 
   return (
     <div id="page-settings-student">
@@ -53,13 +59,13 @@ function StudentSettings() {
         </div>
 
         <section id="section-log-out">
-          <Link to="/">
+          <div onClick={clearToken} >
             <div className="container-logout">
               <IoIosLogOut />
               <h1>Cerrar sesión</h1>
             </div>
             <p>v0.03</p>
-          </Link>
+          </div>
         </section>
       </main>
 

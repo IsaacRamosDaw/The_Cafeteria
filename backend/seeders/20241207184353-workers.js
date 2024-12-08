@@ -11,19 +11,19 @@ module.exports = {
         username: "worker1",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        filename: "file.jpg",
+        filename: "img-test.jpeg"
       },
       {
         username: "worker2",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        filename: "file.jpg",
+        filename: "img-test.jpeg"
       },
       {
         username: "worker3",
         password: "$2a$12$C65edLxRXj5DmjJDYg9qde0kUuim/HWHl1kSC9iORRRhrhv2VwkqC",
         phone: "902 196 705",
-        filename: "file.jpg",
+        filename: "img-test.jpeg"
       },
     ];
 
