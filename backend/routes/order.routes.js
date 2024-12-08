@@ -11,6 +11,9 @@ module.exports = (app) => {
   // Retrieve one order
   router.get("/:id", order.findOne);
 
+  // Retrieve order from one student
+  router.get("/student/:id", order.findAllByStudent);
+
   // Delete orders
   router.delete("/:id", order.delete);
 
