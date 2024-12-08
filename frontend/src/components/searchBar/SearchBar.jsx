@@ -8,7 +8,7 @@ function SearchBar({ id }) {
       <div>
         <img src="/images/icons/magnifying-glass.svg" alt="" />
         <input placeholder="Type to search..." />
-        <Link id="icon-user" to={`/studentsettings/${id}`}>
+        <Link id="icon-user" to="/studentsettings">
           <LuCircleUser />
         </Link>
       </div>
