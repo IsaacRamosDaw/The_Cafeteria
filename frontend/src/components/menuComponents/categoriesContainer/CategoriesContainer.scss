@@ -1,6 +1,7 @@
 @import "/src/global.scss";
 
 .category-cards-container {
+    width: 100%;
     padding-top: 80px;
     display: flex;
     margin-bottom: 90px;
@@ -14,5 +15,11 @@
         align-items: center;
         flex-direction: column;
         gap: 14px;
+
+        div{
+            @include flex-items(column);
+            width: 95%;
+            border-radius: 10px;
+        }
     }
 }

@@ -3,35 +3,37 @@ import "./Product.scss";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { BsFillCartCheckFill } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Button from "../../components/button/Button";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import Divider from "@mui/material/Divider";
+import { getOne } from "../../services/product.service";
 
 function Product() {
   const navigate = useNavigate();
   let { category, name } = useParams();
+  name = name.replace(/-/g, " ");
+
   const [product, setProduct] = useState({});
-  let [quantity, setQuantity] = useState(1);
+  let [quantity, setQuantity] = useState(1.0);
   let [priceShown, setPriceShown] = useState(quantity);
   const [ordered, setOrdered] = useState(false);
 
-  name = name.replace(/-/g, " ");
+  const location = useLocation();
+  const id = location.state?.productId || 1;
 
   useEffect(() => {
-    const data = {
-      title: "Bocata Combo con doble de cangrejo y salsa de queso",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      price: 14.95,
-      img: "/images/ImgMenus/sandwiches.jpg",
-    };
+    async function fetchData() {
+      const data = await getOne(id)
+      setProduct(data);
+      setPriceShown(data.price || 1);
+    }
 
-    setProduct(data);
-    setPriceShown(data.price);
-  }, []);
+    fetchData();
+  }, [id]);
 
   const handleQuantity = (operador) => {
     if (!ordered) {
@@ -44,7 +46,7 @@ function Product() {
           newQuantity = prevQuantity - 1;
         }
 
-        setPriceShown((newQuantity * product.price).toFixed(2)); // Calcula el precio mostrado
+        setPriceShown((newQuantity * product.price).toFixed(2));
         return newQuantity;
       });
     }
@@ -57,7 +59,7 @@ function Product() {
   const handleOrder = () => {
     const res = {
       id: 1,
-      name: product.title,
+      name: product.name,
       amount: quantity,
       price: parseFloat(priceShown),
     };
@@ -75,11 +77,11 @@ function Product() {
             {ordered ? <BsFillCartCheckFill className="shopping-cart" /> : ""}
             <div className="price-product"> {product.price}$ </div>
           </div>
-          <img src={product.img} alt="Img product page" />
+          <img src={product.filename} alt="Img product page" />
         </div>
         <div className="container-description-product">
           <h3 className="title-product">
-            <p> {product.title} </p>
+            <p> {product.name} </p>
           </h3>
           <article className="description-product">
             {product.description}
@@ -88,7 +90,7 @@ function Product() {
         <div className="container-product-order-control">
           <div className="container-amount-product">
             <div className="container-price-order-product">
-              <p className={ordered ? "ordered" : ""}>${priceShown}</p>
+              <p className={ordered ? "ordered" : ""}> ${priceShown}</p>
             </div>
 
             <span className="container-amount-product-number">{quantity}</span>

@@ -58,6 +58,19 @@ exports.findByCategory = (req, res) => {
 		});
 };
 
+exports.countByCategory = (req, res) => {
+	const value = req.params.id
+  
+	Product.findAndCountAll({ where: { CategoryId: value } })
+	  .then(count => 
+		res.send(count))
+	  .catch(err => 
+		res.status(500).send({
+		 message: err.message || "Some error occurred while counting categories"
+		})
+	  );
+  }
+
 exports.findOne = (req, res) => {
 	const id = Number(req.params.id);
 

@@ -1,67 +1,54 @@
 import { useEffect, useState } from "react";
 import { get, remove } from "../../../services/category.service";
 import CategoryCard from "../categoryCard/CategoryCard";
-import Plus from '../../workerComponents/Plus';
+import Plus from "../../workerComponents/Plus";
 import "./CategoriesContainer.scss";
-import { Link } from "react-router-dom";
-
+import { countByCategory } from "../../../services/product.service";
 
 function CategoriesContainer() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const categoriesData = await get();
-      setCategories(categoriesData);
+      try {
+        const categoriesData = await get();
+
+        const categoriesWithCounts = await Promise.all(
+          categoriesData.map(async (category) => {
+            const count = await countByCategory(category.id);
+            return { ...category, amount: count };
+          })
+        );
+
+        setCategories(categoriesWithCounts);
+      } catch (error) {
+        console.error("Error al obtener categorías o conteos:", error);
+      }
     }
 
     fetchData();
   }, []);
 
-    const handleDelete = async (id) => {
-      await remove(id);
-      setCategories((prevCategory) => prevCategory.filter((category) => category.id !== id));
+  const handleDelete = async (id) => {
+    await remove(id);
+    setCategories((prevCategories) =>
+      prevCategories.filter((category) => category.id !== id)
+    );
   };
 
   return (
-    <section className="category-cards-container" >
+    <section className="category-cards-container">
       <main id="category-container-card">
-        {
-          categories.map((category) => (
-            <div key={category.id}>
-              <CategoryCard    
-                count={category.amount}
-                title={category.name}
-                category={`/menu/${category.name}`}
-              />
-              <button onClick={() => handleDelete(category.id)}>BORRAME</button>
-            </div>
-          ))
-        }
-        {/* <CategoryCard
-          img={"../../../public/images/ImgMenus/bebidas.jpg"}
-          count={122}
-          title={"Cafes"}
-          category={"/menu/Cafes"}
-        />
-        <CategoryCard
-          img={"../../../public/images/ImgMenus/bebidas.jpg"}
-          count={122}
-          title={"dulces"}
-          category={"/menu/Dulces"}
-        />
-        <CategoryCard
-          img={"../../../public/images/ImgMenus/bebidas.jpg"}
-          count={122}
-          title={"Zumos"}
-          category={"/menu/Zumos"}
-        />
-        <CategoryCard
-          img={"../../../public/images/ImgMenus/bebidas.jpg"}
-          count={122}
-          title={"refrescos"}
-          category={"/menu/Zumos"}
-        /> */}
+        {categories.map((category) => (
+          <div key={category.id}>
+            <CategoryCard
+              id={category.id}
+              count={category.amount}
+              title={category.name}
+            />
+            <button onClick={() => handleDelete(category.id)}>BORRAME</button>
+          </div>
+        ))}
         <Plus />
       </main>
     </section>

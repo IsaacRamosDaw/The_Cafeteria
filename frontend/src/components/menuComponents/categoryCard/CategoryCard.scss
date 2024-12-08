@@ -6,6 +6,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  cursor: pointer;
 
   .container-content-card-category {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/ImgMenus/bebidas.jpg');
@@ -21,15 +22,19 @@
     justify-content: space-around;
     // background-color: $neutral-default-black;
     opacity: .6;
+    
     .title-category-card{
       z-index: 1;
       font-size: $font-size-medium-big;
       color: var(--text-1);
+      position: absolute;
     }
     .count-category-card{
       z-index: 1;
-      font-size: $font-size-tiny;
+      font-size: $font-size-small;
       color: var(--text-2);
+      position: absolute;
+      bottom: 10px;
     }
   }
 

@@ -1,25 +1,24 @@
 import "./CategoryCard.scss";
-import { Link } from "react-router-dom";
-function CategoryCard({ title, img, count, category }) {
+import { useNavigate } from "react-router-dom";
+
+function CategoryCard({ id, title, img, count, category }) {
+  const navigate = useNavigate();
+
+  const handleNavigate = (url) => {
+    navigate(url, { state: { categoryId: id } }); // Pasar categoryId en state
+  };
+
   return (
-    <div className="container-card-category">
-      {/* <div className="container-content-card-category">
+    <div
+      onClick={() => handleNavigate("/menu/" + title.replace(/ /g, "-"))}
+      className="container-card-category"
+    >
+      <div className="container-content-card-category">
         <h4 className="title-category-card">{title}</h4>
         <p className="count-category-card">
-          {count} {title}{" "}
+          {count} {"Existencias"}
         </p>
       </div>
-      <Link className="container-img-category-card" to={"www.google.com"}>
-        <img src={img} alt="Img card category" />
-      </Link> */}
-      <Link to={category} >
-        <div className="container-content-card-category">
-          <h4 className="title-category-card">{title}</h4>
-          <p className="count-category-card">
-            {count} {" Existencias "}
-          </p>
-        </div>
-      </Link>
     </div>
   );
 }

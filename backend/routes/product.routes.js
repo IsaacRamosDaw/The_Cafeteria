@@ -15,6 +15,9 @@ module.exports = (app) => {
     // Get one student
     router.get("/:id", product.findOne);
 
+    // Count products
+    router.get("/count/:id", product.countByCategory);
+
     // Update Product
     router.put("/:id", product.update);
 
