@@ -3,7 +3,7 @@ import "./Order.scss";
 
 function Order({ ID_order, date, studentName, product, course }) {
 
-  const role = () => {
+  const getUserRole = () => {
     const token = localStorage.getItem("token");
     if (!token) return null;
     try {
@@ -15,6 +15,16 @@ function Order({ ID_order, date, studentName, product, course }) {
       return null;
     }
   };
+
+  const role = getUserRole();
+
+  const handleFinished = async (e) => {
+    e.preventDefault();
+  }
+
+  const handleCancel = async (e) => {
+    e.preventDefault();
+  }
 
   return (
     <section className="order-card">
@@ -34,18 +44,19 @@ function Order({ ID_order, date, studentName, product, course }) {
           <p> {product} </p>
         </li>
       </ul>
-      <form id="cancel-order-btn">
+      <form id="cancel-order-btn" onSubmit={handleCancel}>
         <Button text={"Cancelar"} submit={true} />
       </form>
-      {!(role === "worker") ?
-        ""
-        :
-        <>
-          <form id="finished-order-btn">
-            <Button text={"Terminado"} submit={true} />
-          </form>
-        </>
-      }
+        {
+          role === "worker" ?
+            <>
+              <form id="finished-order-btn" onSubmit={handleFinished}>
+                <Button text={"Terminado"} submit={true} />
+              </form>
+            </>
+            :
+            ""
+        }
     </section>
   );
 }

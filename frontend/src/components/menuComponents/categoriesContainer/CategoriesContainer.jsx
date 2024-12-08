@@ -3,7 +3,6 @@ import { get, remove } from "../../../services/category.service";
 import CategoryCard from "../categoryCard/CategoryCard";
 import Plus from '../../workerComponents/Plus';
 import "./CategoriesContainer.scss";
-import { Link } from "react-router-dom";
 
 
 function CategoriesContainer() {

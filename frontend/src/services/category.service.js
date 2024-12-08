@@ -1,7 +1,6 @@
 const endpoint = "http://localhost:8080/api/categories";
 
 export async function get() {
-
   const getOperation = await fetch(endpoint, { method: "GET", })
     .then((res) => {
       if (!res.ok) {
