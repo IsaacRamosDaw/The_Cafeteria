@@ -119,11 +119,11 @@ function StudentSettings() {
 
   return (
     <div id="page-settings-student">
-      <SearchBar id={studentId}/>
+      <SearchBar/>
       <main id="student-setttings">
         <WalletBalance />
         <div id="settings-container">
-          <Setting icon={<FiUser />} to={`/accountSetting/${effectiveId}`} text={"Cuenta"} />
+          <Setting icon={<FiUser />} to={`/accountSetting/${studentId}`} text={"Cuenta"} />
           <Setting
             icon={theme === "light" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
             text={"Tema"}
