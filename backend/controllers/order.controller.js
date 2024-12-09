@@ -17,13 +17,13 @@ exports.create = (req, res) => {
   };
 
   Order.create(orderData)
-  .then((order) => 
-    res.status(201).json({
-      message: "Order creada correctamente",
-      order: order,
-    })
-  )
-  .catch((err) => 
+    .then((order) =>
+      res.status(201).json({
+        message: "Order creada correctamente",
+        order: order,
+      })
+    )
+    .catch((err) =>
       res.status(500).send({
         message: "Some error ocurred while retrieving tutorial" || err.message,
       })
@@ -32,63 +32,82 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   Order.findAll()
-  .then((orders) => {
-    if(!orders){
-				return res.status(404).json({
-					message: `Order with id: ${id} didn't found`
-				});
-    }
-    res.send(orders);
-  })
-  .catch(err => 
-    res.status(500).send({
-				message: err.message || "Some error occurred while retrieving Orders."
-			})
-  );
+    .then((orders) => {
+      if (!orders) {
+        return res.status(404).json({
+          message: `Order with id: ${id} didn't found`
+        });
+      }
+      res.send(orders);
+    })
+    .catch(err =>
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Orders."
+      })
+    );
+};
+
+
+exports.findAllByStudent = (req, res) => {
+  console.log("parte - 3 fetch")
+  Order.findAll({ where: { StudentId: req.params.id, } })
+    .then((orders) => {
+      if (!orders) {
+        return res.status(404).json({
+          message: `Order with id: ${id} didn't found`
+        });
+      }
+      res.send(orders);
+    })
+    .catch(err =>
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Orders."
+      })
+    );
 };
 
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
   Order.findByPk(id)
-  .then((order) => {
-    if(!order){
-      return res.status(404).json({
-        message: `order with id=${id} not found`,
-      });
-    }
-    res.send(order);
-  })
-  .catch(err => 
-    res.status(500).send({
-				message: err.message || "Some error occurred while retrieving Orders."
-			})
-  );
+    .then((order) => {
+      if (!order) {
+        return res.status(404).json({
+          message: `order with id=${id} not found`,
+        });
+      }
+      res.send(order);
+    })
+    .catch(err =>
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Orders."
+      })
+    );
 };
 
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  if (req.user.role !== "student") {
-    return res.status(403).send({
-      message: "Access denied. You can only delete your own data.",
-    });
-  }
+  // if (req.user.role !== "student") {
+  //   return res.status(403).send({
+  //     message: "Access denied. You can only delete your own data.",
+  //   });
+  // }
 
   Order.destroy({ where: { id: id } })
-  .then((orderDeleted) => {
-    if (!orderDeleted) {
-      return res.status(404).json({ 
-        message: "order not found" 
-      });
-    } 
-    res.json({ 
+    .then((orderDeleted) => {
+      if (!orderDeleted) {
+        return res.status(404).json({
+          message: "order not found"
+        });
+      }
+      res.json({
         message: `Order with id: ${id} was deleted`
-    });
-  })
-  .catch((err) => 
-    res.status(500).json({ 
-      message:"Error deleting order: " || err.message
+      });
     })
-  )
+    .catch((err) =>
+      res.status(500).json({
+        message: "Error deleting order: " || err.message
+      })
+    )
 }

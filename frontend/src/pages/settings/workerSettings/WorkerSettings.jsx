@@ -62,7 +62,7 @@ function WorkerSettings() {
         </section>
       </main>
 
-      <TabsBar />
+      <TabsBar worker={true} />
     </div>
   );
 }
