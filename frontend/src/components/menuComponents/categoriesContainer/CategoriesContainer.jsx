@@ -17,9 +17,9 @@ function CategoriesContainer() {
     fetchData();
   }, []);
 
-    const handleDelete = async (id) => {
-      await remove(id);
-      setCategories((prevCategory) => prevCategory.filter((category) => category.id !== id));
+  const handleDelete = async (id) => {
+    await remove(id);
+    setCategories((prevCategory) => prevCategory.filter((category) => category.id !== id));
   };
 
   return (

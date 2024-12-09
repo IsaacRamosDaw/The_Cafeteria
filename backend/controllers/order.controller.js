@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
 
 exports.findAllByStudent = (req, res) => {
   console.log("parte - 3 fetch")
-  Order.findAll({ where: { StudentId: 1, } })
+  Order.findAll({ where: { StudentId: req.params.id, } })
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
@@ -88,11 +88,11 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  if (req.user.role !== "student") {
-    return res.status(403).send({
-      message: "Access denied. You can only delete your own data.",
-    });
-  }
+  // if (req.user.role !== "student") {
+  //   return res.status(403).send({
+  //     message: "Access denied. You can only delete your own data.",
+  //   });
+  // }
 
   Order.destroy({ where: { id: id } })
     .then((orderDeleted) => {

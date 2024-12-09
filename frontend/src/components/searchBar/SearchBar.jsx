@@ -17,6 +17,7 @@ function SearchBar({input = 'false'}) {
       return null;
     }
   };
+  
   const role = getUserRole(); 
   return (
     <nav id="header-container">

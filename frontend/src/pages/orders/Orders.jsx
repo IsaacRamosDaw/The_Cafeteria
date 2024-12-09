@@ -3,42 +3,56 @@ import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
 import { get, getByStudent } from "../../services/order.service";
+import { remove } from "../../services/order.service";
 import { useEffect, useState } from "react";
 import './Orders.scss';
+import { colors } from "@mui/material";
 
 function Orders() {
-	const [userId, setUserId] = useState();
-	const token = localStorage.getItem("token");
+  const [userId, setUserId] = useState(null);
+  const [role, setRole] = useState(null);
+  const [orders, setOrders] = useState([]);
 
-	const getUserRole = () => {
-		if (!token) return null;
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-			const base64Payload = token.split(".")[1];
-			const decodedPayload = JSON.parse(atob(base64Payload));
-			useEffect(() => setUserId(decodedPayload.id));
-			return decodedPayload.role;
-	};
+    if (!token) return;
 
-	const role = getUserRole();
-	const [orders, setOrders] = useState([]);
-	if (role === "student") {
-		useEffect(() => {
-			async function fetchData() {
-				const ordersData = await getByStudent(1);
-				console.log("parte - 1 fetch")
-				setOrders(ordersData);
-			}
-			fetchData();
-		}, []);
-	} else {
-		useEffect(() => {
-			async function fetchData() {
-				const ordersData = await get();
-				setOrders(ordersData);
-			}
-			fetchData();
-		}, []);
-	}
+    const base64Payload = token.split(".")[1];
+    const decodedPayload = JSON.parse(atob(base64Payload));
+    setUserId(decodedPayload.id);
+    setRole(decodedPayload.role);
+		console.log(decodedPayload.role)
+  }, []); 
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        let ordersData = [];
+        if (role === "student" && userId) {
+          ordersData = await getByStudent(userId);
+
+        } else if (role === "worker") {
+          ordersData = await get();
+        }
+        setOrders(ordersData);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    }
+
+
+    if (role) {
+      fetchOrders();
+    }
+  }, [role, userId]); // Se ejecuta cuando cambian `role` o `userId`
+
+  const handleCancel = async (id) => {
+    await remove(id);
+		console.log("holita");
+    setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
+  };
+
 	return (
 		<div id="Orders-page">
 			<SearchBar />
@@ -48,10 +62,12 @@ function Orders() {
 					orders.map((order, index) => (
 						<div key={index}>
 							{role === "worker" ?
-								<Order key={index} ID_order={order.id} studentName={order.id} course={'2DAWT'} date={order.date} /> :
+								<Order  key={index} role={role} ID_order={order.id} studentName={order.id} course={'2DAWT'} date={order.date} /> :
 								<Order key={index} ID_order={order.id} date={"10/12/2020"} product={"Super Bocata Combo"} />
 							}
+              <button onClick={() => handleCancel(order.id)}>BORRAME</button>
 						</div>
+						
 					))
 				}
 			</main>

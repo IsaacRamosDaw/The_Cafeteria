@@ -58,6 +58,7 @@ app.use(function (req, res, next) {
     console.log(req.body);
 
     if (err) {
+          console.log("hooladsafsdfds")
       return res.status(401).json({
         error: true,
         message: "Invalid user.",

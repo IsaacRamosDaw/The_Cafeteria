@@ -86,14 +86,13 @@ exports.isAuthenticated = (req, res, next) => {
 
     User.findByPk(user.id)
       .then((data) => {
-        // return 401 status if the userId does not match.
         if (!user.id) {
+          console.log("hoola")
           return res.status(401).json({
             error: true,
             message: "Invalid user.",
           });
         }
-        // get basic user details
         req.user = data;
         next();
       })
