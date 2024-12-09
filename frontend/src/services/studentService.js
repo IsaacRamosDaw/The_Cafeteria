@@ -199,6 +199,15 @@ export async function edit(id, data) {
 
 export async function updateProfilePicture(id, file) {
 
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
   return fetch(`${endpoint}/upload/${id}`, {
     method: "PUT",
     headers: {
@@ -216,8 +225,8 @@ export async function updateProfilePicture(id, file) {
       console.error("Error while updating profile picture:", error);
       throw error;
     });
-  
 }
+
 
 // export async function updateProfilePicture(id, file) {
 //   console.log(id, file);

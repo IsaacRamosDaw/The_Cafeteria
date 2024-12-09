@@ -40,6 +40,11 @@
 
             .container-img-profile {
                 margin: 10px 20px;
+                position: relative;
+
+                .avatar-img:active {
+                    transform: scale(.9);
+                }
             }
 
             .container-info-student {
@@ -62,6 +67,31 @@
             @include flex-items(column);
             gap: 15px;
 
+            .label-input {
+                width: 90%;
+                background-color: var(--background-1);
+                color: var(--text-2);
+
+                .label-text {
+                    font-size: $font-body-small;
+                    color: var(--text-1);
+                    font-weight: 300;
+                }
+
+                select {
+                    background-color: var(--background-3);
+                    border: 1px solid var(--text-1);
+                    color: var(--text-3);
+                    font-weight: 500;
+                    font-size: $font-size-medium-small;
+
+                    option {
+                        color: var(--text-1);
+                    }
+                }
+
+            }
+
             .container-btn-account {
                 width: 50%;
 
@@ -75,4 +105,15 @@
         }
     }
 
+}
+
+.edit-mode-icon {
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 3px;
+    color: $primary-color;
+    background-color: var(--background-3);
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

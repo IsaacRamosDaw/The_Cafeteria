@@ -3,20 +3,9 @@ import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
 import './Orders.scss';
+import { getUserRole } from "../../services/utils";
 
 function Orders() {
-  const getUserRole = () => {
-    const token = localStorage.getItem("token"); 
-    if (!token) return null;
-    try {
-      const base64Payload = token.split(".")[1];
-      const decodedPayload = JSON.parse(atob(base64Payload));
-      return decodedPayload.role; 
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
-    }
-  };
 
   const role = getUserRole(); 
 

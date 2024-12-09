@@ -2,37 +2,36 @@ import SearchBar from "../../../components/searchBar/SearchBar";
 import TabsBar from "../../../components/tabsBar/TabsBar";
 import Setting from "../../../components/setttingsComp/Setting";
 import "./StudentSettings.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { getUserId } from "../../../services/utils";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getOne } from "../../../services/studentService";
 import { FiUser } from "react-icons/fi";
-import { MdOutlineLocalCafe, MdOutlineLightMode, MdOutlineDarkMode, MdOutlinePrivacyTip } from "react-icons/md";
+import {
+  MdOutlineLocalCafe,
+  MdOutlineLightMode,
+  MdOutlineDarkMode,
+  MdOutlinePrivacyTip,
+} from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
 import "./StudentSettings.scss";
 
-// function StudentSettings() {
-//   const { id } = useParams(); // Obtén el ID de la URL
-//   const [studentData, setStudentData] = useState(null);
-//   const [decodedId, setDecodedId] = useState(null);
-//   const token = localStorage.getItem("token");
-//   const { theme, toggleTheme } = useTheme();
-
 import CreditBalance from "../../../components/setttingsComp/creditBalance/CreditBalance";
 
 function StudentSettings() {
-  const { id } = useParams();
+  const id = getUserId();
   const [studentData, setStudentData] = useState(null);
   const [decodedId, setDecodedId] = useState(null);
   const token = localStorage.getItem("token");
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const clearToken = () => {
-    localStorage.removeItem("token")
-    navigate("/")
-  }
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   useEffect(() => {
     if (token) {
@@ -45,7 +44,9 @@ function StudentSettings() {
   useEffect(() => {
     const studentId = id || decodedId;
     if (!studentId) {
-      console.error("No hay un ID disponible para buscar los datos del estudiante.");
+      console.error(
+        "No hay un ID disponible para buscar los datos del estudiante."
+      );
       return;
     }
 
@@ -60,18 +61,22 @@ function StudentSettings() {
     fetchStudent();
   }, [id, decodedId]);
 
-  const effectiveId = id || decodedId;
-
   return (
     <div id="page-settings-student">
       <SearchBar />
-      <CreditBalance/>
+      <CreditBalance />
       <main id="student-setttings">
         <div id="settings-container">
-          <Setting icon={<FiUser />} to={"/student/profile/update"} text={"Cuenta"} />
+          <Setting
+            icon={<FiUser />}
+            to={"/student/profile/update"}
+            text={"Cuenta"}
+          />
 
           <Setting
-            icon={theme === "light" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
+            icon={
+              theme === "light" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />
+            }
             text={"Tema"}
             toggle={true}
           />
@@ -94,7 +99,7 @@ function StudentSettings() {
         </div>
 
         <section id="section-log-out">
-          <div onClick={clearToken} >
+          <div onClick={clearToken}>
             <div className="container-logout">
               <IoIosLogOut />
               <h1>Cerrar sesión</h1>

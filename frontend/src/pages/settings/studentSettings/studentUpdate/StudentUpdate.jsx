@@ -7,8 +7,12 @@ import {
   edit,
   updateProfilePicture,
 } from "../../../../services/studentService";
-import { get } from "../../../../services/courseService";
+import {
+  get,
+  getOne as getOneStudent,
+} from "../../../../services/courseService";
 import Avatar from "@mui/material/Avatar";
+import { BiSolidPencil } from "react-icons/bi";
 
 import { getUserId, getUserRole } from "../../../../services/utils.js";
 
@@ -24,6 +28,9 @@ export default function AccountSettings() {
   const id = getUserId();
   const [selectedFile, setSelectedFile] = useState(null);
   const [courses, setCourses] = useState([]);
+
+  const [imgProfile, setImgProfile] = useState("");
+  const [currentCourse, setCurrentCourse] = useState("");
 
   // Ref hooks
   const usernameRef = useRef(null);
@@ -46,7 +53,11 @@ export default function AccountSettings() {
     getOne(id).then((data) => {
       setUserData(data);
     });
-    
+
+    getOneStudent(id).then((data) => {
+      setCurrentCourse(data.name);
+    });
+
     get()
       .then((data) => {
         setCourses(data);
@@ -60,7 +71,10 @@ export default function AccountSettings() {
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      const file = e.target.files[0];
+      console.log(file);
+      setSelectedFile(file);
+      setImgProfile(URL.createObjectURL(file));
     }
   };
 
@@ -94,12 +108,22 @@ export default function AccountSettings() {
     };
 
     try {
-        await edit(id, formData);
-        alert("Datos actualizados correctamente");
-        navigate(-1);
+      await edit(id, formData);
+      await handleFileUpload();
+
+      window.alert("Datos actualizados correctamente");
+      navigate(-1);
     } catch (error) {
-        console.error("Error al editar:", error);
+      console.error("Error al editar:", error);
     }
+  };
+
+  useEffect(() => {
+    resetImageProfile();
+  }, [userData]);
+
+  const resetImageProfile = () => {
+    setImgProfile("http://localhost:8080/images/" + userData.filename);
   };
 
   return (
@@ -112,10 +136,13 @@ export default function AccountSettings() {
         <section className="container-info">
           <div className="container-img-profile">
             <Avatar
+              className="avatar-img"
+              onClick={() => document.getElementById("file-input").click()}
               alt={userData.username}
-              src={userData.imgProfile || "/static/images/avatar/1.jpg"}
-              sx={{ bgcolor: deepOrange[500], width: 70, height: 70 }}
+              src={imgProfile || "/static/images/avatar/1.jpg"}
+              sx={{ width: 90, height: 90 }}
             />
+            <BiSolidPencil className="edit-mode-icon" />
           </div>
           <input
             type="file"
@@ -124,19 +151,8 @@ export default function AccountSettings() {
             style={{ display: "none" }}
             id="file-input"
           />
-          <button
-            className="btn-change-image"
-            onClick={() => document.getElementById("file-input").click()}
-          >
-            Cambiar Imagen
-          </button>
-          <button
-            className="btn-upload"
-            onClick={handleFileUpload}
-            disabled={!selectedFile}
-          >
-            Subir Imagen
-          </button>
+          <h1> {userData.username} </h1>
+          <p> {currentCourse} </p>
         </section>
         <form onSubmit={HandleEdit} className="container-inputs">
           <InputFormSetting
@@ -166,13 +182,13 @@ export default function AccountSettings() {
               Selecciona tu curso
             </label>
             <select
+            className="select-courses-container"
               name="CourseId"
               ref={CourseIdRef}
-              value={userData.CourseId}
               onChange={handleInputChange}
             >
-              <option value="">Elige un curso</option>
-              {courses.map((course) => (
+              <option>Elige un curso</option>
+              {courses.map((course, index) => (
                 <option key={course.id} value={course.id}>
                   {course.name}
                 </option>
