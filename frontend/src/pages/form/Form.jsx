@@ -1,69 +1,106 @@
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
+import { create } from "../../services/studentService";
+import { get } from "../../services/courseService";
 import "./Form.scss";
 
 function Form() {
   const [values, setValues] = React.useState({
-    center: "",
-    name: "",
-    email: "",
-    school: "",
-    age: "",
-    course: "",
+    username: "",
     password: "",
+    age: "",
+    phone:"",
+    CourseId: "",
   });
+
+  const [courses, setCourses] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    get()
+      .then((data) => setCourses(data))
+      .catch((error) => console.error("Error :", error));
+  }, []);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    // Aquí puedes usar values para enviar la información
-    console.log(values); // Por ejemplo, puedes enviar esto a una API
+
+    create(values)
+      .then((response) => {
+        console.log("Usuario creado:", response);
+        alert("Usuario registrado exitosamente");
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Error al crear el usuario:", error);
+        alert("Error al registrarse, intente de nuevo.");
+      });
   }
 
   function handleChange(evt) {
-    const { target } = evt;
-    const { name, value } = target;
-
-    const newValues = {
-      ...values,
+    const { name, value } = evt.target;
+    console.log(`Campo cambiado: ${name}, Valor: ${value}`); // Para depurar
+    setValues((prevValues) => ({
+      ...prevValues,
       [name]: value,
-    };
-
-    setValues(newValues);
+    }));
   }
 
   return (
     <div className="form-container-template">
       <form onSubmit={handleSubmit}>
-        <Label title="Your name" placeHolder="Enter your name" id="name" />
         <Label
-          title="School"
-          placeHolder="Your school"
+          title="Tu nombre de usuario"
+          placeHolder="Introduce tu nombre"
+          id="username"
+          name="username"
+          onChange={handleChange}
+        />
+        <Label
+          title="Edad"
+          placeHolder="Introduce tu edad"
+          id="age"
+          name="age"
           type="text"
-          id="school"
-          select={true}
+          onChange={handleChange}
         />
-        <Label title="Age" placeHolder="Enter your age" type="number" id="age" />
         <Label
-          title="Course"
-          placeHolder="Escoge tu curso"
-          id="Course"
-          select={true}
+          title="Tu teléfono"
+          placeHolder="Introduce tu teléfono"
+          id="phone"
+          name="phone"
+          onChange={handleChange}
         />
-        <Label title="Email" placeHolder="Write here your email" id="email" />
         <Label
-          title="Password"
-          placeHolder="Write here your password"
+          title="Contraseña"
+          placeHolder="Escribe tu contraseña"
           id="password"
+          name="password"
           type="password"
+          onChange={handleChange}
         />
+        <div className="label-input">
+          <label className="label-text" htmlFor="courseId">
+            Selecciona tu curso
+          </label>
+          <select name="CourseId" id="CourseId" onChange={handleChange}>
+            <option value="">Elige un curso</option>
+            {courses.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <Button submit={true} text="Registrarme" />
       </form>
       <p className="register-form-text">
-      You have a account?
-        <Link className="link-to-register" to="/welcome">
-          , <u>Sign In</u>
+        ¿Tienes una cuenta?
+        <Link className="link-to-register" to="/">
+          , <u>Iniciar sesión</u>
         </Link>
       </p>
     </div>
@@ -71,3 +108,4 @@ function Form() {
 }
 
 export default Form;
+

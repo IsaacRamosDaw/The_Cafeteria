@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CoffeCard from "../courseCard/CourseCard.jsx";
 import { get, remove } from "../../../services/courseService.js";
 import "./CourseContainer.scss";
+import CourseCard from "../courseCard/CourseCard.jsx";
 
 function CourseContainer() {
   const [courses, setCourses] = useState([]);
@@ -23,7 +24,7 @@ function CourseContainer() {
   return (
     <section className="section-container-course-cards">
       {courses.map((course) => (
-        <CoffeCard
+        <CourseCard
           key={course.id}
           name={course.name}
           id={course.id}

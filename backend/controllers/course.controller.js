@@ -2,7 +2,13 @@ const db = require("../models");
 const Course = db.course;
 
 exports.create = (req, res) => {
-  if (!req.user.role === "admin"){
+  // if (!req.user.role === "admin"){
+  //   return res.status(403).json({
+  //     message: "Access denied. Authentication required.",
+  //   });
+  // }
+
+  if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({
       message: "Access denied. Authentication required.",
     });
@@ -30,7 +36,6 @@ exports.create = (req, res) => {
     })
   );
 };
-
 exports.findAll = async (req, res) => {
   Course.findAll()
   .then(cursos => {
@@ -64,7 +69,7 @@ exports.findOne = (req, res) => {
   })
   .catch((err) => {
     res.status(500).send({
-      message: `Error retrieving course with id=${id}`,
+      message: `Error retrieving course with id=${id},`
     });
   });
 };

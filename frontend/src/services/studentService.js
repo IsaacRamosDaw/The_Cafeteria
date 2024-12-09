@@ -1,7 +1,20 @@
 const endpoint = "http://localhost:8080/api/student";
 
 export function get() {
-  const getOperation = fetch(endpoint)
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOperation = fetch(endpoint, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -16,7 +29,21 @@ export function get() {
 }
 
 export function getOne(id) {
-  const getOneOperation = fetch(`${endpoint}/${id}`)
+  
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOneOperation = fetch(`${endpoint}/${id}`, {
+    method: "GET",
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error fetching data");
@@ -30,13 +57,40 @@ export function getOne(id) {
   return getOneOperation;
 }
 
-export async function create(formData) {
+// export function create(formData) {
+//   return fetch(endpoint, {
+//     method: "POST",
+//     headers:  new Headers({
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'Authorization': `Basic ${btoa( formData.username + ':' + formData.password)}`,
+//     }),
+//     body: new URLSearchParams({role: 'student'}),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error en la solicitud");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while retrieving admin data:", error);
+//       throw error;
+//     });
+// }
+
+export function create(formData) {
+  const bodyData = new URLSearchParams({
+    ...formData,
+    role: 'student',
+  });
+
   return fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(formData),
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Basic ${btoa(formData.username + ':' + formData.password)}`,
+    }),
+    body: bodyData, 
   })
     .then((response) => {
       if (!response.ok) {
@@ -51,8 +105,20 @@ export async function create(formData) {
 }
 
 export async function remove(id) {
+  let token = localStorage.getItem("token")
+
+  if(!token){
+    window.location.href='/error'
+  }
+  
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
+    headers: {
+      'Authorization': `Bearer ${token}`, 
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    
   })
     .then((response) => {
       if (!response.ok) {
@@ -68,15 +134,54 @@ export async function remove(id) {
   return removeOperation;
 }
 
-export async function edit(id, data) {
-  let url = `${endpoint}/${id}`;
+// export async function edit(id, data) {
+//   console.log(id, data);
+//   let token = localStorage.getItem("token")
 
-  return fetch(url, {
+//   if(!token){
+//     window.location.href='/error'
+//   }
+
+//   // let url = `${endpoint}/${id}`;
+
+//   return fetch(`${endpoint}/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       'Authorization': `Bearer ${token}`, 
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     body: new URLSearchParams(data),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error en la solicitud");
+//       }
+
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while updating admin data:", error);
+//       throw error;
+//     });
+// }
+
+export async function edit(id, data) {
+
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  return fetch(`${endpoint}/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(data),
+    headers: new Headers({
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+    body: new URLSearchParams(data).toString()
   })
     .then((response) => {
       if (!response.ok) {
@@ -89,15 +194,17 @@ export async function edit(id, data) {
       console.error("Error while updating admin data:", error);
       throw error;
     });
+
 }
 
-export async function login(formData) {
-  return fetch(endpoint, {
-    method: "POST",
+export async function updateProfilePicture(id, file) {
+
+  return fetch(`${endpoint}/upload/${id}`, {
+    method: "PUT",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Authorization': `Bearer ${token}`,
     },
-    body: new URLSearchParams(formData),
+    body: formData,
   })
     .then((response) => {
       if (!response.ok) {
@@ -106,7 +213,40 @@ export async function login(formData) {
       return response.json();
     })
     .catch((error) => {
-      console.error("Error while retrieving admin data:", error);
+      console.error("Error while updating profile picture:", error);
       throw error;
     });
+  
 }
+
+// export async function updateProfilePicture(id, file) {
+//   console.log(id, file);
+//   let token = localStorage.getItem("token");
+
+//   if (!token) {
+//     window.location.href = '/error';
+//   }
+
+//   const formData = new FormData();
+//   formData.append('file', file);
+
+//   return fetch(`http://localhost:8080/student/upload/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       'Authorization': `Bearer ${token}`,
+//     },
+//     body: formData,
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error en la solicitud");
+//       }
+
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while updating profile picture:", error);
+//       throw error;
+//     });
+// }
+

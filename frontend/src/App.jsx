@@ -98,7 +98,6 @@ function App() {
           {/* CoffeShop routes */}
           {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
           <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/>
-          
 
         </Routes>
       </Router>

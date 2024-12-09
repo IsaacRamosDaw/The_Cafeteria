@@ -84,6 +84,7 @@ exports.findAll = (req, res) => {
 	if (req.user.role == "admin" || req.user.role == "worker") {
 		Student.findAll()
 			.then((data) => {
+				delete data.password
 				res.send(data);
 			})
 			.catch((err) => {
@@ -100,6 +101,7 @@ exports.findAll = (req, res) => {
 						message: "Student not found",
 					});
 				}
+				delete data.password
 				res.send(data);
 			})
 			.catch((err) => {
@@ -132,6 +134,8 @@ exports.findOne = (req, res) => {
 						message: `Student with id=${id} not found.`,
 					});
 				}
+				// Delete the password in the get
+				delete data.password
 				res.send(data);
 			})
 			.catch((err) => {
@@ -164,13 +168,14 @@ exports.update = (req, res) => {
 		});
 	}
 
-	const updateStudent = {
-		username: req.body.username,
-		age: req.body.age,
-		phone: req.body.phone,
-		role: "student",
-		filename: req.file ? req.file.filename : "",
-	};
+  const updateStudent = {
+    username: req.body.username,
+    age: req.body.age,
+    phone: req.body.phone,
+    role: "student",
+    CourseId: req.body.CourseId,
+    filename: req.file ? req.file.filename : "",
+  };
 
 	if (req.body.password) {
 		updateStudent.password = bcrypt.hashSync(req.body.password);

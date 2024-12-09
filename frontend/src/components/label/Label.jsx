@@ -5,9 +5,10 @@ export default function Label({
   placeHolder,
   type = "text",
   id,
-  select,
+  name,
+  onChange,
 }) {
-  if (select) {
+  if (type === "select") {
     return (
       <div className="label-option">
         <label className="label-text" htmlFor={id}>
@@ -21,7 +22,13 @@ export default function Label({
       <label className="label-text" htmlFor={id}>
         {title}
       </label>
-      <input type={type} placeholder={placeHolder} id={id} name={id} />
+      <input
+        type={type}
+        placeholder={placeHolder}
+        id={id}
+        name={name}
+        onChange={onChange}
+      />
     </div>
   );
 }
