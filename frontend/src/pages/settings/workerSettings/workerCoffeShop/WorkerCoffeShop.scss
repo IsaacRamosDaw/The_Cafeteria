@@ -1,5 +1,16 @@
+@import "/src/global.scss";
+
 div#worker-coffe-shop{
-  padding-top: 2vh;
+  padding-top: 60px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: start;
+  background-color: var(--background-1);
+
+  color: var(--text-2);
 
   a {
     font-size: 1.5em;
@@ -9,10 +20,14 @@ div#worker-coffe-shop{
   }
 
   #workers-container{
+    @include flex-items(column);
     h2{
       text-align: center;
-      font-size: 2em;
+      font-size: $font-subtitle-1;
       margin-bottom: 2vh;
+      color: var(--text-1);
+      border-bottom: 2px solid grey;
+      width: 60%;
     }
 
     .worker-card{
@@ -25,15 +40,18 @@ div#worker-coffe-shop{
   }
 
   #resume{
+    @include flex-items(column);
     h2{
       text-align: center;
-      border-bottom: 2px solid grey;
-      width: 50%;
-      margin: 0 auto;
+      font-size: $font-subtitle-1;
       margin-bottom: 2vh;
+      color: var(--text-1);
+      border-bottom: 2px solid grey;
+      width: 60%;
     }
     
     #data{
+      width: 70%;
       padding: 0 15vw;
       .data-field{
         display: flex;

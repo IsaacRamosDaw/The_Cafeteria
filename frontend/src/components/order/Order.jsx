@@ -1,8 +1,12 @@
-import Button from "../button/Button";
 import "./Order.scss";
+import Button from "../button/Button";
 
-function Order({ ID_order, date, studentName, product, course, role }) {
+function Order({ ID_order, date, studentName, product, course, role, deleted }) {
+  date = date.split("T")[0].replace(/-/g, "/");
 
+  const cancelOrder = () => {
+    deleted(ID_order)
+  };
 
   return (
     <section className="order-card">
@@ -10,8 +14,16 @@ function Order({ ID_order, date, studentName, product, course, role }) {
         <p>ID: {ID_order} </p>
         <p> {date} </p>
       </header>
-      <h2 className="text-name-student" >{studentName}<span></span>{course}</h2>
+      <h2 className="text-name-student">
+        {studentName}
+        <span></span>
+        {course}
+      </h2>
       <ul className="card-order-content">
+        {/* <li>
+          <p> Empanadilla</p>
+          <span> x1 </span>
+        </li> */}
         <li>
           <p> {product} </p>
         </li>
@@ -22,16 +34,19 @@ function Order({ ID_order, date, studentName, product, course, role }) {
           <p> {product} </p>
         </li>
       </ul>
-      {
-        role === "worker" ?
+      <div className="container-btn-card-order">
+        {role === "worker" ? (
           <>
-            <form id="finished-order-btn" onSubmit={() => deleteFunction}>
-              <button>Borrame</button>
-            </form>
+            <Button className="btn-card-order btn-done" text={"Terminado"} onClick={() => orderDone} />
+            <Button className="btn-card-order btn-cancel" text={"Cancelar"} onClick={cancelOrder} />
           </>
-          :
-          ""
-      }
+        ) : (
+          <>
+            <Button className="btn-card-order btn-done" text={"Pedir"} onClick={() => finishOrder} />
+            <Button className="btn-card-order btn-cancel" text={"Cancelar"} onClick={cancelOrder} />
+          </>
+        )}
+      </div>
     </section>
   );
 }

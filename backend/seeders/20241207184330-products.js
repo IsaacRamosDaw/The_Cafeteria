@@ -3,7 +3,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-<<<<<<< HEAD
     /**
      * Add seed commands here.
      *
@@ -71,40 +70,6 @@ module.exports = {
           filename: "/images/ImgMenus/sandwiches.jpg",
           CategoryId: "4",
           price: 5.75,
-=======
-    await queryInterface.bulkInsert(
-      "products",
-      [
-        {
-          name: "Bocadillaso",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
-        },
-        {
-          name: "Bocadillaso3",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
-        },
-        {
-          name: "!Bocadillon't",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
-        },
-        {
-          name: "!Bocadillon't",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
-        },
-        {
-          name: "!Bocadill",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
-        },
-        {
-          name: "!Bocadillon't",
-          filename: "../../frontend/public/images/ImgMenus/bocadillos.jpg",
-          CategoryId: "1"
->>>>>>> dev-backend-i
         },
       ],
       {}
@@ -112,17 +77,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-<<<<<<< HEAD
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  },
-=======
     await queryInterface.bulkDelete("products", null, {});
 
   }
->>>>>>> dev-backend-i
 };

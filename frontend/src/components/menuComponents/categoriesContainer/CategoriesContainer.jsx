@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { get, remove } from "../../../services/category.service";
 import CategoryCard from "../categoryCard/CategoryCard";
 import Plus from "../../workerComponents/Plus";
-import "./CategoriesContainer.scss";
 import { countByCategory } from "../../../services/product.service";
+import "./CategoriesContainer.scss";
 
 function CategoriesContainer() {
   const [categories, setCategories] = useState([]);

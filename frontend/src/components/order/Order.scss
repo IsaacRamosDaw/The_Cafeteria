@@ -2,27 +2,30 @@
 
 .order-card {
   background-color: var(--background-2);
-  width: 90%;
-  margin: 10px;
-  gap: 5px;
-  border-radius: 5px;
+  width: 70%;
+  // max-width: 290px;
+  padding: 20px;
+  border-radius: 15px;
   @include flex-items(column);
+  gap: 10px;
 
   .card-order-header {
     width: 95%;
     display: flex;
     justify-content: space-between;
     color: var(--text-3);
-    font-size: $font-size-tiny;
-    font-weight: bold;
+    font-size: $font-size-small;
+    font-weight: 500;
   }
 
   .text-name-student {
-    text-align: center;
+    text-align: start;
     color: var(--text-1);
+    width: 90%;
+    @include flex-items;
 
-    span{
-      margin: 0 .1em;
+    span {
+      margin: 0 5px;
     }
   }
 
@@ -35,8 +38,8 @@
       background-color: var(--borders-separators-2);
       display: flex;
       justify-content: space-between;
-      width: 80%;
-      font-weight: bold;
+      width: 95%;
+      font-weight: 600;
       color: var(--text-2);
 
       p {
@@ -47,14 +50,29 @@
     }
   }
 
-  .card-order-container-btn {
+  .container-btn-card-order {
     width: 100%;
     @include flex-items;
+    gap: 10px;
+    height: 22px;
 
-    button {
-      width: 50%;
-      max-width: 116px;
-      height: 20px;
+    .btn-card-order {
+      flex: 1;
+      height: 100%;
+      border-radius: 7px;
+      border: 0;
+      background-color: var(--interactive-2);
+      color: var(--text-1);
+      font-size: $font-size-small;
+      font-weight: bold;
+    }
+
+    .btn-card-order:active {
+      transform: scale(.8);
+    }
+
+    .btn-done {
+      background-color: $primary-color;
     }
   }
 }

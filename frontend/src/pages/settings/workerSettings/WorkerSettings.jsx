@@ -15,22 +15,33 @@ import "./WorkerSettings.scss";
 
 function WorkerSettings() {
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const clearToken = () => {
-    localStorage.removeItem("token")
-    navigate("/")
-  }
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <div id="page-settings-worker">
       <SearchBar />
-      <h2>The muggings</h2>
-      <img id="coffeShop-image" src="../../../../public/images/settings/coffeImage.jpg" alt="" />
-      <main id="worker-setttings">
+      <div className="container-img-worker-settings">
+        <h2>The muggings</h2>
 
+        <img
+          className="coffeShop-image"
+          src="../../../../public/images/settings/coffeImage.jpg"
+          alt=""
+        />
+      </div>
+
+      <main id="worker-setttings">
         <div id="settings-container">
-          <Setting icon={<FiUser />} to={"/worker/profile/update"} text={"Cuenta"} />
+          <Setting
+            icon={<FiUser />}
+            to={"/worker/profile/update"}
+            text={"Cuenta"}
+          />
 
           <Setting
             icon={

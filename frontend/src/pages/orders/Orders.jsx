@@ -5,9 +5,9 @@ import Order from "../../components/order/Order";
 import { get, getByStudent } from "../../services/order.service";
 import { remove } from "../../services/order.service";
 import { useEffect, useState } from "react";
-import "./Orders.scss";
 import { colors } from "@mui/material";
 import { getUserId, getUserRole } from "../../services/utils";
+import "./Orders.scss";
 
 function Orders() {
   const [userId, setUserId] = useState(null);
@@ -50,9 +50,9 @@ function Orders() {
       <SearchBar />
       <Separator />
       <main id="orders-container">
-        {orders.map((order, index) => (
-          <div key={index}>
-            {role === "worker" ? (
+        {orders.map((order, index) => {
+          {
+            return role === "worker" ? (
               <Order
                 key={index}
                 role={role}
@@ -60,6 +60,7 @@ function Orders() {
                 studentName={order.id}
                 course={"2DAWT"}
                 date={order.date}
+                deleted={handleCancel}
               />
             ) : (
               <Order
@@ -67,11 +68,12 @@ function Orders() {
                 ID_order={order.id}
                 date={"10/12/2020"}
                 product={"Super Bocata Combo"}
+                deleted={handleCancel}
               />
-            )}
-            <button onClick={() => handleCancel(order.id)}>BORRAME</button>
-          </div>
-        ))}
+            );
+          }
+          // <button onClick={() => handleCancel(order.id)}>BORRAME</button>;
+        })}
       </main>
       <TabsBar />
     </div>
