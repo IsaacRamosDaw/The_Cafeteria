@@ -41,8 +41,7 @@ function TabsBar({ worker }) {
         </li>
         <li>
           <Link to={role === "worker" ? "/worker/profile" : "/student/profile"}>
-          {/* <IoPersonSharp /> */}
-            <MdHome
+            <IoPersonSharp
               className={`img-tab-icon ${location.pathname === (worker ? "/homeworker" : "/home") ? "active" : ""
                 }`}
             />

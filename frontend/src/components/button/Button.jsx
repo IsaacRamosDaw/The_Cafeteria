@@ -1,6 +1,6 @@
 import "./button.scss";
 
-export default function Button({ icon, className = "welcome-submit", submit = true, text, onClick }) {
+export default function Button({ icon, className = "welcome-submit", submit = true, text, onClick}) {
   return (
     <button
       onClick={onClick}

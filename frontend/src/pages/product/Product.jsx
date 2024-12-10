@@ -11,11 +11,17 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import Divider from "@mui/material/Divider";
 import { getOne } from "../../services/product.service";
-
+import { create } from "../../services/order.service";
+import { getUserId } from "../../services/utils";
 function Product() {
   const navigate = useNavigate();
   let { category, name } = useParams();
   name = name.replace(/-/g, " ");
+
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    setUserId(getUserId());
+  }, []);
 
   const [product, setProduct] = useState({});
   let [quantity, setQuantity] = useState(1.0);
@@ -57,13 +63,14 @@ function Product() {
   };
 
   const handleOrder = () => {
+    create(userId,product.id)
+    console.log("se envio puta")
     const res = {
       id: 1,
       name: product.name,
       amount: quantity,
       price: parseFloat(priceShown),
     };
-    console.log(res);
   };
 
   return (
@@ -110,19 +117,26 @@ function Product() {
           </div>
           <div className="container-control-order-product">
             {ordered ? (
-              <Button
-                onClick={() => setOrdered(false)}
-                className="btn-cancel-product"
-                text={"Cancelar"}
-              />
+              <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
+              // <Button
+              //   onClick={() => {
+              //     setOrdered(false)
+              //   }}
+              //   onOrder={() => handleOrder}
+              //   className="btn-cancel-product"
+              //   text={"Cancelar"}
+              // />
             ) : (
-              <Button
-                onClick={() => {
-                  setOrdered(true), handleOrder;
-                }}
-                className="btn-order-product"
-                text={"Pedir"}
-              />
+              // <Button
+              //   onClick={() => {
+              //     setOrdered(true), handleOrder;
+              //   }}
+              //   onOrder={() => handleOrder}
+
+              //   className="btn-order-product"
+              //   text={"Pedir"}
+              // />
+              <button className="btn-order-product" onClick={handleOrder}>Ordena</button>
             )}
           </div>
         </div>

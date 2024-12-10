@@ -30,6 +30,39 @@ exports.create = (req, res) => {
     );
 };
 
+exports.createByUrl = (req, res) => {
+  console.log("llegue aqui tambien")
+
+  const date = new Date()
+
+  let day = date.getDate()
+  let month = date.getMonth() + 1
+  let year = date.getFullYear()
+
+  let fullDate = `${month}-${day}-${year}`
+
+  let orderData = {
+    StudentId: req.params.studentId,
+    ProductId: req.params.id,
+    date: fullDate,
+  };
+
+
+  Order.create(orderData)
+    .then((order) =>
+      res.status(201).json({
+        message: "Order creada correctamente",
+        order: order,
+      })
+    )
+    .catch((err) =>
+      res.status(500).send({
+        message: "Some error ocurred while retrieving tutorial" || err.message,
+
+      })
+    );
+};
+
 exports.findAll = (req, res) => {
   Order.findAll()
     .then((orders) => {
