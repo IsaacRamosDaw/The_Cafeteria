@@ -15,8 +15,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 
-export default function WalletBalance() {
-  let [credits, setCredits] = useState(45.02);
+export default function WalletBalance({amount = 10.20}) {
+  let [credits, setCredits] = useState(amount);
 
   const [openAmount, setOpenAmount] = useState(false);
   const handleAddAmount = () => setOpenAmount(openAmount ? false : true);

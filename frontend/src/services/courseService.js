@@ -1,16 +1,16 @@
 const endpoint = "http://localhost:8080/api/course";
 
 export function get() {
-    let token = localStorage.getItem("token");
+    // let token = localStorage.getItem("token");
   
-    if (!token) {
-      window.location.href = "/error";
-    }
+    // if (!token) {
+    //   window.location.href = "/error";
+    // }
   
     const getOperation = fetch(endpoint, {
       method: "GET",
       headers: new Headers({
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       }),

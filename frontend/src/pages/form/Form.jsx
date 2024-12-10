@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { Link, useNavigate, } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
 import { create } from "../../services/studentService";
@@ -7,7 +7,7 @@ import { get } from "../../services/courseService";
 import "./Form.scss";
 
 function Form() {
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     username: "",
     password: "",
     age: "",
@@ -31,12 +31,10 @@ function Form() {
     create(values)
       .then((response) => {
         console.log("Usuario creado:", response);
-        alert("Usuario registrado exitosamente");
-        navigate("/home");
+        navigate(-1);
       })
       .catch((error) => {
         console.error("Error al crear el usuario:", error);
-        alert("Error al registrarse, intente de nuevo.");
       });
   }
 

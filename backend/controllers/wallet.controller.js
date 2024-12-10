@@ -5,7 +5,6 @@ const Wallet = db.wallet;
 exports.findOne = (req, res) => {
   const student_id = req.params.id;
 
-
   if (!student_id) {
     return res.status(403).json({
       message: "Error while getting this student wallet",
@@ -22,7 +21,6 @@ exports.findOne = (req, res) => {
 
   Wallet.findOne({ where: { StudentId: student_id } })
     .then((wallet) => res.status(201).json({
-      wallet: wallet,
-      message: "This is the wallet you requested for",
+      wallet,
     }))
 };

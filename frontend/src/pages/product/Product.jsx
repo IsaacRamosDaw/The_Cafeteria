@@ -64,7 +64,6 @@ function Product() {
 
   const handleOrder = () => {
     create(userId,product.id)
-    console.log("se envio puta")
     const res = {
       id: 1,
       name: product.name,

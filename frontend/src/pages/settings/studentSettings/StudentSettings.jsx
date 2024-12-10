@@ -6,7 +6,7 @@ import { getUserId } from "../../../services/utils";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { useEffect, useState } from "react";
-import { getOne } from "../../../services/studentService";
+import { get, getOne } from "../../../services/studentService";
 import { FiUser } from "react-icons/fi";
 import {
   MdOutlineLocalCafe,
@@ -17,16 +17,20 @@ import {
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
 import "./StudentSettings.scss";
+import { getWallet } from "../../../services/wallet.service";
 
 import CreditBalance from "../../../components/setttingsComp/creditBalance/CreditBalance";
 
 function StudentSettings() {
   const id = getUserId();
+  const [studentWallet, setStudentWallet] = useState({});
+  const [cleanUser, setCleanUser] = useState();
+  const [userId, setUserId] = useState(null);
   const [studentData, setStudentData] = useState(null);
   const [decodedId, setDecodedId] = useState(null);
-  const token = localStorage.getItem("token");
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const clearToken = () => {
     localStorage.removeItem("token");
@@ -38,8 +42,24 @@ function StudentSettings() {
       const base64Payload = token.split(".")[1];
       const decodedPayload = JSON.parse(atob(base64Payload));
       setDecodedId(decodedPayload.id);
+      setCleanUser(base64Payload);
     }
   }, [token]);
+
+  useEffect(() => {
+    const getWalletData = async () => {
+      try {
+        const wallet = await getWallet(id, token)
+        setStudentWallet(wallet);
+      } catch (error) {
+        return error.message
+      }
+
+    }
+    getWalletData();
+  }, []);
+
+  console.log(studentWallet.amount)
 
   useEffect(() => {
     const studentId = id || decodedId;
@@ -64,7 +84,7 @@ function StudentSettings() {
   return (
     <div id="page-settings-student">
       <SearchBar />
-      <CreditBalance />
+      <CreditBalance amount={studentWallet.amount}/>
       <main id="student-setttings">
         <div id="settings-container">
           <Setting
