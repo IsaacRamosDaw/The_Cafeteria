@@ -21,6 +21,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuBook from "@mui/icons-material/MenuBook";
 // import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../../components/searchBar/SearchBar";
 
 function Admin() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function Admin() {
   return (
     <div className="page-admin-container">
         
-      <ProfileBar />
+      <SearchBar />
 
         <SpeedDial
           ariaLabel="SpeedDial basic example"

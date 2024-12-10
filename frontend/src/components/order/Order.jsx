@@ -27,23 +27,15 @@ function Order({ ID_order, date, studentName, product, course, role, deleted }) 
         <li>
           <p> {product} </p>
         </li>
-        <li>
-          <p> {product} </p>
-        </li>
-        <li>
-          <p> {product} </p>
-        </li>
       </ul>
       <div className="container-btn-card-order">
         {role === "worker" ? (
           <>
-            <Button className="btn-card-order btn-done" text={"Terminado"} onClick={() => orderDone} />
-            <Button className="btn-card-order btn-cancel" text={"Cancelar"} onClick={cancelOrder} />
+            <Button className="btn-card-order btn-done" text={"Terminado"} onClick={cancelOrder} />
           </>
         ) : (
           <>
-            <Button className="btn-card-order btn-done" text={"Pedir"} onClick={() => finishOrder} />
-            <Button className="btn-card-order btn-cancel" text={"Cancelar"} onClick={cancelOrder} />
+            <Button className="btn-card-order btn-done" text={"Cancelar"} onClick={cancelOrder} />
           </>
         )}
       </div>

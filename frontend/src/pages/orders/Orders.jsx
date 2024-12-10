@@ -3,6 +3,7 @@ import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
 import { get, getByStudent } from "../../services/order.service";
+import { findByPk } from "../../services/product.service"
 import { remove } from "../../services/order.service";
 import { useEffect, useState } from "react";
 import { colors } from "@mui/material";
@@ -13,6 +14,7 @@ function Orders() {
   const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
   const [orders, setOrders] = useState([]);
+  const [orderName, setOrderName] = useState();
 
   useEffect(() => {
     setUserId(getUserId());
@@ -37,13 +39,24 @@ function Orders() {
     if (role) {
       fetchOrders();
     }
-  }, [role, userId]); // Se ejecuta cuando cambian `role` o `userId`
+  }, [role, userId]);
+
+
 
   const handleCancel = async (id) => {
     await remove(id);
-    console.log("holita");
     setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
   };
+
+  // const getName = async (id) => {
+  //   const productData = await findByPk(id)
+  //   console.log(productData.name)
+  //   setOrderName(productData)
+  //   console.log(orderName)
+  //   return productData.name;
+  // }
+
+  
 
   return (
     <div id="Orders-page">
@@ -51,6 +64,7 @@ function Orders() {
       <Separator />
       <main id="orders-container">
         {orders.map((order, index) => {
+          // let productName = [getName(order.ProductId)]
           {
             return role === "worker" ? (
               <Order
@@ -61,13 +75,15 @@ function Orders() {
                 course={"2DAWT"}
                 date={order.date}
                 deleted={handleCancel}
+                product={1}
+
               />
             ) : (
               <Order
                 key={index}
                 ID_order={order.id}
                 date={"10/12/2020"}
-                product={"Super Bocata Combo"}
+                product={1}
                 deleted={handleCancel}
               />
             );

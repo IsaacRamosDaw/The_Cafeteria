@@ -1,5 +1,5 @@
-import "./Product.scss";
 
+import "./Product.scss";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -10,7 +10,7 @@ import Button from "../../components/button/Button";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import Divider from "@mui/material/Divider";
-import { getOne } from "../../services/product.service";
+import { findByPk } from "../../services/product.service";
 import { create } from "../../services/order.service";
 import { getUserId } from "../../services/utils";
 function Product() {
@@ -116,26 +116,19 @@ function Product() {
           </div>
           <div className="container-control-order-product">
             {ordered ? (
-              <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
-              // <Button
-              //   onClick={() => {
-              //     setOrdered(false)
-              //   }}
-              //   onOrder={() => handleOrder}
-              //   className="btn-cancel-product"
-              //   text={"Cancelar"}
-              // />
+              // <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
+              <Button
+                onClick={handleOrder}
+                className="btn-cancel-product"
+                text={"Cancelar"}
+              />
             ) : (
-              // <Button
-              //   onClick={() => {
-              //     setOrdered(true), handleOrder;
-              //   }}
-              //   onOrder={() => handleOrder}
-
-              //   className="btn-order-product"
-              //   text={"Pedir"}
-              // />
-              <button className="btn-order-product" onClick={handleOrder}>Ordena</button>
+              <Button
+                onClick={handleOrder}
+                className="btn-order-product"
+                text={"Pedir"}
+              />
+              // <button className="btn-order-product" onClick={handleOrder}>Ordena</button>
             )}
           </div>
         </div>
