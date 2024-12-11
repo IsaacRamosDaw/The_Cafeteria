@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./CreateCategoryModal.scss";
-import { create as createCategory } from "../../services/category.service"; // Asegúrate de que este servicio esté definido correctamente
+import { create as createCategory } from "../../services/category.service";
 
 export default function CreateCategoryModal({
     isModalOpen,
