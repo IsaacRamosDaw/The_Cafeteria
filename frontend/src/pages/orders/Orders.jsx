@@ -14,7 +14,6 @@ function Orders() {
   const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
   const [orders, setOrders] = useState([]);
-  const [orderName, setOrderName] = useState();
 
   useEffect(() => {
     setUserId(getUserId());
@@ -39,24 +38,13 @@ function Orders() {
     if (role) {
       fetchOrders();
     }
+
   }, [role, userId]);
-
-
 
   const handleCancel = async (id) => {
     await remove(id);
     setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
-  };
-
-  // const getName = async (id) => {
-  //   const productData = await findByPk(id)
-  //   console.log(productData.name)
-  //   setOrderName(productData)
-  //   console.log(orderName)
-  //   return productData.name;
-  // }
-
-  
+  };  
 
   return (
     <div id="Orders-page">
@@ -71,11 +59,10 @@ function Orders() {
                 key={index}
                 role={role}
                 ID_order={order.id}
-                studentName={order.id}
                 course={"2DAWT"}
                 date={order.date}
                 deleted={handleCancel}
-                product={1}
+                studentId={order.StudentId}
 
               />
             ) : (
@@ -83,7 +70,6 @@ function Orders() {
                 key={index}
                 ID_order={order.id}
                 date={"10/12/2020"}
-                product={1}
                 deleted={handleCancel}
               />
             );

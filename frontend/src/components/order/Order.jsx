@@ -1,12 +1,41 @@
 import "./Order.scss";
 import Button from "../button/Button";
+import { useEffect, useState } from "react";
+import { getUserId, getUser } from "../../services/utils";
+import { getOne } from "../../services/studentService";
+import { findByPk } from "../../services/product.service";
 
-function Order({ ID_order, date, studentName, product, course, role, deleted }) {
+function Order({ ID_order, date, course, role, deleted, studentId }) {
+
   date = date.split("T")[0].replace(/-/g, "/");
+
+  const [orderName, setOrderName] = useState();
+  const [studentName, setStudentName] = useState();
+
+
+  useEffect(() => {
+    async function fetchOrder() {
+      let orderName;
+      orderName = await findByPk(ID_order)
+      setOrderName(orderName.name);
+    }
+    fetchOrder()
+
+    async function fetchname() {
+      let studentNameFetch = await getOne(studentId)
+      if(studentNameFetch) {
+        console.log(studentNameFetch)
+      }
+      setStudentName(studentNameFetch.username)
+    }
+    fetchname()
+  }, [studentId]);
 
   const cancelOrder = () => {
     deleted(ID_order)
   };
+
+  console.log(studentName)
 
   return (
     <section className="order-card">
@@ -15,17 +44,13 @@ function Order({ ID_order, date, studentName, product, course, role, deleted }) 
         <p> {date} </p>
       </header>
       <h2 className="text-name-student">
-        {studentName}
+          {studentName}
         <span></span>
         {course}
       </h2>
       <ul className="card-order-content">
-        {/* <li>
-          <p> Empanadilla</p>
-          <span> x1 </span>
-        </li> */}
         <li>
-          <p> {product} </p>
+          <p> {orderName} </p>
         </li>
       </ul>
       <div className="container-btn-card-order">

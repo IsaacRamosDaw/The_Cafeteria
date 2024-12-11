@@ -32,7 +32,7 @@ export async function get() {
 }
 
 export async function findOne(id) {
-  const getOperation = await fetch(endpoint, { method: "GET", })
+  const getOperation = await fetch(endpoint, { method: "GET", }, {where: { id: id}})
     .then((res) => {
       if (!res.ok) {
         throw new Error("Error fetching data");
