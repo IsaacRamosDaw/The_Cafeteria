@@ -11,26 +11,53 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
 
+import { useEffect, useState } from "react";
+import { getUserId } from "../../../services/utils";
+import { getOne } from "../../../services/coffeshopService";
+
 import "./WorkerSettings.scss";
 
 function WorkerSettings() {
   const { theme, toggleTheme } = useTheme();
+  const [coffeShopData, setCoffeShopData] = useState({});
   const navigate = useNavigate();
+
+  const folder = "http://localhost:8080/images/";
 
   const clearToken = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
+  useEffect(() => {
+    const workerId = getUserId();
+    if (!workerId) {
+      console.error(
+        "No hay un ID disponible para buscar los datos del trabajador."
+      );
+      return;
+    }
+
+    async function fetchWorker() {
+      try {
+        const data = await getOne(workerId);
+        setCoffeShopData(data);
+      } catch (error) {
+        console.error("Error al obtener el trabajador:", error);
+      }
+    }
+    fetchWorker();
+  }, []);
+
   return (
     <div id="page-settings-worker">
       <SearchBar />
       <div className="container-img-worker-settings">
-        <h2>The muggings</h2>
+        <h2> {coffeShopData.name} </h2>
 
         <img
           className="coffeShop-image"
-          src="../../../../public/images/settings/coffeImage.jpg"
+          src={folder + coffeShopData.filename}
           alt=""
         />
       </div>

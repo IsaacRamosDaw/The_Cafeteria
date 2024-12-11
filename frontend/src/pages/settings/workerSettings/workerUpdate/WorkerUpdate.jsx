@@ -1,76 +1,179 @@
+import SearchBar from "../../../../components/searchBar/SearchBar";
 import TabsBar from "../../../../components/tabsBar/TabsBar";
 import Button from "../../../../components/button/Button";
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
+import {
+  getOne,
+  edit,
+  updateProfilePicture
+} from "../../../../services/workerService.js";
 import Avatar from "@mui/material/Avatar";
+import { BiSolidPencil } from "react-icons/bi";
+
+import { getUserId, getUserRole } from "../../../../services/utils.js";
 
 import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function WorkerUpdate() {
-  let endPoint = "http://localhost:8080/images/"
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
-  const handleAccount = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-  };
+import "./WorkerUpdate.scss";
 
-    const [user, setUser] = useState( {
-    name: "John Doe",
-    contrasenia: "1234",
-    phone: 1234567890,
-    imgProfile: "image-1732653502736.jpg"
+export default function WorkerUpdate() {
+  const navigate = useNavigate();
+  const id = getUserId();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const [invalidUser, setInvalidUser] = useState(true);
+
+  const [imgProfile, setImgProfile] = useState("");
+
+  // Ref hooks
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  // DB data
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+    phone: "",
   });
 
-  const navigate = useNavigate();
-  const handleBack = () => {
-    navigate(-1);
+  useEffect(() => {
+    getOne(id).then((data) => {
+      setUserData(data);
+    });
+    
+  }, [id]);
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      console.log(file);
+      setSelectedFile(file);
+      setImgProfile(URL.createObjectURL(file));
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (!selectedFile) {
+      return;
+    }
+    try {
+      await updateProfilePicture(id, selectedFile);
+      setUserData((prev) => ({
+        ...prev,
+        imgProfile: URL.createObjectURL(selectedFile),
+      }));
+    } catch (error) {
+      console.error("Error al actualizar la imagen de perfil:", error);
+    }
+  };
+
+  const HandleEdit = async (e) => {
+    e.preventDefault();
+  
+    const formData = {
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+      phone: phoneRef.current.value,
+    };
+  
+    // Verificar si algún campo está vacío (valor igual a "")
+    const emptyField = Object.entries(formData).find(([key, value]) => value === "");
+  
+    if (emptyField) {
+      setInvalidUser(false)
+      setTimeout(() => {
+        setInvalidUser(true)
+      }, 2000)
+      const [key] = emptyField;
+      return; // Detener la ejecución si hay un campo vacío
+    }
+  
+    try {
+      await edit(id, formData);
+      await handleFileUpload();
+  
+      navigate(-1);
+    } catch (error) {
+      console.error("Error al editar:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    resetImageProfile();
+  }, [userData]);
+
+  const resetImageProfile = () => {
+    setImgProfile("http://localhost:8080/images/" + userData.filename);
   };
 
   return (
-    <div id="page-account-client">
-            <main id="content-account-client">
-        <Link onClick={handleBack} className="container-back">
-          <FaArrowLeftLong />
-        </Link>
-        <section className="container-info">
-          <Link to={'/worker/profile'} className="container-img-profile">
-            <Avatar
-              alt={user.name}
-              src={ `${endPoint}${user.imgProfile}` || "/static/images/avatar/1.jpg" }
-              sx={{ bgcolor: deepOrange[500], width: 70, height: 70 }}
-            />
-          </Link>
-          <div className="container-info-student">
-            <h1>{user.name}</h1>
-            <h5>{`${user.course}, ${user.school}`}</h5>
-          </div>
+    <div id="page-account-worker">
+      <SearchBar />
+      <main id="content-account-worker">
+        <section className="container-back">
+          <FaArrowLeftLong onClick={() => navigate(-1)} />
         </section>
-        <form onSubmit={handleAccount} className="container-inputs">
+        <section className="container-info">
+          <div className="container-img-profile">
+            <Avatar
+              className="avatar-img"
+              onClick={() => document.getElementById("file-input").click()}
+              alt={userData.username}
+              src={imgProfile || "/static/images/avatar/1.jpg"}
+              sx={{ width: 90, height: 90 }}
+            />
+            <BiSolidPencil className="edit-mode-icon" />
+          </div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+            id="file-input"
+          />
+          <h1> {userData.username} </h1>
+          <p> {""} </p>
+        </section>
+        <form onSubmit={HandleEdit} className="container-inputs">
           <InputFormSetting
             title={"Nombre"}
             option={2}
-            placeholder={user.name}
+            placeholder={userData.username}
+            ref={usernameRef}
           />
           <InputFormSetting
             title={"Contraseña"}
             option={2}
-            placeholder={user.contrasenia}
+            placeholder={userData.phone}
+            type="password"
+            ref={passwordRef}
           />
           <InputFormSetting
-            title={"phone"}
+            title={"Telefono"}
             option={2}
-            placeholder={user.phone}
+            placeholder={"Numero de telefono"}
+            ref={phoneRef}
           />
           <div className="container-btn-account">
             <Button text={"Actualizar"} submit={true} />
           </div>
         </form>
+        <Stack
+        sx={{ display: `${invalidUser ? "none" : "block"}`, width: "90%" }}
+        spacing={2}
+      >
+        <Alert  severity="error"> No hay datos para actualizar </Alert>
+      </Stack>
+        <TabsBar />
       </main>
-      <TabsBar />
     </div>
-  )
+  );
 }
-
-export default WorkerUpdate

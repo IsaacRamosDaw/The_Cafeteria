@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:8080/api/student";
+const endpoint = "http://localhost:8080/api/coffeShop";
 
 export function get() {
   let token = localStorage.getItem("token");
@@ -41,7 +41,6 @@ export function getOne(id) {
     headers: new Headers({
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
     .then((response) => {
@@ -58,18 +57,13 @@ export function getOne(id) {
 }
 
 export function create(formData) {
-  const bodyData = new URLSearchParams({
-    ...formData,
-    role: 'student',
-  });
 
   return fetch(endpoint, {
     method: "POST",
     headers: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa(formData.username + ':' + formData.password)}`,
     }),
-    body: bodyData, 
+    body: new URLSearchParams(formData).toString(), 
   })
     .then((response) => {
       if (!response.ok) {
@@ -94,8 +88,6 @@ export async function remove(id) {
     method: "DELETE",
     headers: {
       'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
     },
     
   })
@@ -144,32 +136,39 @@ export async function edit(id, data) {
 
 }
 
-export async function updateProfilePicture(id, file) {
-
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const formData = new FormData();
-  formData.append("file", file);
-
-  return fetch(`${endpoint}/upload/${id}`, {
-    method: "PUT",
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: formData,
-  })
-    .then((response) => {
+export async function editImg(id, data) {
+    try {
+      let token = localStorage.getItem("token");
+  
+      if (!token) {
+        window.location.href = "/error";
+        return;
+      }
+  
+      let url = `${endpoint}/upload/${id}`;
+  
+      const formData = new FormData();
+      formData.append("file", data);
+  
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+  
       if (!response.ok) {
         throw new Error("Error en la solicitud");
       }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while updating profile picture:", error);
+  
+      const updatedData = await response.json();
+      console.log("Imagen actualizada:", updatedData);
+  
+      return updatedData;
+    } catch (error) {
+      console.error("Error while updating admin data:", error);
       throw error;
-    });
-}
+    }
+  }

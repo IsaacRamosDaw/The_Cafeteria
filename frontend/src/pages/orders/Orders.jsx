@@ -7,6 +7,7 @@ import { remove } from "../../services/order.service";
 import { useEffect, useState } from "react";
 import { colors } from "@mui/material";
 import { getUserId, getUserRole } from "../../services/utils";
+import { BsCupHot } from "react-icons/bs";
 import "./Orders.scss";
 
 function Orders() {
@@ -50,7 +51,10 @@ function Orders() {
       <SearchBar />
       <Separator />
       <main id="orders-container">
-        {orders.map((order, index) => {
+        {
+          orders.length == 0 
+          ? <BsCupHot  className="cup-img-logo" /> 
+          : orders.map((order, index) => {
           {
             return role === "worker" ? (
               <Order

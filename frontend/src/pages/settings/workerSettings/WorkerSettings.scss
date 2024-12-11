@@ -4,9 +4,12 @@
   background-color: var(--background-1);
   min-height: 100vh;
   @include flex-items(column);
+  padding-bottom: 50px;
 
   .container-img-worker-settings {
     width: 95%;
+    max-width: 800px;
+    max-height: 40vh;
     @include flex-items(column);
     gap: 20px;
 
@@ -28,7 +31,7 @@
   main#worker-setttings {
     @include flex-items(column);
     color: var(--text-2);
-    margin-top: 60px;
+    margin-top: 20px;
     display: flex;
     gap: 20px;
     width: 90%;
