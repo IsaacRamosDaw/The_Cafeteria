@@ -1,17 +1,31 @@
 import React from "react";
-import "./EditProductModal.scss"
-export default function EditProductModal({ isModalOpen, productToEdit, handleSave, closeModal, setProductToEdit }) {
+import "./EditProductModal.scss";
+import { edit } from "../../services/product.service"; 
+
+export default function EditProductModal({
+  isModalOpen,
+  productToEdit,
+  handleSave,
+  closeModal,
+  setProductToEdit
+}) {
   if (!isModalOpen || !productToEdit) return null;
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSave({
-      ...productToEdit,
-      name: productToEdit.name,
-      description: productToEdit.description,
-      price: productToEdit.price,
-      CategoryId: productToEdit.CategoryId,
-    });
+
+    try {
+      await edit(productToEdit.id, {
+        name: productToEdit.name,
+        description: productToEdit.description,
+        price: productToEdit.price,
+        CategoryId: productToEdit.CategoryId,
+      });
+
+      handleSave(productToEdit);
+    } catch (error) {
+      console.error("Error al guardar el producto editado:", error);
+    }
   };
 
   return (

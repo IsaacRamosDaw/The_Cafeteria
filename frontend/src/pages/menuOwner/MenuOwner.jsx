@@ -2,15 +2,31 @@ import { useEffect, useState } from "react";
 import "./MenuOwner.scss";
 import { FaTrash } from "react-icons/fa";
 import { HiPencilSquare } from "react-icons/hi2";
-import { get as getCategories } from "../../services/category.service";
-import { get as getProducts, remove } from "../../services/product.service";
+import { get as getCategories, create as createCategory } from "../../services/category.service";
+import { getByCategory as getProducts, remove, create as createProducts } from "../../services/product.service";
 import EditProductModal from "../../components/workerComponents/EditProductModal";
+import { FaPlus } from "react-icons/fa";
+import { FaCirclePlus } from "react-icons/fa6";
+import CreateCategoryModal from "../../components/workerComponents/CreateCategoryModal";
+import CreateProductModal from "../../components/workerComponents/CreateProductModal";
 
 export default function MenuOwner() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
+  const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [newCategory, setNewCategory] = useState({
+    name: '',
+    amount: ''
+  });
+  const [newProduct, setNewProduct] = useState({
+    name: '',
+    description: '',
+    price: '',
+    CategoryId: '',
+  })
 
   // Cargar categorías y productos
   useEffect(() => {
@@ -19,20 +35,16 @@ export default function MenuOwner() {
         const categoryData = await getCategories();
         setCategories(categoryData);
 
-        // Mapear categorías a promesas de productos
-        const productsPromises = categoryData.map((category) =>
-          getProducts(category.id).then((products) => ({
-            [category.id]: products || [], // Asegurarse de asignar un array vacío si no hay productos
-          }))
-        );
+        // Crear un objeto para almacenar los productos por categoría
+        const productsByCategory = {};
 
-        // Esperar todas las promesas y combinarlas en un solo objeto
-        const productsByCategoryArray = await Promise.all(productsPromises);
-        const productsByCategory = Object.assign({}, ...productsByCategoryArray);
+        for (const category of categoryData) {
+          const products = await getProducts(category.id);
+          console.log(`Productos para la categoría ${category.id}:`, products);
+          productsByCategory[category.id] = products || [];
+        }
 
-        console.log("Categories:", categoryData);
-        console.log("Products by Category:", productsByCategory);
-
+        console.log("Productos organizados por categoría:", productsByCategory);
         setProducts(productsByCategory);
       } catch (error) {
         console.error("Error fetching categories or products:", error);
@@ -42,10 +54,42 @@ export default function MenuOwner() {
     fetchCategoriesAndProducts();
   }, []);
 
-  const handleEdit = (product) => {
-    setProductToEdit(product);
-    setIsModalOpen(true);
+  // Manejo de la creación de categorías
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewCategory((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+
+    // Pasar los datos de la nueva categoría al backend o servicio
+    console.log("Creando categoría:", newCategory);
+    try {
+      await createCategory(newCategory);
+      setIsCreateCategoryModalOpen(false); // Cerrar el modal después de crear
+      setNewCategory({ name: '', amount: '' }); // Limpiar los campos del formulario
+    } catch (error) {
+      console.error("Error creando la categoría:", error);
+    }
+  };
+
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
+    
+    try{
+      await createProducts(newProduct);
+      setIsCreateProductModalOpen(false);
+      setNewProduct({name: '', description: '', price: '', CategoryId: '',})
+
+    } catch (error){
+      console.error("Error creando el producto:", error);
+    }
+
+  }
 
   const handleDelete = async (id) => {
     try {
@@ -67,25 +111,27 @@ export default function MenuOwner() {
     }
   };
 
+  const handleEdit = (product) => {
+    setProductToEdit(product);
+    setIsEditModalOpen(true);
+  };
+
   const handleSave = (updatedProduct) => {
     setProducts((prevProducts) => {
       const updatedProducts = { ...prevProducts };
-      const categoryId = updatedProduct.CategoryId;  // Asegurarse de no modificar el CategoryId
+      const categoryId = updatedProduct.CategoryId; // Asegurarse de no modificar el CategoryId
       updatedProducts[categoryId] = updatedProducts[categoryId].map((product) =>
         product.id === updatedProduct.id ? updatedProduct : product
       );
       return updatedProducts;
     });
-    setIsModalOpen(false);
+    setIsEditModalOpen(false);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsEditModalOpen(false);
+    setIsCreateCategoryModalOpen(false);
   };
-
-  if (categories.length === 0) {
-    return <p>Cargando categorías...</p>;
-  }
 
   return (
     <div id="owner-menu-page-container">
@@ -120,17 +166,34 @@ export default function MenuOwner() {
                 </div>
               </div>
             ))}
+            <FaCirclePlus onClick={() => handleCreateProduct()}/>
           </section>
         </section>
       ))}
 
-      {/* Modal de edición de producto */}
+      <FaPlus onClick={() => setIsCreateCategoryModalOpen(true)} />
+
       <EditProductModal
-        isModalOpen={isModalOpen}
+        isModalOpen={isEditModalOpen}
         productToEdit={productToEdit}
         handleSave={handleSave}
         closeModal={closeModal}
         setProductToEdit={setProductToEdit}
+      />
+
+      <CreateCategoryModal
+        isModalOpen={isCreateCategoryModalOpen}
+        handleSave={handleCreate}
+        closeModal={closeModal}
+        categoryToCreate={newCategory}
+        handleInputChange={handleInputChange}
+      />
+
+      <CreateProductModal
+      isModalOpen={isCreateProductModalOpen}
+      handleSave={closeModal}
+      productToCreate={newProduct}
+      handleInputChange={handleInputChange}
       />
     </div>
   );
