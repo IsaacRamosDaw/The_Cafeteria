@@ -11,7 +11,7 @@ import { getUserRole } from "../../services/utils";
 function Home() {
   return (
     <div id="home-container">
-      <SearchBar input="true" />
+      <SearchBar />
       <Separator />
       {
       getUserRole() == "student" 

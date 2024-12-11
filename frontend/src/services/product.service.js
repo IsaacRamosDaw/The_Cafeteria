@@ -28,18 +28,18 @@ export function get() {
   return getOperation;
 }
 
-export function getOne(id) {
-  let token = localStorage.getItem("token");
+export function findByPk(id) {
+  // let token = localStorage.getItem("token");
 
-  if (!token) {
-    window.location.href = "/error";
-  }
+  // if (!token) {
+  //   window.location.href = "/error";
+  // }
 
   const getOneOperation = fetch(`${endpoint}/${id}`, {
     method: "GET",
     headers: new Headers({
       // Authorization: `Bearer ${token}`,
-      // Accept: "application/json",
+      Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     }),
   })

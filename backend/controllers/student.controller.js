@@ -126,7 +126,7 @@ exports.findOne = (req, res) => {
 		});
 	}
 
-	if (req.user.role === "admin" || id === req.user.id) {
+	if (req.user.role === "admin" || id === req.user.id || req.user.role === "worker") {
 		Student.findByPk(id)
 			.then((data) => {
 				if (!data) {

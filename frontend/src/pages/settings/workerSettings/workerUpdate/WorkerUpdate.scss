@@ -1,0 +1,123 @@
+@import "/src/global.scss";
+
+#page-account-worker {
+    background-color: var(--background-1);
+    min-height: 100vh;
+    display: grid;
+    // grid-template-rows: 1fr auto 1fr;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+
+    #content-account-worker {
+        margin: 60px 0;
+        display: flex;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+
+        .container-back {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+                font-size: 30px;
+                margin: 10px 20px;
+            }
+        }
+
+        .container-info {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+
+            .container-img-profile {
+                margin: 10px 20px;
+                position: relative;
+
+                .avatar-img:active {
+                    transform: scale(.9);
+                }
+            }
+
+            .container-info-student {
+                h1 {
+                    color: var(--text-1);
+                    font-weight: 600;
+                    font-size: 38px;
+                }
+
+                h5 {
+                    color: var(--text-2);
+                    font-weight: 400;
+                }
+            }
+
+        }
+
+        .container-inputs {
+            width: 100%;
+            @include flex-items(column);
+            gap: 15px;
+
+            .label-input {
+                width: 90%;
+                background-color: var(--background-1);
+                color: var(--text-2);
+
+                .label-text {
+                    font-size: $font-body-small;
+                    color: var(--text-1);
+                    font-weight: 300;
+                }
+
+                select {
+                    background-color: var(--background-3);
+                    border: 1px solid var(--text-1);
+                    color: var(--text-3);
+                    font-weight: 500;
+                    font-size: $font-size-medium-small;
+
+                    option {
+                        color: var(--text-1);
+                    }
+                }
+
+            }
+
+            .container-btn-account {
+                width: 50%;
+
+                button {
+                    background-color: var(--background-2);
+                    border: 1px solid var(--text-1);
+                    font-size: $font-size-medium-small;
+                }
+
+                button:active{
+                    transform: scale(.8);
+                }
+
+            }
+        }
+    }
+
+}
+
+.edit-mode-icon {
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 3px;
+    color: $primary-color;
+    background-color: var(--background-3);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

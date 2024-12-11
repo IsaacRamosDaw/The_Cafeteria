@@ -3,10 +3,12 @@ import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
 import { get, getByStudent } from "../../services/order.service";
+import { findByPk } from "../../services/product.service"
 import { remove } from "../../services/order.service";
 import { useEffect, useState } from "react";
 import { colors } from "@mui/material";
 import { getUserId, getUserRole } from "../../services/utils";
+import { BsCupHot } from "react-icons/bs";
 import "./Orders.scss";
 
 function Orders() {
@@ -37,37 +39,40 @@ function Orders() {
     if (role) {
       fetchOrders();
     }
-  }, [role, userId]); // Se ejecuta cuando cambian `role` o `userId`
+
+  }, [role, userId]);
 
   const handleCancel = async (id) => {
     await remove(id);
-    console.log("holita");
     setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
-  };
+  };  
 
   return (
     <div id="Orders-page">
       <SearchBar />
       <Separator />
       <main id="orders-container">
-        {orders.map((order, index) => {
+        {
+          orders.length == 0 
+          ? <BsCupHot  className="cup-img-logo" /> 
+          : orders.map((order, index) => {
           {
             return role === "worker" ? (
               <Order
                 key={index}
                 role={role}
                 ID_order={order.id}
-                studentName={order.id}
                 course={"2DAWT"}
                 date={order.date}
                 deleted={handleCancel}
+                studentId={order.StudentId}
+
               />
             ) : (
               <Order
                 key={index}
                 ID_order={order.id}
                 date={"10/12/2020"}
-                product={"Super Bocata Combo"}
                 deleted={handleCancel}
               />
             );

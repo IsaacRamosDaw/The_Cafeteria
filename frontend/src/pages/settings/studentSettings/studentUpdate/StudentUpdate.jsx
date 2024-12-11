@@ -80,19 +80,16 @@ export default function AccountSettings() {
 
   const handleFileUpload = async () => {
     if (!selectedFile) {
-      alert("Por favor, selecciona un archivo primero.");
       return;
     }
     try {
       await updateProfilePicture(id, selectedFile);
-      alert("Imagen de perfil actualizada correctamente");
       setUserData((prev) => ({
         ...prev,
         imgProfile: URL.createObjectURL(selectedFile),
       }));
     } catch (error) {
       console.error("Error al actualizar la imagen de perfil:", error);
-      alert("Hubo un error al subir la imagen.");
     }
   };
 
@@ -111,7 +108,6 @@ export default function AccountSettings() {
       await edit(id, formData);
       await handleFileUpload();
 
-      window.alert("Datos actualizados correctamente");
       navigate(-1);
     } catch (error) {
       console.error("Error al editar:", error);

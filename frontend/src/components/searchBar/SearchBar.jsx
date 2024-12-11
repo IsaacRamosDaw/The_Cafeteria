@@ -2,18 +2,17 @@
 import "./SearchBar.scss";
 // import { FaRegCircleUser } from "react-icons/fa6";
 
-import { getUser, getUserRole } from "../../services/utils";
+import { getUser } from "../../services/utils";
 import { useState } from "react";
 
-function SearchBar({ input = "false" }) {
+function SearchBar({ input }) {
   const [userTitle, setUserTitle] = useState(getUser().name);
 
-  const role = getUserRole();
 
   return (
     <nav id="header-container">
       <div>
-        {input == "true" ? (
+        {input ? (
           <input placeholder="Qué quieres comer..." type="text" name="" id="" />
         ) : (
           <h2> {userTitle} </h2>

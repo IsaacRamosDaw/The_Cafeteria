@@ -5,13 +5,16 @@ module.exports = (app) => {
 
     var router = require("express").Router();
 
+    //List all coffeShops
+    router.get("/", auth.isAuthenticated, coffeShop.findAll);
+
+    // List one coffe shop
+    router.get("/:id", auth.isAuthenticated, coffeShop.findOne);
+
     //Create an coffeShop
     router.post("/", coffeShop.create);
 
     router.put("/upload/:id" , upload.single('file'), coffeShop.imgUpdate);
-
-    //List all coffeShops
-    router.get("/", auth.isAuthenticated, coffeShop.findAll);
 
     // Update coffeShop
     router.put("/:id",  upload.single('file'), auth.isAuthenticated, coffeShop.update);

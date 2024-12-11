@@ -30,12 +30,6 @@ function CategoriesContainer() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    await remove(id);
-    setCategories((prevCategories) =>
-      prevCategories.filter((category) => category.id !== id)
-    );
-  };
 
   return (
     <section className="category-cards-container">
@@ -47,10 +41,8 @@ function CategoriesContainer() {
               count={category.amount}
               title={category.name}
             />
-            <button onClick={() => handleDelete(category.id)}>BORRAME</button>
           </div>
         ))}
-        <Plus />
       </main>
     </section>
   );
