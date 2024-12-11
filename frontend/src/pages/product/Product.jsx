@@ -10,7 +10,7 @@ import Button from "../../components/button/Button";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import Divider from "@mui/material/Divider";
-import { findByPk } from "../../services/product.service";
+import { findByPk as getOne} from "../../services/product.service";
 import { create } from "../../services/order.service";
 import { getUserId } from "../../services/utils";
 function Product() {

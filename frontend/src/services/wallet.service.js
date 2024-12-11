@@ -1,6 +1,6 @@
 const endpoint = `http://localhost:8080/api/student/wallet`
 
-export function getWallet(id, token) {
+export function getWallet(token, id) {
   
     const getOperation = fetch(`${endpoint}/${id}`, {
       method: "GET",

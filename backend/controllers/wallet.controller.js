@@ -1,9 +1,8 @@
 const db = require("../models");
 const Wallet = db.wallet;
-// const Student = db.student;
 
 exports.findOne = (req, res) => {
-  const student_id = req.params.id;
+  const student_id = Number(req.params.id);
 
   if (!student_id) {
     return res.status(403).json({
@@ -11,16 +10,14 @@ exports.findOne = (req, res) => {
     });
   }
 
-  // REVISAR
-  // Student.findOne({ where: { id: student_id }, include: 'wallet' })
-  //   .then((student) => res.status(201).json({
-  //     wallet: student.wallet,
-  //     message: "This is the wallet you requested for",
-  //   }))
-
-
   Wallet.findOne({ where: { StudentId: student_id } })
-    .then((wallet) => res.status(201).json({
-      wallet,
-    }))
+    .then((wallet) => {
+      if (!wallet) {
+        return res.status(404).json({
+          message: `order with id=${id} not found`,
+        });
+      }
+
+      res.send(wallet)
+    });
 };

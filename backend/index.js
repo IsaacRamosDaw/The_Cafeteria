@@ -54,8 +54,6 @@ app.use(function (req, res, next) {
 
   token = token.replace("Bearer ", "");
   jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
-    console.log("Al final: ", req.headers);
-    console.log(req.body);
 
     if (err) {
       return res.status(401).json({

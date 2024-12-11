@@ -3,30 +3,46 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
-
 import { MdAttachMoney } from "react-icons/md";
 import { RiCoinLine } from "react-icons/ri";
-
-import { useState } from "react";
-import Button from "../../button/Button";
 import InputFormSetting from "../inputFormSetting/InputFormSetting";
-
+import Button from "../../button/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
+import { useState, useEffect } from "react";
+import { getUserId } from "../../../services/utils";
+import { getWallet } from "../../../services/wallet.service";
 
-export default function WalletBalance({amount = 10.20}) {
-  let [credits, setCredits] = useState(amount);
+export default function WalletBalance() {
 
+  const id = getUserId();
+  const [walletAmount, setWalletAmount] = useState(null)
   const [openAmount, setOpenAmount] = useState(false);
-  const handleAddAmount = () => setOpenAmount(openAmount ? false : true);
-
   const [openCredits, setOpenCredits] = useState(false);
+
+  const handleAddAmount = () => setOpenAmount(openAmount ? false : true);
   const handleCredits = () => setOpenCredits(openCredits ? false : true);
 
-  const handleAddCredits = (amount) => {
-    setCredits((credits += amount));
-  };
+  useEffect(() => {
+    const getWalletData = async () => {
+      const token = localStorage.getItem("token"); 
+      const wallet = await getWallet(token, id);
+      console.log("wallet;", wallet.id)
+      setWalletAmount(wallet.amount);
+    };
+    getWalletData();
+  }, [id]);
+
+  useEffect(() => {
+    if (walletAmount !== null) {
+      console.log("Segundo log (actualizado):", walletAmount);
+    }
+  }, [walletAmount]);
+
+
+
+
 
   const handleFormData = (e) => {
     console.log(e.target);
@@ -51,11 +67,6 @@ export default function WalletBalance({amount = 10.20}) {
     },
   ];
 
-  // const handleCheckBoxes = (index) => {
-  //   optionCredits[index].checked = true
-  //   setOpenCredits(...optionCredits)
-  // }
-
   const style = {
     p: 0,
     width: "100%",
@@ -65,7 +76,7 @@ export default function WalletBalance({amount = 10.20}) {
   return (
     <section id="credits-balance-container">
       <div className="container-credit-balance">
-        <h1 className="text-credit-balance"> €{credits} </h1>
+        <h1 className="text-credit-balance"> {walletAmount}€ </h1>
       </div>
 
       <div className="container-control-credit-add">
