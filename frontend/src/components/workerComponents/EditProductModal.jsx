@@ -60,15 +60,6 @@ export default function EditProductModal({
               onChange={(e) => setProductToEdit({ ...productToEdit, price: parseFloat(e.target.value) })}
             />
           </div>
-          <div>
-            <label>Categoría</label>
-            <input
-              type="text"
-              value={productToEdit?.CategoryId || ""}
-              disabled
-            />
-          </div>
-
           <div className="button-container">
             <button type="submit">Guardar</button>
             <button type="button" onClick={closeModal}>
