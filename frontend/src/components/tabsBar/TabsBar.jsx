@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./TabsBar.scss";
-import { MdHome } from "react-icons/md";
+// import { MdHome } from "react-icons/md";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { FaListAlt } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
@@ -40,20 +40,6 @@ function TabsBar({ worker }) {
           </Link>
         </li>
         <li>
-          <Link to={role === "worker" ? "/worker/profile" : "/student/profile"}>
-            <IoPersonSharp
-              className={`img-tab-icon ${location.pathname === (worker ? "/homeworker" : "/home") ? "active" : ""
-                }`}
-            />
-            <p
-              className={`${location.pathname === (worker ? "/homeworker" : "/home") ? "active" : ""
-                }`}
-            >
-              Perfil
-            </p>
-          </Link>
-        </li>
-        <li>
           <Link to={"/orders"}>
             <FaListAlt
               className={`img-tab-icon ${location.pathname === (worker ? "/orderworker" : "/orders") ? "active" : ""
@@ -64,6 +50,20 @@ function TabsBar({ worker }) {
                 }`}
             >
               Pedidos
+            </p>
+          </Link>
+        </li>
+        <li>
+          <Link to={role === "worker" ? "/worker/profile" : "/student/profile"}>
+            <IoPersonSharp
+              className={`img-tab-icon ${location.pathname === (worker ? "/worker/profile" : "/student/profile") ? "active" : ""
+                }`}
+            />
+            <p
+              className={`${location.pathname === (worker ? "/worker/profile" : "/student/profile") ? "active" : ""
+                }`}
+            >
+              Perfil
             </p>
           </Link>
         </li>

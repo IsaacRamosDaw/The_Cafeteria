@@ -1,6 +1,6 @@
 import Category from "../../components/menu/Category";
 import SearchBar from "../../components/searchBar/SearchBar";
-import TabsBar from "../../components/tabsBar/tabsBar";
+import TabsBar from "../../components/tabsBar/TabsBar";
 import "./Categories.scss";
 
 function CategoriesPage() {

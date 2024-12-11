@@ -45,3 +45,29 @@ export async function remove(id) {
     });
   return removeOperation;
 }
+
+export function create(formData) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  return fetch(endpoint, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name: formData.name }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error while retrieving course data:", error);
+      throw error;
+    });
+}

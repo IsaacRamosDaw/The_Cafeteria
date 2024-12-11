@@ -99,6 +99,8 @@ exports.update = (req, res) => {
 
 	const update = {
 		name: req.body.name,
+		price: req.body.price,
+		description: req.body.description,
 		filename: req.file ? req.file.filename : ""
 	};
 
