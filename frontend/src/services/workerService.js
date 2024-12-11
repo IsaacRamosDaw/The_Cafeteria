@@ -133,3 +133,33 @@ export async function edit(id, data) {
       throw error;
     });
 }
+
+export async function updateProfilePicture(id, file) {
+
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return fetch(`${endpoint}/upload/${id}`, {
+    method: "PUT",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error while updating profile picture:", error);
+      throw error;
+    });
+}
