@@ -11,6 +11,7 @@ import CreateCategoryModal from "../../components/workerComponents/CreateCategor
 import CreateProductModal from "../../components/workerComponents/CreateProductModal";
 
 export default function MenuOwner() {
+  const [categoryId, setCategoryId] = useState();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({});
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -129,6 +130,7 @@ export default function MenuOwner() {
   };
 
   const closeModal = () => {
+    setIsCreateProductModalOpen(false);
     setIsEditModalOpen(false);
     setIsCreateCategoryModalOpen(false);
   };
@@ -166,7 +168,11 @@ export default function MenuOwner() {
                 </div>
               </div>
             ))}
-            <FaCirclePlus onClick={() => handleCreateProduct()}/>
+            <FaCirclePlus onClick={() => {
+              setIsCreateProductModalOpen(true)
+              setCategoryId(category.id)
+            }
+            }/>
           </section>
         </section>
       ))}
@@ -191,9 +197,11 @@ export default function MenuOwner() {
 
       <CreateProductModal
       isModalOpen={isCreateProductModalOpen}
-      handleSave={closeModal}
+      handleSave={handleCreateProduct}
+      closeModal={closeModal}
       productToCreate={newProduct}
       handleInputChange={handleInputChange}
+      CategoryId={categoryId}
       />
     </div>
   );

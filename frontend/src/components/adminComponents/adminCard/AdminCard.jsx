@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaTrash } from "react-icons/fa";
 
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
 
-  const folder = 'http://localhost:8080/images/'
+  const folder = "http://localhost:8080/images/";
 
   const handleDelete = () => {
     onDelete(id);
@@ -31,12 +31,8 @@ function AdminCard({ username, id, onDelete, photo }) {
       </div>
 
       <div className="container-control-admin">
-        <button className="btn-edit" onClick={handleEdit}>
-          < FaEdit />
-        </button>
-        <button className="btn-trash" onClick={handleDelete}>
-          < RiDeleteBin6Line />
-        </button>
+        <FaEdit className="btn-edit" onClick={handleEdit} />
+        <FaTrash className="btn-trash" onClick={handleDelete} />
       </div>
     </div>
   );

@@ -14,18 +14,19 @@ import {
   MdOutlineDarkMode,
   MdOutlinePrivacyTip,
 } from "react-icons/md";
+import "./StudentSettings.scss";
 import { IoIosLogOut } from "react-icons/io";
 import { GoGraph } from "react-icons/go";
-import "./StudentSettings.scss";
 import { getWallet } from "../../../services/wallet.service";
-
 import CreditBalance from "../../../components/setttingsComp/creditBalance/CreditBalance";
+// const [studentWallet, setStudentWallet] = useState({});
+// const [userId, setUserId] = useState(null);
 
 function StudentSettings() {
+
   const id = getUserId();
-  const [studentWallet, setStudentWallet] = useState({});
+  const [walletAmount, setWalletAmount] = useState(null)
   const [cleanUser, setCleanUser] = useState();
-  const [userId, setUserId] = useState(null);
   const [studentData, setStudentData] = useState(null);
   const [decodedId, setDecodedId] = useState(null);
   const { theme, toggleTheme } = useTheme();
@@ -47,21 +48,6 @@ function StudentSettings() {
   }, [token]);
 
   useEffect(() => {
-    const getWalletData = async () => {
-      try {
-        const wallet = await getWallet(id, token)
-        setStudentWallet(wallet);
-      } catch (error) {
-        return error.message
-      }
-
-    }
-    getWalletData();
-  }, []);
-
-  console.log(studentWallet.amount)
-
-  useEffect(() => {
     const studentId = id || decodedId;
     if (!studentId) {
       console.error(
@@ -75,16 +61,41 @@ function StudentSettings() {
         const data = await getOne(studentId);
         setStudentData(data);
       } catch (error) {
-        console.error("Error al obtener el estudiante:", error);
+        console.error("Error al obtener el estudiante:", error.message);
       }
     }
     fetchStudent();
+
   }, [id, decodedId]);
+
+
+  //!TODO 
+  // 1
+  // {
+    // useEffect(() => {
+    //   const getWalletData = async () => {
+    //       const wallet = await getWallet(id);
+    //       setWalletAmount(wallet.wallet.amount);
+    //       return wallet.wallet.amount
+    //   };
+    //   getWalletData();
+    // }, [id]);
+
+    // useEffect(() => {
+    //   if (walletAmount !== null) {
+    //       console.log("Segundo log (actualizado):", walletAmount);
+    //     }
+    // }, [walletAmount]);
+    //? imprime el valor pero al pasarlo como parametro da "undefined"
+    //* console.log(walletAmount)
+
+  // }
+  //! SOLUCIÓN, TRASPASAR EL CÓDIGO AL COMPONENTE "CREDITBALANCE"
 
   return (
     <div id="page-settings-student">
       <SearchBar />
-      <CreditBalance amount={studentWallet.amount}/>
+      <CreditBalance/>
       <main id="student-setttings">
         <div id="settings-container">
           <Setting
@@ -100,11 +111,6 @@ function StudentSettings() {
             text={"Tema"}
             toggle={true}
           />
-          {/* <Setting
-            icon={<MdFavoriteBorder />}
-            to={"/student/profile/favs"}
-            text={"Favoritos"}
-          /> */}
           <Setting
             icon={<MdOutlineLocalCafe />}
             to={"/student/profile/mycafeteria"}

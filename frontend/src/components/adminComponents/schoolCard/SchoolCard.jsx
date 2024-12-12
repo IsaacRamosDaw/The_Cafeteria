@@ -1,38 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import "./SchoolCard.scss";
 import { FaEdit } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
-function SchoolCard({ name , id}) {
-    const navigate = useNavigate();
+function SchoolCard({ name, id }) {
+  const navigate = useNavigate();
 
-    // const handleDelete = () => {
-    //   onDelete(id);
-    // };
+  const handleDelete = () => {
+    // onDelete(id);
+  };
 
-    const handleEdit = () => {
-      navigate("/school/" + id);
-    };
-  
+  const handleEdit = () => {
+    navigate("/school/" + id);
+  };
+
   return (
     <div className="school-card">
-      <div className="container-info-school">
-          <img
-            className="item-img"
-            src={`/images/ImgMenus/sandwiches.jpg`}
-            alt="Image school"
-          />
-        <div className="container-name-school">
-          <h2>{name}</h2>
-        </div>
+      <div className="container-img-school">
+        <img
+          className="item-img"
+          src={`/images/ImgMenus/sandwiches.jpg`}
+          alt="Image school"
+        />
       </div>
 
-      <div className="container-control-school">
-        <button className="link-to-register" onClick={handleEdit}>
-        < FaEdit />
-        </button>
-        {/* <button className="btn-trash" onClick={handleDelete}>
-          <img src={`/images/icons/trash.svg`} alt="Eliminar" />
-        </button> */}
+      <hr className="divider-school-card"/>
+
+      <div className="container-info-control-school">
+        <div className="container-name-school-dashboard">
+          <h2>{name}</h2>
+        </div>
+        <div className="container-control-school">
+          <FaEdit className="btn-edit" onClick={handleEdit} />
+          <FaTrash className="btn-trash" onClick={handleDelete} />
+        </div>
       </div>
     </div>
   );

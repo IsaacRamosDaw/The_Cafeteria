@@ -1,8 +1,7 @@
 @import '/src/global.scss';
 
-.section-school-container {
+.section-container-school-cards {
     width: 100%;
-    background-color: $third-color;
     @include flex-items(column);
     gap: 1em;
     padding: 1em 0;

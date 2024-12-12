@@ -9,7 +9,6 @@ import "./Admin.scss";
 //React icons
 import { IoIosLogOut } from "react-icons/io";
 
-
 // Speed dial components
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
@@ -30,7 +29,7 @@ function Admin() {
     { icon: <Work />, name: "Trabajador", to: "/worker" },
     // { icon: <School />, name: "Colegio", to: "/school" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
-    { icon: <MenuBook />, name: "Curso", to: "/course"},
+    { icon: <MenuBook />, name: "Curso", to: "/course" },
     // { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
@@ -39,42 +38,52 @@ function Admin() {
   };
 
   const clearToken = () => {
-    localStorage.removeItem("token")
-    navigate("/")
-  }
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <div className="page-admin-container">
-        
       <SearchBar />
 
-        <SpeedDial
-          ariaLabel="SpeedDial basic example"
-          sx={{ position: "fixed", bottom: 16, right: 16 }}
-          icon={<SpeedDialIcon />}
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={() => goTo(action.to)}
-            />
-          ))}
-        </SpeedDial>
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+          // sx={{
+          //   ".MuiButtonBase-root ":{
+          //     backgroundColor: "#fff",
+          //     fontSize: 28,
+          //     color: "var(--text-1)",
+          //     fontWeight: "600"
+          //   },
+          //   "& .MuiSvgIcon-root": {
+          //     fontSize: 20,
+          //     color: "#000",
+          //   },
+          // }}
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={() => goTo(action.to)}
+          />
+        ))}
+      </SpeedDial>
 
       <main id="admin-home">
-
         <details>
           <summary>
             <h2>Administradores</h2>
           </summary>
           <AdminContainer />
         </details>
-        
+
         <details>
-          <summary> 
-            <h2>Trabajadores</h2> 
+          <summary>
+            <h2>Trabajadores</h2>
           </summary>
           <WorkerContainer />
         </details>
@@ -83,7 +92,7 @@ function Admin() {
           <summary>
             <h2>Cafeterías</h2>
           </summary>
-            <CoffeContainer/>
+          <CoffeContainer />
         </details>
 
         <details>
@@ -97,19 +106,19 @@ function Admin() {
           <summary>
             <h2>Cursos</h2>
           </summary>
-            <CourseContainer />
+          <CourseContainer />
         </details>
       </main>
 
       <section id="section-log-out">
-          <div onClick={clearToken} >
-            <div className="container-logout">
-              <IoIosLogOut />
-              <h1>Cerrar sesión</h1>
-            </div>
-            <p>v0.03</p>
+        <div onClick={clearToken}>
+          <div className="container-logout">
+            <IoIosLogOut />
+            <h1>Cerrar sesión</h1>
           </div>
-        </section>
+          <p>v0.03</p>
+        </div>
+      </section>
     </div>
   );
 }

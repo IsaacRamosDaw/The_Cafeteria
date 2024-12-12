@@ -1,4 +1,3 @@
-
 import "./Product.scss";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -10,7 +9,7 @@ import Button from "../../components/button/Button";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import Divider from "@mui/material/Divider";
-import { findByPk } from "../../services/product.service";
+import { findByPk as getOne } from "../../services/product.service";
 import { create } from "../../services/order.service";
 import { getUserId } from "../../services/utils";
 function Product() {
@@ -33,7 +32,7 @@ function Product() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getOne(id)
+      const data = await getOne(id);
       setProduct(data);
       setPriceShown(data.price || 1);
     }
@@ -63,7 +62,7 @@ function Product() {
   };
 
   const handleOrder = () => {
-    create(userId,product.id)
+    create(userId, product.id);
     const res = {
       id: 1,
       name: product.name,
@@ -101,14 +100,14 @@ function Product() {
 
             <span className="container-amount-product-number">{quantity}</span>
 
-            <div className="button-container-product">
+            <div className="button-container-product-page">
               <Button
-                className={`btn-product-quantity ${ordered ? "ordered" : ""}`}
+                className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
                 onClick={() => handleQuantity("+")}
                 text={"+"}
               />
               <Button
-                className={`btn-product-quantity ${ordered ? "ordered" : ""}`}
+                className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
                 onClick={() => handleQuantity("-")}
                 text={"-"}
               />
