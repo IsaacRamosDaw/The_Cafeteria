@@ -2,11 +2,11 @@ import { Link, useNavigate, } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
-import { create } from "../../services/studentService";
-import { get } from "../../services/courseService";
-import "./Form.scss";
+import { create } from "../../services/student.service";
+import { get } from "../../services/course.service";
+import "./StudentForm.scss";
 
-function Form() {
+function StudentForm() {
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -105,5 +105,5 @@ function Form() {
   );
 }
 
-export default Form;
+export default StudentForm;
 

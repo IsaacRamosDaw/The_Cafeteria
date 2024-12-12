@@ -1,5 +1,5 @@
 import Button from "../../../button/Button";
-import { edit, getOne } from "../../../../services/coffeshopService";
+import { edit, getOne } from "../../../../services/coffeShop.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../Form.scss";

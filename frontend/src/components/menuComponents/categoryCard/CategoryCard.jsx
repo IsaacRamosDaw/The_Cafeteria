@@ -1,7 +1,7 @@
 import "./CategoryCard.scss";
 import { useNavigate } from "react-router-dom";
 
-function CategoryCard({ id, title, img, count, category }) {
+function CategoryCard({ id, title, count }) {
   const navigate = useNavigate();
 
   const handleNavigate = (url) => {

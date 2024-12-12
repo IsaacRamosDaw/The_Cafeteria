@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
 import "./Welcome.scss";
-import { login } from "../../services/welcomeService";
+import { login } from "../../services/welcome.service";
 import { useState } from "react";
 
 import Alert from "@mui/material/Alert";

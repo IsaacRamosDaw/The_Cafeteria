@@ -9,7 +9,7 @@ import { getByCategory } from "../../services/product.service";
 
 import "./ProductsList.scss";
 
-export default function ProductsList({ title, idCategory }) {
+export default function ProductsList() {
   const navigate = useNavigate();
   const location = useLocation();
   const categoryId = location.state?.categoryId || 1;

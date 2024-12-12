@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CardProductHome from "../cards/cardProductHome/CardProductHome";
 import "./PlateOfTheDayContainer.scss";
-import Plus from '../../workerComponents/Plus'
 
 export default function PlateOfTheDayContainer({worker}) {
   const [plate, setPlate] = useState({});

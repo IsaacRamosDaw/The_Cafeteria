@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "./CourseCard.scss";
-import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 function CourseCard({ name, id, onDelete }) {
@@ -8,11 +7,6 @@ function CourseCard({ name, id, onDelete }) {
 
   const handleDelete = () => {
     onDelete(id);
-  };
-
-  const handleEdit = () => {
-    console.log("Navigating to:", "/course/" + id);
-    navigate("/course/" + id);
   };
 
   return (

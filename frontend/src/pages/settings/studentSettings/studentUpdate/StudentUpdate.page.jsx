@@ -1,12 +1,16 @@
-import SearchBar from "../../../../components/searchBar/SearchBar";
-import TabsBar from "../../../../components/tabsBar/TabsBar";
-import Button from "../../../../components/button/Button";
-import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting";
+import SearchBar from "../../../../components/searchBar/SearchBar.jsx";
+import TabsBar from "../../../../components/tabsBar/TabsBar.jsx";
+import Button from "../../../../components/button/Button.jsx";
+import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting.jsx";
 import {
   getOne,
   edit,
-  updateProfilePicture
-} from "../../../../services/workerService.js";
+  updateProfilePicture,
+} from "../../../../services/student.service.js";
+import {
+  get,
+  getOne as getOneStudent,
+} from "../../../../services/course.service.js";
 import Avatar from "@mui/material/Avatar";
 import { BiSolidPencil } from "react-icons/bi";
 
@@ -17,38 +21,53 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
+import "./StudentUpdate.scss";
 
-import "./WorkerUpdate.scss";
-
-export default function WorkerUpdate() {
+function StudentUpdate() {
   const navigate = useNavigate();
   const id = getUserId();
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const [invalidUser, setInvalidUser] = useState(true);
+  const [courses, setCourses] = useState([]);
 
   const [imgProfile, setImgProfile] = useState("");
+  const [currentCourse, setCurrentCourse] = useState("");
 
   // Ref hooks
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
+  const ageRef = useRef(null);
+  const CourseIdRef = useRef(null);
   const phoneRef = useRef(null);
 
   // DB data
   const [userData, setUserData] = useState({
     username: "",
     password: "",
+    age: "",
     phone: "",
+    imgProfile: "",
+    CourseId: "",
   });
 
   useEffect(() => {
     getOne(id).then((data) => {
       setUserData(data);
     });
-    
+
+    getOneStudent(id).then((data) => {
+      setCurrentCourse(data.name);
+    });
+
+    get()
+      .then((data) => {
+        setCourses(data);
+      })
+      .catch((error) => console.error("Error fetching courses:", error));
   }, [id]);
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -76,35 +95,24 @@ export default function WorkerUpdate() {
 
   const HandleEdit = async (e) => {
     e.preventDefault();
-  
+
     const formData = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
+      age: ageRef.current.value,
+      CourseId: CourseIdRef.current.value,
       phone: phoneRef.current.value,
     };
-  
-    // Verificar si algún campo está vacío (valor igual a "")
-    const emptyField = Object.entries(formData).find(([key, value]) => value === "");
-  
-    if (emptyField) {
-      setInvalidUser(false)
-      setTimeout(() => {
-        setInvalidUser(true)
-      }, 2000)
-      const [key] = emptyField;
-      return; // Detener la ejecución si hay un campo vacío
-    }
-  
+
     try {
       await edit(id, formData);
       await handleFileUpload();
-  
+
       navigate(-1);
     } catch (error) {
       console.error("Error al editar:", error);
     }
   };
-  
 
   useEffect(() => {
     resetImageProfile();
@@ -115,9 +123,9 @@ export default function WorkerUpdate() {
   };
 
   return (
-    <div id="page-account-worker">
+    <div id="page-account-client">
       <SearchBar />
-      <main id="content-account-worker">
+      <main id="content-account-client">
         <section className="container-back">
           <FaArrowLeftLong onClick={() => navigate(-1)} />
         </section>
@@ -140,40 +148,64 @@ export default function WorkerUpdate() {
             id="file-input"
           />
           <h1> {userData.username} </h1>
-          <p> {""} </p>
+          <p> {currentCourse} </p>
         </section>
         <form onSubmit={HandleEdit} className="container-inputs">
           <InputFormSetting
             title={"Nombre"}
             option={2}
             placeholder={userData.username}
+            onChange={handleInputChange}
             ref={usernameRef}
           />
           <InputFormSetting
             title={"Contraseña"}
             option={2}
-            placeholder={userData.phone}
+            placeholder="Nueva contraseña"
             type="password"
+            onChange={handleInputChange}
             ref={passwordRef}
           />
           <InputFormSetting
-            title={"Telefono"}
+            title={"Edad"}
             option={2}
-            placeholder={"Numero de telefono"}
+            placeholder={userData.age}
+            onChange={handleInputChange}
+            ref={ageRef}
+          />
+          <div className="label-input">
+            <label className="label-text" htmlFor="CourseId">
+              Selecciona tu curso
+            </label>
+            <select
+            className="select-courses-container"
+              name="CourseId"
+              ref={CourseIdRef}
+              onChange={handleInputChange}
+            >
+              <option>Elige un curso</option>
+              {courses.map((course, index) => (
+                <option key={course.id} value={course.id}>
+                  {course.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <InputFormSetting
+            title={"Teléfono"}
+            option={2}
+            placeholder={userData.phone}
             ref={phoneRef}
+            onChange={handleInputChange}
           />
           <div className="container-btn-account">
             <Button text={"Actualizar"} submit={true} />
           </div>
         </form>
-        <Stack
-        sx={{ display: `${invalidUser ? "none" : "block"}`, width: "90%" }}
-        spacing={2}
-      >
-        <Alert  severity="error"> No hay datos para actualizar </Alert>
-      </Stack>
         <TabsBar />
       </main>
     </div>
   );
 }
+
+export default StudentUpdate

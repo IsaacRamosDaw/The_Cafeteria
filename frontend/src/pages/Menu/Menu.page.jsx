@@ -1,11 +1,11 @@
 import SearchBar from "../../components/searchBar/SearchBar";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import CategoriesContainer from "../../components/menuComponents/categoriesContainer/CategoriesContainer";
-import "./MenuPage.scss";
 import { getUserRole } from "../../services/utils";
 import MenuOwner from "../menuOwner/MenuOwner";
+import "./Menu.scss";
 
-function MenuPage() {
+function Menu() {
   return (
     <div id="menu-page-container">
       <SearchBar />
@@ -15,4 +15,4 @@ function MenuPage() {
   );
 }
 
-export default MenuPage;
+export default Menu;

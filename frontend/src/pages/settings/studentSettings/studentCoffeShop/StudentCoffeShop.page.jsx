@@ -1,8 +1,8 @@
-import "./StudentCafeteria.scss"
 import SearchBar from "../../../../components/searchBar/SearchBar"
 import Separator from "../../../../components/separator/Separator"
 import TabsBar from "../../../../components/tabsBar/TabsBar"
-function MyCafeteria() {
+import "./StudentCoffeShop.scss"
+function StudentCoffeShop() {
   return (
     <>
     <SearchBar/>
@@ -51,4 +51,4 @@ function MyCafeteria() {
   )
 }
 
-export default MyCafeteria;
+export default StudentCoffeShop;

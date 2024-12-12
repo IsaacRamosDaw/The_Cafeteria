@@ -1,6 +1,7 @@
 import SearchBar from "../../../components/searchBar/SearchBar";
 import TabsBar from "../../../components/tabsBar/TabsBar";
 import Setting from "../../../components/setttingsComp/Setting";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { FiUser } from "react-icons/fi";
@@ -9,11 +10,9 @@ import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
-import { GoGraph } from "react-icons/go";
-
 import { useEffect, useState } from "react";
 import { getUserId } from "../../../services/utils";
-import { getOne } from "../../../services/coffeshopService";
+import { getOne } from "../../../services/coffeShop.service";
 
 import "./WorkerSettings.scss";
 

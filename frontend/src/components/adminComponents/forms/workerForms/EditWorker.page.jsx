@@ -1,6 +1,6 @@
 import Button from "../../../button/Button";
 import Label from "../../../label/Label";
-import { edit, getOne } from "../../../../services/workerService";
+import { edit, getOne } from "../../../../services/worker.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../Form.scss";

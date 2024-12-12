@@ -6,7 +6,7 @@ import { getUserId } from "../../../services/utils";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { useEffect, useState } from "react";
-import { get, getOne } from "../../../services/studentService";
+import { get, getOne } from "../../../services/student.service";
 import { FiUser } from "react-icons/fi";
 import {
   MdOutlineLocalCafe,

@@ -1,6 +1,6 @@
 import Button from "../../../button/Button";
 // import Label from "../../../label/Label";
-import { edit, getOne } from "../../../../services/adminService";
+import { edit, getOne } from "../../../../services/admin.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Label from "../../../label/Label";

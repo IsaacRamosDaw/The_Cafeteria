@@ -1,9 +1,9 @@
 import "./Order.scss";
 import Button from "../button/Button";
 import { useEffect, useState } from "react";
-import { getOne } from "../../services/studentService";
+import { getOne } from "../../services/student.service";
 import { findByPk } from "../../services/product.service";
-import { getOne as findOneCourse } from "../../services/courseService";
+import { getOne as findOneCourse } from "../../services/course.service.js";
 
 function Order({ orderId, dateParam, deleted, productId, role, studentIdParam }) {
 

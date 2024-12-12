@@ -1,6 +1,6 @@
 import Button from "../../../button/Button";
 import Label from "../../../label/Label";
-import { create } from "../../../../services/courseService";
+import { create } from "../../../../services/course.service.js";
 import { useNavigate } from "react-router-dom";
 import "../Form.scss";
 

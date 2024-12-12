@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import CoffeCard from "../courseCard/CourseCard.jsx";
-import { get, remove } from "../../../services/courseService.js";
+import { get, remove } from "../../../services/course.service.js";
 import "./CourseContainer.scss";
-import CourseCard from "../courseCard/CourseCard.jsx";
+import CourseCard from "./courseCard/CourseCard.jsx";
 
 function CourseContainer() {
   const [courses, setCourses] = useState([]);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import WorkerCard from "../workerCard/WorkerCard";
-import { get, remove } from "../../../services/workerService.js";
+import WorkerCard from "./workerCard/WorkerCard";
+import { get, remove } from "../../../services/worker.service.js";
 import "./WorkerContainer.scss";
 
 function WorkerContainer() {

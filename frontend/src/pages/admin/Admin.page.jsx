@@ -27,9 +27,9 @@ function Admin() {
 
   const actions = [
     { icon: <Work />, name: "Trabajador", to: "/worker" },
-    // { icon: <School />, name: "Colegio", to: "/school" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
     { icon: <MenuBook />, name: "Curso", to: "/course" },
+    // { icon: <School />, name: "Colegio", to: "/school" },
     // { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
