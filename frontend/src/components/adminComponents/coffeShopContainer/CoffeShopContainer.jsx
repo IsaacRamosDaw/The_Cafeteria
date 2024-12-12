@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CoffeCard from "../coffeCard/CoffeCard.jsx";
-import { get } from "../../../services/coffeshopService.js";
+import { get, remove } from "../../../services/coffeShop.service.js";
 import "./CoffeContainer.scss";
 
 function CoffeContainer() {
@@ -15,10 +15,12 @@ function CoffeContainer() {
     fetchData();
   }, []);
 
-  // const handleDelete = async (id) => {
-  //   await remove(id);
-  //   setCoffeShops((prevCoffeShops) => prevCoffeShops.filter((coffeShop) => coffeShop.id !== id));
-  // };
+  const handleDelete = async (id) => {
+    await remove(id);
+    setCoffeShops((prevCoffeShops) =>
+      prevCoffeShops.filter((coffeShop) => coffeShop.id !== id)
+    );
+  };
 
   return (
     <section className="section-container-coffe-cards">
@@ -27,7 +29,8 @@ function CoffeContainer() {
           key={coffeShop.id}
           name={coffeShop.name}
           id={coffeShop.id}
-          // onDelete={handleDelete}
+          file={coffeShop.filename}
+          onDelete={handleDelete}
         />
       ))}
     </section>

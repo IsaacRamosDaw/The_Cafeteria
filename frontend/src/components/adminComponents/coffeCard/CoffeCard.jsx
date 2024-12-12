@@ -3,12 +3,14 @@ import "./CoffeCard.scss";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
-function CoffeCard({ name, id}) {
+function CoffeCard({ name, id, file, onDelete}) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    // onDelete(id);
+    onDelete(id);
   };
+
+  const folder = "http://localhost:8080/images/"
 
   const handleEdit = () => {
     console.log("Navigating to:", "/coffeShop/" + id);
@@ -20,7 +22,7 @@ function CoffeCard({ name, id}) {
       <div className="container-info">
         <img
           className="item-img"
-          src={`/images/ImgMenus/sandwiches.jpg`}
+          src={folder+file}
           alt="Imagen de cafetería"
         />
         <div className="container-name">

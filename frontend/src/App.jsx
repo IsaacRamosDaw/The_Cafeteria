@@ -12,8 +12,7 @@ import ErrorPage from "./pages/errorPage/ErrorPage.jsx";
 
 // Admin 
 import Admin from "./pages/admin/Admin";
-import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin";
-import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin";
+import AdminForm from "./components/adminComponents/forms/adminForms/AdminForm.jsx";
 
 // Student
 import Form from "./pages/form/Form";
@@ -27,19 +26,17 @@ import ProductsList from "./pages/productsList/ProductsList.jsx";
 import Product from "./pages/product/Product.jsx";
 
 // Worker 
-import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker";
-import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker";
 import WorkerSettings from "./pages/settings/workerSettings/WorkerSettings.jsx";
 import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/WorkerCoffeShop.jsx";
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.jsx";
+import WorkerForm from "./components/adminComponents/forms/workerForms/WorkerForm.jsx";
 
 // School 
 // import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
 import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool";
 
 //CoffeShop
-// import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
-import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx"
+import CoffeShopsForms from "./components/adminComponents/forms/coffeShopsForms/CoffeShopsForms.jsx";
 
 //Course
 import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx"
@@ -61,12 +58,12 @@ function App() {
           <Route path="/dashboard" element={<Admin />} />
 
           {/* Admin routes */}
-          <Route path="/admin" element={<CreateAdmin />} />
-          <Route path="/admin/:id" element={<EditAdmin />} />
+          <Route path="/admin" element={<AdminForm />} />
+          <Route path="/admin/:id" element={<AdminForm />} />
 
           {/* Worker routes */}
-          <Route path="/worker" element={<CreateWorker />} />
-          <Route path="/worker/:id" element={<EditWorker />} />
+          <Route path="/worker" element={<WorkerForm />} />
+          <Route path="/worker/:id" element={<WorkerForm />} />
           <Route path="/worker/profile" element={<WorkerSettings />} />
           <Route path="/worker/profile/mycafeteria" element={<WorkerCoffeShop />} />
           <Route path="/worker/profile/update" element={<WorkerUpdate />} />
@@ -96,8 +93,8 @@ function App() {
           <Route path="/school/:id" element={<EditSchool />} />
 
           {/* CoffeShop routes */}
-          {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
-          <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/>
+          <Route path="/coffeShop" element={<CoffeShopsForms/>}/>
+          <Route path="/coffeShop/:id" element={<CoffeShopsForms/>}/>
 
         </Routes>
       </Router>
