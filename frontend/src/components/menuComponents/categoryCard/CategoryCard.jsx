@@ -5,7 +5,7 @@ function CategoryCard({ id, title, img, count, category }) {
   const navigate = useNavigate();
 
   const handleNavigate = (url) => {
-    navigate(url, { state: { categoryId: id } }); // Pasar categoryId en state
+    navigate(url, { state: { categoryId: id } });
   };
 
   return (
@@ -24,3 +24,4 @@ function CategoryCard({ id, title, img, count, category }) {
 }
 
 export default CategoryCard;
+
