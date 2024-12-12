@@ -18,15 +18,16 @@ import Menu from "./pages/menu/Menu.page.jsx"; //* Menu which decides what show 
 import Policy from "./pages/settings/policy/Policy.page.jsx"; //* Private poicy    
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx"; //* Error if you dont't have token
 
-
-
 //! Admin Pages
 import Admin from "./pages/admin/Admin.page.jsx"; //* Admin dashboard
 import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin.page.jsx"; //* Admin create
-import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx" //* Create course
 import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin.page.jsx"; //* Edit admin selected
+import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker.page.jsx"; //* Create worker form
 import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker.page.jsx"; //* Edite worker selected
+import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx" //* Create course
 import EditCourse from "./components/adminComponents/forms/coursesForms/EditCourse.jsx" //* Edit course
+import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool.page.jsx";
+import CoffeShopsForms from "./components/adminComponents/forms/coffeShopsForms/CoffeShopsForms.jsx";
 
 //! Student Pages
 import StudentForm from "./pages/form/StudentForm.page.jsx"; //* Student form to register
@@ -37,7 +38,6 @@ import ProductsList from "./pages/productsList/ProductsList.page.jsx"; //* Produ
 import Product from "./pages/product/Product.page.jsx"; //* Product selected before
 
 //! Worker Pages
-import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker.page.jsx"; //* Create worker form
 import WorkerProfile from "./pages/settings/workerSettings/WorkerSettings.page.jsx"; //* Worker profile
 import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/WorkerCoffeShop.page.jsx"; //* Worker Coffe shop info
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.page.jsx"; //* Worker profile update personal info
@@ -47,7 +47,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <Routes>
-        
+
           <Route path="*" element={<Welcome />} />
 
           {/* Page routes */}
@@ -62,8 +62,14 @@ function App() {
           <Route path="/dashboard" element={<Admin />} />
           <Route path="/admin" element={<CreateAdmin />} />
           <Route path="/admin/:id" element={<EditAdmin />} />
-          <Route path="/course" element={<CreateCourse/>}/>
-          <Route path="/course/:id" element={<EditCourse/>}/>          
+          <Route path="/course" element={<CreateCourse />} />
+          <Route path="/course/:id" element={<EditCourse />} />
+
+          {/* masnour rutes */}
+          {/* CoffeShop routes */}
+          <Route path="/school/:id" element={<EditSchool />} />
+          <Route path="/coffeShop" element={<CoffeShopsForms />} />
+          <Route path="/coffeShop/:id" element={<CoffeShopsForms />} />
 
           {/* Worker routes */}
           <Route path="/worker" element={<CreateWorker />} />
@@ -81,7 +87,6 @@ function App() {
           <Route path="/menu/:category/:name" element={<Product />} />
 
           {/* <NEXT SEASON ROUTES /> */}
-
           {/* <Route path="/home" element={<Home />} /> */}
           {/* <Route path="/student/profile/credits" element={<StudentCredits />} /> */}
           {/* <Route path="/student/profile/data" element={<StudentData />} /> */}

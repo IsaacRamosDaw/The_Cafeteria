@@ -155,7 +155,7 @@ export async function editImg(id, data) {
 
     // Crear un objeto FormData
     const formData = new FormData();
-    formData.append("file", data);
+    formData.append("file", data.file);
 
     const response = await fetch(url, {
       method: "PUT",

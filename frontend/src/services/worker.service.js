@@ -134,32 +134,41 @@ export async function edit(id, data) {
     });
 }
 
-export async function updateProfilePicture(id, file) {
+export async function updateProfilePicture(id, data) {
 
-  let token = localStorage.getItem("token");
+  try {
+    let token = localStorage.getItem("token");
 
-  if (!token) {
-    window.location.href = "/error";
-  }
+    if (!token) {
+      window.location.href = "/error";
+      return; // Asegúrate de detener la ejecución si no hay token
+    }
 
-  const formData = new FormData();
-  formData.append("file", file);
+    let url = `${endpoint}/upload/${id}`;
 
-  return fetch(`${endpoint}/upload/${id}`, {
-    method: "PUT",
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while updating profile picture:", error);
-      throw error;
+    // Crear un objeto FormData
+    const formData = new FormData();
+    formData.append("file", data.file);
+
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+      body: formData, // Pasar directamente el objeto FormData
     });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+
+    const updatedData = await response.json(); // Resolviendo la promesa de la respuesta
+    console.log("Imagen actualizada:", updatedData);
+
+    return updatedData; // Retornar los datos actualizados
+  } catch (error) {
+    console.error("Error while updating admin data:", error);
+    throw error;
+  }
 }

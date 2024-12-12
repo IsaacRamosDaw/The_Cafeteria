@@ -18,7 +18,7 @@ import Work from "@mui/icons-material/Work";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 // import School from "@mui/icons-material/School";
 import MenuBook from "@mui/icons-material/MenuBook";
-// import LocalCafe from "@mui/icons-material/LocalCafe";
+import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 
@@ -29,8 +29,8 @@ function Admin() {
     { icon: <Work />, name: "Trabajador", to: "/worker" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
     { icon: <MenuBook />, name: "Curso", to: "/course" },
+    { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
     // { icon: <School />, name: "Colegio", to: "/school" },
-    // { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
   ];
 
   const goTo = (page) => {

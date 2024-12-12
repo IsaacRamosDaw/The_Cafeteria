@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdminCard.scss";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
+import { getUserId } from "../../../../services/utils";
 
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ function AdminCard({ username, id, onDelete, photo }) {
     navigate("/admin/" + id);
   };
 
+  const userId = getUserId()
+
   return (
     <div className="admin-card">
       <div className="container-info">
@@ -31,7 +34,11 @@ function AdminCard({ username, id, onDelete, photo }) {
       </div>
 
       <div className="container-control-admin">
-        <FaEdit className="btn-edit" onClick={handleEdit} />
+        {
+          userId == id ?
+          <FaEdit className="btn-edit" onClick={handleEdit} />
+          : ""
+        }
         <FaTrash className="btn-trash" onClick={handleDelete} />
       </div>
     </div>
