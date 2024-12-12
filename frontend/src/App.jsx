@@ -14,9 +14,10 @@ import "./global.scss";
 //! Shared Pages
 import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
 import Orders from "./pages/orders/Orders.page.jsx"; //* Orders 
-import Menu from "./pages/Menu/Menu.page.jsx"; //* Menu which decides what show inside by user role
+import Menu from "./pages/menu/Menu.page.jsx"; //* Menu which decides what show inside by user role
 import Policy from "./pages/settings/policy/Policy.page.jsx"; //* Private poicy    
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx"; //* Error if you dont't have token
+
 
 //! Admin Pages
 import Admin from "./pages/admin/Admin.page.jsx"; //* Admin dashboard
@@ -31,7 +32,7 @@ import StudentForm from "./pages/form/StudentForm.page.jsx"; //* Student form to
 import StudentProfile from "./pages/settings/studentSettings/StudentSettings.page.jsx"; //* Student profile
 import StudentCoffeShop from "./pages/settings/studentSettings/studentCoffeShop/StudentCoffeShop.page.jsx"; //* Student coffe shop info
 import StudentUpdate from "./pages/settings/studentSettings/studentUpdate/StudentUpdate.page.jsx"; //* Student profile update personal info
-import ProductsList from "./pages/ProductsList/ProductsList.page.jsx"; //* Product list by category
+import ProductsList from "./pages/productsList/ProductsList.page.jsx"; //* Product list by category
 import Product from "./pages/product/Product.page.jsx"; //* Product selected before
 
 //! Worker Pages
