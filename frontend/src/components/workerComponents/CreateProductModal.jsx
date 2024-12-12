@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CreateProductModal.scss";
-import { create as createProduct } from "../../services/category.service";
-
+import { create as createProduct } from "../../services/product.service";
+import { get } from "../../services/category.service";
 export default function CreateProductModal({
     isModalOpen,
     handleSave,
     closeModal,
+    CategoryId,
 }) {
+    console.log("id categoría", CategoryId)
+    const [categories, setCategories] = useState([]);
     const [newProduct, setNewProduct] = useState({
         name: '',
         description: '',
@@ -35,6 +38,12 @@ export default function CreateProductModal({
         }
     };
 
+    useEffect(() => {
+        get()
+          .then((data) => setCategories(data))
+          .catch((error) => console.error("Error :", error));
+      }, []);
+
     if (!isModalOpen) return null;
     console.log("Abrir modal", isModalOpen)
 
@@ -58,7 +67,7 @@ export default function CreateProductModal({
                     <div>
                         <label htmlFor="description-product">Descripción</label>
                         <input
-                            type="number"
+                            type="text"
                             id="description-product"
                             name="description"
                             value={newProduct.description}
@@ -78,14 +87,14 @@ export default function CreateProductModal({
                         />
                     </div>
                     <div>
-                        <label htmlFor="id-category">Categoría</label>
+                        {/* <label htmlFor="id-category">Categoría</label> */}
                         <input
-                            type="number"
                             id="id-category"
-                            name="id"
-                            value={newProduct.CategoryId}
+                            type="hidden"
+                            name="CategoryId"
+                            value={CategoryId}
                             onChange={handleInputChange}
-                            required
+                            // disabled
                         />
                     </div>
                     <div className="button-container">

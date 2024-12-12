@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./CourseCard.scss";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaTrash } from "react-icons/fa";
 
-function CourseCard({ name, id, onDelete}) {
+function CourseCard({ name, id, onDelete }) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -17,19 +17,12 @@ function CourseCard({ name, id, onDelete}) {
 
   return (
     <div className="course-card">
-      <div className="container-info">
-        <div className="container-name">
-          <h2>{name}</h2>
-        </div>
+      <div className="container-name-course">
+        <h2>{name}</h2>
       </div>
 
       <div className="container-control-course">
-        <button className="btn-edit" onClick={handleEdit}>
-          < FaEdit />
-        </button>
-        <button className="btn-trash" onClick={handleDelete}>
-          < RiDeleteBin6Line />
-        </button>
+        <FaTrash className="btn-trash" onClick={handleDelete} />
       </div>
     </div>
   );

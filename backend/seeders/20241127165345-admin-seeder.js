@@ -45,6 +45,7 @@ module.exports = {
   },
 };
 
+
 // npx sequelize-cli seed:generate --name 
 // npx sequelize-cli db:seed --seed 20241127165345-admin-seeder.js
 // npx sequelize-cli db:seed:all 

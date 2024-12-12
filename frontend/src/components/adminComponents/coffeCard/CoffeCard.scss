@@ -21,19 +21,17 @@
     }
 
     .container-control-coffe {
-        @include flex-items(column);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        gap: 20px;
 
-        a,
         .btn-edit,
         .btn-trash {
-            width: 25px;
-            border: 0;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
+            color: var(--text-3);
+            flex: 1;
+            font-size: 28px;
         }
 
         .btn-edit:active,

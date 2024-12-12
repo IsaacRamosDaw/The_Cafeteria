@@ -52,6 +52,27 @@
 }
 
 .modal-container {
+  width: 75%;
+  .content-modal {
+    width: 100%;
+
+    div{
+      width: 100%;
+    }
+
+    .input-inputform-setting-1{
+      height: 40px;
+      margin-top: 0;
+    }
+
+    .container-radio-list {
+      margin: 0;
+
+      .card-radio-item-credit{
+          font-size: 40px;
+      }
+    }
+  }
 
   .btn-modal-credits {
     height: 35px;

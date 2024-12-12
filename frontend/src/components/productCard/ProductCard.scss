@@ -1,6 +1,7 @@
 @import 'src/global.scss';
 
 .container-product-card{
+  cursor: pointer;
   border-radius: 10px;
   overflow: hidden;
   background-color: var(--background-3);

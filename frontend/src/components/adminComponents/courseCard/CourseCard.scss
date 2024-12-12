@@ -7,23 +7,20 @@
     display: flex;
     justify-content: space-between;
 
-    .container-info {
+    .container-name-course h2{
         display: flex;
-        gap: 1em;
-
+        color: var(--text-2)
     }
 
     .container-control-course {
-        @include flex-items(column);
+        @include flex-items;
 
-        a,
-        .btn-edit,
         .btn-trash {
-            width: 25px;
+            font-size: 20px;
             border: 0;
+            color: var(--text-3);
         }
 
-        .btn-edit:active,
         .btn-trash:active {
             transform: scale(.8);
         }
