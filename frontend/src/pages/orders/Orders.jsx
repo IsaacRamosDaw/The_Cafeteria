@@ -70,7 +70,7 @@ function Orders() {
               <Order
                 key={index}
                 orderId={order.id}
-                date={order.date}
+                dateParam={order.date}
                 deleted={handleCancel}
                 productId={order.ProductId}
               />
