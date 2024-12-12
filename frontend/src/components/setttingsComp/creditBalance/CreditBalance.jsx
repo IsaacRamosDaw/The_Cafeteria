@@ -14,8 +14,13 @@ import InputFormSetting from "../inputFormSetting/InputFormSetting";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
-export default function WalletBalance({amount = 10.20}) {
+export default function WalletBalance({ amount = 10.2 }) {
   let [credits, setCredits] = useState(amount);
 
   const [openAmount, setOpenAmount] = useState(false);
@@ -29,32 +34,18 @@ export default function WalletBalance({amount = 10.20}) {
   };
 
   const handleFormData = (e) => {
-    console.log(e.target);
+    e.preventDefault();
+
+    console.log(e.target, value);
   };
 
-  const [optionCredits, setOptionCredits] = [
-    {
-      amount: "5.00",
-      checked: false
-    },
-    {
-      amount: "10.00",
-      checked: false
-    },
-    {
-      amount: "15.00",
-      checked: false
-    },
-    {
-      amount: "20.00",
-      checked: false
-    },
-  ];
+  const [value, setValue] = useState("");
 
-  // const handleCheckBoxes = (index) => {
-  //   optionCredits[index].checked = true
-  //   setOpenCredits(...optionCredits)
-  // }
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  let optionCredits = ["5.00", "10.00", "15.00", "20.00"];
 
   const style = {
     p: 0,
@@ -90,10 +81,11 @@ export default function WalletBalance({amount = 10.20}) {
           </div>
           <form onSubmit={handleFormData} className="content-modal">
             <InputFormSetting
+              className="input-form-modal-add-credit"
               title={"Numero de tarjeta"}
               placeholder={0}
               disable={false}
-              type={"number"}
+              type={"text"}
             />
             <Button
               className="btn-modal-credits"
@@ -110,18 +102,49 @@ export default function WalletBalance({amount = 10.20}) {
             <IoClose className="icon-exit" onClick={handleCredits} />
           </div>
           <form onSubmit={handleFormData} className="content-modal">
-            <List sx={style} aria-label="mailbox folders">
+            {/* <List sx={style} aria-label="mailbox folders">
+              <ListItem>
+                <input type="radio" name="" id="" />
+                <input type="radio" name="" id="" />
+                <input type="radio" name="" id="" />
+                <ListItem>
+                  <h1 className="text-option-credits">$ {5}</h1>
+                </ListItem>
+                <Divider component="li" />
+              </ListItem>
+            </List> */}
 
-              {/* {optionCredits.map((o, index) => (
-                < >  
-                  <input type="radio" checked={o.checked} name="" id="" />
-                  <ListItem>
-                    <h1 className="text-option-credits">$ {o.amount}</h1>
-                  </ListItem>
-                  <Divider component="li" />
-                </>
-              ))} */}
-            </List>
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              value={value}
+              onChange={handleChange}
+              className="container-radio-list"
+            >
+              {optionCredits.map((option, index) => (
+                <div key={index} className="container-item-divider-card-radio">
+                <FormControlLabel
+                  sx={{
+                    ".MuiTypography-root ":{
+                      fontSize: 28,
+                      color: "var(--text-1)",
+                      fontWeight: "600"
+                    },
+                    "& .MuiSvgIcon-root": {
+                      fontSize: 30,
+                      color: "#EB5E28",
+                    },
+                  }}
+                  className="card-radio-item-credit"
+                  value={ parseInt(option)}
+                  control={<Radio />}
+                  label={'$ '+option}
+                />
+                <Divider sx={{ border: "1px solid #757575" }} />
+                </div>
+              ))}
+            </RadioGroup>
+
             <Button
               className="btn-modal-credits"
               submit={true}

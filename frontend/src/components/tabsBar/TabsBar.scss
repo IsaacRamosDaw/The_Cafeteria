@@ -38,7 +38,7 @@ nav#footer-container {
 
             .img-tab-icon {
                 font-size: 35px;
-                color: $neutral-default-white;
+                color: var(--text-3);
 
                 &.active {
                     color: $primary-color;
@@ -47,8 +47,10 @@ nav#footer-container {
 
             p {
                 font-size: $font-size-small;
+                font-family: $font-instrument-sans;
                 margin: 0;
-                color: $neutral-default-white;
+                color: var(--text-3);
+                font-weight: 500;
 
                 &.active {
                     color: $primary-color;

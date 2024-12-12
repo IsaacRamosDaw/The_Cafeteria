@@ -20,48 +20,69 @@ function TabsBar({ worker }) {
       return null;
     }
   };
-  
-  const role = getUserRole(); 
+
+  const role = getUserRole();
   return (
     <nav id="footer-container">
       <ul>
         <li>
-          <Link to={"/menu"}>
-            <MdOutlineRestaurantMenu
-              className={`img-tab-icon ${location.pathname === (worker ? "/menuworker" : "/menu") ? "active" : ""
-                }`}
-            />
-            <p
-              className={`${location.pathname === (worker ? "/menuworker" : "/menu") ? "active" : ""
-                }`}
-            >
-              Home
-            </p>
-          </Link>
-        </li>
-        <li>
           <Link to={"/orders"}>
             <FaListAlt
-              className={`img-tab-icon ${location.pathname === (worker ? "/orderworker" : "/orders") ? "active" : ""
-                }`}
+              className={`img-tab-icon ${
+                location.pathname === (worker ? "/orderworker" : "/orders")
+                  ? "active"
+                  : ""
+              }`}
             />
             <p
-              className={`${location.pathname === (worker ? "/orderworker" : "/orders") ? "active" : ""
-                }`}
+              className={`${
+                location.pathname === (worker ? "/orderworker" : "/orders")
+                  ? "active"
+                  : ""
+              }`}
             >
               Pedidos
             </p>
           </Link>
         </li>
         <li>
-          <Link to={role === "worker" ? "/worker/profile" : "/student/profile"}>
-            <IoPersonSharp
-              className={`img-tab-icon ${location.pathname === (worker ? "/worker/profile" : "/student/profile") ? "active" : ""
-                }`}
+          <Link to={"/menu"}>
+            <MdOutlineRestaurantMenu
+              className={`img-tab-icon ${
+                location.pathname === (worker ? "/menuworker" : "/menu")
+                  ? "active"
+                  : ""
+              }`}
             />
             <p
-              className={`${location.pathname === (worker ? "/worker/profile" : "/student/profile") ? "active" : ""
-                }`}
+              className={`${
+                location.pathname === (worker ? "/menuworker" : "/menu")
+                  ? "active"
+                  : ""
+                  
+              }`}
+            >
+              Home
+            </p>
+          </Link>
+        </li>
+        <li>
+          <Link to={role === "worker" ? "/worker/profile" : "/student/profile"}>
+            <IoPersonSharp
+              className={`img-tab-icon ${
+                location.pathname ===
+                (worker ? "/worker/profile" : "/student/profile")
+                  ? "active"
+                  : ""
+              }`}
+            />
+            <p
+              className={`${
+                location.pathname ===
+                (worker ? "/worker/profile" : "/student/profile")
+                  ? "active"
+                  : ""
+              }`}
             >
               Perfil
             </p>
@@ -69,9 +90,7 @@ function TabsBar({ worker }) {
         </li>
       </ul>
     </nav>
-
   );
 }
 
 export default TabsBar;
-
