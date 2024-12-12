@@ -100,7 +100,7 @@ exports.findAllByStudent = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  const id = Number(req.params.id);
 
   Order.findByPk(id)
     .then((order) => {

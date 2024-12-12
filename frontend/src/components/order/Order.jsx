@@ -1,17 +1,18 @@
 import "./Order.scss";
 import Button from "../button/Button";
 import { useEffect, useState } from "react";
-import { getUserId, getUser } from "../../services/utils";
 import { getOne } from "../../services/studentService";
 import { findByPk } from "../../services/product.service";
+import { getOne as findOneCourse } from "../../services/courseService";
 
-function Order({ ID_order, date, course, role, deleted, studentId }) {
+function Order({ ID_order, date, role, deleted, studentId }) {
 
   date = date.split("T")[0].replace(/-/g, "/");
 
   const [orderName, setOrderName] = useState();
   const [studentName, setStudentName] = useState();
-
+  const [courseId, setCourseId] = useState("");
+  const [courseName, setCourseName] = useState("");
 
   useEffect(() => {
     async function fetchOrder() {
@@ -19,23 +20,33 @@ function Order({ ID_order, date, course, role, deleted, studentId }) {
       orderName = await findByPk(ID_order)
       setOrderName(orderName.name);
     }
-    fetchOrder()
 
-    async function fetchname() {
-      let studentNameFetch = await getOne(studentId)
-      if(studentNameFetch) {
-        console.log(studentNameFetch)
+    async function fetchStudentName() {
+      let studentNameObject = await getOne(studentId)
+      if(studentNameObject) {
+        setStudentName(studentNameObject.username)
+        setCourseId(studentNameObject.CourseId)
       }
-      setStudentName(studentNameFetch.username)
     }
-    fetchname()
+
+    async function fetchCourseName(){
+      let courseObject = await findOneCourse(courseId);
+      if(courseObject){
+        console.log(courseObject.name)
+        setCourseName(courseObject.name)
+      }
+    }
+
+    fetchOrder()
+    fetchStudentName()
+    fetchCourseName()
+    
   }, [studentId]);
 
   const cancelOrder = () => {
     deleted(ID_order)
   };
 
-  console.log(studentName)
 
   return (
     <section className="order-card">
@@ -46,7 +57,7 @@ function Order({ ID_order, date, course, role, deleted, studentId }) {
       <h2 className="text-name-student">
           {studentName}
         <span></span>
-        {course}
+          {courseName}
       </h2>
       <ul className="card-order-content">
         <li>
