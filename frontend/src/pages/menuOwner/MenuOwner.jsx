@@ -9,15 +9,18 @@ import { FaPlus } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import CreateCategoryModal from "../../components/workerComponents/CreateCategoryModal";
 import CreateProductModal from "../../components/workerComponents/CreateProductModal";
+import { EditCategoryModal } from "../../components/workerComponents/EditCategoryModal";
 
 export default function MenuOwner() {
   const [categoryId, setCategoryId] = useState();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({});
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
+  const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
   const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [categoryToEdit, setCategoryToEdit] = useState(null);
   const [newCategory, setNewCategory] = useState({
     name: '',
     amount: ''
@@ -27,7 +30,7 @@ export default function MenuOwner() {
     description: '',
     price: '',
     CategoryId: '',
-  })
+  });
 
   // Cargar categorías y productos
   useEffect(() => {
@@ -36,7 +39,6 @@ export default function MenuOwner() {
         const categoryData = await getCategories();
         setCategories(categoryData);
 
-        // Crear un objeto para almacenar los productos por categoría
         const productsByCategory = {};
 
         for (const category of categoryData) {
@@ -55,7 +57,6 @@ export default function MenuOwner() {
     fetchCategoriesAndProducts();
   }, []);
 
-  // Manejo de la creación de categorías
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewCategory((prev) => ({
@@ -67,37 +68,30 @@ export default function MenuOwner() {
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    // Pasar los datos de la nueva categoría al backend o servicio
-    console.log("Creando categoría:", newCategory);
     try {
       await createCategory(newCategory);
-      setIsCreateCategoryModalOpen(false); // Cerrar el modal después de crear
-      setNewCategory({ name: '', amount: '' }); // Limpiar los campos del formulario
+      setIsCreateCategoryModalOpen(false);
+      setNewCategory({ name: '', amount: '' });
     } catch (error) {
       console.error("Error creando la categoría:", error);
     }
   };
 
-  const handleCreateProduct = async (e) => {
-    e.preventDefault();
-    
-    try{
-      await createProducts(newProduct);
-      setIsCreateProductModalOpen(false);
-      setNewProduct({name: '', description: '', price: '', CategoryId: '',})
-
-    } catch (error){
+  const handleCreateProduct = async (product) => {
+    try {
+      await createProducts(product); // Envía el producto al backend
+      setIsCreateProductModalOpen(false); // Cierra el modal
+      setNewProduct({ name: '', description: '', price: '', CategoryId: '' }); // Limpia el estado
+    } catch (error) {
       console.error("Error creando el producto:", error);
     }
-
-  }
+  };
 
   const handleDelete = async (id) => {
     try {
       await remove(id);
       console.log(`Producto con ID ${id} eliminado correctamente.`);
 
-      // Actualizar los productos en el estado después de eliminar uno
       setProducts((prevProducts) => {
         const updatedProducts = { ...prevProducts };
         for (const categoryId in updatedProducts) {
@@ -108,30 +102,47 @@ export default function MenuOwner() {
         return updatedProducts;
       });
     } catch (error) {
-      console.error(`Error al eliminar el producto con ID ${id}:`, error);
+      console.error(`Error al eliminar el producto con ID ${id}:, error`);
     }
   };
 
   const handleEdit = (product) => {
     setProductToEdit(product);
-    setIsEditModalOpen(true);
+    setIsEditProductModalOpen(true);
+  };
+
+  const handleEditCategory = (category) => {
+    setCategoryToEdit(category);
+    setIsEditCategoryModalOpen(true);
   };
 
   const handleSave = (updatedProduct) => {
+    console.log("Como llega", updatedProduct);
     setProducts((prevProducts) => {
       const updatedProducts = { ...prevProducts };
-      const categoryId = updatedProduct.CategoryId; // Asegurarse de no modificar el CategoryId
+      console.log("Id categoría", updatedProduct.CategoryId);
+      const categoryId = updatedProduct.CategoryId;
+
+      if (!updatedProducts[categoryId]) {
+        updatedProducts[categoryId] = [];
+      }
+
       updatedProducts[categoryId] = updatedProducts[categoryId].map((product) =>
         product.id === updatedProduct.id ? updatedProduct : product
       );
+
+      console.log("CategoryId del producto actualizado:", updatedProduct.CategoryId);
+      console.log("Productos antes de actualizar:", updatedProducts);
       return updatedProducts;
     });
-    setIsEditModalOpen(false);
+
+    setIsEditProductModalOpen(false);
   };
 
   const closeModal = () => {
     setIsCreateProductModalOpen(false);
-    setIsEditModalOpen(false);
+    setIsEditProductModalOpen(false);
+    setIsEditCategoryModalOpen(false);
     setIsCreateCategoryModalOpen(false);
   };
 
@@ -144,6 +155,7 @@ export default function MenuOwner() {
             <hr className="divider-categories-owner" />
           </div>
           <section className="container-category-item-cards">
+            <HiPencilSquare onClick={() => handleEditCategory(category)} />
             {products[category.id]?.map((product) => (
               <div key={product.id} className="container-category-item">
                 <div className="container-img-category-item">
@@ -169,10 +181,9 @@ export default function MenuOwner() {
               </div>
             ))}
             <FaCirclePlus onClick={() => {
-              setIsCreateProductModalOpen(true)
-              setCategoryId(category.id)
-            }
-            }/>
+              setIsCreateProductModalOpen(true);
+              setCategoryId(category.id);
+            }} />
           </section>
         </section>
       ))}
@@ -180,11 +191,19 @@ export default function MenuOwner() {
       <FaPlus onClick={() => setIsCreateCategoryModalOpen(true)} />
 
       <EditProductModal
-        isModalOpen={isEditModalOpen}
+        isModalOpen={isEditProductModalOpen}
         productToEdit={productToEdit}
         handleSave={handleSave}
         closeModal={closeModal}
         setProductToEdit={setProductToEdit}
+      />
+
+      <EditCategoryModal
+        isModalOpen={isEditCategoryModalOpen}
+        categoryToEdit={categoryToEdit}
+        handleSave={handleSave}
+        closeModal={closeModal}
+        setCategoryToEdit={setCategoryToEdit}
       />
 
       <CreateCategoryModal
@@ -196,13 +215,12 @@ export default function MenuOwner() {
       />
 
       <CreateProductModal
-      isModalOpen={isCreateProductModalOpen}
-      handleSave={handleCreateProduct}
-      closeModal={closeModal}
-      productToCreate={newProduct}
-      handleInputChange={handleInputChange}
-      CategoryId={categoryId}
+        isModalOpen={isCreateProductModalOpen}
+        handleSave={handleCreateProduct}
+        closeModal={closeModal}
+        CategoryId={categoryId}
       />
+
     </div>
   );
 }

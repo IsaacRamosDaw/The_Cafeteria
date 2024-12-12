@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import "./CreateCategoryModal.scss";
 import { create as createCategory } from "../../services/category.service";
 
-export default function CreateCategoryModal({
-    isModalOpen,
-    handleSave,
-    closeModal,
-}) {
+export default function CreateCategoryModal({isModalOpen, handleSave, closeModal,}) {
     const [newCategory, setNewCategory] = useState({
         name: '',
         amount: '',
@@ -25,7 +21,7 @@ export default function CreateCategoryModal({
         try {
             await createCategory(newCategory);
             handleSave(newCategory);
-            setNewCategory({ name: '', amount: '' }); 
+            setNewCategory({ name: ''}); 
             closeModal();
         } catch (error) {
             console.error("Error creando la categoría:", error);

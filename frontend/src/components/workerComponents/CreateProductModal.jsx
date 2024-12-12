@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./CreateProductModal.scss";
 import { create as createProduct } from "../../services/product.service";
 import { get } from "../../services/category.service";
-export default function CreateProductModal({
-    isModalOpen,
-    handleSave,
-    closeModal,
-    CategoryId,
-}) {
-    console.log("id categoría", CategoryId)
+
+
+export default function CreateProductModal({isModalOpen,handleSave,closeModal,CategoryId}) {
+    // console.log("id categoría", CategoryId)
     const [categories, setCategories] = useState([]);
     const [newProduct, setNewProduct] = useState({
         name: '',
@@ -25,13 +22,25 @@ export default function CreateProductModal({
         }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
+    //     try {
+    //         await createProduct(newProduct);
+    //         handleSave(newProduct);
+    //         console.log("Producto", newProduct)
+    //         setNewProduct(newProduct);
+    //         closeModal();
+    //     } catch (error) {
+    //         console.error("Error creando el producto:", error);
+    //     }
+    // };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
         try {
-            await createProduct(newProduct);
-            handleSave(newProduct);
-            setNewProduct({ name: '', description: '', price: '', CategoryId: '', });
+            await handleSave(newProduct);
+            setNewProduct({ name: '', description: '', price: '', CategoryId: '' });
             closeModal();
         } catch (error) {
             console.error("Error creando el producto:", error);
@@ -44,8 +53,15 @@ export default function CreateProductModal({
           .catch((error) => console.error("Error :", error));
       }, []);
 
+      useEffect(() => {
+        setNewProduct((prevProduct) => ({
+            ...prevProduct,
+            CategoryId,
+        }));
+    }, [CategoryId]);
+
     if (!isModalOpen) return null;
-    console.log("Abrir modal", isModalOpen)
+    // console.log("Abrir modal", isModalOpen)
 
     return (
         <div className="modal-overlay">
@@ -93,8 +109,7 @@ export default function CreateProductModal({
                             type="hidden"
                             name="CategoryId"
                             value={CategoryId}
-                            onChange={handleInputChange}
-                            // disabled
+                            // onChange={handleInputChange}
                         />
                     </div>
                     <div className="button-container">

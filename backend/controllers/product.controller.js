@@ -4,8 +4,10 @@ const Product = db.product;
 exports.create = (req, res) => {
 	let productData = {
 		name: req.body.name,
+		price: req.body.price,
+		description: req.body.description,
+		filename: req.file ? req.file.filename : "",
 		CategoryId: req.body.CategoryId,
-		filename: req.file ? req.file.filename : ""
 	}
 
 		Product.create(productData)

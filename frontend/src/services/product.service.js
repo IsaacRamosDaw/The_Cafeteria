@@ -140,24 +140,24 @@ export async function edit(id, updatedProductData) {
   let token = localStorage.getItem("token");
 
   if (!token) {
-    window.location.href = "/error"; // Redirigir si no hay token
+    window.location.href = "/error";
   }
 
   try {
     const response = await fetch(`${endpoint}/${id}`, {
-      method: "PUT", // Método PUT para editar
+      method: "PUT", 
       headers: new Headers({
-        Authorization: `Bearer ${token}`, // Incluir el token en los headers
-        "Content-Type": "application/json", // Enviar JSON como cuerpo de la solicitud
+        Authorization: `Bearer ${token}`, 
+        "Content-Type": "application/json", 
       }),
-      body: JSON.stringify(updatedProductData), // El cuerpo es el producto actualizado
+      body: JSON.stringify(updatedProductData), 
     });
 
     if (!response.ok) {
       throw new Error("Error al editar el producto");
     }
 
-    return await response.json(); // Devolver los datos del producto editado
+    return await response.json();
   } catch (error) {
     console.error("Error al editar el producto:", error);
     throw error;
@@ -176,7 +176,7 @@ export function create(formData) {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify({ name: formData.name }),
+    body: JSON.stringify(formData),
   })
     .then((response) => {
       if (!response.ok) {

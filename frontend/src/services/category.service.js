@@ -71,3 +71,31 @@ export function create(formData) {
       throw error;
     });
 }
+
+export async function edit(id, updatedCategoryData) {
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  try {
+    const response = await fetch(`${endpoint}/${id}`, {
+      method: "PUT", 
+      headers: new Headers({
+        Authorization: `Bearer ${token}`, 
+        "Content-Type": "application/json", 
+      }),
+      body: JSON.stringify(updatedCategoryData), 
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al editar el producto");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error al editar el producto:", error);
+    throw error;
+  }
+}
