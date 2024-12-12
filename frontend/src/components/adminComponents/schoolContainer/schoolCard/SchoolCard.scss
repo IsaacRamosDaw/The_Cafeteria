@@ -1,0 +1,59 @@
+@import '/src/global.scss';
+
+.school-card {
+    width: 90%;
+    max-width: 800px;
+    @include flex-items(column);
+
+    .container-img-school {
+        width: 100%;
+        aspect-ratio: 16/9;
+        flex: 1;
+
+        .item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    }
+
+    .divider-school-card{
+        width: 100%;
+        margin: 6px 0;
+        border: 1px solid var(--text-1);
+    }
+
+    .container-info-control-school{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .container-name-school-dashboard h2{
+            font-weight: 60;
+            font-size: $font-H2;
+            font-family: $font-kameron;
+            color: var(--text-1);
+        }
+        .container-control-school {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            gap: 20px;
+    
+            .btn-edit,
+            .btn-trash {
+                color: var(--text-3);
+                flex: 1;
+                font-size: 20px;
+            }
+    
+            .btn-edit:active,
+            .btn-trash:active {
+                transform: scale(.8);
+            }
+    
+        }
+    }
+}

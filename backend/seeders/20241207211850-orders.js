@@ -8,18 +8,19 @@ module.exports = {
       [
         {
           StudentId: "1",
-          ProductId: "1",
+          ProductId: "3",
           date: "10/12/12",
         },
         {
           StudentId: "2",
           date: "10/12/12",
-          ProductId: "1",
+          ProductId: "4",
+
         },
         {
           StudentId: "3",
           date: "10/12/12",
-          ProductId: "2",
+          ProductId: "5",
         },
       ],
       {}

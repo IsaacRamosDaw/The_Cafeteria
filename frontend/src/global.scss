@@ -68,10 +68,10 @@ $neutral-default-black: #090909;
   --borders-separators-2: #B5B5B5;
   --interactive-1: #EFD5CD;
   --interactive-2: #F8B097;
-  --background-1: #e7e7e7;
-  --background-2: #dfdfdf;
-  --background-3: #d3d3d3;
-  --reverse-neutral: #000;
+  --background-1: #FAFAFA; /* Fondo principal, muy claro */
+  --background-2: #F0F0F0; /* Fondo secundario */
+  --background-3: #d1d1d1;
+  --reverse-neutral: #0f0f0f;
 }
 
 
@@ -137,4 +137,8 @@ details {
     padding: 10px 10px 10px 20px;
     border-radius: 5px;
   }
+}
+
+button:active{
+  transform: scale(.9);
 }

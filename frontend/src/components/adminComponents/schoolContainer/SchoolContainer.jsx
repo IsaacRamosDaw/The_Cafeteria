@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SchoolCard from "../schoolCard/SchoolCard";
-import { get} from "../../../services/schoolService";
+import SchoolCard from "./schoolCard/SchoolCard";
+import { get} from "../../../services/school.service";
 import './SchoolContainer.scss'
 
 

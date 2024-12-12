@@ -1,0 +1,29 @@
+@import '/src/global.scss';
+
+.course-card {
+    width: 90%;
+    max-width: 380px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+
+    .container-name-course h2{
+        display: flex;
+        color: var(--text-2)
+    }
+
+    .container-control-course {
+        @include flex-items;
+
+        .btn-trash {
+            font-size: 20px;
+            border: 0;
+            color: var(--text-3);
+        }
+
+        .btn-trash:active {
+            transform: scale(.8);
+        }
+
+    }
+}

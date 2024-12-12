@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CoffeCard from "../coffeCard/CoffeCard.jsx";
-import { get } from "../../../services/coffeshopService.js";
-import "./CoffeContainer.scss";
+import CoffeCard from "./coffeCard/CoffeCard.jsx";
+import { get } from "../../../services/coffeShop.service";
+import "./CoffeShopContainer.scss";
 
 function CoffeContainer() {
   const [coffeShops, setCoffeShops] = useState([]);

@@ -1,5 +1,5 @@
 import Button from "../../../button/Button";
-import { edit, getOne } from "../../../../services/coffeShop.service";
+import { edit, getOne } from "../../../../services/school.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../Form.scss";
@@ -8,22 +8,31 @@ export default function EditSchool() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [coffeData, setCoffeData] = useState({
+  const [schoolData, setSchoolData] = useState({
     name: "",
-    file: "",
+    address: "",
+    email: "",
+    phone: "",
+    file:""
   });
   const [formData, setFormData] = useState({
     name: "",
-    file: "",
+    address: "",
+    email: "",
+    phone: "",
+    file:""
   });
 
   useEffect(() => {
     getOne(id)
       .then((data) => {
-        setCoffeData(data);
+        setSchoolData(data);
         setFormData({
           name: data.name,
-          file: data.file  
+          address: data.address,
+          email: data.email,
+          phone: data.phone,
+          file: data.file,
         });
       })
       .catch((error) => console.error("Error fetching school data:", error));
@@ -51,23 +60,54 @@ export default function EditSchool() {
   return (
     <main className="form-container">
       <form id="school-form">
-        <h2>Cafetería</h2>
+        <h2>Colegio</h2>
         <div className="form-group">
           <label htmlFor="name">Nombre</label>
           <input
             id="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Nombre de la cafetería"
+            placeholder="Nombre del colegio"
             type="text"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="imagen">Imagen</label>
+          <label htmlFor="address">Dirección</label>
+          <input
+            id="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Dirección del colegio"
+            type="text"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email del colegio"
+            type="email"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Teléfono</label>
+          <input
+            id="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Teléfono del colegio"
+            type="text"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Dirección</label>
           <input
             id="file"
             value={formData.file}
             onChange={handleChange}
+            placeholder="Dirección del colegio"
             type="file"
           />
         </div>

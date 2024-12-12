@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CardProductHome from "../cards/cardProductHome/CardProductHome";
-import Plus from '../../workerComponents/Plus'
 import "./RecentsContainer.scss";
 
 export default function RecentsContainer({worker}) {

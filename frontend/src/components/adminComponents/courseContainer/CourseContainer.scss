@@ -4,5 +4,5 @@
     width: 100%;
     // background-color: var(--background-3);
     @include flex-items(column);
-    gap: 1em;
+    gap: 10px;
 }
