@@ -8,15 +8,7 @@ module.exports = {
     // Datos iniciales de los usuarios
     const coffeshops = [
       {
-        name: "The muggins",
-        filename: "img-test.jpeg"
-      },
-      {
-        name: "Ice coffe school",
-        filename: "img-test.jpeg"
-      },
-      {
-        name: "McOffe",
+        name: "Rincon's Mug",
         filename: "img-test.jpeg"
       },
     ];

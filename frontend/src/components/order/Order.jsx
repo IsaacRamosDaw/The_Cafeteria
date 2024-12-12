@@ -5,34 +5,45 @@ import { getOne } from "../../services/studentService";
 import { findByPk } from "../../services/product.service";
 import { getOne as findOneCourse } from "../../services/courseService";
 
-function Order({ ID_order, date, role, deleted, studentId }) {
+function Order({ orderId, dateParam, deleted, productId, role, studentIdParam }) {
 
-  date = date.split("T")[0].replace(/-/g, "/");
+  // let date = dateParam.split("T")[0].replace(/-/g, "/");
 
-  const [orderName, setOrderName] = useState();
   const [studentName, setStudentName] = useState();
   const [courseId, setCourseId] = useState("");
   const [courseName, setCourseName] = useState("");
+  const [orderName, setOrderName] = useState();
+
+  const studentId = studentIdParam
 
   useEffect(() => {
+
+    //* GET NAME PRODUCT 
     async function fetchOrder() {
       let orderName;
-      orderName = await findByPk(ID_order)
-      setOrderName(orderName.name);
-    }
+      orderName = await findByPk(productId)
 
-    async function fetchStudentName() {
-      let studentNameObject = await getOne(studentId)
-      if(studentNameObject) {
-        setStudentName(studentNameObject.username)
-        setCourseId(studentNameObject.CourseId)
+      if(orderName){
+        setOrderName(orderName.name);
       }
     }
 
+    //* GET NAME STUDENT 
+    async function fetchStudentName() {
+      if (studentIdParam !== undefined){
+        let studentNameObject = await getOne(studentId)
+        if(studentNameObject) {
+          setStudentName(studentNameObject.username)
+          setCourseId(studentNameObject.CourseId)
+        }
+      }
+    }
+
+
+    //* GET NAME COURSE
     async function fetchCourseName(){
       let courseObject = await findOneCourse(courseId);
       if(courseObject){
-        console.log(courseObject.name)
         setCourseName(courseObject.name)
       }
     }
@@ -40,25 +51,27 @@ function Order({ ID_order, date, role, deleted, studentId }) {
     fetchOrder()
     fetchStudentName()
     fetchCourseName()
-    
-  }, [studentId]);
+
+  }, [studentId, courseName, productId]);
 
   const cancelOrder = () => {
-    deleted(ID_order)
+    deleted(orderId)
   };
-
 
   return (
     <section className="order-card">
       <header className="card-order-header">
-        <p>ID: {ID_order} </p>
-        <p> {date} </p>
+        <p>ID: {orderId} </p>
+        {/* <p> {date} </p> */}
       </header>
-      <h2 className="text-name-student">
-          {studentName}
-        <span></span>
-          {courseName}
-      </h2>
+      {
+        role && 
+        <h2 className="text-name-student">
+            {studentName}
+          <span></span>
+            {courseName}
+        </h2>
+      }
       <ul className="card-order-content">
         <li>
           <p> {orderName} </p>
