@@ -9,13 +9,15 @@ function CategoryCard({ id, title, count, photo }) {
   };
 
   const folder = "http://localhost:8080/images/";
+  console.log(photo)
 
   return (
     <div
       onClick={() => handleNavigate("/menu/" + title.replace(/ /g, "-"))}
       className="container-card-category"
     >
-      <img src={ photo ? folder+photo : "/images/ImgMenus/bebidas.jpg" } alt="Img category card" />
+      {/* <img src={"/images/ImgMenus/bebidas.jpg" } alt="Img category card" /> */}
+      <img src={ folder+photo || "" } alt="Img category card" />
 
       <div className="div-darken-category-card"></div>
 
