@@ -86,6 +86,8 @@ export function getByCategory(idCategory) {
 }
 
 
+
+
 export async function countByCategory(idCategory) {
   let token = localStorage.getItem("token");
 
