@@ -4,24 +4,34 @@
   width: 90%;
   height: 140px;
   position: relative;
-  overflow: hidden;
-  border-radius: 10px;
   cursor: pointer;
-
-  .container-content-card-category {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/ImgMenus/bebidas.jpg');
-    background-position: center;
-    background-size: cover;
+  
+  img{
+    width: 95%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    // font-size: 40px;
+  }
+  
+  .div-darken-category-card{
     width: 100%;
     height: 100%;
-    position: relative;
+    position: absolute;
+    background-color: $neutral-default-black;
+    z-index: 1;
+    opacity: .7;
+  }
+  
+  .container-content-card-category {
+    width: 100%;
+    height: 100%;
+    position: absolute;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    // background-color: $neutral-default-black;
-    opacity: .6;
     
     .title-category-card{
       z-index: 1;

@@ -4,10 +4,11 @@ import {
   edit,
   updateProfilePicture,
   getOne,
-} from "../../../../services/workerService";
+} from "../../../../services/worker.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Label from "../../../label/Label";
+import '../Form.scss'
 
 export default function WorkerForm() {
   const navigate = useNavigate();

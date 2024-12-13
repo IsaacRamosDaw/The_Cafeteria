@@ -3,11 +3,13 @@ import "./SchoolCard.scss";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
-function SchoolCard({ name, id }) {
+function SchoolCard({ name, id, photo, onDelete}) {
   const navigate = useNavigate();
 
+  const folder = "http://localhost:8080/images/";
+
   const handleDelete = () => {
-    // onDelete(id);
+    onDelete(id);
   };
 
   const handleEdit = () => {
@@ -19,7 +21,7 @@ function SchoolCard({ name, id }) {
       <div className="container-img-school">
         <img
           className="item-img"
-          src={`/images/ImgMenus/sandwiches.jpg`}
+          src={folder+photo}
           alt="Image school"
         />
       </div>

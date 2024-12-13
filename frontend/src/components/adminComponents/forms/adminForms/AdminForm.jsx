@@ -1,18 +1,14 @@
 import Button from "../../../button/Button";
-<<<<<<<< HEAD:frontend/src/components/adminComponents/forms/adminForms/EditAdmin.page.jsx
-// import Label from "../../../label/Label";
-import { edit, getOne } from "../../../../services/admin.service";
-========
 import {
   create,
   edit,
   editImg,
   getOne,
-} from "../../../../services/adminService";
->>>>>>>> origin/dev-backend-m:frontend/src/components/adminComponents/forms/adminForms/AdminForm.jsx
+} from "../../../../services/admin.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Label from "../../../label/Label";
+import '../Form.scss'
 
 export default function AdminForm() {
   const navigate = useNavigate();
@@ -81,7 +77,7 @@ export default function AdminForm() {
         <h2>Admin</h2>
         <Label
           id={"name-admin"}
-          placeHolder={adminData.username || "Nombre del administrador"}
+          placeHolder={ id ? adminData.username : "Nombre del administrador"}
           title={"Nombre"}
           type={"text"}
           ref={usernameRef}
