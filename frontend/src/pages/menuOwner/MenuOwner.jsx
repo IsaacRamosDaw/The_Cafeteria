@@ -164,16 +164,20 @@ export default function MenuOwner() {
       {categories.map((category) => (
         <section key={category.id} className="container-category-owner">
           <div className="container-title-category-owner">
-            <h1 className="title-category-owner">{category.name}</h1>
+            <div className="title-category-container">
+              <h1 className="title-category-owner">{category.name}</h1>
+              <div>
+                <HiPencilSquare onClick={() => handleEditCategory(category)} />
+                <FaTrash onClick={() => handleDeleteCategory(category.id)} />
+              </div>
+            </div>
             <hr className="divider-categories-owner" />
           </div>
           <section className="container-category-item-cards">
-            <HiPencilSquare onClick={() => handleEditCategory(category)} />
-            <FaTrash onClick={() => handleDeleteCategory(category.id)} />
             {products[category.id]?.map((product) => (
               <div key={product.id} className="container-category-item">
                 <div className="container-img-category-item">
-                  <img src="/images/ImgMenus/bebidas.jpg" alt="Img category" />
+                  <img src="/images/ImgMenus/cafeExpreso.jpg" alt="Img category" />
                 </div>
                 <div className="container-info-category">
                   <div className="container-text-item">
@@ -189,7 +193,7 @@ export default function MenuOwner() {
                 </div>
               </div>
             ))}
-            <FaCirclePlus
+            <FaCirclePlus className="add-product-button"
               onClick={() => {
                 setIsCreateProductModalOpen(true);
                 setCategoryId(category.id);

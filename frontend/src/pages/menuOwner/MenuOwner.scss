@@ -20,6 +20,22 @@
     .container-title-category-owner {
       width: 100%;
 
+      .title-category-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div{
+          display: flex;
+          gap: 15px;
+
+          *{
+            color: var(--text-3);
+            font-size: 22px;
+          }
+        }
+      }
+
       .title-category-owner {
         color: var(--text-1);
         font-size: $font-H2;
@@ -40,6 +56,11 @@
       @include flex-items(column);
       width: 100%;
       gap: 5px;
+
+      .add-product-button{
+        margin: 20px 0;
+        font-size: 20px;
+      }
     }
 
     .container-category-item {
