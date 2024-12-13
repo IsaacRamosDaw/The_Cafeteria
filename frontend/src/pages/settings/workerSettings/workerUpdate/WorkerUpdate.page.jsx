@@ -70,7 +70,7 @@ export default function WorkerUpdate() {
         imgProfile: URL.createObjectURL(selectedFile),
       }));
     } catch (error) {
-      console.error("Error al actualizar la imagen de perfil:", error);
+      console.error("Error updating the profile image:", error);
     }
   };
 
@@ -83,7 +83,7 @@ export default function WorkerUpdate() {
       phone: phoneRef.current.value,
     };
   
-    // Verificar si algún campo está vacío (valor igual a "")
+   // Check if any field is empty (value equals "")
     const emptyField = Object.entries(formData).find(([key, value]) => value === "");
   
     if (emptyField) {
@@ -92,7 +92,8 @@ export default function WorkerUpdate() {
         setInvalidUser(true)
       }, 2000)
       const [key] = emptyField;
-      return; // Detener la ejecución si hay un campo vacío
+      return;// Stop execution if any field is empty
+
     }
   
     try {
@@ -101,7 +102,7 @@ export default function WorkerUpdate() {
   
       navigate(-1);
     } catch (error) {
-      console.error("Error al editar:", error);
+      console.error("Error of update:", error);
     }
   };
   

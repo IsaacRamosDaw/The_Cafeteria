@@ -130,7 +130,7 @@ export async function countByCategory(idCategory) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al obtener el conteo");
+      throw new Error("Error with count");
     }
 
     const data = await response.json();
@@ -152,12 +152,12 @@ export async function remove(id) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al eliminar el producto");
+      throw new Error("Error of delete product");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error al eliminar el producto:", error);
+    console.error("Error of delete product:", error);
     throw error;
   }
 }
@@ -181,12 +181,12 @@ export async function edit(id, updatedProductData) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al editar el producto");
+      throw new Error("Error of edit product");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error al editar el producto:", error);
+    console.error("Error of edit product:", error);
     throw error;
   }
 }
@@ -207,7 +207,7 @@ export function create(formData) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
       return response.json();
     })

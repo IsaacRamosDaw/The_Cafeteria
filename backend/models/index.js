@@ -31,33 +31,33 @@ db.coffeShop = require("./coffeShop.model.js")(sequelize);
 
 //! FK 
 
-//* TABLA STUDENT
+//* TABLE STUDENT
 /** ID - COURSE */ db.student.belongsTo(db.course, {foreingKey: 'courseId'});
 
-//* TABLA WALLET
+//* TABLE WALLET
 /** ID - STUDENT */ db.wallet.belongsTo(db.student, {onDelete: 'cascade', foreingKey: 'studentId'});
 
-//* TABLA ORDER
+//* TABLE ORDER
 /** ID - STUDENT */ db.order.belongsTo(db.student, {foreingKey: 'studentId'});
 /** ID - PRODUCT */ db.order.belongsTo(db.product, {foreingKey: 'productId'});
 
-//* TABLA PRODUCT
+//* TABLE PRODUCT
 /** ID - PRODUCT */ db.product.belongsTo(db.categories, {onDelete: 'cascade', foreingKey: 'categoryId'});
 
-// // TABLA WORKER
+// // TABLE WORKER
 // db.worker.hasMany(db.coffeShop, {foreingKey: 'coffeShopId'});
 // db.worker.belongsTo(db.coffeShop, {onDelete: 'cascade', foreingKey: 'coffeShopId'});
 
-// // TABLA ORDERLINE
+// // TABLE ORDERLINE
 // db.orderLine.belongsTo(db.product, {foreingKey: 'product'});
 // db.orderLine.belongsTo(db.order, {foreingKey: 'order'});
 
-// // TABLA SCHOOL
+// // TABLE SCHOOL
 // db.school.hasMany(db.course, {foreingKey: 'school'});
 // db.school.hasMany(db.coffeShop, {foreingKey: 'school'});
 // db.school.belongsTo(db.admins, {foreingKey: 'adminId'});
 
-// // TABLA COFFE SHOP
+// // TABLE COFFE SHOP
 // db.coffeShop.belongsTo(db.school, {foreingKey: 'school'});
 
 module.exports = db;

@@ -1,65 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EditProductModal.scss";
 import { edit } from "../../services/category.service";
 
-export function EditCategoryModal({isModalOpen, categoryToEdit, handleSave, 
-    closeModal, setCategoryToEdit}){
-        if(!isModalOpen || !categoryToEdit) return null;
+export function EditCategoryModal({ isModalOpen, categoryToEdit, handleSave, closeModal }) {
+  const [formData, setFormData] = useState(categoryToEdit || {});
+  const [error, setError] = useState("");
 
-    // const handleFormSubmit = async (e) => {
-    //     e.preventDefault();
+  if (!isModalOpen || !categoryToEdit) return null;
 
-    //     try{
-    //         await edit(categoryToEdit.id, {
-    //             name: categoryToEdit.name
-    //         });
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-    //         handleSave(categoryToEdit);
-    //     } catch (error){
-    //         console.error("Error al guardar la categoría editada:", error);
-    //     }
-    // };
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-            console.log("Datos enviados al servicio:", categoryToEdit);
-    
-            await edit(categoryToEdit.id, {
-                name: categoryToEdit.name,
-            });
-    
-            handleSave(categoryToEdit);
-        } catch (error) {
-            console.error("Error al guardar la categoría editada:", error);
-        }
-    };
-    
-    return (
-        <div className="modal-overlay">
-          <div className="modal-container">
-            <button className="close-btn" onClick={closeModal}>
-              X
-            </button>
-            <h2>Editar Categoría</h2>
-            <form onSubmit={handleFormSubmit}>
-              <div>
-                <label>Nombre</label>
-                <input
-                  type="text"
-                  value={categoryToEdit?.name || ""}
-                  onChange={(e) => setCategoryToEdit({ ...categoryToEdit, name: e.target.value })}
-                />
-              </div>
-              <div className="button-container">
-                <button type="submit">Guadar</button>
-                <button type="button" onClick={closeModal}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      );
+    if (!formData.name.trim()) {
+      setError("The name of category is required.");
+      return;
     }
+
+    try {
+      console.log("Data sent to the service:", formData);
+
+      await edit(categoryToEdit.id, { name: formData.name });
+      handleSave(formData);
+      closeModal();
+    } catch (err) {
+      console.error("Error saving the edited category:", err);
+      setError("There was a problem saving the changes. Please try again.");
+    }
+  };
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-container">
+        <button className="close-btn" onClick={closeModal}>
+          X
+        </button>
+        <h2>Editar Categoría</h2>
+        <form onSubmit={handleFormSubmit}>
+          <div>
+            <label htmlFor="category-name">Nombre</label>
+            <input
+              id="category-name"
+              type="text"
+              value={formData.name || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              }
+            />
+          </div>
+          {error && <p className="error-message">{error}</p>}
+          <div className="button-container">
+            <button type="submit">Guardar</button>
+            <button type="button" onClick={closeModal}>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

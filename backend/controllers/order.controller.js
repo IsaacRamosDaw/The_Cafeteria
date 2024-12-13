@@ -19,7 +19,7 @@ exports.create = (req, res) => {
   Order.create(orderData)
     .then((order) =>
       res.status(201).json({
-        message: "Order creada correctamente",
+        message: "Order created succesfully",
         order: order,
       })
     )
@@ -31,7 +31,6 @@ exports.create = (req, res) => {
 };
 
 exports.createByUrl = (req, res) => {
-  console.log("llegue aqui tambien")
 
   const date = new Date()
 
@@ -51,7 +50,7 @@ exports.createByUrl = (req, res) => {
   Order.create(orderData)
     .then((order) =>
       res.status(201).json({
-        message: "Order creada correctamente",
+        message: "Order created succesfully",
         order: order,
       })
     )
@@ -68,7 +67,7 @@ exports.findAll = (req, res) => {
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} didn't found`
+          message: `Order with id: ${id} did not found`
         });
       }
       res.send(orders);
@@ -82,19 +81,18 @@ exports.findAll = (req, res) => {
 
 
 exports.findAllByStudent = (req, res) => {
-  console.log("parte - 3 fetch")
   Order.findAll({ where: { StudentId: req.params.id, } })
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} didn't found`
+          message: `Order with id: ${id} did not found`
         });
       }
       res.send(orders);
     })
     .catch(err =>
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Orders."
+        message: err.message || "Some error occurred while retrieving orders."
       })
     );
 };
@@ -106,7 +104,7 @@ exports.findOne = (req, res) => {
     .then((order) => {
       if (!order) {
         return res.status(404).json({
-          message: `order with id=${id} not found`,
+          message: `Order with id=${id} not found`,
         });
       }
       res.send(order);
@@ -135,7 +133,7 @@ exports.delete = (req, res) => {
         });
       }
       res.json({
-        message: `Order with id: ${id} was deleted`
+        message: `Order with id: ${id} was deleted.`
       });
     })
     .catch((err) =>

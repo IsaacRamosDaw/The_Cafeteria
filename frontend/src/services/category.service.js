@@ -62,7 +62,7 @@ export function create(formData) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
       return response.json();
     })
@@ -90,12 +90,12 @@ export async function edit(id, updatedCategoryData) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al editar el producto");
+      throw new Error("Error of edit category");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error al editar el producto:", error);
+    console.error("Error of edit product:", error);
     throw error;
   }
 }

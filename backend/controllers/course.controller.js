@@ -38,18 +38,18 @@ exports.create = (req, res) => {
 };
 exports.findAll = async (req, res) => {
   Course.findAll()
-  .then(cursos => {
-    if(!cursos){
+  .then(courses => {
+    if(!courses){
       return res.status(404).json({
-        mesage: "Curso creado correctamente",
+        mesage: "Course created succesfully",
       })
     }
-    res.send(cursos);
+    res.send(courses);
   })
   .catch(err => {
     res.status(500).send({
       message:
-        err.message || "Some erro ocurred while retrieving the course"
+        err.message || "Some error ocurred while retrieving the course"
     })
   })
 }
@@ -84,7 +84,7 @@ exports.update = (req, res) => {
 
   if (req.user.role !== "admin") {
     return res.status(403).send({
-      message: "You dont have the permission to change it",
+      message: "You do not have the permission to change it",
     });
   }
 
@@ -96,7 +96,7 @@ exports.update = (req, res) => {
   .then(([rowsUpdated]) => {
     if(rowsUpdated === 0) {
       return res.status(404).send({
-        message: `Cannot update Course with id=${id}. Course didnt found`
+        message: `Cannot update course with id=${id}. Course did not found`
       })
     }
     res.send({ message: "Course was edited succesfully"});

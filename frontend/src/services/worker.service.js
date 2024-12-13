@@ -15,12 +15,12 @@ export function get() {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching dataaaaaa");
+        throw new Error("Error fetching data");
       }
       return response.json();
     })
     .catch((error) => {
-      console.log(`error,xsgjhcgshjmgcsamhnjmgh ${error}`);
+      console.log(`error, ${error}`);
       return error;
     });
   return getOperation;
@@ -64,7 +64,7 @@ export async function create(formData) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
 
       return response.json();
@@ -123,7 +123,7 @@ export async function edit(id, data) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
 
       return response.json();
@@ -160,7 +160,7 @@ export async function updateProfilePicture(id, data) {
     });
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error("Error in the reques");
     }
 
     const updatedData = await response.json(); // Resolviendo la promesa de la respuesta
@@ -168,7 +168,7 @@ export async function updateProfilePicture(id, data) {
 
     return updatedData; // Retornar los datos actualizados
   } catch (error) {
-    console.error("Error while updating admin data:", error);
+    console.error("Error while updating profile picture:", error);
     throw error;
   }
 }
