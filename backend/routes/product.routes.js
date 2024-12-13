@@ -12,6 +12,9 @@ module.exports = (app) => {
     //List products by category
     router.get("/categories/:id", product.findByCategory);
 
+    //Get first product of a category
+    router.get("/category/:id", product.findFirstOfCategory);
+
     // Get one student
     router.get("/:id", product.findOne);
 

@@ -86,6 +86,31 @@ export function getByCategory(idCategory) {
 }
 
 
+export function getFirstByCategory(idCategory) {
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOperation = fetch(`${endpoint}/category/${idCategory}`, {
+    method: "GET",
+    headers: new Headers({
+      Accept: "application/json",
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(`error, ${error}`);
+      return error;
+    });
+  return getOperation;
+}
 
 
 export async function countByCategory(idCategory) {

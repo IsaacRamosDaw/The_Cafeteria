@@ -142,3 +142,7 @@ details {
 button:active{
   transform: scale(.9);
 }
+
+img{
+  @include flex-items;
+}
