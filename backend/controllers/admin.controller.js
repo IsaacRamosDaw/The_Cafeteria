@@ -33,11 +33,11 @@ exports.create = (req, res) => {
 
       Admin.create(admin)
         .then((data) => {
-          console.log("Después de crear", data);
+          console.log("After create", data);
           const token = utils.generateToken(data);
-          console.log("Después de crear el token", token);
+          console.log("After create the token", token);
           const adminObj = utils.getCleanUser(data);
-          console.log("Después de limpiar el usuario", adminObj);
+          console.log("After clean user", adminObj);
 
           return res.json({ admin: adminObj, access_token: token });
         })
@@ -124,7 +124,7 @@ exports.update = (req, res) => {
 
   if (!req.body.username) {
     return res.status(400).send({
-      message: "The name field cannot be emptyyyyyyyyy.",
+      message: "The name field cannot be empty.",
     });
   }
   if (!req.body.password) {

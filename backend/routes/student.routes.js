@@ -19,7 +19,6 @@ module.exports = (app) => {
 
 	// Retrieve one student
 	router.get("/:id", auth.isAuthenticated, student.findOne);
-	// router.get("/:id", student.findOne);
 
 	// Update student
 	router.put("/:id", auth.isAuthenticated, student.update);

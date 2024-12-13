@@ -29,7 +29,7 @@ export default function MenuOwner() {
     CategoryId: ''
   });
 
-  // Cargar categorías y productos
+// Load categories and products
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
@@ -49,25 +49,25 @@ export default function MenuOwner() {
     fetchCategoriesAndProducts();
   }, []);
 
-  // Crear categoría
+  // Create category
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
       await createCategory(newCategory);
-      const updatedCategories = await getCategories(); // Refresca categorías
+      const updatedCategories = await getCategories();// Refresh categories
       setCategories(updatedCategories);
       setIsCreateCategoryModalOpen(false);
       setNewCategory({ name: '', amount: '' });
     } catch (error) {
-      console.error("Error creando la categoría:", error);
+      console.error("Error creating the category:", error);
     }
   };
 
-  // Crear producto
+  // Create product
   const handleCreateProduct = async (product) => {
     try {
       await createProducts(product);
-      const updatedProducts = await getProducts(product.CategoryId); // Refresca productos
+      const updatedProducts = await getProducts(product.CategoryId); // Refresh products
       setProducts((prevProducts) => ({
         ...prevProducts,
         [product.CategoryId]: updatedProducts,
@@ -78,7 +78,7 @@ export default function MenuOwner() {
     }
   };
 
-  // Eliminar producto
+  // Delete product
   const handleDelete = async (id) => {
     try {
       await remove(id);
@@ -92,7 +92,7 @@ export default function MenuOwner() {
         return updatedProducts;
       });
     } catch (error) {
-      console.error(`Error al eliminar el producto con ID ${id}:`, error);
+      console.error(`Error delete a product with id ${id}:`, error);
     }
   };
   const handleDeleteCategory = async (id) => {
@@ -109,14 +109,14 @@ export default function MenuOwner() {
         return updatedProducts;
       });
 
-      console.log(`Categoría con ID ${id} y sus productos asociados eliminados.`);
+      console.log(`Category with ID ${id} and its associated products deleted.`);
     } catch (error) {
-      console.error(`Error al eliminar la categoría con ID ${id}:`, error);
+      console.error(`Error delete the category with id ${id}:`, error);
     }
   };
 
 
-  // Editar producto
+  // Edit product
   const handleEdit = (product) => {
     setProductToEdit(product);
     setIsEditProductModalOpen(true);
@@ -136,7 +136,7 @@ export default function MenuOwner() {
     setIsEditProductModalOpen(false);
   };
 
-  // Editar categoría
+  // Edit category
   const handleEditCategory = (category) => {
     setCategoryToEdit(category);
     setIsEditCategoryModalOpen(true);
@@ -144,7 +144,7 @@ export default function MenuOwner() {
 
   const handleSaveCategory = async (updatedCategory) => {
     try {
-      const updatedCategories = await getCategories(); // Refresca categorías
+      const updatedCategories = await getCategories(); // Refresh categories
       setCategories(updatedCategories);
       setIsEditCategoryModalOpen(false);
     } catch (error) {

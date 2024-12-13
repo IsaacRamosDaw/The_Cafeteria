@@ -24,20 +24,20 @@ function CreateAdmin() {
       // Crear el usuario y esperar el resultado
       const user = await create(formData);
 
-      console.log("Usuario creado:", user);
+      console.log("User created:", user);
 
       // Verificar si el ID existe
       if (user.admin && user.admin.id) {
         const updatedImg = await editImg(user.admin.id, formData.file);
-        console.log("Imagen actualizada:", updatedImg);
+        console.log("Image updated:", updatedImg);
       } else {
-        console.error("No se pudo obtener el ID del usuario.");
+        console.error("Failed to retrieve the user ID.");
       }
 
-      // Redirigir a la página anterior
+      // Redirect to the previous page
       navigate(-1);
     } catch (error) {
-      console.error("Error en el proceso de creación:", error);
+      console.error("Error in the creation process:", error);
     }
   };
 

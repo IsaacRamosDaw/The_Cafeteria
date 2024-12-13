@@ -22,7 +22,7 @@ function CategoriesContainer() {
 
         setCategories(categoriesWithCounts);
       } catch (error) {
-        console.error("Error al obtener categorías o conteos:", error);
+        console.error("Error retrieving categories or counts:", error);
       }
     }
 

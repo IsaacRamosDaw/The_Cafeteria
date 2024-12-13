@@ -89,7 +89,7 @@ function StudentUpdate() {
         imgProfile: URL.createObjectURL(selectedFile),
       }));
     } catch (error) {
-      console.error("Error al actualizar la imagen de perfil:", error);
+      console.error("Error updating the profile image:", error);
     }
   };
 
@@ -110,7 +110,7 @@ function StudentUpdate() {
 
       navigate(-1);
     } catch (error) {
-      console.error("Error al editar:", error);
+      console.error("Error of update:", error);
     }
   };
 

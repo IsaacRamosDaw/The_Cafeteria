@@ -13,19 +13,19 @@ export function EditCategoryModal({ isModalOpen, categoryToEdit, handleSave, clo
     setError("");
 
     if (!formData.name.trim()) {
-      setError("El nombre de la categoría es obligatorio.");
+      setError("The name of category is required.");
       return;
     }
 
     try {
-      console.log("Datos enviados al servicio:", formData);
+      console.log("Data sent to the service:", formData);
 
       await edit(categoryToEdit.id, { name: formData.name });
       handleSave(formData);
       closeModal();
     } catch (err) {
-      console.error("Error al guardar la categoría editada:", err);
-      setError("Hubo un problema al guardar los cambios. Inténtalo de nuevo.");
+      console.error("Error saving the edited category:", err);
+      setError("There was a problem saving the changes. Please try again.");
     }
   };
 

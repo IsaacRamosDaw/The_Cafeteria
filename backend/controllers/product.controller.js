@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 		Product.create(productData)
 		.then(product => res.status(201)
 		.json({
-				message: "Producto creado correctamente",
+				message: "Product created successfully",
 				product: product,
 			}))
 			.catch(err => 
@@ -29,7 +29,7 @@ exports.findAll = (req, res) => {
 		.then(products => {
 			if (!products) {
 				return res.status(404).json({
-					message: `Product didn't found.`
+					message: `Product did not found.`
 				});
 			}
 			res.send(products);
@@ -48,7 +48,7 @@ exports.findByCategory = (req, res) => {
 		.then(products => {
 			if (!products) {
 				return res.status(404).json({
-					message: `Product didn't found.`
+					message: `Product did not found.`
 				});
 			}
 			res.send(products);
@@ -110,7 +110,7 @@ exports.update = (req, res) => {
 		.then(([rowsUpdated]) => {
 			if (rowsUpdated === 0) {
 				return res.status(404).send({
-					message: `Cannot update Product with id=${id}. Product not found.`
+					message: `Cannot update product with id=${id}. Product not found.`
 				});
 			}
 			res.send({ message: "Product was updated successfully." });

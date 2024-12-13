@@ -14,7 +14,7 @@ exports.findOne = (req, res) => {
     .then((wallet) => {
       if (!wallet) {
         return res.status(404).json({
-          message: `order with id=${id} not found`,
+          message: `Order with id=${id} not found`,
         });
       }
 

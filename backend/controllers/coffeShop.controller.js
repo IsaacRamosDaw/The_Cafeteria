@@ -3,13 +3,13 @@ const CoffeShop = db.coffeShop;
 const Op = db.sequelize.Op;
 
 exports.create = (req, res) => {
-  // Create an coffeShop object
+  // Create a CoffeShop object
   const shop = {
     name: req.body.name,
     filename: req.file ? req.file.filename : "",
   };
 
-  // Save coffeShop in the database
+  // Save CoffeShop in the database
   CoffeShop.create(shop)
     .then((data) => {
       res.send(data);
@@ -142,7 +142,7 @@ exports.delete = (req, res) => {
     });
   }
 
-  // Delete an coffeShop by ID
+  // Delete a CoffeShop by id
   CoffeShop.destroy({ where: { id: id } })
     .then((deleted) => {
       if (deleted) {

@@ -51,7 +51,7 @@ function StudentSettings() {
     const studentId = id || decodedId;
     if (!studentId) {
       console.error(
-        "No hay un ID disponible para buscar los datos del estudiante."
+       "There is no ID available to search for the student's data."
       );
       return;
     }
@@ -61,7 +61,7 @@ function StudentSettings() {
         const data = await getOne(studentId);
         setStudentData(data);
       } catch (error) {
-        console.error("Error al obtener el estudiante:", error.message);
+        console.error("Error with get the student:", error.message);
       }
     }
     fetchStudent();
@@ -69,7 +69,7 @@ function StudentSettings() {
   }, [id, decodedId]);
 
 
-  //!TODO 
+  //!ALL
   // 1
   // {
     // useEffect(() => {

@@ -69,11 +69,11 @@ export async function create(formData) {
     });
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error("Error in the request");
     }
 
     const user = await response.json(); // Resolviendo la promesa de la respuesta
-    console.log("Usuario creado:", user.admin);
+    console.log("User created:", user.admin);
 
     return user;
   } catch (error) {
@@ -131,7 +131,7 @@ export async function edit(id, data) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
 
       return response.json();
@@ -148,12 +148,11 @@ export async function editImg(id, data) {
 
     if (!token) {
       window.location.href = "/error";
-      return; // Asegúrate de detener la ejecución si no hay token
+      return;
     }
 
     let url = `${endpoint}/upload/${id}`;
 
-    // Crear un objeto FormData
     const formData = new FormData();
     formData.append("file", data);
 
@@ -163,17 +162,17 @@ export async function editImg(id, data) {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
-      body: formData, // Pasar directamente el objeto FormData
+      body: formData, 
     });
 
     if (!response.ok) {
       throw new Error("Error en la solicitud");
     }
 
-    const updatedData = await response.json(); // Resolviendo la promesa de la respuesta
+    const updatedData = await response.json();
     console.log("Imagen actualizada:", updatedData);
 
-    return updatedData; // Retornar los datos actualizados
+    return updatedData;
   } catch (error) {
     console.error("Error while updating admin data:", error);
     throw error;

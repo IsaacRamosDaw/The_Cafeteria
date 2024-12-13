@@ -50,7 +50,7 @@ export async function getByStudent(id) {
   const getOperation = await fetch(`${endpoint}/student/${id}`, { method: "GET", })
     .then((res) => {
       if (!res.ok) {
-        throw new Error("Error fetching dataaaaaa");
+        throw new Error("Error fetching data");
       }
       return res.json();
     })
@@ -65,7 +65,7 @@ export async function remove(id) {
   const getOperation = await fetch(`${endpoint}/${id}`, { method: "DELETE", })
     .then((res) => {
       if (!res.ok) {
-        throw new Error("Error fetching dataaaaaa");
+        throw new Error("Error fetching data");
       }
       return res.json();
     })
