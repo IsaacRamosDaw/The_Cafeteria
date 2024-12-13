@@ -11,6 +11,7 @@ import "./global.scss";
 // import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool.page.jsx"; //* School edit form
 // import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx" //* Edite coffe shop info
 
+
 //! Shared Pages
 import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
 import Orders from "./pages/orders/Orders.page.jsx"; //* Orders 
