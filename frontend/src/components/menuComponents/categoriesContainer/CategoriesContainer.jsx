@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { get, remove } from "../../../services/category.service";
-// import { getUserRole } from "../../services/utils";
+import { get } from "../../../services/category.service";
 import CategoryCard from "../categoryCard/CategoryCard";
-import { countByCategory } from "../../../services/product.service";
+import { countByCategory, findByPk } from "../../../services/product.service";
 import "./CategoriesContainer.scss";
 
 function CategoriesContainer() {
   const [categories, setCategories] = useState([]);
+  const [ productView, setProductView ] = useState({})
 
   useEffect(() => {
     async function fetchData() {
       try {
         const categoriesData = await get();
+        const product = await findByPk(1)
 
         const categoriesWithCounts = await Promise.all(
           categoriesData.map(async (category) => {
@@ -39,6 +40,7 @@ function CategoriesContainer() {
               id={category.id}
               count={category.amount}
               title={category.name}
+              
             />
           </div>
         ))}
