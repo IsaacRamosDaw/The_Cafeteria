@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./global.scss";
 
 // import Home from "./pages/home/Home.jsx";
-// import CreateCoffeShop from "./components/adminComponents/forms/coffeShopsForms/CreateCoffeShop.jsx"
 // import StudentCredits from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
 // import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx"; 
 // import StudentData from "./pages/account/Account";
-// import CreateSchool from "./components/adminComponents/forms/schoolForms/CreateSchool";
-// import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool.page.jsx"; //* School edit form
-// import EditCoffeShop from "./components/adminComponents/forms/coffeShopsForms/EditCoffeShop.jsx" //* Edite coffe shop info
 
 //! Shared Pages
 import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
@@ -20,14 +16,9 @@ import ErrorPage from "./pages/errorPage/ErrorPage.jsx"; //* Error if you dont't
 
 //! Admin Pages
 import Admin from "./pages/admin/Admin.page.jsx"; //* Admin dashboard
-import CreateAdmin from "./components/adminComponents/forms/adminForms/CreateAdmin.page.jsx"; //* Admin create
-import EditAdmin from "./components/adminComponents/forms/adminForms/EditAdmin.page.jsx"; //* Edit admin selected
-import CreateWorker from "./components/adminComponents/forms/workerForms/CreateWorker.page.jsx"; //* Create worker form
-import EditWorker from "./components/adminComponents/forms/workerForms/EditWorker.page.jsx"; //* Edite worker selected
-import CreateCourse from "./components/adminComponents/forms/coursesForms/CreateCourse.jsx" //* Create course
-import EditCourse from "./components/adminComponents/forms/coursesForms/EditCourse.jsx" //* Edit course
-import EditSchool from "./components/adminComponents/forms/schoolForms/EditSchool.page.jsx";
+import AdminForm from "./components/adminComponents/forms/adminForms/AdminForm.jsx"
 import CoffeShopsForms from "./components/adminComponents/forms/coffeShopsForms/CoffeShopsForms.jsx";
+import SchoolForm from "./components/adminComponents/forms/schoolForms/SchoolForm.jsx"
 
 //! Student Pages
 import StudentForm from "./pages/form/StudentForm.page.jsx"; //* Student form to register
@@ -41,6 +32,8 @@ import Product from "./pages/product/Product.page.jsx"; //* Product selected bef
 import WorkerProfile from "./pages/settings/workerSettings/WorkerSettings.page.jsx"; //* Worker profile
 import WorkerCoffeShop from "./pages/settings/workerSettings/workerCoffeShop/WorkerCoffeShop.page.jsx"; //* Worker Coffe shop info
 import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpdate.page.jsx"; //* Worker profile update personal info
+import WorkerForm from "./components/adminComponents/forms/workerForms/WorkerForm.jsx";
+import CourseForm from "./components/adminComponents/forms/coursesForms/CourseForm.jsx";
 
 function App() {
   return (
@@ -60,20 +53,22 @@ function App() {
 
           {/* Admin routes */}
           <Route path="/dashboard" element={<Admin />} />
-          <Route path="/admin" element={<CreateAdmin />} />
-          <Route path="/admin/:id" element={<EditAdmin />} />
-          <Route path="/course" element={<CreateCourse />} />
-          <Route path="/course/:id" element={<EditCourse />} />
+          <Route path="/admin" element={<AdminForm />} />
+          <Route path="/admin/:id" element={<AdminForm />} />
+          <Route path="/course" element={<CourseForm />} />
+          <Route path="/course/:id" element={<CourseForm />} />
 
-          {/* masnour rutes */}
+          {/* School routes */}
+          <Route path="/school" element={<SchoolForm />} />
+          <Route path="/school/:id" element={<SchoolForm />} />
+
           {/* CoffeShop routes */}
-          <Route path="/school/:id" element={<EditSchool />} />
           <Route path="/coffeShop" element={<CoffeShopsForms />} />
           <Route path="/coffeShop/:id" element={<CoffeShopsForms />} />
 
           {/* Worker routes */}
-          <Route path="/worker" element={<CreateWorker />} />
-          <Route path="/worker/:id" element={<EditWorker />} />
+          <Route path="/worker" element={<WorkerForm />} />
+          <Route path="/worker/:id" element={<WorkerForm />} />
           <Route path="/worker/profile" element={<WorkerProfile />} />
           <Route path="/worker/profile/mycafeteria" element={<WorkerCoffeShop />} />
           <Route path="/worker/profile/update" element={<WorkerUpdate />} />
@@ -91,10 +86,6 @@ function App() {
           {/* <Route path="/student/profile/credits" element={<StudentCredits />} /> */}
           {/* <Route path="/student/profile/data" element={<StudentData />} /> */}
           {/* <Route path="/student/profile/favs" element={<StudentFavs />} /> */}
-          {/* <Route path="/school" element={<CreateSchool />} /> */}
-          {/* <Route path="/school/:id" element={<EditSchool />} /> */}
-          {/* <Route path="/coffeShop" element={<CreateCoffeShop/>}/> */}
-          {/* <Route path="/coffeShop/:id" element={<EditCoffeShop/>}/> */}
 
         </Routes>
       </Router>

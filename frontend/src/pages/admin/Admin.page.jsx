@@ -1,4 +1,3 @@
-import ProfileBar from "../../components/profileBar/ProfileBar";
 import SchoolContainer from "../../components/adminComponents/schoolContainer/SchoolContainer";
 import AdminContainer from "../../components/adminComponents/adminContainer/AdminContainer";
 import WorkerContainer from "../../components/adminComponents/workerContainer/WorkerContainer";
@@ -16,7 +15,7 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 
 import Work from "@mui/icons-material/Work";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-// import School from "@mui/icons-material/School";
+import School from "@mui/icons-material/School";
 import MenuBook from "@mui/icons-material/MenuBook";
 import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +28,8 @@ function Admin() {
     { icon: <Work />, name: "Trabajador", to: "/worker" },
     { icon: <AccountCircle />, name: "Admin", to: "/admin" },
     { icon: <MenuBook />, name: "Curso", to: "/course" },
-    { icon: <LocalCafe />, name: "Cafetería", to:"/coffeShop"},
-    // { icon: <School />, name: "Colegio", to: "/school" },
+    { icon: <LocalCafe />, name: "Cafetería", to: "/coffeShop" },
+    { icon: <School />, name: "Colegio", to: "/school" },
   ];
 
   const goTo = (page) => {
@@ -53,18 +52,18 @@ function Admin() {
       >
         {actions.map((action) => (
           <SpeedDialAction
-          // sx={{
-          //   ".MuiButtonBase-root ":{
-          //     backgroundColor: "#fff",
-          //     fontSize: 28,
-          //     color: "var(--text-1)",
-          //     fontWeight: "600"
-          //   },
-          //   "& .MuiSvgIcon-root": {
-          //     fontSize: 20,
-          //     color: "#000",
-          //   },
-          // }}
+            // sx={{
+            //   ".MuiButtonBase-root ":{
+            //     backgroundColor: "#fff",
+            //     fontSize: 28,
+            //     color: "var(--text-1)",
+            //     fontWeight: "600"
+            //   },
+            //   "& .MuiSvgIcon-root": {
+            //     fontSize: 20,
+            //     color: "#000",
+            //   },
+            // }}
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}

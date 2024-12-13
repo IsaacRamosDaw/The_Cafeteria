@@ -8,6 +8,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Label from "../../../label/Label";
+import '../Form.scss'
 
 export default function CoffeShopsForms() {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export default function CoffeShopsForms() {
         <h2>Cafeteria</h2>
         <Label
           id={"name-coffeShop"}
-          placeHolder={coffeShopData.name || "Nombre de la Cafeteria"}
+          placeHolder={ id ? coffeShopData.name : "Nombre de la Cafeteria"}
           title={"Nombre"}
           type={"text"}
           ref={nameRef}
