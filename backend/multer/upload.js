@@ -2,7 +2,13 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './public/images');
+
+        const folderName = req.body.folderName
+
+        console.log( "Folder name", folderName)
+        console.log( "Body del req", req.body)
+
+        cb(null, `./public/images/${folderName}` || './public/images' );
     },
     filename: (req, file, cb) => {
         var filetype = '';
@@ -17,6 +23,9 @@ var storage = multer.diskStorage({
         }
         if(file.mimetype === 'image/jpg'){
             filetype = 'jpg';
+        }
+        if(file.mimetype === 'image/webp'){
+            filetype = 'webp';
         }
         
         cb(null, 'image-' + Date.now() + '.' + filetype);
