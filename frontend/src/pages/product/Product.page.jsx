@@ -71,6 +71,7 @@ function Product() {
       amount: quantity,
       price: parseFloat(priceShown),
     };
+    navigate("/orders")
   };
 
   return (
