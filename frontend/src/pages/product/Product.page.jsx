@@ -17,6 +17,8 @@ function Product() {
   let { category, name } = useParams();
   name = name.replace(/-/g, " ");
 
+  const folder = "http://localhost:8080/images/";
+
   const [userId, setUserId] = useState(null);
   useEffect(() => {
     setUserId(getUserId());
@@ -82,7 +84,7 @@ function Product() {
             {ordered ? <BsFillCartCheckFill className="shopping-cart" /> : ""}
             <div className="price-product"> {product.price}$ </div>
           </div>
-          <img src={product.filename} alt="Img product page" />
+          <img src={folder+product.filename || "" } alt="Img product page" />
         </div>
         <div className="container-description-product">
           <h3 className="title-product">
