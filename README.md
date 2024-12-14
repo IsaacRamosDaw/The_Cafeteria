@@ -1,6 +1,24 @@
-# Dominance Coffe App
----
+
+<div align="center">
+    <img src="frontend/public/preview.png" alt="Logo" width="150" height="150">
+    <br>
+    <h1>School Coffe ApiResftul</h1>
+</div>
+
+<details>
+    <summary>Details of contents</summary>
+        <ol>
+            <li><a href="#about-the-project">About the project</a><li>
+        </ol>
+</details>
+
 This project aims to develop an application that allows multiple schools to create and manage their own cafeteria. The app will enable students to order the food they want, ensuring it is ready by the time their break starts.
+
+<div align="center">
+    <img src="frontend/public/readmeImg/Perfil.png" alt="Logo"  height="500">
+    <img src="frontend/public/readmeImg/Categories.png" alt="Logo"  height="500">
+    <img src="frontend/public/readmeImg/Products.png" alt="Logo"  height="500">
+</div>
 
 ## Features 💫
 - **Cafeteria Creation:**  
@@ -44,6 +62,7 @@ This project aims to develop an application that allows multiple schools to crea
 - **Dependencies**: Node Js
 
 ![Static Badge](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
+<p align="right">(<a href="#about-the-project">back to top</a>)</p>
 
 
 ## Installation ⚙️
