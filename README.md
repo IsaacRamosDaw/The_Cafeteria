@@ -62,7 +62,7 @@ This project aims to develop an application that allows multiple schools to crea
 - **Dependencies**: Node Js
 
 ![Static Badge](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
-<p align="right">(<a href="#about-the-project">back to top</a>)</p>
+<p align="right" id="#about-the-project">hey</p>
 
 
 ## Installation ⚙️
