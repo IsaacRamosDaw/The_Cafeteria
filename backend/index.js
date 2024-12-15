@@ -69,7 +69,7 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "welcome to cafeteria application" });
+  res.json({ message: "Welcome to cafeteria application" });
 });
 
 require("./routes/coffeShop.routes")(app);

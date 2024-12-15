@@ -24,7 +24,7 @@ export default function EditProductModal({
 
       handleSave(productToEdit);
     } catch (error) {
-      console.error("Error al guardar el producto editado:", error);
+      console.error("Error saving the edited product:", error);
     }
   };
 

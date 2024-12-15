@@ -2,7 +2,7 @@ const db = require("../models");
 const Category = db.categories;
 
 exports.create = (req, res) => {
-    // Create an Category object
+    // Create a Category object
     const category = {
         name: req.body.name,
         amount: req.body.amount,

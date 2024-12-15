@@ -48,36 +48,6 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all workers
-// exports.findAll = (req, res) => {
-//     if (!req.user) {
-//         return res.status(403).json({ message: "Access denied. Authentication required." });
-//     }
-//         Worker.findAll()
-//             .then(data => res.send(data))
-//             .catch(err => {
-//                 res.status(500).send({
-//                     message: err.message || "Some error occurred while retrieving workers."
-//                 });
-//             });
-//     if (req.user.role === 'worker') {
-//         Worker.findByPk(req.user.id)
-//             .then(data => {
-//                 if (!data) {
-//                     return res.status(404).json({ message: "Worker not found." });
-//                 }
-//                 res.send(data);
-//             })
-//             .catch(err => {
-//                 res.status(500).send({
-//                     message: err.message || "Some error occurred while retrieving worker."
-//                 });
-//             });
-//     } else {
-//         res.status(403).json({ message: "Access denied. Invalid role." });
-//     }
-// };
-
 exports.findAll = async (req, res) => {
     if (!req.user) {
       return res.status(403).json({
@@ -208,7 +178,7 @@ exports.imgUpdate = (req, res) => {
             message: `Cannot update worker with id=${id}. worker not found.`,
           });
         }
-        res.send({ message: "worker was updated successfully." });
+        res.send({ message: "Worker was updated successfully." });
       })
       .catch((err) => {
         // Catch any error
@@ -269,43 +239,4 @@ exports.findUserByUsernameAndPassword = (req, res) => {
             });
         });
 };
-
-// exports.uploadImage = async (req, res) => {
-//     const id = req.params.id;
-
-//     if(req.user.role !== 'admin' && req.user.id !== Number(id)){
-//         return res.status(403).json({
-//             message: "Access denied."
-//         });
-//     }
-
-//     if(!req.file){
-//         return res.status(400).json({
-//             message: "Image can not upload"
-//         })
-//     }
-
-//     Worker.findByPk(worker)
-//     .then((worker) => {
-//       if (!worker) {
-//         return res.status(404).json({ message: "Trabajador no encontrado." });
-//       }
-
-//       worker.workerImage = req.file.buffer;
-
-//       return worker.save();
-//     })
-//     .then(() => {
-//         res.json({
-//             message: "Picture upload successfully"
-//         });
-//     })
-//     .catch((error) => {
-//         console.error(error);
-//         res.status(500).json({
-//             message: "Error upload the image."
-//         });
-//     });
-// }
-
 

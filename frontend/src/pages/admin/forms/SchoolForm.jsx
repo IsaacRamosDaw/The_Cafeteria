@@ -31,7 +31,7 @@ function SchoolForm() {
 
       console.log(await response.json());
     } catch (error) {
-      console.error("Error al editar:", error);
+      console.error("Error of update:", error);
     }
   };
   return (
@@ -46,13 +46,13 @@ function SchoolForm() {
         />
         <Label
           id={"password-school"}
-          placeHolder={"password of the school"}
+          placeHolder={"Password of the school"}
           title={"Password"}
           type={"password"}
         />
         <Label
           id={"phone-school"}
-          placeHolder={"phone of the school"}
+          placeHolder={"Phone of the school"}
           title={"Phone"}
           type={"number"}
         />

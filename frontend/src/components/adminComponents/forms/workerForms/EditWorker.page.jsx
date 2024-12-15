@@ -36,7 +36,7 @@ export default function EditWorker() {
       await edit(id, formData);
       navigate(-1);
     } catch (error) {
-      console.error("Error al editar:", error);
+      console.error("Error with upate:", error);
     }
   };
   

@@ -12,7 +12,7 @@ function StudentCoffeShop() {
         <h1>The Muggins</h1>
         <div>
           <img
-            src="../../../../../public/images/settings/coffeImage.jpg" // Reemplaza con tu imagen
+            src="../../../../../public/images/settings/coffeImage.jpg" // Reemplace with image
             alt="The Muggins"
             
           />

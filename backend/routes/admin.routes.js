@@ -5,15 +5,12 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // router.post("/signin", (req, res) => auth.signin(req, res, "admin"));
-
   //Create an admin
   router.post("/", admin.create);
 
   router.put("/upload/:id", upload.single('file'), admin.imgUpdate);
 
   //List all admins
-//   router.get("/", auth.isAuthenticated, admin.findAll);
   router.get("/", admin.findAll);
 
   // Get one admin

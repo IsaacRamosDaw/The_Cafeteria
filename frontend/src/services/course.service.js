@@ -97,7 +97,7 @@ export function get() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error en la solicitud");
+          throw new Error("Error in the request");
         }
         return response.json();
       })
@@ -158,7 +158,7 @@ export function get() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error en la solicitud");
+          throw new Error("Error in the request");
         }
   
         return response.json();

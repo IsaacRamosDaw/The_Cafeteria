@@ -24,12 +24,12 @@ export default function CreateCategoryModal({isModalOpen, handleSave, closeModal
             setNewCategory({ name: ''}); 
             closeModal();
         } catch (error) {
-            console.error("Error creando la categoría:", error);
+            console.error("Error creating the category:", error);
         }
     };
 
     if (!isModalOpen) return null;
-    console.log("Abrir modal", isModalOpen)
+    // console.log("Open modal", isModalOpen)
 
     return (
         <div className="modal-overlay">
