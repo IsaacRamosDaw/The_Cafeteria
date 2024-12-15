@@ -2,23 +2,39 @@
 <div align="center">
     <img src="frontend/public/preview.png" alt="Logo" width="150" height="150">
     <br>
-    <h1>School Coffe ApiResftul</h1>
+<h1>School Coffe ApiResftul</h1>
+<details>
+    <summary align="left">Content</summary>
+    <ul align="left">
+        <li><a href="#about">About the project</a></li>
+        <li><a href="#type">Type of app</a></li>
+    </ul>
+</details>
+<br>
 </div>
 
-<details>
-    <summary>Details of contents</summary>
-        <ol>
-            <li><a href="#about-the-project">About the project</a><li>
-        </ol>
-</details>
 
+<span id="about"></span>
 This project aims to develop an application that allows multiple schools to create and manage their own cafeteria. The app will enable students to order the food they want, ensuring it is ready by the time their break starts.
 
 <div align="center">
-    <img src="frontend/public/readmeImg/Perfil.png" alt="Logo"  height="500">
-    <img src="frontend/public/readmeImg/Categories.png" alt="Logo"  height="500">
-    <img src="frontend/public/readmeImg/Products.png" alt="Logo"  height="500">
+    <img src="frontend/public/readmeImg/Perfil.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/Categories.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/Products.png" alt="Logo"  height="440">
 </div>
+
+<span id="type"></span>
+
+## Type of app :gear:
+
+### RESTful API 
+
+A modern architectural style for building web applications that emphasizes a clear separation between the **frontend** and **backend**, which we are using right now. In this model, the frontend is typically developed using JavaScript frameworks like React, Angular, or Vue.js, while the backend is built using technologies such as Node.js, Django, or Ruby on Rails. The frontend communicates with the backend through HTTP requests to a RESTful API, which serves as an intermediary that handles data retrieval and manipulation.
+
+### Server-side Rendering
+
+The server-side rendering (SSR) approach is a traditional method of building web applications where the server generates the HTML content and sends it to the client. In this model, frameworks like Laravel, Ruby on Rails, or traditional PHP applications are commonly used. When a user requests a page, the server processes the request, retrieves the necessary data, and renders the complete HTML page before sending it to the browser.
+
 
 ## Features 💫
 - **Cafeteria Creation:**  
