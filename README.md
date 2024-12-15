@@ -104,12 +104,16 @@ The server-side rendering (SSR) approach is a traditional method of building web
 ### Admin
 
 The administrator will mainly see these windows, which will allow them to manage the institutes and cafeterias assigned to them, their courses, their employees, and even if they have more than one cafeteria.
-![Admin dashboard](frontend/public/readmeImg/AdminRoleDashboard.png)
+![Admin dashboard]()
+<div align="center">
+    <img src="frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
+</div>
 
 ### Worker
 
 The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
 <div align="center">
+    <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
 </div>
