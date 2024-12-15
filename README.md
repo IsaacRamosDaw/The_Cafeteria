@@ -30,6 +30,11 @@
                 <li><a href="#securityAuthentication">Authentication</a></li>
             </ul>
         </li>
+        <li><a href="#tecnologies">Tecnologies</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#authors">Authors</a></li>
+        <li><a href="#thanks">Thanks</a></li>
     </ul>
 </details>
 <br>
@@ -44,7 +49,7 @@ This project aims to develop an application that allows multiple schools to crea
 
 <span id="type"></span>
 
-## Type of App
+## Type of App :house:
 
 ### RESTful API
 
@@ -146,31 +151,32 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 
 - **Student**: Students can browse products, place orders, view their order history, and update their profile information. Their access is focused on ordering and managing their personal information.
 
+<span id="tecnologies"></span>
 ## Technologies we use 👨🏾‍💻
 
 - **Backend**: MYSQL
 
-  ![Static Badge](https://img.shields.io/badge/MYSQL-C7A20F?style=for-the-badge&logo=mysql&logoColor=yellow&labelColor=black)
+  ![Mysql](https://img.shields.io/badge/MYSQL-C7A20F?style=for-the-badge&logo=mysql&logoColor=yellow&labelColor=black)
   
-- **Frontend**: HTML5, CSS, JS
+- **Frontend**: HTML5, SCSS, JS
 
- ![Static Badge](https://img.shields.io/badge/HTML5-F80?style=for-the-badge&logo=html5&logoColor=F80&labelColor=black)
- ![Static Badge](https://img.shields.io/badge/CSS-0000FF?style=for-the-badge&logo=css3&logoColor=blue&labelColor=black)
- ![Static Badge](https://img.shields.io/badge/javascript-f7df1e?style=for-the-badge&logo=javascript&logoColor=dark&labelColor=black)
+ ![HTML](https://img.shields.io/badge/HTML5-F80?style=for-the-badge&logo=html5&logoColor=F80&labelColor=black)
+ ![CSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+ ![JS](https://img.shields.io/badge/javascript-f7df1e?style=for-the-badge&logo=javascript&logoColor=dark&labelColor=black)
 
 - **Database**: MySQL
 
-![Static Badge](https://img.shields.io/badge/Express-D2D2D2?style=for-the-badge&logo=express&logoColor=white&labelColor=black)
+![EXPRESS](https://img.shields.io/badge/Express-D2D2D2?style=for-the-badge&logo=express&logoColor=white&labelColor=black)
 
 - **ORM**: Sequelize (sql)
 
-![Static Badge](https://img.shields.io/badge/Sequelize-0000FF?style=for-the-badge&logo=sequelize&logoColor=blue&labelColor=black)
+![SEQUELIZE](https://img.shields.io/badge/Sequelize-0000FF?style=for-the-badge&logo=sequelize&logoColor=blue&labelColor=black)
 
 - **Dependencies**: Node Js
 
-![Static Badge](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
+![NODEJS](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
 
-<span id="about-the-project"></span>
+<span id="installation"></span>
 
 ## Installation ⚙️
 
@@ -201,6 +207,8 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
     npx sequelize-cli db:seed:all 
    ```
 
+<span id="usage"></span>
+
 ## Usage 🕹️
 
 1. **Welcome**:
@@ -223,6 +231,8 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 - [**Mansour**](https://github.com/mansulol)
 - [**Cynthia**](https://github.com/Cynthia300)
 - [**Isaac**](https://github.com/IsaacRamosDaw)
+
+<span id="thanks"></span>
 
 ## Thanks 🎁
 
