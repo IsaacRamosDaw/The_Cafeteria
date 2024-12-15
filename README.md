@@ -3,40 +3,77 @@
     <img src="frontend/public/preview.png" alt="Logo" width="150" height="150">
     <br>
 <h1>School Coffe ApiResftul</h1>
-<details>
-    <summary align="left">Content</summary>
-    <ul align="left">
+</div>
+<details align="left">
+    <summary align="left">List of Content</summary>
+    <ul align="left" style="list-style: none">
         <li><a href="#about">About the project</a></li>
-        <li><a href="#type">Type of app</a></li>
+            <!-- Enfoques -->
+        <li><a href="#type">Type of app</a>
+            <ul>
+                <!-- La que usamos -->
+                <li><a href="#exampleRestful">Restful Api</a></li>
+                <li><a href="#exampleServerSide">Side server renderer</a></li>
+            </ul>
+        </li>
+        <li><a href="#features">features</a></li>
+        <li><a href="#roles">Rol</a>
+            <ul>
+                <li><a href="#roleAlpha">Admin</a></li>
+                <li><a href="#roleOmega<">Worker</a></li>
+                <li><a href="#roleBeta">Student</a></li>
+            </ul>
+        </li>
+        <li><a href="#security">Security</a>
+            <ul>
+                <li><a href="#securityVerification">Verification</a></li>
+                <li><a href="#securityAuthentication">Authentication</a></li>
+            </ul>
+        </li>
     </ul>
 </details>
 <br>
-</div>
-
-
 <span id="about"></span>
 This project aims to develop an application that allows multiple schools to create and manage their own cafeteria. The app will enable students to order the food they want, ensuring it is ready by the time their break starts.
 
 <div align="center">
-    <img src="frontend/public/readmeImg/Perfil.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/Categories.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/Products.png" alt="Logo"  height="440">
 </div>
 
 <span id="type"></span>
 
-## Type of app :gear:
+## Type of App
 
-### RESTful API 
+### RESTful API
 
-A modern architectural style for building web applications that emphasizes a clear separation between the **frontend** and **backend**, which we are using right now. In this model, the frontend is typically developed using JavaScript frameworks like React, Angular, or Vue.js, while the backend is built using technologies such as Node.js, Django, or Ruby on Rails. The frontend communicates with the backend through HTTP requests to a RESTful API, which serves as an intermediary that handles data retrieval and manipulation.
+A modern architectural style for building web applications that emphasizes a clear separation between the **frontend** and **backend**, `which we are using right now`. The frontend communicates with the backend through HTTP requests to a RESTful API, which serves as an intermediary that handles data retrieval and manipulation.
+
+<span id="exampleRestful"></span>
+
+#### *Example*
+
+ ![Spring Boost](https://img.shields.io/badge/Spring_Boot-15dbd9?style=for-the-badge&logo=spring-boot&logoColor=red)
+ ![Spring Boost](https://img.shields.io/badge/Django-FF0000?style=for-the-badge&logo=django&logoColor=white)
+ ![Spring Boost](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
+<span id="exampleServerSide"></span>
 
 ### Server-side Rendering
 
-The server-side rendering (SSR) approach is a traditional method of building web applications where the server generates the HTML content and sends it to the client. In this model, frameworks like Laravel, Ruby on Rails, or traditional PHP applications are commonly used. When a user requests a page, the server processes the request, retrieves the necessary data, and renders the complete HTML page before sending it to the browser.
+The server-side rendering (SSR) approach is a traditional method of building web applications where the server generates the HTML content and sends it to the client. When a user requests a page, the server processes the request, retrieves the necessary data, and renders the complete HTML page before sending it to the browser.
 
+#### *Example*
+
+ ![Laravel](https://img.shields.io/badge/Laravel-800080?style=for-the-badge&logo=laravel&logoColor=black)
+ ![Next js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+ ![Ruby oin rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+
+<span id="features"></span>
 
 ## Features 💫
+
 - **Cafeteria Creation:**  
     Each school can register and set up their personalized cafeteria profile, including menus, operating hours, and payment methods.
 
@@ -55,9 +92,63 @@ The server-side rendering (SSR) approach is a traditional method of building web
 - **Admin Dashboard:**  
     Schools will have an admin dashboard to monitor cafeteria performance, manage orders, and analyze trends.
 
-## Technologies 👨🏾‍💻
+<span id="roles"></span>
 
-- **Backend**: MYSQL 
+## Rol :stop_sign:
+
+### Admin
+
+The administrator will mainly see these windows, which will allow them to manage the institutes and cafeterias assigned to them, their courses, their employees, and even if they have more than one cafeteria.
+![Admin dashboard](frontend/public/readmeImg/AdminRoleDashboard.png)
+
+### Worker
+
+The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
+<div align="center">
+    <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
+</div>
+
+### Student
+
+The student will be able to browse available products and categories, place orders, view their order history, and update their profile information as needed
+<div align="center">
+    <img src="frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
+    <img src="frontend/public/readmeImg/studentProduct.png" alt="Logo"  height="150">
+</div>
+
+<span id="security"></span>
+
+## Security 🔒
+
+### JWT Verification
+
+In this project, we utilize JSON Web Tokens (JWT) to handle authentication and authorization for our users, which include three distinct roles: Admin, Worker, and Student.
+
+### How JWT Works
+
+1. **User  Authentication**:
+   - When a user logs in (whether as an Admin, Worker, or Student), they provide their credentials (username and password). The server verifies these credentials against the database.
+   - Upon successful authentication, the server generates a JWT that encodes the user's information and their role. This token is then sent back to the client.
+
+2. **Token Structure**:
+   - The JWT consists of three parts: the header, the payload, and the signature. The payload contains the user's information, including their role, which is crucial for authorization purposes.
+
+3. **Client Storage**:
+   - The client stores the JWT (typically in local storage or a cookie) and includes it in the Authorization header of subsequent requests to the server. This allows the server to identify the user and their permissions without requiring them to log in again.
+
+### Role-Based Access Control Authentication (middleware)
+
+- **Admin**: Admins have full access to manage institutes, cafeterias, courses, and employees. They can create, read, update, and delete resources as needed.
+
+- **Worker**: Workers can create, edit, and delete categories and products, cancel orders, and adjust their profiles. Their access is limited to functionalities relevant to their role in the cafeteria.
+
+- **Student**: Students can browse products, place orders, view their order history, and update their profile information. Their access is focused on ordering and managing their personal information.
+
+## Technologies we use 👨🏾‍💻
+
+- **Backend**: MYSQL
 
   ![Static Badge](https://img.shields.io/badge/MYSQL-C7A20F?style=for-the-badge&logo=mysql&logoColor=yellow&labelColor=black)
   
@@ -79,30 +170,33 @@ The server-side rendering (SSR) approach is a traditional method of building web
 
 ![Static Badge](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
 
-
-
-
 <span id="about-the-project"></span>
+
 ## Installation ⚙️
 
 1. Clone the repository:
+
     ```bash
     git clone https://github.com/IsaacRamosDaw/The_Cafeteria.git
     cd TheCafeteria
     ```
 
 2. Install npm dependencies:
+
     ```bash
     npm install (Frontend)
     npm install (Backend)
     ```
 
 3. Start the engine:
+
     ```bash
     node index (backend)
     npm run dev (frontend)
     ```
+
 4. Test with database seeds
+
    ```bash
     npx sequelize-cli db:seed:all 
    ```
@@ -131,6 +225,7 @@ The server-side rendering (SSR) approach is a traditional method of building web
 - [**Isaac**](https://github.com/IsaacRamosDaw)
 
 ## Thanks 🎁
+
 - Thanks to my teacher [Tiburcio](https://github.com/tcrurav) for this experience
 - Thanks to [Villanuevand](https://github.com/Villanuevand) for the template of this readme
 - Thanks to all my classmate and partners in this prject group
