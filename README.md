@@ -120,7 +120,7 @@ The server-side rendering (SSR) approach is a traditional method of building web
 ### Admin
 
 The administrator will mainly see these windows, which will allow them to manage the institutes and cafeterias assigned to them, their courses, their employees, and even if they have more than one cafeteria.
-![Admin dashboard]()
+
 <div align="center">
     <img src="frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
 </div>
@@ -260,7 +260,7 @@ In the backend, we have used Multer as middleware to handle image uploads. The i
     3. **Risk of Local Storage**: If the server restarts or fails, locally stored images may be lost without proper backups.
 
 <span id="structure-image-alternative"></span>
-## **Alternative Approach**
+### **Alternative Approach**
 Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
 
 <div align= "center">

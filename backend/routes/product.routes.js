@@ -4,10 +4,13 @@ module.exports = (app) => {
     var router = require("express").Router();
 
     // List all products
-    router.get("/", product.findAll);
+    router.get("/", auth.isAuthenticated, product.findAll);
+
+    //Create an Product
+    router.post("/", auth.isAuthenticated, product.create);
 
     // Get one product
-    router.get("/:id", product.findOne);
+    router.get("/:id", auth.isAuthenticated, product.findOne);
 
     //List products by category
     router.get("/categories/:id", product.findByCategory);
@@ -17,9 +20,6 @@ module.exports = (app) => {
 
     // Count products
     router.get("/count/:id", product.countByCategory);
-
-    //Create an Product
-    router.post("/", auth.isAuthenticated, product.create);
 
     // Update Product
     router.put("/:id", auth.isAuthenticated, product.update);
