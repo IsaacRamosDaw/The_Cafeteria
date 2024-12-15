@@ -1,35 +1,41 @@
 const db = require("../models");
 const Order = db.order;
-const walletEndpoint = 'http://localhost:8080/api/student/wallet'
+const Wallet = db.wallet;
+
 exports.create = (req, res) => {
   const date = new Date()
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
 
-  let day = date.getDate()
-  let month = date.getMonth() + 1
-  let year = date.getFullYear()
+  const fullDate = `${month}-${day}-${year}`
 
-  let fullDate = `${month}-${day}-${year}`
-
-  let orderData = {
+  const orderData = {
     StudentId: req.body.StudentId,
     ProductId: req.body.ProductId,
-    price: req.body.price,
     date: fullDate,
   };
 
   Order.create(orderData)
-    .then((order) =>{
+    .then((order) => {
+      return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
+    })
+    .then((wallet) => {
+      if (!wallet) {
+        return res.status(404).json({
+          message: `Wallet not found`,
+        });
+      }
       res.status(201).json({
-        message: "Order created succesfully",
-        order: order,
-      })
-    }
-    )
-    .catch((err) =>
+        message: "Order created successfully and wallet decreased",
+      });
+    })
+    .catch((err) => {
+      console.error(err); // Para depuración
       res.status(500).send({
-        message: "Some error ocurred while retrieving tutorial" || err.message,
-      })
-    );
+        message: "Some error occurred: " + err.message,
+      });
+    });
 };
 
 exports.createByUrl = (req, res) => {

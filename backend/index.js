@@ -81,8 +81,9 @@ require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
 require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
-
+require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

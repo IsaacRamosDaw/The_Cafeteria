@@ -1,5 +1,6 @@
 
 <div align="center">
+    <span id="back-top"></span>
     <img src="frontend/public/preview.png" alt="Logo" width="150" height="150">
     <br>
 <h1>School Coffe ApiResftul</h1>
@@ -31,6 +32,16 @@
             </ul>
         </li>
         <li><a href="#tecnologies">Tecnologies</a></li>
+        <li><a href="#folder">Folder estructure</a>
+            <ul>
+                <li><a href="#folder-alternative">Folder alternative</a></li>
+            </ul>
+        </li>
+        <li><a href="#structure-image">Img structure</a>
+            <ul>
+                <li><a href="#structure-image-folder">Img alternative structure</a></li>
+            </ul>
+        </li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#usage">Usage</a></li>
         <li><a href="#authors">Authors</a></li>
@@ -75,6 +86,9 @@ The server-side rendering (SSR) approach is a traditional method of building web
  ![Next js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
  ![Ruby oin rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 
+<div align= "right"><a href="#back-top">Back to top</a></div>
+
+
 <span id="features"></span>
 
 ## Features 💫
@@ -96,6 +110,8 @@ The server-side rendering (SSR) approach is a traditional method of building web
 
 - **Admin Dashboard:**  
     Schools will have an admin dashboard to monitor cafeteria performance, manage orders, and analyze trends.
+
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <span id="roles"></span>
 
@@ -126,93 +142,98 @@ The student will be able to browse available products and categories, place orde
     <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/studentProduct.png" alt="Logo"  height="150">
 </div>
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
-<span id="security"></span>
+<span id="folder"></span>
+## Folder and Image Structure :file_folder:
 
-## Folder and Image Structure
+#### **Frontend**
+Uses a traditional src folder to separate concerns: components, contexts, pages, and services.
 
-- **Frontend**: Uses a traditional src folder to separate concerns: components, contexts, pages, and services.
+- **Advantages**
 
-    - **Advantages**
+    1. Clear distinction between reusable components, pages, and application logic (services).
 
-        1. Clear distinction between reusable components, pages, and application logic (services).
-
-        2. Easy to understand and scalable for small projects.
+    2. Easy to understand and scalable for small projects.
     
-    - **Disadvantages**
+- **Disadvantages**
 
-        1. If the project grows, finding all files related to a feature can become cumbersome.
+    1. If the project grows, finding all files related to a feature can become cumbersome.
 
-        2. Stylesheets are managed separately, which may lead to scattered styling logic.
+    2. Stylesheets are managed separately, which may lead to scattered styling logic.
 
-- **Backend**: Organized by type: Each folder groups similar files (controllers, routes, models, etc.).
+#### **Backend**
+Organized by type: Each folder groups similar files (controllers, routes, models, etc.).
 
-    - **Advantages**
+- **Advantages**
 
-        1. Simple and easy to understand, especially for small-to-medium-sized projects.
+    1. Simple and easy to understand, especially for small-to-medium-sized projects.
 
-        2. Separation of concerns is clear: controllers handle logic, models handle data, and routes handle endpoints.
+    2. Separation of concerns is clear: controllers handle logic, models handle data, and routes handle endpoints.
 
-        3. Popular and widely adopted for Node.js projects.
+    3. Popular and widely adopted for Node.js projects.
 
-    - **Disadvantages**
+- **Disadvantages**
 
-        1. As the project grows, it becomes harder to manage since related files (like routes and controllers) are scattered across different folders.
+    1. As the project grows, it becomes harder to manage since related files (like routes and controllers) are scattered across different folders.
 
-        2. Developers need to switch between folders to work on a single feature.
-
-- **Customizable Menus:**  
-    Cafeterias can update and customize their menu based on daily availability and special offers.
+    2. Developers need to switch between folders to work on a single feature.
 
 <div align= "center">
  <img src="frontend/public/readmeImg/structureFrontend.png" alt="Logo"  height="440">
   <img src="frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
 </div>
 
-- **Alternative Folder Structure**
+<span id="folder-alternative"></span>
+### **Alternative Folder Structure**
 
-- **Frotend**: Files are grouped by feature/module instead of by type.
+#### **Frontend** 
+Files are grouped by feature/module instead of by type.
 
-    - **Advantages**
+- **Advantages**
 
-        1. Keeps components, styles, and logic for a single feature together, making the project more modular.
+    1. Keeps components, styles, and logic for a single feature together, making the project more modular.
 
-        2. Improves maintainability as the project scales.
+    2. Improves maintainability as the project scales.
 
-        3. Easier onboarding for developers as they can focus on a single feature.
+    3. Easier onboarding for developers as they can focus on a single feature.
 
-    - **Disadvantages**
+- **Disadvantages**
 
-        1. For smaller projects, the additional folder structure can feel unnecessary.
+    1. For smaller projects, the additional folder structure can feel unnecessary.
 
-        2. Shared components or styles might be harder to manage if not organized well.
+    2. Shared components or styles might be harder to manage if not organized well.
 
 <div align= "center">
  <img src="frontend/public/readmeImg/structureFrotendExample.png" alt="Logo"  height="440">
 </div>
 
-- **Backend**: Instead of organizing by type, files are grouped by feature, like frotend example.
+#### **Backend**
+Instead of organizing by type, files are grouped by feature, like frotend example.
 
-    - **Advantages**
+- **Advantages**
 
-        1. Keeps all files related to a single feature (e.g., auth, student) in the same folder, making it easier to locate and modify code.
+    1. Keeps all files related to a single feature (e.g., auth, student) in the same folder, making it easier to locate and modify code.
 
-        2. More modular and scalable for larger projects.
+    2. More modular and scalable for larger projects.
 
-        3. Reduces the need to switch between folders when working on a feature.
+    3. Reduces the need to switch between folders when working on a feature.
 
-    - **Disadvantages**
+- **Disadvantages**
 
-        1. Adds unnecessary complexity for small projects.
+    1. Adds unnecessary complexity for small projects.
 
-        2. Can lead to code duplication if shared logic is not managed properly.
+    2. Can lead to code duplication if shared logic is not managed properly.
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <div align= "center">
  <img src="frontend/public/readmeImg/structureBackendExample.png" alt="Logo"  height="440">
 </div>
 
+<span id="structure-image"></span>
 
-- **Image structure**: In the backend, we have used Multer as middleware to handle image uploads. The images are stored in a dedicated folder within the project:
+### **Image structure**
+In the backend, we have used Multer as middleware to handle image uploads. The images are stored in a dedicated folder within the project:
 
     - **Path**: public/images/
 
@@ -220,7 +241,7 @@ The student will be able to browse available products and categories, place orde
  <img src="frontend/public/readmeImg/imageStructure.png" alt="Logo"  height="440">
 </div>
 
-  - **Advantages**
+- **Advantages**
 
     1. **Simplicity**: Easy to implement and configure using multer.
 
@@ -238,13 +259,15 @@ The student will be able to browse available products and categories, place orde
 
     3. **Risk of Local Storage**: If the server restarts or fails, locally stored images may be lost without proper backups.
 
-- **Alternative Approach**: Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
+<span id="structure-image-alternative"></span>
+## **Alternative Approach**
+Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
 
 <div align= "center">
  <img src="frontend/public/readmeImg/imageStructureExample.png" alt="Logo"  height="240">
 </div>
 
-  - **Advantages**
+- **Advantages**
 
     1. **Scalability**: Allows for storing a vast number of images without worrying about local storage limitations.
 
@@ -261,7 +284,9 @@ The student will be able to browse available products and categories, place orde
     2. **Costs**: Cloud storage services may incur additional costs based on usage (storage and bandwidth).
 
     3. **Access Control**: Requires proper permissions to manage access to uploaded images.
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
+<span id="security"></span>
 ## Security 🔒
 
 ### JWT Verification
@@ -287,6 +312,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 - **Worker**: Workers can create, edit, and delete categories and products, cancel orders, and adjust their profiles. Their access is limited to functionalities relevant to their role in the cafeteria.
 
 - **Student**: Students can browse products, place orders, view their order history, and update their profile information. Their access is focused on ordering and managing their personal information.
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <span id="tecnologies"></span>
 ## Technologies we use 👨🏾‍💻
@@ -314,6 +340,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 ![NODEJS](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
 
 <span id="installation"></span>
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 ## Installation ⚙️
 
@@ -343,6 +370,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
    ```bash
     npx sequelize-cli db:seed:all 
    ```
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <span id="usage"></span>
 
@@ -362,6 +390,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
    - Lets users edit their personal details, change their password, and update preferences such as notification settings or favorite meals.
 7. **Orders**:
    - Displays a detailed history of placed orders for students and allows them to track the status of active orders in real-time. Administrators and workers can use this section to manage and monitor order flow.
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 ## Authors ✒️
 

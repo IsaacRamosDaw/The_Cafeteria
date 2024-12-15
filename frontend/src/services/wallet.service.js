@@ -1,4 +1,4 @@
-const endpoint = `http://localhost:8080/api/student/wallet`
+const endpoint = 'http://localhost:8080/api/wallet'
 
 export function getWallet(token, id) {
   
