@@ -1,6 +1,6 @@
 const db = require("../models");
 const Order = db.order;
-
+const walletEndpoint = 'http://localhost:8080/api/student/wallet'
 exports.create = (req, res) => {
   const date = new Date()
 
@@ -13,15 +13,17 @@ exports.create = (req, res) => {
   let orderData = {
     StudentId: req.body.StudentId,
     ProductId: req.body.ProductId,
+    price: req.body.price,
     date: fullDate,
   };
 
   Order.create(orderData)
-    .then((order) =>
+    .then((order) =>{
       res.status(201).json({
         message: "Order created succesfully",
         order: order,
       })
+    }
     )
     .catch((err) =>
       res.status(500).send({
@@ -117,7 +119,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
 
   // if (req.user.role !== "student") {
   //   return res.status(403).send({

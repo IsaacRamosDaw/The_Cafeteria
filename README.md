@@ -129,6 +129,139 @@ The student will be able to browse available products and categories, place orde
 
 <span id="security"></span>
 
+## Folder and Image Structure
+
+- **Frontend**: Uses a traditional src folder to separate concerns: components, contexts, pages, and services.
+
+    - **Advantages**
+
+        1. Clear distinction between reusable components, pages, and application logic (services).
+
+        2. Easy to understand and scalable for small projects.
+    
+    - **Disadvantages**
+
+        1. If the project grows, finding all files related to a feature can become cumbersome.
+
+        2. Stylesheets are managed separately, which may lead to scattered styling logic.
+
+- **Backend**: Organized by type: Each folder groups similar files (controllers, routes, models, etc.).
+
+    - **Advantages**
+
+        1. Simple and easy to understand, especially for small-to-medium-sized projects.
+
+        2. Separation of concerns is clear: controllers handle logic, models handle data, and routes handle endpoints.
+
+        3. Popular and widely adopted for Node.js projects.
+
+    - **Disadvantages**
+
+        1. As the project grows, it becomes harder to manage since related files (like routes and controllers) are scattered across different folders.
+
+        2. Developers need to switch between folders to work on a single feature.
+
+- **Customizable Menus:**  
+    Cafeterias can update and customize their menu based on daily availability and special offers.
+
+<div align= "center">
+ <img src="frontend/public/readmeImg/structureFrontend.png" alt="Logo"  height="440">
+  <img src="frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
+</div>
+
+- **Alternative Folder Structure**
+
+- **Frotend**: Files are grouped by feature/module instead of by type.
+
+    - **Advantages**
+
+        1. Keeps components, styles, and logic for a single feature together, making the project more modular.
+
+        2. Improves maintainability as the project scales.
+
+        3. Easier onboarding for developers as they can focus on a single feature.
+
+    - **Disadvantages**
+
+        1. For smaller projects, the additional folder structure can feel unnecessary.
+
+        2. Shared components or styles might be harder to manage if not organized well.
+
+<div align= "center">
+ <img src="frontend/public/readmeImg/structureFrotendExample.png" alt="Logo"  height="440">
+</div>
+
+- **Backend**: Instead of organizing by type, files are grouped by feature, like frotend example.
+
+    - **Advantages**
+
+        1. Keeps all files related to a single feature (e.g., auth, student) in the same folder, making it easier to locate and modify code.
+
+        2. More modular and scalable for larger projects.
+
+        3. Reduces the need to switch between folders when working on a feature.
+
+    - **Disadvantages**
+
+        1. Adds unnecessary complexity for small projects.
+
+        2. Can lead to code duplication if shared logic is not managed properly.
+
+<div align= "center">
+ <img src="frontend/public/readmeImg/structureBackendExample.png" alt="Logo"  height="440">
+</div>
+
+
+- **Image structure**: In the backend, we have used Multer as middleware to handle image uploads. The images are stored in a dedicated folder within the project:
+
+    - **Path**: public/images/
+
+<div align= "center">
+ <img src="frontend/public/readmeImg/imageStructure.png" alt="Logo"  height="440">
+</div>
+
+  - **Advantages**
+
+    1. **Simplicity**: Easy to implement and configure using multer.
+
+    2. **Accessibility**: By storing images in a public folder, they can be accessed directly via a URL.
+
+            http://localhost:3000/public/images/image-123456789.png
+
+    3. **Logical Organization**: All images are centralized in a single folder, making management straightforward.
+
+- **Disadvantages**
+
+    1. **Limited Scalability**: If the number of images increases significantly, the images/ folder can become hard to manage.
+
+    2. **Filename Management**: While filenames are renamed using timestamps, there is no advanced structure (e.g., subfolders by user or categories).
+
+    3. **Risk of Local Storage**: If the server restarts or fails, locally stored images may be lost without proper backups.
+
+- **Alternative Approach**: Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
+
+<div align= "center">
+ <img src="frontend/public/readmeImg/imageStructureExample.png" alt="Logo"  height="240">
+</div>
+
+  - **Advantages**
+
+    1. **Scalability**: Allows for storing a vast number of images without worrying about local storage limitations.
+
+    2. **Security**: Images are backed up and secured in the cloud.
+
+    3. **Organized Structure**:  Images can be grouped into subfolders based on users, categories, or other logical divisions.
+
+    4. **Reliability**: Cloud storage services provide redundancy, ensuring images are not lost due to server failures.
+
+- **Disadvantages**
+
+    1. **Complexity**: Requires additional configuration to integrate cloud storage with the backend.
+
+    2. **Costs**: Cloud storage services may incur additional costs based on usage (storage and bandwidth).
+
+    3. **Access Control**: Requires proper permissions to manage access to uploaded images.
+
 ## Security 🔒
 
 ### JWT Verification
