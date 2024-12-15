@@ -42,6 +42,7 @@ export function EditCategoryModal({ isModalOpen, categoryToEdit, handleSave, clo
             <input
               id="category-name"
               type="text"
+              placeholder={categoryToEdit.name}
               value={formData.name || ""}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
