@@ -4,18 +4,20 @@ export async function create(idProduct, idUser, price) {
   let token = localStorage.getItem("token");
 
   if (!token) {
-    window.location.href = "/error";
+    window.location.href = "/err1or";
   }
+
+  console.log("idproduct:", idProduct,"iduser: ", idUser, "price: ", price)
 
   const orderData = {
     ProductId: idProduct,
     StudentId: idUser,
     price: price,
   }
-  console.log(new URLSearchParams(orderData).toString());
+  // console.log("error en order service: ", new URLSearchParams(orderData).toString());
 
   const getOperation = await fetch(endpoint, {
-    method: "GET",
+    method: "POST",
     headers: new Headers({
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
@@ -30,7 +32,7 @@ export async function create(idProduct, idUser, price) {
       return res.json();
     })
     .catch((e) => {
-      console.log(`error catch, ${e.message}`);
+      console.log(`error catch este:, ${e.message}`);
       return e;
     });
   return getOperation;

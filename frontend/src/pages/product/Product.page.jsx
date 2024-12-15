@@ -13,6 +13,7 @@ import Button from "../../components/button/Button";
 import "./Product.scss";
 
 function Product() {
+
   const navigate = useNavigate();
   let { category, name } = useParams();
   name = name.replace(/-/g, " ");
@@ -64,15 +65,11 @@ function Product() {
   };
 
   const handleOrder = () => {
-    create(userId, product.id);
-    const res = {
-      id: 1,
-      name: product.name,
-      amount: quantity,
-      price: parseFloat(priceShown),
-    };
+    create(product.id, userId, product.price);
     navigate("/orders")
   };
+
+
 
   return (
     <div id="page-product">
@@ -119,11 +116,13 @@ function Product() {
           <div className="container-control-order-product">
             {ordered ? (
               // <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
-              <Button
-                onClick={handleOrder}
-                className="btn-cancel-product"
-                text={"Cancelar"}
-              />
+              <form>
+                <Button
+                  onClick={handleOrder}
+                  className="btn-cancel-product"
+                  text={"Cancelar"}
+                />
+              </form>
             ) : (
               <Button
                 onClick={handleOrder}
