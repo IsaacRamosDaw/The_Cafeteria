@@ -2,11 +2,6 @@ const db = require("../models");
 const Course = db.course;
 
 exports.create = (req, res) => {
-  // if (!req.user.role === "admin"){
-  //   return res.status(403).json({
-  //     message: "Access denied. Authentication required.",
-  //   });
-  // }
 
   if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({
@@ -73,6 +68,7 @@ exports.findOne = (req, res) => {
     });
   });
 };
+
 exports.update = (req, res) => {
   const id = req.params.id;
 

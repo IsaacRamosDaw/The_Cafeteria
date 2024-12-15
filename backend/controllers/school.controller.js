@@ -3,9 +3,15 @@ const School = db.school;
 
 
 exports.create = (req, res) => {
-    console.log("req.body:", req.body);
-    console.log("req.file:", req.file);
+    // console.log("req.body:", req.body);
+    // console.log("req.file:", req.file);
 
+    if (!req.user || req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Access denied. Authentication required.",
+        });
+      }
+      
     const school = {
         name: req.body.name,
         address: req.body.address,
