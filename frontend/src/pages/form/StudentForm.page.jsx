@@ -16,7 +16,7 @@ function StudentForm() {
   });
 
   const [courses, setCourses] = useState([]);
-  const [errors, setErrors] = useState({}); // Estado para los errores
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ function StudentForm() {
       .catch((error) => console.error("Error :", error));
   }, []);
 
-  // Validación de campos
   function validateFields() {
     const newErrors = {};
 
