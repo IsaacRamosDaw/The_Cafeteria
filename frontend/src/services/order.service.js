@@ -12,10 +12,9 @@ export async function create(idProduct, idUser, price) {
     StudentId: idUser,
     price: price,
   }
-  console.log(new URLSearchParams(orderData).toString());
 
   const getOperation = await fetch(endpoint, {
-    method: "GET",
+    method: "POST",
     headers: new Headers({
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
@@ -30,7 +29,7 @@ export async function create(idProduct, idUser, price) {
       return res.json();
     })
     .catch((e) => {
-      console.log(`error catch, ${e.message}`);
+      console.log(`error catch este:, ${e.message}`);
       return e;
     });
   return getOperation;

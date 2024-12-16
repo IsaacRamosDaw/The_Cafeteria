@@ -6,9 +6,6 @@ module.exports = (app) => {
     // List all products
     router.get("/", auth.isAuthenticated, product.findAll);
 
-    //Create an Product
-    router.post("/", auth.isAuthenticated, product.create);
-
     // Get one product
     router.get("/:id", auth.isAuthenticated, product.findOne);
 
@@ -20,6 +17,9 @@ module.exports = (app) => {
 
     // Count products
     router.get("/count/:id", product.countByCategory);
+
+    //Create an Product
+    router.post("/", auth.isAuthenticated, product.create);
 
     // Update Product
     router.put("/:id", auth.isAuthenticated, product.update);

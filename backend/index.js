@@ -31,8 +31,8 @@ app.use(function (req, res, next) {
   var token = req.headers["authorization"];
   if (!token) return next();
 
-  console.log("Al principio: ", req.headers);
-  console.log(req.body);
+  // console.log("Al principio: ", req.headers);
+  // console.log(req.body);
 
   if (req.headers.authorization.indexOf("Basic ") === 0) {
     const base64Credentials = req.headers.authorization.split(" ")[1];

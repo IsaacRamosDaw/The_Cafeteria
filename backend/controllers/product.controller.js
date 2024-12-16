@@ -1,6 +1,23 @@
 const db = require("../models");
 const Product = db.product;
 
+exports.findAll = (req, res) => {
+	Product.findAll()
+		.then(products => {
+			if (!products) {
+				return res.status(404).json({
+					message: `Product did not found.`
+				});
+			}
+			res.send(products);
+		})
+		.catch(err => 
+			res.status(500).send({
+				message: err.message || "Some error occurred while retrieving products."
+			})
+		);
+};
+
 exports.create = (req, res) => {
   let productData = {
     name: req.body.name,
@@ -24,22 +41,6 @@ exports.create = (req, res) => {
 			);
 }
 
-exports.findAll = (req, res) => {
-	Product.findAll()
-		.then(products => {
-			if (!products) {
-				return res.status(404).json({
-					message: `Product did not found.`
-				});
-			}
-			res.send(products);
-		})
-		.catch(err => 
-			res.status(500).send({
-				message: err.message || "Some error occurred while retrieving products."
-			})
-		);
-};
 
 exports.findByCategory = (req, res) => {
   const categoryId = Number(req.params.id);

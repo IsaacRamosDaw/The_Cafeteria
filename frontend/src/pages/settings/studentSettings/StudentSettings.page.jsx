@@ -112,12 +112,6 @@ function StudentSettings() {
             toggle={true}
           />
           <Setting
-            icon={<MdOutlineLocalCafe />}
-            to={"/student/profile/mycafeteria"}
-            text={"Mi Cafetería"}
-          />
-          <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} />
-          <Setting
             icon={<MdOutlinePrivacyTip />}
             to={"/profile/policy"}
             text={"Política de privacidad"}
@@ -141,3 +135,10 @@ function StudentSettings() {
 }
 
 export default StudentSettings;
+
+          {/* <Setting
+            icon={<MdOutlineLocalCafe />}
+            to={"/student/profile/mycafeteria"}
+            text={"Mi Cafetería"}
+          /> */}
+          {/* <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} /> */}
