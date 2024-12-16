@@ -11,8 +11,6 @@ module.exports = app => {
     //List all schools
     router.get("/", school.findAll);
 
-  router.put("/upload/:id", upload.single('file'), school.imgUpdate);
-
     router.get("/:id", school.findOne);
 
     // Update school

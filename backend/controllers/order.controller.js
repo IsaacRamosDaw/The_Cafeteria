@@ -18,6 +18,7 @@ exports.create = (req, res) => {
 
   Order.create(orderData)
     .then((order) => {
+      // Decrement wallet
       return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
     })
     .then((wallet) => {

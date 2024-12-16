@@ -4,6 +4,8 @@ module.exports = (app) => {
 
 	var router = require("express").Router();
 
+	// Create is in student controller
+
 	// Retrieve wallet from student
 	router.get("/:id", auth.isAuthenticated,  wallet.findOne);
 
