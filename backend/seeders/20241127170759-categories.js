@@ -8,23 +8,23 @@ module.exports = {
       [
         {
           name: "Bebidas",
-          filename: "../public/images/ImgMenus/bebidas.jpg",
-          amount: 13
+          // filename: "../public/images/ImgMenus/bebidas.jpg",
+          // amount: 13
         },
         {
           name: "Refrescos",
-          filename: "../public/images/ImgMenus/bebidas.jpg",
-          amount: 7
+          // filename: "../public/images/ImgMenus/bebidas.jpg",
+          // amount: 7
         },
         {
           name: "Bocadillos",
-          filename: "../public/images/ImgMenus/bebidas.jpg",
-          amount: 3
+          // filename: "../public/images/ImgMenus/bebidas.jpg",
+          // amount: 3
         },
         {
           name: "Sandwiches",
-          filename: "../public/images/ImgMenus/bebidas.jpg",
-          amount: 19
+          // filename: "../public/images/ImgMenus/bebidas.jpg",
+          // amount: 19
         },
       ],
       {}
