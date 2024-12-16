@@ -16,7 +16,10 @@ exports.create = (req, res) => {
     username: req.body.username,
     password: req.body.password,
     role: "admin",
+    filename: req.file ? req.file.filename : "",
   };
+
+  console.log(admin);
 
   admin.password = bcrypt.hashSync(req.body.password);
 
@@ -166,7 +169,7 @@ exports.imgUpdate = (req, res) => {
 
   console.log(req.user);
 
-  if (req.user.role != "admin" ) {
+  if (req.user.role != "admin") {
     return res.status(403).send({
       message: "Access denied. You can only update your own data.",
     });
