@@ -112,8 +112,19 @@ export async function remove(id) {
   if (!token) {
     window.location.href = "/error";
   }
+
+  const idObject = {
+    id: id
+  }
   
-  const getOperation = await fetch(`${endpoint}/${id}`, { method: "DELETE", })
+  const getOperation = await fetch(endpoint, { method: "DELETE", 
+      headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+    body: new URLSearchParams(idObject).toString()
+  })
     .then((res) => {
       if (!res.ok) {
         throw new Error("Error fetching data");
@@ -124,5 +135,6 @@ export async function remove(id) {
       console.log(`error catch, ${e.message}`);
       return e;
     });
+
   return getOperation;
 }
