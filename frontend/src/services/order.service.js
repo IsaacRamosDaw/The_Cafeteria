@@ -4,17 +4,14 @@ export async function create(idProduct, idUser, price) {
   let token = localStorage.getItem("token");
 
   if (!token) {
-    window.location.href = "/err1or";
+    window.location.href = "/error";
   }
-
-  console.log("idproduct:", idProduct,"iduser: ", idUser, "price: ", price)
 
   const orderData = {
     ProductId: idProduct,
     StudentId: idUser,
     price: price,
   }
-  // console.log("error en order service: ", new URLSearchParams(orderData).toString());
 
   const getOperation = await fetch(endpoint, {
     method: "POST",

@@ -5,13 +5,13 @@ module.exports = (app) => {
 	var router = require("express").Router();
 
 	// Retrieve wallet from student
-	router.get("/:id", auth.isAuthenticated, wallet.findOne);
+	router.get("/:id",  wallet.findOne);
 
 	// Increase wallet amount
 	router.put("/increase", auth.isAuthenticated, wallet.addCredits);
 
 	// Create is on student controller
-
+	
 	// Decremente is on order controller
 
 	app.use('/api/wallet', router);

@@ -1,13 +1,13 @@
 const endpoint = "http://localhost:8080/api/products";
 
-export function get() {
+export async function get() {
   let token = localStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/error";
   }
 
-  const getOperation = fetch(endpoint, {
+  const getOperation =await fetch(endpoint, {
     method: "GET",
     headers: new Headers({
       Authorization: `Bearer ${token}`,
@@ -29,16 +29,16 @@ export function get() {
 }
 
 export function findByPk(id) {
-  // let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
-  // if (!token) {
-  //   window.location.href = "/error";
-  // }
+  if (!token) {
+    window.location.href = "/error";
+  }
 
   const getOneOperation = fetch(`${endpoint}/${id}`, {
     method: "GET",
     headers: new Headers({
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     }),
@@ -67,8 +67,8 @@ export function getByCategory(idCategory) {
   const getOperation = fetch(`${endpoint}/categories/${idCategory}`, {
     method: "GET",
     headers: new Headers({
-      // Authorization: `Bearer ${token}`,
-      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
