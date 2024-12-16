@@ -26,4 +26,4 @@ module.exports = (app) => {
   router.delete("/:id", auth.isAuthenticated, admin.delete);
 
   app.use("/api/admin", router);
-};
+}; 

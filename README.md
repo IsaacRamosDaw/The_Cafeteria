@@ -52,6 +52,8 @@
 <span id="about"></span>
 This project aims to develop an application that allows multiple schools to create and manage their own cafeteria. The app will enable students to order the food they want, ensuring it is ready by the time their break starts.
 
+<p>
+
 <div align="center">
     <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
@@ -59,6 +61,8 @@ This project aims to develop an application that allows multiple schools to crea
 </div>
 
 <span id="type"></span>
+
+---
 
 ## Type of App :house:
 
@@ -86,10 +90,10 @@ The server-side rendering (SSR) approach is a traditional method of building web
  ![Next js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
  ![Ruby oin rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 
+
+---
 <div align= "right"><a href="#back-top">Back to top</a></div>
-
-
-<span id="features"></span>
+<p id="features"></p>
 
 ## Features 💫
 
@@ -115,6 +119,8 @@ The server-side rendering (SSR) approach is a traditional method of building web
 
 <span id="roles"></span>
 
+---
+
 ## Rol :stop_sign:
 
 ### Admin
@@ -125,6 +131,8 @@ The administrator will mainly see these windows, which will allow them to manage
     <img src="frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
 </div>
 
+---
+
 ### Worker
 
 The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
@@ -133,6 +141,8 @@ The worker will have the ability to create, edit, and delete categories and prod
     <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
     <img src="frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
 </div>
+
+---
 
 ### Student
 
@@ -143,6 +153,8 @@ The student will be able to browse available products and categories, place orde
     <img src="frontend/public/readmeImg/studentProduct.png" alt="Logo"  height="150">
 </div>
 <div align= "right"><a href="#back-top">Back to top</a></div>
+
+---
 
 <span id="folder"></span>
 ## Folder and Image Structure :file_folder:
@@ -183,6 +195,8 @@ Organized by type: Each folder groups similar files (controllers, routes, models
  <img src="frontend/public/readmeImg/structureFrontend.png" alt="Logo"  height="440">
   <img src="frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
 </div>
+
+---
 
 <span id="folder-alternative"></span>
 ### **Alternative Folder Structure**
@@ -231,6 +245,8 @@ Instead of organizing by type, files are grouped by feature, like frotend exampl
 </div>
 
 <span id="structure-image"></span>
+
+---
 
 ### **Image structure**
 In the backend, we have used Multer as middleware to handle image uploads. The images are stored in a dedicated folder within the project:
@@ -286,6 +302,8 @@ Another option would be to store images in a cloud storage service like Amazon S
     3. **Access Control**: Requires proper permissions to manage access to uploaded images.
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
+---
+
 <span id="security"></span>
 ## Security 🔒
 
@@ -314,33 +332,48 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 - **Student**: Students can browse products, place orders, view their order history, and update their profile information. Their access is focused on ordering and managing their personal information.
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
+---
+
 <span id="tecnologies"></span>
 ## Technologies we use 👨🏾‍💻
 
-- **Backend**: MYSQL
-
-  ![Mysql](https://img.shields.io/badge/MYSQL-C7A20F?style=for-the-badge&logo=mysql&logoColor=yellow&labelColor=black)
-  
-- **Frontend**: HTML5, SCSS, JS
-
- ![HTML](https://img.shields.io/badge/HTML5-F80?style=for-the-badge&logo=html5&logoColor=F80&labelColor=black)
- ![CSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
- ![JS](https://img.shields.io/badge/javascript-f7df1e?style=for-the-badge&logo=javascript&logoColor=dark&labelColor=black)
-
 - **Database**: MySQL
 
-![EXPRESS](https://img.shields.io/badge/Express-D2D2D2?style=for-the-badge&logo=express&logoColor=white&labelColor=black)
+![Mysql](https://img.shields.io/badge/MYSQL-C7A20F?style=for-the-badge&logo=mysql&logoColor=yellow&labelColor=black)
 
-- **ORM**: Sequelize (sql)
+- **ORM**: Sequelize
 
 ![SEQUELIZE](https://img.shields.io/badge/Sequelize-0000FF?style=for-the-badge&logo=sequelize&logoColor=blue&labelColor=black)
 
-- **Dependencies**: Node Js
+- **Server**: NodeJS, Express
 
-![NODEJS](https://img.shields.io/badge/NODE_JS-5fa04e?style=for-the-badge&logo=node.js&logoColor=5fa04e&labelColor=black&color=5fa04e)
+![EXPRESS](https://img.shields.io/badge/Express-D2D2D2?style=for-the-badge&logo=express&logoColor=white&labelColor=black)
+![Static Badge](https://img.shields.io/badge/JWT-6DA55F?style=for-the-badge&logo=node.js&logoColor=6DA55F&labelColor=000)
 
-<span id="installation"></span>
+
+- **Middlewares**: Multer, JWT
+
+![Static Badge](https://img.shields.io/badge/MULTER-ffb362?style=for-the-badge&logo=MULTER&logoColor=e91e63&labelColor=000)
+![Static Badge](https://img.shields.io/badge/JWT-d63aff?style=for-the-badge&logo=json&logoColor=d63aff&labelColor=000)
+
+  
+- **Frontend**: HTML5, SCSS, JS, React
+
+ ![HTML](https://img.shields.io/badge/HTML5-F80?style=for-the-badge&logo=html5&logoColor=F80&labelColor=black)
+![Static Badge](https://img.shields.io/badge/SASS-CC6699?style=for-the-badge&logo=SASS&logoColor=CC6699&labelColor=000)
+ ![JS](https://img.shields.io/badge/javascript-f7df1e?style=for-the-badge&logo=javascript&logoColor=dark&labelColor=black)
+ ![Static Badge](https://img.shields.io/badge/React-7ddfff?style=for-the-badge&logo=react&labelColor=000)
+
+
+- **Dependencies**: React icons, MUI React UI
+
+![Static Badge](https://img.shields.io/badge/MUI%20REACT%20UI-0073e6?style=for-the-badge&logo=mui&labelColor=000)
+![Static Badge](https://img.shields.io/badge/REACT%20ICONS-e91e63?style=for-the-badge&logo=react&logoColor=e91e63&labelColor=000)
+
+---
+
 <div align= "right"><a href="#back-top">Back to top</a></div>
+<p id="installation"></p>
 
 ## Installation ⚙️
 
@@ -374,6 +407,8 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 
 <span id="usage"></span>
 
+---
+
 ## Usage 🕹️
 
 1. **Welcome**:
@@ -391,6 +426,8 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 7. **Orders**:
    - Displays a detailed history of placed orders for students and allows them to track the status of active orders in real-time. Administrators and workers can use this section to manage and monitor order flow.
 <div align= "right"><a href="#back-top">Back to top</a></div>
+
+---
 
 ## Authors ✒️
 
