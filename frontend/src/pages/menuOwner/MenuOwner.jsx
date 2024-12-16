@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
-import "./MenuOwner.scss";
-import { FaTrash } from "react-icons/fa";
-import { HiPencilSquare } from "react-icons/hi2";
-import { get as getCategories, create as createCategory, remove as removeCategory } from "../../services/category.service";
-import { getByCategory as getProducts, remove, create as createProducts } from "../../services/product.service";
 import EditProductModal from "../../components/workerComponents/EditProductModal";
-import { FaPlus } from "react-icons/fa";
-import { FaCirclePlus } from "react-icons/fa6";
 import CreateCategoryModal from "../../components/workerComponents/CreateCategoryModal";
 import CreateProductModal from "../../components/workerComponents/CreateProductModal";
 import { EditCategoryModal } from "../../components/workerComponents/EditCategoryModal";
 
+import { FaTrash } from "react-icons/fa";
+import { HiPencilSquare } from "react-icons/hi2";
+import { FaPlus } from "react-icons/fa";
+import { FaCirclePlus } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+
+import { get as getCategories, create as createCategory, remove as removeCategory } from "../../services/category.service";
+import { getByCategory as getProducts, remove, create as createProducts } from "../../services/product.service";
+
+import "./MenuOwner.scss";
+
 export default function MenuOwner() {
+
   const [categoryId, setCategoryId] = useState();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState({});
+
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
   const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(false);
+
   const [productToEdit, setProductToEdit] = useState(null);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
+
   const [newCategory, setNewCategory] = useState({ name: '', amount: '' });
-  const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    CategoryId: ''
-  });
 
 // Load categories and products
   useEffect(() => {
@@ -95,6 +96,7 @@ export default function MenuOwner() {
       console.error(`Error delete a product with id ${id}:`, error);
     }
   };
+
   const handleDeleteCategory = async (id) => {
     try {
       await removeCategory(id);
@@ -204,22 +206,6 @@ export default function MenuOwner() {
       ))}
       <FaPlus onClick={() => setIsCreateCategoryModalOpen(true)} />
 
-      <EditProductModal
-        isModalOpen={isEditProductModalOpen}
-        productToEdit={productToEdit}
-        handleSave={handleSave}
-        closeModal={closeModal}
-        setProductToEdit={setProductToEdit}
-      />
-
-      <EditCategoryModal
-        isModalOpen={isEditCategoryModalOpen}
-        categoryToEdit={categoryToEdit}
-        handleSave={handleSaveCategory}
-        closeModal={closeModal}
-        setCategoryToEdit={setCategoryToEdit}
-      />
-
       <CreateCategoryModal
         isModalOpen={isCreateCategoryModalOpen}
         handleSave={handleCreate}
@@ -231,6 +217,22 @@ export default function MenuOwner() {
         }}
       />
 
+      <EditCategoryModal
+        isModalOpen={isEditCategoryModalOpen}
+        categoryToEdit={categoryToEdit}
+        handleSave={handleSaveCategory}
+        closeModal={closeModal}
+        setCategoryToEdit={setCategoryToEdit}
+      />
+
+      <EditProductModal
+        isModalOpen={isEditProductModalOpen}
+        productToEdit={productToEdit}
+        handleSave={handleSave}
+        closeModal={closeModal}
+        setProductToEdit={setProductToEdit}
+      />
+
       <CreateProductModal
         isModalOpen={isCreateProductModalOpen}
         handleSave={handleCreateProduct}
@@ -240,3 +242,10 @@ export default function MenuOwner() {
     </div>
   );
 }
+
+  // const [newProduct, setNewProduct] = useState({
+  //   name: '',
+  //   description: '',
+  //   price: '',
+  //   CategoryId: ''
+  // });

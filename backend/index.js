@@ -43,8 +43,8 @@ app.use(function (req, res, next) {
     req.body.username = username;
     req.body.password = password;
 
-    console.log("En medio: ", req.headers);
-    console.log(req.body);
+    // console.log("En medio: ", req.headers);
+    // console.log(req.body);
 
     return next();
   }
@@ -66,7 +66,7 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to cafeteria application" });
+  res.json({ message: "Welcome to Coffe Shop application" });
 });
 
 require("./routes/coffeShop.routes")(app);
