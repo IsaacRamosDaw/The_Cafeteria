@@ -182,7 +182,6 @@ exports.imgUpdate = (req, res) => {
   Admin.update(updateAdmin, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the admin was not found
         return res.status(404).send({
           message: `Cannot update admin with id=${id}. admin not found.`,
         });
@@ -190,7 +189,6 @@ exports.imgUpdate = (req, res) => {
       res.send({ message: "admin was updated successfully." });
     })
     .catch((err) => {
-      // Catch any error
       res.status(500).send({
         message: err.message || "An error occurred while updating the admin.",
       });

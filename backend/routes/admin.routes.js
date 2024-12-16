@@ -8,6 +8,7 @@ module.exports = (app) => {
   //Create an admin
   router.post("/", admin.create);
 
+
   router.post("/upload/:folderName", upload.single('file'), admin.create);
 
   router.put("/upload/:id", upload.any('file'), admin.imgUpdate);

@@ -3,12 +3,6 @@ module.exports = (app) => {
 	const auth = require("../controllers/auth.js");
   var router = require("express").Router();
 
-  // Create a orders 
-  // router.post("/", auth.isAuthenticated, order.create);
-
-  // Create a orders 
-  // router.post("/", auth.isAuthenticated, order.createByUrl);
-
   router.post("/", auth.isAuthenticated, order.create);
 
   // Retrieve all orders 

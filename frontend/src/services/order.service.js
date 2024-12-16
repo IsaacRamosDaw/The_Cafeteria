@@ -84,6 +84,7 @@ export async function getByStudent(id) {
   if (!token) {
     window.location.href = "/error";
   }
+
   const getOperation = await fetch(`${endpoint}/student/${id}`, {
     method: "GET",
     headers: new Headers({
@@ -106,6 +107,12 @@ export async function getByStudent(id) {
 }
 
 export async function remove(id) {
+  let token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/error";
+  }
+  
   const getOperation = await fetch(`${endpoint}/${id}`, { method: "DELETE", })
     .then((res) => {
       if (!res.ok) {

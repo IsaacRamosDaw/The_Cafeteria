@@ -31,9 +31,6 @@ app.use(function (req, res, next) {
   var token = req.headers["authorization"];
   if (!token) return next();
 
-  // console.log("Al principio: ", req.headers);
-  // console.log(req.body);
-
   if (req.headers.authorization.indexOf("Basic ") === 0) {
     const base64Credentials = req.headers.authorization.split(" ")[1];
     const credentials = Buffer.from(base64Credentials, "base64").toString(
@@ -41,7 +38,7 @@ app.use(function (req, res, next) {
     );
     const [username, password] = credentials.split(":");
 
-    console.log("Decodificacion base64", username, password)
+    // console.log("Decodificacion base64", username, password)
 
     req.body.username = username;
     req.body.password = password;

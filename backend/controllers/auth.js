@@ -15,7 +15,7 @@ exports.signin = async (req, res) => {
 
   try {
     let user = await login(username);
-    console.log(user);
+    // console.log(user);
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -50,10 +50,10 @@ exports.isAuthenticated = (req, res, next) => {
         message: "Invalid token.",
       });
 
-    const { role: userType , id: userId} = user;
+    const { role: userRole , id: userId } = user;
 
     let User;
-    switch (userType) {
+    switch (userRole) {
       case "admin":
         User = db.admins;
         break;
@@ -70,7 +70,6 @@ exports.isAuthenticated = (req, res, next) => {
     User.findByPk(userId)
       .then((data) => {
         if (!user.id) {
-          console.log("hoola")
           return res.status(401).json({
             error: true,
             message: "Invalid user.",
@@ -81,7 +80,7 @@ exports.isAuthenticated = (req, res, next) => {
       })
       .catch((err) => {
         res.status(500).send({
-          message: `Error retrieving User with id=${userId}`,
+          message: `Error retrieving User with id=${userId}`, err,
         });
       });
   });
