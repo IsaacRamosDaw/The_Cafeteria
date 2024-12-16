@@ -2,10 +2,18 @@ import { useEffect, useState } from "react";
 import "./MenuOwner.scss";
 import { FaTrash } from "react-icons/fa";
 import { HiPencilSquare } from "react-icons/hi2";
-import { get as getCategories, create as createCategory, remove as removeCategory } from "../../services/category.service";
-import { getByCategory as getProducts, remove, create as createProducts } from "../../services/product.service";
+import {
+  get as getCategories,
+  create as createCategory,
+  remove as removeCategory,
+} from "../../services/category.service";
+import {
+  getByCategory as getProducts,
+  remove,
+  create as createProducts,
+} from "../../services/product.service";
 import EditProductModal from "../../components/workerComponents/EditProductModal";
-import { FaPlus } from "react-icons/fa";
+import { FiPlusCircle } from "react-icons/fi";
 import { FaCirclePlus } from "react-icons/fa6";
 import CreateCategoryModal from "../../components/workerComponents/CreateCategoryModal";
 import CreateProductModal from "../../components/workerComponents/CreateProductModal";
@@ -17,19 +25,21 @@ export default function MenuOwner() {
   const [products, setProducts] = useState({});
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
-  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
-  const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(false);
+  const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
+    useState(false);
+  const [isCreateProductModalOpen, setIsCreateProductModalOpen] =
+    useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
-  const [newCategory, setNewCategory] = useState({ name: '', amount: '' });
+  const [newCategory, setNewCategory] = useState({ name: "", amount: "" });
   const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    CategoryId: ''
+    name: "",
+    description: "",
+    price: "",
+    CategoryId: "",
   });
 
-// Load categories and products
+  // Load categories and products
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
@@ -54,10 +64,10 @@ export default function MenuOwner() {
     e.preventDefault();
     try {
       await createCategory(newCategory);
-      const updatedCategories = await getCategories();// Refresh categories
+      const updatedCategories = await getCategories(); // Refresh categories
       setCategories(updatedCategories);
       setIsCreateCategoryModalOpen(false);
-      setNewCategory({ name: '', amount: '' });
+      setNewCategory({ name: "", amount: "" });
     } catch (error) {
       console.error("Error creating the category:", error);
     }
@@ -109,12 +119,13 @@ export default function MenuOwner() {
         return updatedProducts;
       });
 
-      console.log(`Category with ID ${id} and its associated products deleted.`);
+      console.log(
+        `Category with ID ${id} and its associated products deleted.`
+      );
     } catch (error) {
       console.error(`Error delete the category with id ${id}:`, error);
     }
   };
-
 
   // Edit product
   const handleEdit = (product) => {
@@ -161,6 +172,13 @@ export default function MenuOwner() {
 
   return (
     <div id="owner-menu-page-container">
+      <div
+        onClick={() => setIsCreateCategoryModalOpen(true)}
+        className="container-add-category"
+      >
+        <h4>Añadir categoria</h4>
+        <FiPlusCircle className="icon-add-category" />
+      </div>
       {categories.map((category) => (
         <section key={category.id} className="container-category-owner">
           <div className="container-title-category-owner">
@@ -177,14 +195,19 @@ export default function MenuOwner() {
             {products[category.id]?.map((product) => (
               <div key={product.id} className="container-category-item">
                 <div className="container-img-category-item">
-                  <img src="/images/ImgMenus/cafeExpreso.jpg" alt="Img category" />
+                  <img
+                    src="/images/ImgMenus/cafeExpreso.jpg"
+                    alt="Img category"
+                  />
                 </div>
                 <div className="container-info-category">
                   <div className="container-text-item">
                     <p>{product.name}</p>
                   </div>
                   <div className="container-control-price-item-category">
-                    <span className="text-price-item-category">{product.price}€</span>
+                    <span className="text-price-item-category">
+                      {product.price}€
+                    </span>
                     <div className="container-control-item-category">
                       <HiPencilSquare onClick={() => handleEdit(product)} />
                       <FaTrash onClick={() => handleDelete(product.id)} />
@@ -193,16 +216,19 @@ export default function MenuOwner() {
                 </div>
               </div>
             ))}
-            <FaCirclePlus className="add-product-button"
+            <div
               onClick={() => {
                 setIsCreateProductModalOpen(true);
                 setCategoryId(category.id);
               }}
-            />
+              className="container-add-product"
+            >
+              <h4>Añadir producto</h4>
+              <FaCirclePlus className="add-product-button" />
+            </div>
           </section>
         </section>
       ))}
-      <FaPlus onClick={() => setIsCreateCategoryModalOpen(true)} />
 
       <EditProductModal
         isModalOpen={isEditProductModalOpen}

@@ -1,42 +1,48 @@
-import { useEffect, useState } from "react"
-import { get } from "../../../services/category.service"
-import CategoryCard from "../categoryCard/CategoryCard"
-import { countByCategory, getFirstByCategory } from "../../../services/product.service"
-import "./CategoriesContainer.scss"
+import { useEffect, useState } from "react";
+import { get } from "../../../services/category.service";
+import CategoryCard from "../categoryCard/CategoryCard";
+import {
+  countByCategory,
+  getFirstByCategory,
+} from "../../../services/product.service";
+import "./CategoriesContainer.scss";
 
 function CategoriesContainer() {
-  const [categories, setCategories] = useState([])
-  const [productImages, setProductImages] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [productImages, setProductImages] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const categoriesData = await get()
+        const categoriesData = await get();
 
-        const categoriesWithCounts = await Promise.all(
-          categoriesData.map(async (category) => {
-            const count = await countByCategory(category.id)
-            return { ...category, amount: count }
-          })
-        )
-        setCategories(categoriesWithCounts)
+        const categoriesWithCounts = [];
 
-        const images = {}
+        for (const category of categoriesData) {
+          const count = await countByCategory(category.id);
+          categoriesWithCounts.push({ ...category, amount: count });
+        }
+
+        setCategories(categoriesWithCounts);
+
+        const images = {};
         for (const category of categoriesWithCounts) {
-          const product = await getFirstByCategory(category.id)
+          const product = await getFirstByCategory(category.id);
           // Creamos una nueva entra en el objeto y su valor es el filename
-          images[category.id] = product?.filename || ""
+          images[category.id] = product?.filename || "";
           // Esto es lo mismo que: images = { 1 : "img-test.jpeg" }
         }
-        setProductImages(images)
-
+        setProductImages(images);
       } catch (error) {
-        console.error("Error al obtener categorías, conteos o imágenes:", error)
+        console.error(
+          "Error al obtener categorías, conteos o imágenes:",
+          error
+        );
       }
     }
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <section className="category-cards-container">
@@ -53,7 +59,7 @@ function CategoriesContainer() {
         ))}
       </main>
     </section>
-  )
+  );
 }
 
-export default CategoriesContainer
+export default CategoriesContainer;
