@@ -96,7 +96,9 @@ export function getFirstByCategory(idCategory) {
   const getOperation = fetch(`${endpoint}/category/${idCategory}`, {
     method: "GET",
     headers: new Headers({
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
     .then((response) => {
@@ -125,6 +127,8 @@ export async function countByCategory(idCategory) {
     const response = await fetch(`${endpoint}/count/${idCategory}`, {
       method: "GET",
       headers: new Headers({
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       }),
     });
