@@ -26,6 +26,18 @@
       font-weight: 600;
       color: var(--text-1);
     }
+
+    @media (min-width: 800px) {
+      .text-credit-balance {
+        font-size: $font-t-H1;
+      }
+    }
+  }
+
+  @media (min-width: 800px) {
+    .container-credit-balance {
+      height: 20vh;
+    }
   }
 
   .container-control-credit-add {
@@ -48,47 +60,52 @@
     .btn-credits-balance:active {
       transform: scale(.8);
     }
-  }
-}
 
-.modal-container {
-  width: 75%;
-  .content-modal {
-    width: 100%;
-
-    div{
-      width: 100%;
-    }
-
-    .input-inputform-setting-1{
-      height: 40px;
-      margin-top: 0;
-    }
-
-    .container-radio-list {
-      margin: 0;
-
-      .card-radio-item-credit{
-          font-size: 40px;
+    @media (min-width: 800px) {
+      .btn-credits-balance {
+          font-size: $font-t-body-small;
+          padding: 30px;
       }
     }
   }
 
-  .btn-modal-credits {
-    height: 35px;
-    width: 50%;
-    max-width: 170px;
-    padding: 0 20px;
-    @include flex-items;
-    border: 0;
-    border-radius: 10px;
-    background-color: var(--background-3);
-    color: var(--text-2);
-    font-size: $font-body-small;
-    font-weight: 600;
-  }
-}
+  .modal-container {
+    width: 75%;
 
-.text-option-credits {
-  color: var(--text-1);
+    .content-modal {
+      width: 100%;
+
+      div {
+        width: 100%;
+      }
+
+      .input-inputform-setting-1 {
+        height: 40px;
+        margin-top: 0;
+      }
+
+      .container-radio-list {
+        margin: 0;
+
+        .card-radio-item-credit {
+          font-size: 40px;
+        }
+      }
+    }
+
+    .btn-modal-credits {
+      height: 35px;
+      width: 50%;
+      max-width: 170px;
+      padding: 0 20px;
+      @include flex-items;
+      border: 0;
+      border-radius: 10px;
+      background-color: var(--background-3);
+      color: var(--text-2);
+      font-size: $font-body-small;
+      font-weight: 600;
+    }
+
+  }
 }

@@ -77,3 +77,27 @@
     }
   }
 }
+
+@media (min-width: 800px) {
+
+  // OWNER SIDE
+
+  .order-card {
+
+    header.card-order-header {
+      p {
+        font-size: $font-size-medium-big;
+        font-weight: 700;
+      }
+    }
+
+    .card-order-content p {
+      font-size: $font-size-medium-big;
+    }
+
+    .container-btn-card-order .btn-card-order {
+      height: 125%;
+      font-size: 1.5em;
+    }
+  }
+}

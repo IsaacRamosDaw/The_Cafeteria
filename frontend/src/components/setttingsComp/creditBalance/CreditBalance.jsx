@@ -56,7 +56,7 @@ export default function WalletBalance() {
   return (
     <section id="credits-balance-container">
       <div className="container-credit-balance">
-        <h1 className="text-credit-balance"> {walletAmount}€ </h1>
+        <h1 className="text-credit-balance" id="wallet-amount"> {walletAmount}€ </h1>
       </div>
 
       <div className="container-control-credit-add">

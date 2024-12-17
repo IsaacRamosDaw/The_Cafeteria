@@ -57,7 +57,7 @@ function Orders() {
           ? <BsCupHot  className="cup-img-logo" /> 
           : orders.map((order, index) => {
           {
-            return role === "worker" ? (
+            return getUserRole() === "worker" ? (
               <Order
                 key={index}
                 orderId={order.id}

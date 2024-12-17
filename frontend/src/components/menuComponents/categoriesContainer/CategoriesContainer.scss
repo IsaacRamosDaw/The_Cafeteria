@@ -23,3 +23,9 @@
         }
     }
 }
+
+@media (min-width: 800px){
+    .category-cards-container main#category-container-card div{
+        height: 20vh;
+    }
+}

@@ -61,7 +61,7 @@ const cancelOrder = () => {
 return (
   <section className="order-card">
     <header className="card-order-header">
-      <p>ID: {orderId} </p>
+      <p id="importantText">ID: {orderId} </p>
       <p> {orderDate} </p>
     </header>
     {
