@@ -143,12 +143,18 @@ export async function countByCategory(idCategory) {
 
 
 export async function remove(id) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
+
   try {
     const response = await fetch(`${endpoint}/${id}`, {
       method: "DELETE",
-      headers: {
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
         Accept: "application/json",
-      },
+      }),
     });
 
     if (!response.ok) {

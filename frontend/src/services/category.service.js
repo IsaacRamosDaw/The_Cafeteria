@@ -38,7 +38,7 @@ export async function remove(id) {
   const removeOperation = await fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
   })
