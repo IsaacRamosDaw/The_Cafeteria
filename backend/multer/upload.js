@@ -8,7 +8,7 @@ var storage = multer.diskStorage({
         console.log( "Folder name", folderName)
         console.log( "Body del req", req.body)
 
-        cb(null, `./public/images/${folderName}` || './public/images' );
+        cb(null,  './public/images' );
     },
     filename: (req, file, cb) => {
         var filetype = '';

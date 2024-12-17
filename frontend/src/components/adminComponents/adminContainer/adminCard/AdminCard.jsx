@@ -7,7 +7,7 @@ import { getUserId } from "../../../../services/utils";
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
 
-  const folder = "http://localhost:8080/images/admins/";
+  const folder = "http://localhost:8080/images/";
 
   const handleDelete = () => {
     onDelete(id);

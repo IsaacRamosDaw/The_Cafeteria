@@ -1,7 +1,18 @@
 const endpoint = "http://localhost:8080/api/categories";
 
 export async function get() {
-  const getOperation = await fetch(endpoint, { method: "GET", })
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
+
+  const getOperation = await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => {
       if (!res.ok) {
         throw new Error("Error fetching data");
@@ -17,17 +28,18 @@ export async function get() {
 
 // In progress
 export async function remove(id) {
-  // let token = localStorage.getItem("token");
+  
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
 
-  // if (!token) {
-  //   window.location.href = "/error";
-  // }
   console.log(id);
   const removeOperation = await fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
       // Authorization: `Bearer ${token}`,
-      Accept: "application/json"
+      Accept: "application/json",
     },
   })
     .then((res) => {
@@ -55,8 +67,8 @@ export function create(formData) {
   return fetch(endpoint, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name: formData.name }),
   })
@@ -81,12 +93,12 @@ export async function edit(id, updatedCategoryData) {
 
   try {
     const response = await fetch(`${endpoint}/${id}`, {
-      method: "PUT", 
+      method: "PUT",
       headers: new Headers({
-        Authorization: `Bearer ${token}`, 
-        "Content-Type": "application/json", 
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       }),
-      body: JSON.stringify(updatedCategoryData), 
+      body: JSON.stringify(updatedCategoryData),
     });
 
     if (!response.ok) {
