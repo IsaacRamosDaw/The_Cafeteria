@@ -6,3 +6,22 @@
     gap: 1em;
     padding: 1em 0;
 }
+
+@media  (min-width: 800px) {
+    .section-container-school-cards{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        // column-gap: 0;
+        // row-gap: 20px;
+        gap: 20px 0;
+    }
+}
+
+@media  (min-width: 1080px) {
+    .section-container-school-cards{
+        @include flex-items;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

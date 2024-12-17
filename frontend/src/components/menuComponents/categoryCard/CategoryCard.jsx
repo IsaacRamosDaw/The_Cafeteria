@@ -17,7 +17,7 @@ function CategoryCard({ id, title, count, photo }) {
       className="container-card-category"
     >
       {/* <img src={"/images/ImgMenus/bebidas.jpg" } alt="Img category card" /> */}
-      <img src={folder + photo || ""} alt="Img category card" />
+      <img src={folder + photo || ""} alt="" />
 
       <div className="div-darken-category-card"></div>
 

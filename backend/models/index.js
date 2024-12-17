@@ -44,6 +44,18 @@ db.coffeShop = require("./coffeShop.model.js")(sequelize);
 //* TABLE PRODUCT
 /** ID - PRODUCT */ db.product.belongsTo(db.categories, {onDelete: 'cascade', foreingKey: 'categoryId'});
 
+//* TABLE COFFE SHOP
+/** ID - COFFE SHOP */ db.worker.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+
+/** ID - COFFE SHOP */ db.school.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+
+/** ID - COFFE SHOP */ db.product.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+
+//* TABLE ADMIN
+/** ID - ADMIN */
+db.coffeShop.belongsTo(db.admins, {foreingKey: 'admin'});
+
+
 // // TABLE WORKER
 // db.worker.hasMany(db.coffeShop, {foreingKey: 'coffeShopId'});
 // db.worker.belongsTo(db.coffeShop, {onDelete: 'cascade', foreingKey: 'coffeShopId'});
@@ -58,6 +70,6 @@ db.coffeShop = require("./coffeShop.model.js")(sequelize);
 // db.school.belongsTo(db.admins, {foreingKey: 'adminId'});
 
 // // TABLE COFFE SHOP
-// db.coffeShop.belongsTo(db.school, {foreingKey: 'school'});
+
 
 module.exports = db;

@@ -169,12 +169,6 @@ exports.imgUpdate = (req, res) => {
 
   console.log(req.user);
 
-  if (req.user.role != "admin") {
-    return res.status(403).send({
-      message: "Access denied. You can only update your own data.",
-    });
-  }
-
   const updateAdmin = {
     filename: req.file ? req.file.filename : "",
   };

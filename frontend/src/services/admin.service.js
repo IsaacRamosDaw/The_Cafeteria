@@ -93,7 +93,7 @@ export async function remove(id) {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
-      Accept: "application/json"
+      Accept: "application/json",
     },
   })
     .then((response) => {
@@ -112,7 +112,7 @@ export async function remove(id) {
 
 export async function edit(id, data) {
   console.log(id, data);
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/error";
@@ -148,11 +148,12 @@ export async function editImg(id, data) {
 
     if (!token) {
       window.location.href = "/error";
-      return;
+      return; // Asegúrate de detener la ejecución si no hay token
     }
 
     let url = `${endpoint}/upload/${id}`;
 
+    // Crear un objeto FormData
     const formData = new FormData();
     formData.append("file", data.file);
 
@@ -162,17 +163,17 @@ export async function editImg(id, data) {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
-      body: formData, 
+      body: formData, // Pasar directamente el objeto FormData
     });
 
     if (!response.ok) {
       throw new Error("Error en la solicitud");
     }
 
-    const updatedData = await response.json();
+    const updatedData = await response.json(); // Resolviendo la promesa de la respuesta
     console.log("Imagen actualizada:", updatedData);
 
-    return updatedData;
+    return updatedData; // Retornar los datos actualizados
   } catch (error) {
     console.error("Error while updating admin data:", error);
     throw error;

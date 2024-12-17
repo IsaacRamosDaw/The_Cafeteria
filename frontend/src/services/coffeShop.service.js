@@ -76,17 +76,17 @@ export function create(formData) {
 }
 
 export async function remove(id) {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
-  if(!token){
-    window.location.href='/error'
+  if (!token) {
+    window.location.href = "/error";
   }
   const removeOperation = fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
-      'Authorization': `Bearer ${token}`, 
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   })
     .then((response) => {

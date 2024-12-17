@@ -20,7 +20,7 @@ function WorkerContainer() {
     setWorkers((prevWorkers) => prevWorkers.filter((worker) => worker.id !== id));
   };
   return (
-    <section className="section-container-admins-cards">
+    <section className="section-container-workers-cards">
       {workers.map((worker) => (
         <WorkerCard
           key={worker.id}

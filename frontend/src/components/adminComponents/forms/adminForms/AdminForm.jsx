@@ -37,6 +37,8 @@ export default function AdminForm() {
 
     const photo = photoRef.current.files[0];
 
+    console.log(formData)
+
     try {
       const user = await create(formData);
       await editImg(user.admin.id, { file: photo });

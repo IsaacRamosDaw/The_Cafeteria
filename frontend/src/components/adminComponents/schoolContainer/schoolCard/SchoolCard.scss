@@ -2,7 +2,6 @@
 
 .school-card {
     width: 90%;
-    max-width: 800px;
     @include flex-items(column);
 
     .container-img-school {
@@ -15,6 +14,7 @@
             height: 100%;
             object-fit: cover;
         }
+        
 
     }
 
@@ -31,10 +31,10 @@
         justify-content: space-between;
 
         .container-name-school-dashboard h2{
-            font-weight: 60;
+            font-weight: 500;
             font-size: $font-H2;
             font-family: $font-kameron;
-            color: var(--text-1);
+            color: var(--text-2);
         }
         .container-control-school {
             display: flex;
@@ -47,6 +47,7 @@
                 color: var(--text-3);
                 flex: 1;
                 font-size: 20px;
+                cursor: pointer;
             }
     
             .btn-edit:active,
@@ -55,5 +56,12 @@
             }
     
         }
+    }
+}
+
+
+@media  (min-width: 1080px) {
+    .school-card{
+        width: 500px;
     }
 }

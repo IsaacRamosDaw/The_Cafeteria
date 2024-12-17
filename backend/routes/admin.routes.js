@@ -11,7 +11,7 @@ module.exports = (app) => {
 
   router.post("/upload/:folderName", upload.single('file'), admin.create);
 
-  router.put("/upload/:id", upload.any('file'), admin.imgUpdate);
+  router.put("/upload/:id", upload.single('file'), admin.imgUpdate);
 
   //List all admins
   router.get("/", admin.findAll);
