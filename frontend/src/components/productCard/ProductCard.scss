@@ -5,15 +5,16 @@
   border-radius: 10px;
   overflow: hidden;
   background-color: var(--background-3);
-  width: 170px;
-  height: 184px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   // justify-content: space-between;
 
-  .img-product-card{
-    max-height: 124px;
+  .container-img-product-card{
+    width: 100%;
+    height: 60%;
     // flex: 1 0 auto;
 
     img{
@@ -33,5 +34,11 @@
       text-align: center;
       font-size: clamp($font-small, 4vw, $font-subtitle-2);
     }
+  }
+}
+
+@media (min-width: 800px) {
+  .container-product-card {
+      // width: 100%;
   }
 }
