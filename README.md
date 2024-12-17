@@ -9,10 +9,8 @@
     <summary align="left">List of Content</summary>
     <ul align="left" style="list-style: none">
         <li><a href="#about">About the project</a></li>
-            <!-- Enfoques -->
         <li><a href="#type">Type of app</a>
             <ul>
-                <!-- La que usamos -->
                 <li><a href="#exampleRestful">Restful Api</a></li>
                 <li><a href="#exampleServerSide">Side server renderer</a></li>
             </ul>
@@ -62,7 +60,6 @@ This project aims to develop an application that allows multiple schools to crea
 
 <span id="type"></span>
 
----
 
 ## Type of App :house:
 
@@ -91,7 +88,6 @@ The server-side rendering (SSR) approach is a traditional method of building web
  ![Ruby oin rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 
 
----
 <div align= "right"><a href="#back-top">Back to top</a></div>
 <p id="features"></p>
 
@@ -119,7 +115,6 @@ The server-side rendering (SSR) approach is a traditional method of building web
 
 <span id="roles"></span>
 
----
 
 ## Rol :stop_sign:
 
@@ -131,8 +126,8 @@ The administrator will mainly see these windows, which will allow them to manage
     <img src="frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
 </div>
 
----
 
+º
 ### Worker
 
 The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
@@ -142,7 +137,7 @@ The worker will have the ability to create, edit, and delete categories and prod
     <img src="frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
 </div>
 
----
+
 
 ### Student
 
@@ -154,7 +149,7 @@ The student will be able to browse available products and categories, place orde
 </div>
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
----
+
 
 <span id="folder"></span>
 ## Folder and Image Structure :file_folder:
@@ -196,9 +191,8 @@ Organized by type: Each folder groups similar files (controllers, routes, models
   <img src="frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
 </div>
 
----
-
 <span id="folder-alternative"></span>
+
 ### **Alternative Folder Structure**
 
 #### **Frontend** 
@@ -238,15 +232,13 @@ Instead of organizing by type, files are grouped by feature, like frotend exampl
     1. Adds unnecessary complexity for small projects.
 
     2. Can lead to code duplication if shared logic is not managed properly.
-<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <div align= "center">
  <img src="frontend/public/readmeImg/structureBackendExample.png" alt="Logo"  height="440">
 </div>
+<div align= "right"><a href="#back-top">Back to top</a></div>
 
 <span id="structure-image"></span>
-
----
 
 ### **Image structure**
 In the backend, we have used Multer as middleware to handle image uploads. The images are stored in a dedicated folder within the project:
@@ -275,7 +267,8 @@ In the backend, we have used Multer as middleware to handle image uploads. The i
 
     3. **Risk of Local Storage**: If the server restarts or fails, locally stored images may be lost without proper backups.
 
-<span id="structure-image-alternative"></span>
+<span id="structure-image-folder"></span>
+
 ### **Alternative Approach**
 Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
 
@@ -302,7 +295,7 @@ Another option would be to store images in a cloud storage service like Amazon S
     3. **Access Control**: Requires proper permissions to manage access to uploaded images.
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
----
+
 
 <span id="security"></span>
 ## Security 🔒
@@ -332,7 +325,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 - **Student**: Students can browse products, place orders, view their order history, and update their profile information. Their access is focused on ordering and managing their personal information.
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
----
+
 
 <span id="tecnologies"></span>
 ## Technologies we use 👨🏾‍💻
@@ -370,7 +363,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 ![Static Badge](https://img.shields.io/badge/MUI%20REACT%20UI-0073e6?style=for-the-badge&logo=mui&labelColor=000)
 ![Static Badge](https://img.shields.io/badge/REACT%20ICONS-e91e63?style=for-the-badge&logo=react&logoColor=e91e63&labelColor=000)
 
----
+
 
 <div align= "right"><a href="#back-top">Back to top</a></div>
 <p id="installation"></p>
@@ -407,7 +400,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 
 <span id="usage"></span>
 
----
+
 
 ## Usage 🕹️
 
@@ -427,7 +420,7 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
    - Displays a detailed history of placed orders for students and allows them to track the status of active orders in real-time. Administrators and workers can use this section to manage and monitor order flow.
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
----
+
 
 ## Authors ✒️
 
@@ -443,5 +436,5 @@ In this project, we utilize JSON Web Tokens (JWT) to handle authentication and a
 - Thanks to [Villanuevand](https://github.com/Villanuevand) for the template of this readme
 - Thanks to all my classmate and partners in this prject group
 
----
+
 ⌨️ with ❤️ the best group of DAW2ºT

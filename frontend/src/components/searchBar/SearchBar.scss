@@ -41,3 +41,11 @@ nav#header-container {
 		outline: none;
 	}
 }
+
+ @media (min-width: 800px) {
+	nav#header-container{
+		div h2{
+			font-size: $font-size-title;
+		}
+	}
+ }

@@ -1,7 +1,10 @@
+import { useTheme } from "../../contexts/ThemeContext";
+
 import { Link } from "react-router-dom";
+
 import { FaChevronRight } from "react-icons/fa";
 import Switch from "@mui/material/Switch";
-import { useTheme } from "../../contexts/ThemeContext";
+
 import "./Setting.scss";
 
 function Setting({ icon, text, to, toggle }) {

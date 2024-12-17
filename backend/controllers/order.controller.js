@@ -18,6 +18,7 @@ exports.create = (req, res) => {
 
   Order.create(orderData)
     .then((order) => {
+      // Decrement wallet
       return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
     })
     .then((wallet) => {
@@ -31,46 +32,16 @@ exports.create = (req, res) => {
       });
     })
     .catch((err) => {
-      console.error(err); // Para depuración
+      console.error(err);
       res.status(500).send({
         message: "Some error occurred: " + err.message,
       });
     });
 };
 
-exports.createByUrl = (req, res) => {
-
-  const date = new Date()
-
-  let day = date.getDate()
-  let month = date.getMonth() + 1
-  let year = date.getFullYear()
-
-  let fullDate = `${month}-${day}-${year}`
-
-  let orderData = {
-    StudentId: req.params.studentId,
-    ProductId: req.params.id,
-    date: fullDate,
-  };
-
-
-  Order.create(orderData)
-    .then((order) =>
-      res.status(201).json({
-        message: "Order created succesfully",
-        order: order,
-      })
-    )
-    .catch((err) =>
-      res.status(500).send({
-        message: "Some error ocurred while retrieving tutorial" || err.message,
-
-      })
-    );
-};
 
 exports.findAll = (req, res) => {
+
   Order.findAll()
     .then((orders) => {
       if (!orders) {
@@ -89,7 +60,9 @@ exports.findAll = (req, res) => {
 
 
 exports.findAllByStudent = (req, res) => {
-  Order.findAll({ where: { StudentId: req.params.id, } })
+  const id = Number(req.params.id);
+
+  Order.findAll({ where: { StudentId: id, } })
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
@@ -127,12 +100,6 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.body.id;
 
-  // if (req.user.role !== "student") {
-  //   return res.status(403).send({
-  //     message: "Access denied. You can only delete your own data.",
-  //   });
-  // }
-
   Order.destroy({ where: { id: id } })
     .then((orderDeleted) => {
       if (!orderDeleted) {
@@ -150,3 +117,35 @@ exports.delete = (req, res) => {
       })
     )
 }
+
+// exports.createByUrl = (req, res) => {
+
+//   const date = new Date()
+
+//   let day = date.getDate()
+//   let month = date.getMonth() + 1
+//   let year = date.getFullYear()
+
+//   let fullDate = `${month}-${day}-${year}`
+
+//   let orderData = {
+//     StudentId: req.params.studentId,
+//     ProductId: req.params.id,
+//     date: fullDate,
+//   };
+
+
+//   Order.create(orderData)
+//     .then((order) =>
+//       res.status(201).json({
+//         message: "Order created succesfully",
+//         order: order,
+//       })
+//     )
+//     .catch((err) =>
+//       res.status(500).send({
+//         message: "Some error ocurred while retrieving tutorial" || err.message,
+
+//       })
+//     );
+// };

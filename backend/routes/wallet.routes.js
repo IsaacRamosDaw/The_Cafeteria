@@ -4,8 +4,10 @@ module.exports = (app) => {
 
 	var router = require("express").Router();
 
+	// Create is in student controller
+
 	// Retrieve wallet from student
-	router.get("/:id",  wallet.findOne);
+	router.get("/:id", auth.isAuthenticated,  wallet.findOne);
 
 	// Increase wallet amount
 	router.put("/increase", auth.isAuthenticated, wallet.addCredits);

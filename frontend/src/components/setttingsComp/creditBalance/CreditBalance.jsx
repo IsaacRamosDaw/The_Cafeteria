@@ -11,8 +11,8 @@ import Button from "../../button/Button";
 import { IoClose } from "react-icons/io5";
 import { MdAttachMoney } from "react-icons/md";
 import { RiCoinLine } from "react-icons/ri";
-
 import { useState, useEffect } from "react";
+
 import { getUserId } from "../../../services/utils";
 import { getWallet, addCredits } from "../../../services/wallet.service";
 
@@ -25,7 +25,6 @@ export default function WalletBalance() {
   const [openAmount, setOpenAmount] = useState(false);
   const [openCredits, setOpenCredits] = useState(false);
   const [value, setValue] = useState("");
-
   const optionCredits = ["5.00", "10.00", "15.00", "20.00"];
 
   const handleAddAmount = () => setOpenAmount(openAmount ? false : true);
@@ -57,7 +56,7 @@ export default function WalletBalance() {
   return (
     <section id="credits-balance-container">
       <div className="container-credit-balance">
-        <h1 className="text-credit-balance"> {walletAmount}€ </h1>
+        <h1 className="text-credit-balance" id="wallet-amount"> {walletAmount}€ </h1>
       </div>
 
       <div className="container-control-credit-add">

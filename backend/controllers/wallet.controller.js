@@ -49,6 +49,7 @@ exports.addCredits = (req, res) => {
       }
       res.status(201).json({
         message: "Wallet incremented",
+        wallet: wallet,
       })
     });
 

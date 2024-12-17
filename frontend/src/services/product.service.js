@@ -118,7 +118,7 @@ export async function countByCategory(idCategory) {
 
   if (!token) {
     window.location.href = "/error";
-    return 0;
+    // return 0;
   }
 
   try {
@@ -193,6 +193,7 @@ export async function edit(id, updatedProductData) {
 
 export function create(formData) {
   const token = localStorage.getItem("token");
+  
   if (!token) {
     window.location.href = "/error";
   }
