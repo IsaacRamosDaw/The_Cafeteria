@@ -20,9 +20,9 @@
             object-fit: cover;
         }
         .container-name{
-            color: var(--text-2);
             h2{
-                font-weight: 600;
+                color: var(--text-2);
+                font-weight: 500;
             }
         }
     }
@@ -39,6 +39,7 @@
             color: var(--text-3);
             flex: 1;
             font-size: 28px;
+            cursor: pointer;
         }
 
         .btn-edit:active,
