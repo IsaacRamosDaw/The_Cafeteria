@@ -1,5 +1,5 @@
 export function getUserRole() {
-  const token = localStorage.getItem("token"); // O de tu estado de autenticación
+  const token = localStorage.getItem("token");
   if (!token) return null;
 
   try {
@@ -13,7 +13,7 @@ export function getUserRole() {
 }
 
 export function getUserId(){
-  const token = localStorage.getItem("token"); // O de tu estado de autenticación
+  const token = localStorage.getItem("token");
   if (!token) return null;
 
   try {
@@ -27,7 +27,7 @@ export function getUserId(){
 }
 
 export function getUser(){
-  const token = localStorage.getItem("token"); // O de tu estado de autenticación
+  const token = localStorage.getItem("token");
   if (!token) return null;
 
   try {

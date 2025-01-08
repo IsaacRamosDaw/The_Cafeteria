@@ -1,74 +1,52 @@
 const db = require("../models");
 const Order = db.order;
+const Wallet = db.wallet;
 
 exports.create = (req, res) => {
   const date = new Date()
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
 
-  let day = date.getDate()
-  let month = date.getMonth() + 1
-  let year = date.getFullYear()
+  const fullDate = `${month}-${day}-${year}`
 
-  let fullDate = `${month}-${day}-${year}`
-
-  let orderData = {
+  const orderData = {
     StudentId: req.body.StudentId,
     ProductId: req.body.ProductId,
     date: fullDate,
   };
 
   Order.create(orderData)
-    .then((order) =>
+    .then((order) => {
+      // Decrement wallet
+      return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
+    })
+    .then((wallet) => {
+      if (!wallet) {
+        return res.status(404).json({
+          message: `Wallet not found`,
+        });
+      }
       res.status(201).json({
-        message: "Order creada correctamente",
-        order: order,
-      })
-    )
-    .catch((err) =>
+        message: "Order created successfully and wallet decreased",
+      });
+    })
+    .catch((err) => {
+      console.error(err);
       res.status(500).send({
-        message: "Some error ocurred while retrieving tutorial" || err.message,
-      })
-    );
+        message: "Some error occurred: " + err.message,
+      });
+    });
 };
 
-exports.createByUrl = (req, res) => {
-  console.log("llegue aqui tambien")
-
-  const date = new Date()
-
-  let day = date.getDate()
-  let month = date.getMonth() + 1
-  let year = date.getFullYear()
-
-  let fullDate = `${month}-${day}-${year}`
-
-  let orderData = {
-    StudentId: req.params.studentId,
-    ProductId: req.params.id,
-    date: fullDate,
-  };
-
-
-  Order.create(orderData)
-    .then((order) =>
-      res.status(201).json({
-        message: "Order creada correctamente",
-        order: order,
-      })
-    )
-    .catch((err) =>
-      res.status(500).send({
-        message: "Some error ocurred while retrieving tutorial" || err.message,
-
-      })
-    );
-};
 
 exports.findAll = (req, res) => {
+
   Order.findAll()
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} didn't found`
+          message: `Order with id: ${id} did not found`
         });
       }
       res.send(orders);
@@ -82,19 +60,20 @@ exports.findAll = (req, res) => {
 
 
 exports.findAllByStudent = (req, res) => {
-  console.log("parte - 3 fetch")
-  Order.findAll({ where: { StudentId: req.params.id, } })
+  const id = Number(req.params.id);
+
+  Order.findAll({ where: { StudentId: id, } })
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} didn't found`
+          message: `Order with id: ${id} did not found`
         });
       }
       res.send(orders);
     })
     .catch(err =>
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Orders."
+        message: err.message || "Some error occurred while retrieving orders."
       })
     );
 };
@@ -106,7 +85,7 @@ exports.findOne = (req, res) => {
     .then((order) => {
       if (!order) {
         return res.status(404).json({
-          message: `order with id=${id} not found`,
+          message: `Order with id=${id} not found`,
         });
       }
       res.send(order);
@@ -119,13 +98,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  // if (req.user.role !== "student") {
-  //   return res.status(403).send({
-  //     message: "Access denied. You can only delete your own data.",
-  //   });
-  // }
+  const id = req.body.id;
 
   Order.destroy({ where: { id: id } })
     .then((orderDeleted) => {
@@ -135,7 +108,7 @@ exports.delete = (req, res) => {
         });
       }
       res.json({
-        message: `Order with id: ${id} was deleted`
+        message: `Order with id: ${id} was deleted.`
       });
     })
     .catch((err) =>
@@ -144,3 +117,35 @@ exports.delete = (req, res) => {
       })
     )
 }
+
+// exports.createByUrl = (req, res) => {
+
+//   const date = new Date()
+
+//   let day = date.getDate()
+//   let month = date.getMonth() + 1
+//   let year = date.getFullYear()
+
+//   let fullDate = `${month}-${day}-${year}`
+
+//   let orderData = {
+//     StudentId: req.params.studentId,
+//     ProductId: req.params.id,
+//     date: fullDate,
+//   };
+
+
+//   Order.create(orderData)
+//     .then((order) =>
+//       res.status(201).json({
+//         message: "Order created succesfully",
+//         order: order,
+//       })
+//     )
+//     .catch((err) =>
+//       res.status(500).send({
+//         message: "Some error ocurred while retrieving tutorial" || err.message,
+
+//       })
+//     );
+// };

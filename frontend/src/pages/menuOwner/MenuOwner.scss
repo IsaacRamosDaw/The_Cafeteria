@@ -10,6 +10,32 @@
   align-items: center;
   gap: 20px;
 
+  .container-add-category {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--text-2);
+    padding: 10px;
+    border-radius: 15px;
+    width: 90%;
+    color: var(--background-1);
+
+    .icon-add-category {
+      font-size: 25px;
+    }
+  }
+
+  .container-add-category:hover {
+    background-color: transparent;
+    border: 1px solid var(--text-1);
+    color: var(--text-1);
+  }
+
+  .container-add-category:active {
+    transform: scale(.9);
+  }
+
   .container-category-owner {
     width: 90%;
     display: flex;
@@ -19,6 +45,22 @@
 
     .container-title-category-owner {
       width: 100%;
+
+      .title-category-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div {
+          display: flex;
+          gap: 15px;
+
+          * {
+            color: var(--text-3);
+            font-size: 22px;
+          }
+        }
+      }
 
       .title-category-owner {
         color: var(--text-1);
@@ -40,6 +82,30 @@
       @include flex-items(column);
       width: 100%;
       gap: 5px;
+
+      .container-add-product{
+        cursor: pointer;
+        width: 50%;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--text-3);
+        margin: 10px 0;
+        border: 1px solid var(--text-1);
+        padding: 8px;
+        border-radius: 20px;
+
+        .add-product-button {
+          // margin: 20px 0;
+          font-size: 20px;
+        }
+      }
+      .container-add-product:hover{
+        background-color: var(--text-1);
+      }
+
     }
 
     .container-category-item {

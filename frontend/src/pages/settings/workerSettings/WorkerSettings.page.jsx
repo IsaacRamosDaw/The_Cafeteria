@@ -32,7 +32,7 @@ function WorkerSettings() {
     const workerId = getUserId();
     if (!workerId) {
       console.error(
-        "No hay un ID disponible para buscar los datos del trabajador."
+       "There is no ID available to search for the worker's data."
       );
       return;
     }
@@ -42,7 +42,7 @@ function WorkerSettings() {
         const data = await getOne(workerId);
         setCoffeShopData(data);
       } catch (error) {
-        console.error("Error al obtener el trabajador:", error);
+        console.error("Error retrieving the worker:", error);
       }
     }
     fetchWorker();

@@ -1,13 +1,13 @@
 const endpoint = "http://localhost:8080/api/products";
 
-export function get() {
+export async function get() {
   let token = localStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/error";
   }
 
-  const getOperation = fetch(endpoint, {
+  const getOperation =await fetch(endpoint, {
     method: "GET",
     headers: new Headers({
       Authorization: `Bearer ${token}`,
@@ -29,16 +29,16 @@ export function get() {
 }
 
 export function findByPk(id) {
-  // let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
-  // if (!token) {
-  //   window.location.href = "/error";
-  // }
+  if (!token) {
+    window.location.href = "/error";
+  }
 
   const getOneOperation = fetch(`${endpoint}/${id}`, {
     method: "GET",
     headers: new Headers({
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     }),
@@ -67,8 +67,8 @@ export function getByCategory(idCategory) {
   const getOperation = fetch(`${endpoint}/categories/${idCategory}`, {
     method: "GET",
     headers: new Headers({
-      // Authorization: `Bearer ${token}`,
-      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
@@ -96,7 +96,9 @@ export function getFirstByCategory(idCategory) {
   const getOperation = fetch(`${endpoint}/category/${idCategory}`, {
     method: "GET",
     headers: new Headers({
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     }),
   })
     .then((response) => {
@@ -118,19 +120,21 @@ export async function countByCategory(idCategory) {
 
   if (!token) {
     window.location.href = "/error";
-    return 0;
+    // return 0;
   }
 
   try {
     const response = await fetch(`${endpoint}/count/${idCategory}`, {
       method: "GET",
       headers: new Headers({
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       }),
     });
 
     if (!response.ok) {
-      throw new Error("Error al obtener el conteo");
+      throw new Error("Error with count");
     }
 
     const data = await response.json();
@@ -143,21 +147,27 @@ export async function countByCategory(idCategory) {
 
 
 export async function remove(id) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/error";
+  }
+
   try {
     const response = await fetch(`${endpoint}/${id}`, {
       method: "DELETE",
-      headers: {
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
         Accept: "application/json",
-      },
+      }),
     });
 
     if (!response.ok) {
-      throw new Error("Error al eliminar el producto");
+      throw new Error("Error of delete product");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error al eliminar el producto:", error);
+    console.error("Error of delete product:", error);
     throw error;
   }
 }
@@ -181,18 +191,19 @@ export async function edit(id, updatedProductData) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al editar el producto");
+      throw new Error("Error of edit product");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error al editar el producto:", error);
+    console.error("Error of edit product:", error);
     throw error;
   }
 }
 
 export function create(formData) {
   const token = localStorage.getItem("token");
+  
   if (!token) {
     window.location.href = "/error";
   }
@@ -207,7 +218,7 @@ export function create(formData) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
       return response.json();
     })

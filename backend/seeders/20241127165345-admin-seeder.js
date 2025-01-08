@@ -24,16 +24,15 @@ module.exports = {
       }
     ];
 
-    // Inserta los datos iniciales
+    // Insert data
     await queryInterface.bulkInsert("admins", admins, {});
-
-    // Recupera los usuarios insertados para generar los tokens
+    
     const insertedAdmins = await queryInterface.sequelize.query(
       `SELECT id, username, role FROM admins`,
       { type: Sequelize.QueryTypes.SELECT }
     );
 
-    // Genera tokens para cada usuario y muestra en consola (o los guardas)
+    // Generate tokens for users
     insertedAdmins.forEach((admin) => {
       const token = generateToken(admin);
       console.log(`Token for ${admin.username}: ${token}`);

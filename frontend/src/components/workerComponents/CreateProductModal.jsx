@@ -43,7 +43,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
             setNewProduct({ name: '', description: '', price: '', CategoryId: '' });
             closeModal();
         } catch (error) {
-            console.error("Error creando el producto:", error);
+            console.error("Error creating the product:", error);
         }
     };
 
@@ -61,7 +61,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
     }, [CategoryId]);
 
     if (!isModalOpen) return null;
-    // console.log("Abrir modal", isModalOpen)
+    // console.log("Open modal", isModalOpen)
 
     return (
         <div className="modal-overlay">

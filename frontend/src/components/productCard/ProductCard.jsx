@@ -12,13 +12,11 @@ function Product({ id, img, title }) {
 
   return (
     <div
-      onClick={() =>
-        handleNavigate(`${title.replace(/ /g, "-")}`)
-      }
+      onClick={() => handleNavigate(`${title.replace(/ /g, "-")}`)}
       className="container-product-card"
     >
-      <div className="img-product-card">
-        <img src={folder+img} alt="Img Product" />
+      <div className="container-img-product-card">
+        <img src={folder + img} alt="Img Product" />
       </div>
       <div className="content-product-card">
         <h3>{title}</h3>

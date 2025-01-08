@@ -6,3 +6,19 @@
     @include flex-items(column);
     gap: 1em;
 }
+
+@media  (min-width: 800px) {
+    .section-container-coffe-cards{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+    }
+}
+
+@media  (min-width: 1080px) {
+    .section-container-admins-cards{
+        @include flex-items;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}

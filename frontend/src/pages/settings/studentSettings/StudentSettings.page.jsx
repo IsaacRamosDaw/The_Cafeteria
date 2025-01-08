@@ -1,57 +1,38 @@
 import SearchBar from "../../../components/searchBar/SearchBar";
 import TabsBar from "../../../components/tabsBar/TabsBar";
 import Setting from "../../../components/setttingsComp/Setting";
-import "./StudentSettings.scss";
-import { getUserId } from "../../../services/utils";
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "../../../contexts/ThemeContext";
-import { useEffect, useState } from "react";
-import { get, getOne } from "../../../services/student.service";
-import { FiUser } from "react-icons/fi";
-import {
-  MdOutlineLocalCafe,
-  MdOutlineLightMode,
-  MdOutlineDarkMode,
-  MdOutlinePrivacyTip,
-} from "react-icons/md";
-import "./StudentSettings.scss";
-import { IoIosLogOut } from "react-icons/io";
-import { GoGraph } from "react-icons/go";
-import { getWallet } from "../../../services/wallet.service";
 import CreditBalance from "../../../components/setttingsComp/creditBalance/CreditBalance";
-// const [studentWallet, setStudentWallet] = useState({});
-// const [userId, setUserId] = useState(null);
+import { useTheme } from "../../../contexts/ThemeContext";
+
+import { getUserId } from "../../../services/utils";
+import { getOne } from "../../../services/student.service";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { FiUser } from "react-icons/fi";
+import { GoGraph } from "react-icons/go";
+import { IoIosLogOut } from "react-icons/io";
+import { MdOutlineLocalCafe, MdOutlineLightMode, MdOutlineDarkMode, MdOutlinePrivacyTip, } from "react-icons/md";
+
+import "./StudentSettings.scss";
 
 function StudentSettings() {
 
   const id = getUserId();
-  const [walletAmount, setWalletAmount] = useState(null)
-  const [cleanUser, setCleanUser] = useState();
   const [studentData, setStudentData] = useState(null);
   const [decodedId, setDecodedId] = useState(null);
-  const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const clearToken = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme(); 
 
-  useEffect(() => {
-    if (token) {
-      const base64Payload = token.split(".")[1];
-      const decodedPayload = JSON.parse(atob(base64Payload));
-      setDecodedId(decodedPayload.id);
-      setCleanUser(base64Payload);
-    }
-  }, [token]);
 
   useEffect(() => {
     const studentId = id || decodedId;
     if (!studentId) {
       console.error(
-        "No hay un ID disponible para buscar los datos del estudiante."
+        "There is no ID available to search for the student's data."
       );
       return;
     }
@@ -61,41 +42,22 @@ function StudentSettings() {
         const data = await getOne(studentId);
         setStudentData(data);
       } catch (error) {
-        console.error("Error al obtener el estudiante:", error.message);
+        console.error("Error with get the student:", error.message);
       }
     }
     fetchStudent();
 
   }, [id, decodedId]);
 
-
-  //!TODO 
-  // 1
-  // {
-    // useEffect(() => {
-    //   const getWalletData = async () => {
-    //       const wallet = await getWallet(id);
-    //       setWalletAmount(wallet.wallet.amount);
-    //       return wallet.wallet.amount
-    //   };
-    //   getWalletData();
-    // }, [id]);
-
-    // useEffect(() => {
-    //   if (walletAmount !== null) {
-    //       console.log("Segundo log (actualizado):", walletAmount);
-    //     }
-    // }, [walletAmount]);
-    //? imprime el valor pero al pasarlo como parametro da "undefined"
-    //* console.log(walletAmount)
-
-  // }
-  //! SOLUCIÓN, TRASPASAR EL CÓDIGO AL COMPONENTE "CREDITBALANCE"
+  const clearToken = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <div id="page-settings-student">
       <SearchBar />
-      <CreditBalance/>
+      <CreditBalance />
       <main id="student-setttings">
         <div id="settings-container">
           <Setting
@@ -112,13 +74,7 @@ function StudentSettings() {
             toggle={true}
           />
           <Setting
-            icon={<MdOutlineLocalCafe />}
-            to={"/student/profile/mycafeteria"}
-            text={"Mi Cafetería"}
-          />
-          <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} />
-          <Setting
-            icon={<MdOutlinePrivacyTip />}
+            icon={<MdOutlinePrivacyTip className="icons" />}
             to={"/profile/policy"}
             text={"Política de privacidad"}
           />
@@ -141,3 +97,10 @@ function StudentSettings() {
 }
 
 export default StudentSettings;
+
+{/* <Setting
+            icon={<MdOutlineLocalCafe />}
+            to={"/student/profile/mycafeteria"}
+            text={"Mi Cafetería"}
+          /> */}
+{/* <Setting icon={<GoGraph />} to={"/credits"} text={"Créditos"} /> */ }

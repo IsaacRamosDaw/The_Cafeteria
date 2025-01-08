@@ -14,7 +14,6 @@ module.exports = (app) => {
 
     //List all workers
     router.get("/", auth.isAuthenticated, worker.findAll);
-    // router.get("/", worker.findAll);
 
     // Find a worker with his id
     router.get("/:id", auth.isAuthenticated, worker.findOne);

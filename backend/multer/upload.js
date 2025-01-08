@@ -3,12 +3,12 @@ var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
 
-        const folderName = req.body.folderName
+        const folderName = req.params.folderName
 
         console.log( "Folder name", folderName)
         console.log( "Body del req", req.body)
 
-        cb(null, `./public/images/${folderName}` || './public/images' );
+        cb(null,  './public/images' );
     },
     filename: (req, file, cb) => {
         var filetype = '';

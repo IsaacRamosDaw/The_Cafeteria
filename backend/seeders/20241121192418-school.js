@@ -37,10 +37,10 @@ module.exports = {
   },
 };
 
-// Crear : npx sequelize-cli seed:generate --name demo-user
+// Create : npx sequelize-cli seed:generate --name demo-user
 
-// Activar : npx sequelize-cli db:seed:all
+// Activate: npx sequelize-cli db:seed:all
 
-// deshacer : npx sequelize-cli db:seed:undo
+// Delete : npx sequelize-cli db:seed:undo
 
-// deshacer todos : npx sequelize-cli db:seed:undo:all
+// Deelete all : npx sequelize-cli db:seed:undo:all

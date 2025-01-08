@@ -1,22 +1,23 @@
 module.exports = app => {
     const categories = require("../controllers/categories.controller.js");
+    const auth = require("../controllers/auth.js");
 
     var router = require("express").Router();
 
-    // Crear una categoría
-    router.post("/", categories.create);
+    // Create a category
+    router.post("/",  auth.isAuthenticated, categories.create);
 
-    // Listar todas las categorías
-    router.get("/", categories.findAll);
+     //List all categories
+    router.get("/",  auth.isAuthenticated, categories.findAll);
 
-    // Conseguir una
-    router.get("/:id", categories.findOne);
+    // Get one category
+    router.get("/:id",  auth.isAuthenticated, categories.findOne);
 
-    // Actualizar categoría
-    router.put("/:id", categories.update);
+    // Update category
+    router.put("/:id",  auth.isAuthenticated, categories.update);
 
-    // Eliminar una categoría por su id
-    router.delete("/:id", categories.delete);
+    // Delete a category with id
+    router.delete("/:id",  auth.isAuthenticated, categories.delete);
 
     app.use('/api/categories', router);
 

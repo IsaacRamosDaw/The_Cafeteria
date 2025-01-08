@@ -1,18 +1,19 @@
-import "./Product.scss";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import TabsBar from "../../components/tabsBar/TabsBar";
-import Button from "../../components/button/Button";
-import SearchBar from "../../components/searchBar/SearchBar";
-import Separator from "../../components/separator/Separator";
-import Divider from "@mui/material/Divider";
 import { findByPk as getOne } from "../../services/product.service";
 import { create } from "../../services/order.service";
 import { getUserId } from "../../services/utils";
+
+import TabsBar from "../../components/tabsBar/TabsBar";
+import Button from "../../components/button/Button";
+
+import "./Product.scss";
+
 function Product() {
+
   const navigate = useNavigate();
   let { category, name } = useParams();
   name = name.replace(/-/g, " ");
@@ -24,10 +25,10 @@ function Product() {
     setUserId(getUserId());
   }, []);
 
+  const [ordered, setOrdered] = useState(false);
   const [product, setProduct] = useState({});
   let [quantity, setQuantity] = useState(1.0);
   let [priceShown, setPriceShown] = useState(quantity);
-  const [ordered, setOrdered] = useState(false);
 
   const location = useLocation();
   const id = location.state?.productId || 1;
@@ -64,14 +65,11 @@ function Product() {
   };
 
   const handleOrder = () => {
-    create(userId, product.id);
-    const res = {
-      id: 1,
-      name: product.name,
-      amount: quantity,
-      price: parseFloat(priceShown),
-    };
+    create(product.id, userId, product.price);
+    navigate("/orders")
   };
+
+
 
   return (
     <div id="page-product">
@@ -118,11 +116,13 @@ function Product() {
           <div className="container-control-order-product">
             {ordered ? (
               // <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
-              <Button
-                onClick={handleOrder}
-                className="btn-cancel-product"
-                text={"Cancelar"}
-              />
+              <form>
+                <Button
+                  onClick={handleOrder}
+                  className="btn-cancel-product"
+                  text={"Cancelar"}
+                />
+              </form>
             ) : (
               <Button
                 onClick={handleOrder}

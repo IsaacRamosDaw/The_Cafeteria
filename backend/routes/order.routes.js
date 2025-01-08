@@ -1,24 +1,21 @@
 module.exports = (app) => {
   const order = require("../controllers/order.controller.js");
+	const auth = require("../controllers/auth.js");
   var router = require("express").Router();
 
-  // Create a orders 
-  router.post("/", order.create);
-
-  // Create a orders 
-  router.post("/:studentId/:id", order.createByUrl);
+  router.post("/", auth.isAuthenticated, order.create);
 
   // Retrieve all orders 
-  router.get("/", order.findAll);
+  router.get("/", auth.isAuthenticated, order.findAll);
   
   // Retrieve one order
-  router.get("/:id", order.findOne);
+  router.get("/:id", auth.isAuthenticated, order.findOne);
 
   // Retrieve order from one student
-  router.get("/:student/:id", order.findAllByStudent);
+  router.get("/:student/:id", auth.isAuthenticated, order.findAllByStudent);
 
   // Delete orders
-  router.delete("/:id", order.delete);
+  router.delete("/", auth.isAuthenticated, order.delete);
 
-  app.use("/api/orders", router);
+  app.use("/api/orders", auth.isAuthenticated, router);
 }

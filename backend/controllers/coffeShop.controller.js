@@ -3,13 +3,13 @@ const CoffeShop = db.coffeShop;
 const Op = db.sequelize.Op;
 
 exports.create = (req, res) => {
-  // Create an coffeShop object
+  // Create a CoffeShop object
   const shop = {
     name: req.body.name,
     filename: req.file ? req.file.filename : "",
   };
 
-  // Save coffeShop in the database
+  // Save CoffeShop in the database
   CoffeShop.create(shop)
     .then((data) => {
       res.send(data);
@@ -42,34 +42,40 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-	const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id);
 
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required.",
-		});
-	}
+  if (!req.user) {
+    return res.status(403).json({
+      message: "Access denied. Authentication required.",
+    });
+  }
 
-	if (req.user.role === "admin" || req.user.role === "worker" || id === req.user.id) {
-		CoffeShop.findByPk(id)
-			.then((data) => {
-				if (!data) {
-					return res.status(404).json({
-						message: `coffe shop with id=${id} not found.`,
-					});
-				}
-				// Delete the password in the get
-				delete data.password
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message: err.message || `Error retrieving coffe shop with id=${id}.`,
-				});
-			});
-	} else {
-		res.status(403).json({ message: "Access denied. You can only access your own data." });
-	}
+  if (
+    req.user.role === "admin" ||
+    req.user.role === "worker" ||
+    id === req.user.id
+  ) {
+    CoffeShop.findByPk(id)
+      .then((data) => {
+        if (!data) {
+          return res.status(404).json({
+            message: `coffe shop with id=${id} not found.`,
+          });
+        }
+        // Delete the password in the get
+        delete data.password;
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || `Error retrieving coffe shop with id=${id}.`,
+        });
+      });
+  } else {
+    res
+      .status(403)
+      .json({ message: "Access denied. You can only access your own data." });
+  }
 };
 
 exports.update = (req, res) => {
@@ -108,30 +114,30 @@ exports.update = (req, res) => {
 };
 
 exports.imgUpdate = (req, res) => {
-	const id = req.params.id;
+  const id = req.params.id;
 
-	console.log(req.user);
+  console.log(req.user);
 
-	const updateWorker = {
-		filename: req.file ? req.file.filename : "",
-	};
+  const updateWorker = {
+    filename: req.file ? req.file.filename : "",
+  };
 
-	CoffeShop.update(updateWorker, { where: { id: id } })
-		.then(([rowsUpdated]) => {
-			if (rowsUpdated === 0) {
-				// If no rows were updated, the worker was not found
-				return res.status(404).send({
-					message: `Cannot update worker with id=${id}. worker not found.`,
-				});
-			}
-			res.send({ message: "worker was updated successfully." });
-		})
-		.catch((err) => {
-			// Catch any error
-			res.status(500).send({
-				message: err.message || "An error occurred while updating the worker.",
-			});
-		});
+  CoffeShop.update(updateWorker, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        // If no rows were updated, the worker was not found
+        return res.status(404).send({
+          message: `Cannot update worker with id=${id}. worker not found.`,
+        });
+      }
+      res.send({ message: "worker was updated successfully." });
+    })
+    .catch((err) => {
+      // Catch any error
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the worker.",
+      });
+    });
 };
 
 exports.delete = (req, res) => {
@@ -142,7 +148,7 @@ exports.delete = (req, res) => {
     });
   }
 
-  // Delete an coffeShop by ID
+  // Delete a CoffeShop by id
   CoffeShop.destroy({ where: { id: id } })
     .then((deleted) => {
       if (deleted) {

@@ -1,9 +1,12 @@
-import "./Order.scss";
 import Button from "../button/Button";
+
 import { useEffect, useState } from "react";
+
 import { getOne } from "../../services/student.service";
 import { findByPk } from "../../services/product.service";
 import { getOne as findOneCourse } from "../../services/course.service.js";
+
+import "./Order.scss";
 
 function Order({ orderId, dateParam, deleted, productId, role, studentIdParam }) {
 
@@ -58,7 +61,7 @@ const cancelOrder = () => {
 return (
   <section className="order-card">
     <header className="card-order-header">
-      <p>ID: {orderId} </p>
+      <p id="importantText">ID: {orderId} </p>
       <p> {orderDate} </p>
     </header>
     {

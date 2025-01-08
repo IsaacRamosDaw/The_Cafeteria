@@ -27,4 +27,10 @@ div.settings-card {
   .arrow-right-icon{
     color: var(--text-1);
   }
+
+  @media (min-width: 800px) {
+    span{
+      font-size: $font-t-subtitle-1;
+    }
+  }
 }

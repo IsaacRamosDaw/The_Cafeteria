@@ -17,12 +17,12 @@ function Policy() {
           <FaArrowLeftLong />
         </Link>
         <h1>Centro de privacidad</h1>
-        <p>Elige las opciones de privacidad que consideres adecuadas. Obténinformación sobre cómo administrar y controlar tu privacidad en esta aplicación</p>
+        <p>Elige las opciones de privacidad que consideres adecuadas. Obtén información sobre cómo administrar y controlar tu privacidad en esta aplicación</p>
       </section>
       <section id="card-container">
 
         <div>
-        {/* Hacer componentes */}
+        {/* Make components */}
           <FaGear className="icons" />
           <p>Comprobación de configuración de privacidad</p>
           <p>

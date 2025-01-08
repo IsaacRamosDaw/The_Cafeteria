@@ -2,11 +2,14 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import Separator from "../../components/separator/Separator";
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Order from "../../components/order/Order";
-import "./Orders.scss";
+
 import { BsCupHot } from "react-icons/bs";
 import { useEffect, useState } from "react";
+
 import { get, getByStudent, remove } from "../../services/order.service";
 import { getUserId, getUserRole } from "../../services/utils";
+
+import "./Orders.scss";
 
 function Orders() {
   const [userId, setUserId] = useState(null);
@@ -33,10 +36,8 @@ function Orders() {
         console.error("Error fetching orders:", error);
       }
     }
-
-    if (role) {
-      fetchOrders();
-    }
+    
+    fetchOrders();
 
   }, [role, userId]);
 
@@ -56,7 +57,7 @@ function Orders() {
           ? <BsCupHot  className="cup-img-logo" /> 
           : orders.map((order, index) => {
           {
-            return role === "worker" ? (
+            return getUserRole() === "worker" ? (
               <Order
                 key={index}
                 orderId={order.id}

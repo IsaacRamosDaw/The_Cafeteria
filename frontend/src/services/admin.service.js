@@ -69,11 +69,11 @@ export async function create(formData) {
     });
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error("Error in the request");
     }
 
     const user = await response.json(); // Resolviendo la promesa de la respuesta
-    console.log("Usuario creado:", user.admin);
+    console.log("User created:", user.admin);
 
     return user;
   } catch (error) {
@@ -93,7 +93,7 @@ export async function remove(id) {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
-      Accept: "application/json"
+      Accept: "application/json",
     },
   })
     .then((response) => {
@@ -112,7 +112,7 @@ export async function remove(id) {
 
 export async function edit(id, data) {
   console.log(id, data);
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/error";
@@ -131,7 +131,7 @@ export async function edit(id, data) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error en la solicitud");
+        throw new Error("Error in the request");
       }
 
       return response.json();

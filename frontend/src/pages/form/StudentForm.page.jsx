@@ -30,17 +30,17 @@ function StudentForm() {
 
     create(values)
       .then((response) => {
-        console.log("Usuario creado:", response);
+        console.log("User created:", response);
         navigate(-1);
       })
       .catch((error) => {
-        console.error("Error al crear el usuario:", error);
+        console.error("Error creating the user:", error);
       });
   }
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-    console.log(`Campo cambiado: ${name}, Valor: ${value}`); // Para depurar
+    console.log(`Field changed: ${name}, Value: ${value}`); // For debugging
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,

@@ -6,12 +6,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    filename:{
-      type: DataTypes.STRING
-    },
-    amount:{
-      type: DataTypes.INTEGER
-    }
+    // filename:{
+    //   type: DataTypes.STRING
+    // },
+    // amount:{
+    //   type: DataTypes.INTEGER
+    // }
   },
   {
     timestamps: false,

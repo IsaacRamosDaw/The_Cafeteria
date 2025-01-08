@@ -13,9 +13,6 @@ module.exports = (app) => {
   // Retrieve one course
   router.get("/:id", auth.isAuthenticated, course.findOne);
 
-  // Retrieve all courses from a school in paticular
-  // router.get("/schools/:id", auth.isAuthenticated, course.findBySchol);
-
   // Edit course
   router.put("/:id", auth.isAuthenticated, course.update);
 

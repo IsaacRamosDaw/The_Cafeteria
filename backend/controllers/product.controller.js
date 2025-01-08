@@ -1,6 +1,23 @@
 const db = require("../models");
 const Product = db.product;
 
+exports.findAll = (req, res) => {
+	Product.findAll()
+		.then(products => {
+			if (!products) {
+				return res.status(404).json({
+					message: `Product did not found.`
+				});
+			}
+			res.send(products);
+		})
+		.catch(err => 
+			res.status(500).send({
+				message: err.message || "Some error occurred while retrieving products."
+			})
+		);
+};
+
 exports.create = (req, res) => {
   let productData = {
     name: req.body.name,
@@ -10,37 +27,20 @@ exports.create = (req, res) => {
     CategoryId: req.body.CategoryId,
   };
 
-  Product.create(productData)
-    .then((product) =>
-      res.status(201).json({
-        message: "Producto creado correctamente",
-        product: product,
-      })
-    )
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Some error while creating the product.",
-      })
-    );
-};
+		Product.create(productData)
+		.then(product => res.status(201)
+		.json({
+				message: "Product created successfully",
+				product: product,
+			}))
+			.catch(err => 
+				res.status(500).send({
+					message:
+						err.message || "Some error while creating the product."
+				})
+			);
+}
 
-exports.findAll = (req, res) => {
-  Product.findAll()
-    .then((products) => {
-      if (!products) {
-        return res.status(404).json({
-          message: `Product didn't found.`,
-        });
-      }
-      res.send(products);
-    })
-    .catch((err) =>
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving products.",
-      })
-    );
-};
 
 exports.findByCategory = (req, res) => {
   const categoryId = Number(req.params.id);
@@ -130,20 +130,20 @@ exports.update = (req, res) => {
     filename: req.file ? req.file.filename : "",
   };
 
-  Product.update(update, { where: { id: id } })
-    .then(([rowsUpdated]) => {
-      if (rowsUpdated === 0) {
-        return res.status(404).send({
-          message: `Cannot update Product with id=${id}. Product not found.`,
-        });
-      }
-      res.send({ message: "Product was updated successfully." });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the Product.",
-      });
-    });
+	Product.update(update, { where: { id: id } })
+		.then(([rowsUpdated]) => {
+			if (rowsUpdated === 0) {
+				return res.status(404).send({
+					message: `Cannot update product with id=${id}. Product not found.`
+				});
+			}
+			res.send({ message: "Product was updated successfully." });
+		})
+		.catch(err => {
+			res.status(500).send({
+				message: err.message || "An error occurred while updating the Product."
+			});
+		});
 };
 
 exports.delete = (req, res) => {
