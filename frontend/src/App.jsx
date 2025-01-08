@@ -7,6 +7,7 @@ import "./global.scss";
 // import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx"; 
 // import StudentData from "./pages/account/Account";
 
+
 //! Shared Pages
 import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
 import Orders from "./pages/orders/Orders.page.jsx"; //* Orders 
