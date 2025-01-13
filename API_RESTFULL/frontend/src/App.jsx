@@ -2,6 +2,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./global.scss";
 
+
 // import Home from "./pages/home/Home.jsx";
 // import StudentCredits from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
 // import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx"; 
