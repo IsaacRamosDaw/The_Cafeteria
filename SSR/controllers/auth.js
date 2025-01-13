@@ -1,8 +1,8 @@
 //!TO CHECK
 
 //? TOKEN
-const jwt = require("jsonwebtoken");
-const utils = require("../utils");
+// const jwt = require("jsonwebtoken");
+// const utils = require("../utils");
 
 const bcrypt = require("bcryptjs");
 const db = require("../models");
@@ -40,55 +40,55 @@ exports.signin = async (req, res) => {
 };
 
 exports.isAuthenticated = (req, res, next) => {
-  // Check header or url parameters or post parameters for token
-  var token = req.token;
-  if (!token) {
-    return res.status(400).json({
-      error: true,
-      message: "Token is required.",
-    });
-  }
-  // Check token that was passed by decoding token using secret
-  //? TOKEN 
-  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
-    if (err)
-      return res.status(401).json({
-        error: true,
-        message: "Invalid token.",
-      });
+  // // Check header or url parameters or post parameters for token
+  // var token = req.token;
+  // if (!token) {
+  //   return res.status(400).json({
+  //     error: true,
+  //     message: "Token is required.",
+  //   });
+  // }
+  // // Check token that was passed by decoding token using secret
+  // //? TOKEN 
+  // jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
+  //   if (err)
+  //     return res.status(401).json({
+  //       error: true,
+  //       message: "Invalid token.",
+  //     });
 
-    const { role: userRole , id: userId } = user;
+  //   const { role: userRole , id: userId } = user;
 
-    let User;
-    switch (userRole) {
-      case "admin":
-        User = db.admins;
-        break;
-      case "worker":
-        User = db.worker;
-        break;
-      case "student":
-        User = db.student;
-        break;
-      default:
-        return res.status(400).json({ error: "Invalid user type" });
-    }
+  //   let User;
+  //   switch (userRole) {
+  //     case "admin":
+  //       User = db.admins;
+  //       break;
+  //     case "worker":
+  //       User = db.worker;
+  //       break;
+  //     case "student":
+  //       User = db.student;
+  //       break;
+  //     default:
+  //       return res.status(400).json({ error: "Invalid user type" });
+  //   }
 
-    User.findByPk(userId)
-      .then((data) => {
-        if (!user.id) {
-          return res.status(401).json({
-            error: true,
-            message: "Invalid user.",
-          });
-        }
-        req.user = data;
-        next();
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: `Error retrieving User with id=${userId}`, err,
-        });
-      });
-  });
+  //   User.findByPk(userId)
+  //     .then((data) => {
+  //       if (!user.id) {
+  //         return res.status(401).json({
+  //           error: true,
+  //           message: "Invalid user.",
+  //         });
+  //       }
+  //       req.user = data;
+  //       next();
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).send({
+  //         message: `Error retrieving User with id=${userId}`, err,
+  //       });
+  //     });
+  // });
 };
