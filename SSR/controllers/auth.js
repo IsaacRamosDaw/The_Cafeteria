@@ -1,6 +1,3 @@
-//!TO CHECK
-
-//? TOKEN
 // const jwt = require("jsonwebtoken");
 // const utils = require("../utils");
 
@@ -29,11 +26,12 @@ exports.signin = async (req, res) => {
     if (!isMatch) return res.status(401).json({ error: "Incorrect password" });
 
     // Generate token
-    //?TOKEN
     // const token = utils.generateToken(user);
     // const userObj = utils.getCleanUser(user);
 
     // res.json({ user: userObj, token });
+
+    console.log("User from auth js: ", user)
   } catch (err) {
     res.status(500).json({ error: "Internal error" });
   }

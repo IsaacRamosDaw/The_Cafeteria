@@ -6,14 +6,17 @@ var path = require("path");
 
 const app = express();
 
-//public directory
-app.use(express.static(path.join(__dirname, "public")));
 
 // app.use(upload.single('file')); // Use form-data HTTP headers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
 
 app.set('view engine', 'ejs');
+// Views directory
+app.set("views", path.join(__dirname, "views"));
+
+//public directory
+app.use(express.static(path.join(__dirname, "public")));
 
 const db = require("./models");
 
@@ -21,7 +24,7 @@ db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db");
 });
 
-// require("./routes/coffeShop.routes")(app);
+require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);
@@ -39,4 +42,3 @@ app.listen(PORT, () => {
   console.log(`Backend server running on portaso ${PORT}`);
 })
 
-require('./routes/index.routes')(app);

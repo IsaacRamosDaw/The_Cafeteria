@@ -36,5 +36,9 @@ async function logInWelcome(formData) {
     throw new Error(errorMessage || "Invalid login credentials");
   }
 
-  return await response.json();
+  
+  const user = await response.json()
+  console.log("User from welcome js: ", user)
+
+  return user
 }
