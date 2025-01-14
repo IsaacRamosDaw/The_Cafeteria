@@ -26,7 +26,7 @@ db.sessionStore.sync();
 
 app.use(
   db.session({
-    secre: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     store: db.sessionStore,
     resave: false,
     saveUninitialized: false,

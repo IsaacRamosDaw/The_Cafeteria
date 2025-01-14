@@ -4,7 +4,7 @@ module.exports = (app) => {
 
   router.post("/", auth.signin, (req, res) => res.render("admins.views/home.admin.ejs", { user: "mansour" }));
 
-  router.post("/logintest", auth.loginSite);
+  router.post("/logintest", auth.loginAuth);
 
   // router.post("/signin", auth.loginSite);
 
