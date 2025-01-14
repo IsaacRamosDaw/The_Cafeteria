@@ -1,11 +1,9 @@
 const express = require("express");
-
 require("dotenv").config();
 
 var path = require("path");
 
 const app = express();
-
 
 // app.use(upload.single('file')); // Use form-data HTTP headers
 app.use(express.json());
@@ -23,6 +21,20 @@ const db = require("./models");
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db");
 });
+
+db.sessionStore.sync();
+
+app.use(
+  db.session({
+    secre: process.env.SESSION_SECRET,
+    store: db.sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);

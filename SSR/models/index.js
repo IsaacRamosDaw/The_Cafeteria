@@ -1,5 +1,6 @@
-const dbConfig = require("../config/db.config.js")
 const Sequelize = require('sequelize');
+const dbConfig = require("../config/db.config.js")
+
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -14,6 +15,15 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 const db = {};
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize');
+
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+});
+
+db.sessionStore = sessionStore;
+db.session = session;
 db.sequelize = sequelize;
 
 db.admins = require("./admin.model.js")(sequelize);

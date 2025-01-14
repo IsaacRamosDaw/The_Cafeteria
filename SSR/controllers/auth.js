@@ -1,6 +1,3 @@
-// const jwt = require("jsonwebtoken");
-// const utils = require("../utils");
-
 const bcrypt = require("bcryptjs");
 const db = require("../models");
 
@@ -32,6 +29,20 @@ exports.signin = async (req, res) => {
     // res.json({ user: userObj, token });
 
     console.log("User from auth js: ", user)
+  } catch (err) {
+    res.status(500).json({ error: "Internal error" });
+  }
+};
+
+exports.loginAuth = async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.render("welcome");
+    }
+
+    console.log("Login succesfully")
+    res.render("welcome");
+
   } catch (err) {
     res.status(500).json({ error: "Internal error" });
   }
