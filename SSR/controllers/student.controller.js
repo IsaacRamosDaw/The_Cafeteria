@@ -12,15 +12,15 @@ exports.create = (req, res) => {
 		});
 	}
 
-	let studentData = {
-		username: req.body.username,
-		password: req.body.password,
-		age: parseInt(req.body.age),
-		phone: req.body.phone,
-		CourseId: req.body.CourseId,
-		role: "student",
-		filename: req.file ? req.file.filename : "",
-	};
+	// let studentData = {
+	// 	username: req.body.username,
+	// 	password: req.body.password,
+	// 	age: parseInt(req.body.age),
+	// 	phone: req.body.phone,
+	// 	CourseId: req.body.CourseId,
+	// 	role: "student",
+	// 	filename: req.file ? req.file.filename : "",
+	// };
 
 	Student.findOne({ where: { username: studentData.username } })
 		.then((student) => {
@@ -75,47 +75,60 @@ exports.create = (req, res) => {
 		});
 };
 
-exports.findAll = (req, res) => {
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required.",
+exports.createStudent = async (req, res) => {
+	// let studentData = {
+	// 	username: req.body.username,
+	// 	password: req.body.password,
+	// 	age: parseInt(req.body.age),
+	// 	phone: req.body.phone,
+	// 	CourseId: req.body.CourseId,
+	// 	role: "student",
+	// 	filename: req.file ? req.file.filename : "",
+	// };
+
+	let studentData = {
+		username: req.body.username,
+		password: req.body.password,
+		age: 10,
+		phone:' req.body.phone',
+		role: "student",
+		filename: "",
+	};
+
+	Student.create(studentData)
+		.then((student) => {
+			console.log('funcionó')
+			res.render('welcome')
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: "Some error while creating the student: " || err.message,
+			})
+			res.redirect("error");
+		})
+}
+
+exports.findAll = async (req, res) => {
+	try {
+		const students = await Student.findAll();
+		res.render("student.views/test.student.ejs", {students: students})
+	} catch (e) {
+		res.render("error", {
+			error: "error"
 		});
 	}
 
-	if (req.user.role == "admin" || req.user.role == "worker") {
-		Student.findAll()
-			.then((data) => {
-				delete data.password
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message:
-						err.message || "Some error occurred while retrieving students.",
-				});
-			});
-	} else if (req.user.role == "student") {
-		Student.findByPk(req.user.id)
-			.then((data) => {
-				if (!data) {
-					return res.status(404).json({
-						message: "Student not found",
-					});
-				}
-				delete data.password
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message:
-						err.message || "Some error occurred while retrieving student.",
-				});
-			});
-	} else {
-		res.status(403).json({
-			message: "Access denied. Invalid role.",
-		});
-	}
+//? preguntar 
+	// Student.findAll()
+	// 	.then((data) => {
+	// 		res.render("testeo", {students: data});
+	// 	})
+	// 	.catch((err) => {
+	// 		res.status(500).send({
+	// 			message:
+	// 				err.message || "Some error occurred while retrieving students.",
+	// 		});
+	// 	});
 };
 
 exports.findOne = (req, res) => {
@@ -169,14 +182,14 @@ exports.update = (req, res) => {
 		});
 	}
 
-  const updateStudent = {
-    username: req.body.username,
-    age: req.body.age,
-    phone: req.body.phone,
-    role: "student",
-    CourseId: req.body.CourseId,
-    filename: req.file ? req.file.filename : "",
-  };
+	const updateStudent = {
+		username: req.body.username,
+		age: req.body.age,
+		phone: req.body.phone,
+		role: "student",
+		CourseId: req.body.CourseId,
+		filename: req.file ? req.file.filename : "",
+	};
 
 	if (req.body.password) {
 		updateStudent.password = bcrypt.hashSync(req.body.password);
@@ -191,6 +204,54 @@ exports.update = (req, res) => {
 				});
 			}
 			res.send({ message: "Student was updated successfully." });
+		})
+		.catch((err) => {
+			// Catch any error
+			res.status(500).send({
+				message: err.message || "An error occurred while updating the Student.",
+			});
+		});
+};
+
+exports.updateStudent = (req, res) => {
+	const id = req.params.id;
+
+	if (!req.body.username) {
+		return res.status(400).send({
+			message: "The name field cannot be empty.",
+		});
+	}
+
+	if (!req.body.password) {
+		return res.status(400).send({
+			message: "The password field cannot be empty.",
+		});
+	}
+
+	const updateStudentData = {
+		username: req.body.username,
+		password: req.body.password,
+		age: req.body.age,
+		phone: req.body.phone,
+		role: "student",
+		// CourseId: req.body.CourseId,
+		filename: "",
+	};
+
+	if (req.body.password) {
+		updateStudentData.password = bcrypt.hashSync(req.body.password);
+	}
+
+	Student.update(updateStudentData, { where: { id: id } })
+		.then(([rowsUpdated]) => {
+			if (rowsUpdated === 0) {
+				// If no rows were updated, the admin was not found
+				return res.status(404).send({
+					message: `Cannot update Student with id=${id}. Student not found.`,
+				});
+			}
+			res.send({ message: "Student was updated successfully." });
+			res.render("welcome");
 		})
 		.catch((err) => {
 			// Catch any error
@@ -240,12 +301,6 @@ exports.imgUpdate = (req, res) => {
 
 exports.delete = (req, res) => {
 	const id = req.params.id;
-
-	if (req.user.role !== "admin" && Number(id) !== req.user.id) {
-		return res.status(403).send({
-			message: "Access denied. You can only delete your own data.",
-		});
-	}
 
 	// Delete a Student by ID
 	Student.destroy({ where: { id: id } })
