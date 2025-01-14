@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 exports.findAll = async (req, res) => {
   try {
     const admins = await Admin.findAll();
-    res.render("listAdmins", { admins });
+    res.render("admins.views/crudAdmin/listAdmins", { admins });
   } catch (err) {
     res.render("listAdmins", {
       error: "Error retrieving admins: " + (err.message || ""),
@@ -70,27 +70,42 @@ exports.findAll = async (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  if (!req.body.username || !req.body.password) {
-    return res.render("edit", { error: "Fields cannot be empty." });
+  if (!req.body.username) {
+      return res.status(400).json({ message: "Username is required" });
   }
 
-  const update = {
-    username: req.body.username,
-    password: bcrypt.hashSync(req.body.password),
+  const updateData = {
+      username: req.body.username,
   };
 
-  Admin.update(update, { where: { id } })
-    .then(([rowsUpdated]) => {
-      if (rowsUpdated === 0) {
-        return res.render("editAdmin", {
-          error: `Cannot update the admin with id=${id}. Admin not found.`,
+  Admin.update(updateData, { where: { id } })
+      .then(([rowsUpdated]) => {
+          if (rowsUpdated === 0) {
+              return res.status(404).json({ message: `Admin with id=${id} not found.` });
+          }
+          res.json({ message: "Admin updated successfully" });
+      })
+      .catch((err) => {
+          res.status(500).json({ message: "Error updating admin", error: err.message });
+      });
+};
+
+
+exports.edit = (req, res) => {
+  const id = req.params.id;
+
+  Admin.findByPk(id)
+    .then((admin) => {
+      if (!admin) {
+        return res.status(404).render("error", {
+          error: `Admin with ID ${id} not found.`,
         });
       }
-      res.redirect("/api/admin");
+      res.render("admins.views/crudAdmin/editAdmin", { admin });
     })
     .catch((err) => {
-      res.render("editAdmin", {
-        error: "Error updating the admin: " + (err.message || ""),
+      res.status(500).render("error", {
+        error: "Error fetching the admin: " + (err.message || "Unknown error."),
       });
     });
 };
@@ -118,17 +133,19 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
+  console.log("ID recibido para eliminar:", id);
 
-  Admin.destroy({ where: { id } })
+  Admin.destroy({ where: { id: id } })
     .then((deleted) => {
       if (!deleted) {
-        return res.render("listAdmins", { error: "Admin not found." });
+        return res.status(404).json({ error: "Admin not found." });
       }
-      res.redirect("/api/admin");
+      return res.status(200).json({ message: "Admin eliminado correctamente." });
     })
     .catch((err) => {
-      res.render("listAdmins", {
-        error: "Error deleting the admin: " + (err.message || ""),
+      console.error("Error al eliminar el admin:", err);
+      res.status(500).json({
+        error: "Error deleting the admin: " + (err.message || "Unknown error"),
       });
     });
 };

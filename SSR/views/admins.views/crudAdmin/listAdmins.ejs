@@ -8,8 +8,14 @@
 <body>
     <ul>
         <% for (let a of admins) { %>
-            <li><%= admins.username  %></li>
-        <% } %>
-    </ul>
-</body>
-</html>
+        <li><%= a.username  %>
+            <button class="delete-button" data-id="<%= a.id %>">Eliminar</button>
+            <a href="/api/admin/edit/<%= a.id %>">
+                <button class="edit-button">Editar</button>
+            </a>
+        </li>
+            <% } %>
+        </ul>
+        <script src="/js/admins/crudAdminJs/deleteAdmin.js" defer></script>
+    </body>
+</html> 

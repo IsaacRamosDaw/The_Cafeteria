@@ -5,12 +5,13 @@ require("dotenv").config();
 var path = require("path");
 
 const app = express();
+const methodOverride = require("method-override");
 
 
 // app.use(upload.single('file')); // Use form-data HTTP headers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
-
+app.use(methodOverride("_method"));
 app.set('view engine', 'ejs');
 // Views directory
 app.set("views", path.join(__dirname, "views"));
