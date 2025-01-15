@@ -1,4 +1,4 @@
-const endPoint = "http://localhost:8080/api/site";
+const endPoint = "http://localhost:8080/api/site/logintest";
 
 async function handleForm(e) {
   e.preventDefault();

@@ -1,12 +1,10 @@
 const express = require("express");
-
 require("dotenv").config();
 
 var path = require("path");
 
 const app = express();
 const methodOverride = require("method-override");
-
 
 // app.use(upload.single('file')); // Use form-data HTTP headers
 app.use(express.json());
@@ -25,10 +23,25 @@ db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db");
 });
 
+db.sessionStore.sync();
+
+app.use(
+  db.session({
+    secret: process.env.SESSION_SECRET,
+    store: db.sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
 require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);
+require("./routes/student.views.routes")(app);
 require("./routes/school.routes")(app);
 require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
