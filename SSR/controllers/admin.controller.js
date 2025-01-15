@@ -60,28 +60,20 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = async (req, res) => {
-  if (!req.user) {
-    return res.status(403).json({
-      message: "Access denied. Authentication required.",
-    });
-  }
+exports.index = (req, res) => {
+  findAll(req, res)
+}
 
-  if (req.user.role !== "admin") {
-    return res.status(403).json({
-      message: "Access denied. Invalid role.",
+const findAll = (req, res) => {
+  Admin.findAll()
+  .then((data) => {
+    return res.render('admins.views/home.admin.ejs', { admins: data })
+  })
+  .catch(err => {
+    return res.render("error", {
+      message: err.message || "Some error occurred while retrieving admins."
     });
-  }
-
-  try {
-    const admins = await Admin.findAll();
-
-    return res.json(admins);
-  } catch (err) {
-    return res.status(500).json({
-      message: err.message || "Some error occurred while retrieving data.",
-    });
-  }
+  });
 };
 
 exports.findOne = (req, res) => {
