@@ -39,16 +39,25 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = async (req, res) => {
-  try {
+
+exports.index = (req, res) => {
+  findAll(req, res)
+}
+
+
+
+const findAll = (req, res) => {
+  Admin.findAll()
+  .then((data) => {
     const admins = await Admin.findAll();
     res.render("admins.views/crudAdmin/listAdmins", { admins });
-  } catch (err) {
+  })
+  .catch(err => {
     res.render("listAdmins", {
       error: "Error retrieving admins: " + (err.message || ""),
     });
-  }
-};
+  });
+
 
 // exports.findOne = (req, res) => {
 //   const id = req.params.id;

@@ -6,9 +6,9 @@
     <title>Cafeteria</title>
   </head>
   <body>
-    <h2>Welcome</h2>
+    <h2>Login</h2>
 
-    <form action="." onsubmit="handleForm(event)">
+    <form action="/api/signin" method="POST">
       <label for="username"> Username </label>
       <input type="text" name="username" id="username" />
       <br />
@@ -20,6 +20,5 @@
       <button type="submit">Log In</button>
     </form>
 
-    <script src="/js/welcome.js"></script>
   </body>
 </html>

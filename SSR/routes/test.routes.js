@@ -6,5 +6,5 @@ module.exports = (app) => {
 
   router.get("/", test.findAll);
 
-  router.post("/",test.create);
+  router.post("/",test.create); 
 }
