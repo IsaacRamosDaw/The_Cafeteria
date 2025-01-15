@@ -1,5 +1,5 @@
 const form = document.getElementById('edit-admin-form');
-const adminId = form.getAttribute('data-id'); // Obtén el ID del admin desde un atributo del formulario
+const adminId = form.getAttribute('data-id'); 
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault(); 

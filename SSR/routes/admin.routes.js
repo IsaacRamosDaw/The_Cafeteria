@@ -16,6 +16,17 @@ module.exports = (app) => {
   //List all admins
   router.get("/", admin.findAll);
   
+  router.get("/testAdmins", async (req, res) => {
+    try {
+        const admins = await admin.findAll();
+        res.render("admins.views/testHomeAdmin", {
+            pageContent: await res.render("admins.views/crudAdmin/listAdmins", { admins }, true),
+        });
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Error interno del servidor.");
+    }
+});
   
 
   // Get one admin
