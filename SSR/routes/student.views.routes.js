@@ -10,13 +10,13 @@ module.exports = (app) => {
   router.get("/create", (req, res) => res.render("student.views/create.student.ejs"));
 
   // Create all students view
-  router.get("/update", (req, res) => res.render("student.views/update.student.ejs"));
+  router.get("/edit/:id", student.edit);
 
 	// Create a student  
   router.post("/", student.createStudent);
 
 	// Update a student view
-  router.put("/:id", student.updateStudent);
+  router.put("/edit/:id", student.updateStudent);
 
   // Prefijo general para rutas de estudiante
   app.use("/api/view", router);

@@ -162,6 +162,24 @@ exports.findOne = (req, res) => {
 	}
 };
 
+exports.edit = (req, res) => {
+	const id = req.params.id;
+
+	Student.findByPk(id)
+		.then((student) => {
+			if(!student) {
+				res.status(404).render("error", {
+					error: "student with id :" + id + " not found",
+				});
+			}
+			res.render("student.views/update.student.ejs", {student});
+		}).catch((err) => {
+			res.status(500).render("error", {
+				error: "error fetching the student: " + (err.message || "unknown error"),
+			});
+		});
+}
+
 exports.update = (req, res) => {
 	const id = req.params.id;
 
@@ -206,7 +224,6 @@ exports.update = (req, res) => {
 			res.send({ message: "Student was updated successfully." });
 		})
 		.catch((err) => {
-			// Catch any error
 			res.status(500).send({
 				message: err.message || "An error occurred while updating the Student.",
 			});
@@ -230,31 +247,29 @@ exports.updateStudent = (req, res) => {
 
 	const updateStudentData = {
 		username: req.body.username,
-		password: req.body.password,
-		age: req.body.age,
-		phone: req.body.phone,
-		role: "student",
-		// CourseId: req.body.CourseId,
-		filename: "",
+		// password: req.body.password,
+		// age: req.body.age,
+		// phone: req.body.phone,
+		// role: "student",
+		// filename: "",
 	};
 
-	if (req.body.password) {
-		updateStudentData.password = bcrypt.hashSync(req.body.password);
-	}
-
+	// if (req.body.password) {
+	// 	updateStudentData.password = bcrypt.hashSync(req.body.password);
+	// }
+console.log("UPDATE.......................................")
+console.log(id)
 	Student.update(updateStudentData, { where: { id: id } })
 		.then(([rowsUpdated]) => {
 			if (rowsUpdated === 0) {
-				// If no rows were updated, the admin was not found
 				return res.status(404).send({
 					message: `Cannot update Student with id=${id}. Student not found.`,
 				});
 			}
-			res.send({ message: "Student was updated successfully." });
-			res.render("welcome");
+    	window.location.href = '/api/view';
+			res.render("student.views/test.student");
 		})
 		.catch((err) => {
-			// Catch any error
 			res.status(500).send({
 				message: err.message || "An error occurred while updating the Student.",
 			});

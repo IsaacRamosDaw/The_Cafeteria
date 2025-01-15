@@ -8,9 +8,12 @@
 </head>
 
 <body>
-  <% for (let student of students) {%>
+  <% for (let student of students) { %>
     <h2>Nombre : <%= student.username %></h2>
     <button class="delete-button" data-id="<%= student.id %>">Eliminar</button>
+    <a href="/api/view/edit/<%= student.id %>">
+      <button class="edit-button">Editar</button>
+    </a>
   <% } %>
   <script src="/js/students/students.scripts.js"></script>
 </body>

@@ -23,35 +23,42 @@ buttons.forEach((button) => {
 })
 
 //! UPDATE
-  const form = document.getElementById('update-form');
+const form = document.getElementById('update-student-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevenir el envío predeterminado del formulario
+  const id = form.getAttribute('data-id');
+  console.log("este es el id: " + id)
 
-    // Crear un objeto con los datos del formulario
-    const formData = new FormData(form);
-    const urlEncodedData = new URLSearchParams(formData).toString(); // Convertir a URL-encoded
 
-    try {
-      // Enviar la solicitud al servidor
-      const response = await fetch('/api/view/1', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded', // Indicamos el tipo correcto
-        },
-        body: urlEncodedData, // Enviar los datos como URL-encoded
-      });
+  const formData = new FormData(form);
+  const data = {
+    username: formData.get("username"),
+    password: formData.get("password"),
+    phone: formData.get("phone"),
+    age: formData.get("age")
+  }
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Actualización exitosa:', result);
-        alert('Datos enviados correctamente');
-      } else {
-        console.error('Error al enviar los datos:', response.statusText);
-        alert('Error al enviar los datos');
-      }
-    } catch (error) {
-      console.error('Error de red:', error);
-      alert('Error al conectar con el servidor');
+  console.log("username :" + data.username)
+  console.log("password :"+ data.password)
+  console.log("phone :"+ data.phone)
+  console.log("age :" + data.age)
+
+  try {
+    const response = await fetch('/api/view/edit/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify(data), 
+    });
+
+    if(!response.ok){
+      window.location.href = '/api/view';
     }
-  });
+  } catch (err) {
+
+    console.error('Error de red:', err.message);
+    alert('Error al conectar con el servidor');
+  }
+});
