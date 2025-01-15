@@ -266,7 +266,6 @@ console.log(id)
 					message: `Cannot update Student with id=${id}. Student not found.`,
 				});
 			}
-    	window.location.href = '/api/view';
 			res.render("student.views/test.student");
 		})
 		.catch((err) => {
