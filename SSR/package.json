@@ -9,7 +9,6 @@
   "author": "mansour | cynthia | isaac",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
