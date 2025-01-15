@@ -1,15 +1,17 @@
 module.exports = (app) => {
-  const auth = require("../controllers/auth.js");
+  const authSession = require("../controllers/auth.session");
   var router = require("express").Router();
 
-  router.post("/", auth.signin, (req, res) => res.render("admins.views/home.admin.ejs", { user: "mansour" }));
+  // router.post("/", authSession.signin, (req, res) => res.render("admins.views/home.admin.ejs", { user: "mansour" }));
 
-  router.post("/logintest", auth.loginAuth);
+  // login view if not session
+  router.get("/login", authSession.login);
 
-  // router.post("/signin", auth.loginSite);
+  // Sign ing a user
+  router.post("/signin", authSession.signin);
 
-  // router.post("/logout", auth.loginSite);
+  // Logout a user
+  router.post("/logout", authSession.logout);
 
-  app.use("/api/site", router);
+  app.use("/api", router);
 };
-
