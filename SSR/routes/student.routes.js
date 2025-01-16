@@ -6,7 +6,7 @@ module.exports = (app) => {
 	var router = require("express").Router();
 
 
-	//List all students view
+	//List all students
 	router.get("/", student.findAll);
 
 	// Retrieve one student
