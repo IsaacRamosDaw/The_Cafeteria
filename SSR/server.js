@@ -4,7 +4,6 @@ require("dotenv").config();
 var path = require("path");
 
 const app = express();
-const methodOverride = require("method-override");
 
 app.use(express.json());
 

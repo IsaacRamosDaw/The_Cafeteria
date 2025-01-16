@@ -11,13 +11,14 @@ module.exports = (app) => {
   
   router.post("/upload/:folderName", upload.single('file'), admin.create);
 
-  router.put("/upload/:id", upload.single('file'), admin.imgUpdate);
+  router.put("/upload/:id", upload.single('file'), admin.update);
 
   //List all admins
   router.get("/", authSession.isAuthenticated, admin.index);
-
+  
+  router.get("/admins", authSession.isAuthenticated, admin.findAll);
   // Get one admin
-  router.get("/:id", authSession.isAuthenticated, admin.findOne);
+  // router.get("/:id", authSession.isAuthenticated, admin.findOne);
 
   router.get("/edit/:id",authSession.isAuthenticated, admin.edit);
   
