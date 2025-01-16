@@ -1,6 +1,5 @@
 const endpoint = '/api/student/'
 const buttons = document.querySelectorAll('.delete-button');
-
 //! Eliminar
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -14,7 +13,6 @@ buttons.forEach((button) => {
           console.log("error al eliminar el estudiante");
         }
         e.target.parentElement.remove();
-        console.log("studiante con este id eliminado")
 
       }).catch((err) => {
         console.log("ha habido un problema en la red")

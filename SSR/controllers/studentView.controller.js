@@ -2,11 +2,9 @@
 const db = require("../models");
 const Student = db.student;
 const bcrypt = require("bcryptjs");
-// const Wallet = db.wallet;
-
 
 exports.create = (req, res) => {
-  res.render("create-student")
+  res.render("student.views/create-student")
 }
 
 exports.findAll = (req, res) => {

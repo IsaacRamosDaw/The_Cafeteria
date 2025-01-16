@@ -2,46 +2,42 @@
 const db = require("../models");
 const Product = db.product;
 
-exports.findAll = (req, res) => {
-	Product.findAll()
-		.then(products => {
-			if (!products) {
-				return res.status(404).json({
-					message: `Product did not found.`
-				});
-			}
-			res.send(products);
-		})
-		.catch(err => 
-			res.status(500).send({
-				message: err.message || "Some error occurred while retrieving products."
-			})
-		);
-};
-
 exports.create = (req, res) => {
   let productData = {
-    name: req.body.name,
-    price: req.body.price,
-    description: req.body.description,
-    filename: req.file ? req.file.filename : "",
-    CategoryId: req.body.CategoryId,
+    name: "producto",
+    price: 10,
+    description: "productaso",
+    filename: "",
   };
 
-		Product.create(productData)
-		.then(product => res.status(201)
-		.json({
-				message: "Product created successfully",
-				product: product,
-			}))
-			.catch(err => 
-				res.status(500).send({
-					message:
-						err.message || "Some error while creating the product."
-				})
-			);
+  Product.create(productData)
+    .then((product) => {
+      return res.json({ product: product })
+    })
+    .catch(err =>
+      res.status(500).send({
+        message:
+          err.message || "Some error while creating the product."
+      })
+    );
 }
 
+exports.findAll = (req, res) => {
+  Product.findAll()
+    .then(products => {
+      if (!products) {
+        return res.status(404).json({
+          message: `Product did not found.`
+        });
+      }
+      res.send(products);
+    })
+    .catch(err =>
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving products."
+      })
+    );
+};
 
 exports.findByCategory = (req, res) => {
   const categoryId = Number(req.params.id);
@@ -118,33 +114,33 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const id = Number(req.params.id);
 
-  if (!req.body.name) {
-    return res.status(400).send({ message: "The name field cannot be empty." });
-  }
+  // if (!req.body.name) {
+  //   return res.status(400).send({ message: "The name field cannot be empty." });
+  // }
 
-  const update = {
+  const productUpdateData = {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    filename: req.file ? req.file.filename : "",
+    filename: "",
   };
 
-	Product.update(update, { where: { id: id } })
-		.then(([rowsUpdated]) => {
-			if (rowsUpdated === 0) {
-				return res.status(404).send({
-					message: `Cannot update product with id=${id}. Product not found.`
-				});
-			}
-			res.send({ message: "Product was updated successfully." });
-		})
-		.catch(err => {
-			res.status(500).send({
-				message: err.message || "An error occurred while updating the Product."
-			});
-		});
+  Product.update(productUpdateData, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        return res.status(404).send({
+          message: `Cannot update product with id=${id}. Product not found.`
+        });
+      }
+      res.send({ product: productUpdateData});
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the Product."
+      });
+    });
 };
 
 exports.delete = (req, res) => {

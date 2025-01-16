@@ -81,6 +81,7 @@ require("./routes/studentViews.routes")(app);
 require("./routes/school.routes")(app);
 require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
+require("./routes/productViews.routes")(app);
 require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
 require("./routes/wallet.routes")(app);

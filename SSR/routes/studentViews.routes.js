@@ -6,11 +6,11 @@ module.exports = (app) => {
     // Get all students views
     router.get("/", student.findAll);
 
-    // Retrieve one student
-    router.get("/:id", student.findOne);
-
     // Create a students view
     router.get("/create", student.create);
+
+    // Retrieve one student
+    router.get("/find/:id", student.findOne);
 
     // Edit a students view
     router.get("/edit/:id", student.edit);

@@ -6,73 +6,80 @@ const utils = require("../utils");
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
-	if (!req.body.password || !req.body.username) {
-		return res.status(400).send({
-			message: "Content can not be empty!",
-		});
-	}
+	// if (!req.body.password || !req.body.username) {
+	// 	return res.status(400).send({
+	// 		message: "Content can not be empty!",
+	// 	});
+	// }
 
-	// let studentData = {
-	// 	username: req.body.username,
-	// 	password: req.body.password,
-	// 	age: parseInt(req.body.age),
-	// 	phone: req.body.phone,
-	// 	CourseId: req.body.CourseId,
-	// 	role: "student",
-	// 	filename: req.file ? req.file.filename : "",
-	// };
+	let studentData = {
+		username: "alumno",
+		password: "password",
+		age: 10,
+		phone: "43758743",
+		role: "student",
+		filename: "",
+		// CourseId: req.body.CourseId,
+		// age: parseInt(req.body.age),
+	};
 
-	Student.findOne({ where: { username: studentData.username } })
+	Student.create(studentData)
 		.then((student) => {
-			if (student) {
-				const result = bcrypt.compareSync(req.body.password, student.password);
-				if (!result) return res.status(401).send("Password not valid!");
-				const token = utils.generateToken(student);
-				const studentObj = utils.getCleanUser(student);
-
-				return res.json({ student: studentObj, access_token: token });
-			}
-
-			studentData.password = bcrypt.hashSync(req.body.password);
-
-			Student.create(studentData)
-				.then((student) => {
-					const token = utils.generateToken(student);
-					const studentObj = utils.getCleanUser(student);
-
-					const walletData = {
-						amount: 50,
-						StudentId: student.id,
-					}
-
-					Wallet.create(walletData)
-						.then((wallet) => {
-							res.status(201).json({
-								message: "Student and wallet added created succesfully",
-								student: studentObj,
-								CourseId: student.CourseId,
-								token: token,
-								wallet: wallet,
-							})
-						})
-						.catch(err => res.status(500).json({
-							message: "Some error while creating the wallet of this student: " || err.message
-						})
-						)
-				})
-				.catch((err) => {
-					res.status(500).send({
-						message: "Some error while creating the student: " || err.message,
-					})
-				})
-		}
-		)
+			res.send(student);
+		})
 		.catch((err) => {
 			res.status(500).send({
-				message:
-					"Some error while retrieving the tutorials the student: " || err.message,
-			});
+				message: "Some error while creating the student: " || err.message,
+			})
 		});
+
+	// Student.findOne({ where: { username: studentData.username } })
+	// .then((student) => {
+	// if (student) {
+	// const result = bcrypt.compareSync(req.body.password, student.password);
+	// if (!result) return res.status(401).send("Password not valid!");
+	// const token = utils.generateToken(student);
+	// const studentObj = utils.getCleanUser(student);
+
+	// return res.json({ student: studentObj, access_token: token });
+	// }
+
+	// studentData.password = bcrypt.hashSync(studentData.password);
+
+	// const token = utils.generateToken(student);
+	// const studentObj = utils.getCleanUser(student);
+	// const walletData = {
+	// 	amount: 50,
+	// 	StudentId: student.id,
+	// }
+
+	// Wallet.create(walletData)
+	// 	.then((wallet) => {
+	// 		res.status(201).json({
+	// 			message: "Student and wallet added created succesfully",
+	// 			student: studentObj,
+	// 			CourseId: student.CourseId,
+	// 			token: token,
+	// 			wallet: wallet,
+	// 		})
+	// 	})
+	// 	.catch(err => res.status(500).json({
+	// 		message: "Some error while creating the wallet of this student: " || err.message
+	// 	})
+	// 	)
+	// 		.catch((err) => {
+	// 			res.status(500).send({
+	// 				message: "Some error while creating the student: " || err.message,
+	// 			})
+	// 		})
+	// }
+	// )
+	// .catch((err) => {
+	// 	res.status(500).send({
+	// 		message:
+	// 			"Some error while retrieving the tutorials the student: " || err.message,
+	// 	});
+	// });
 };
 
 exports.findAll = async (req, res) => {
