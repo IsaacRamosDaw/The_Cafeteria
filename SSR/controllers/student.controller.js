@@ -90,7 +90,7 @@ exports.createStudent = async (req, res) => {
 		username: req.body.username,
 		password: req.body.password,
 		age: 10,
-		phone:' req.body.phone',
+		phone: ' req.body.phone',
 		role: "student",
 		filename: "",
 	};
@@ -108,58 +108,72 @@ exports.createStudent = async (req, res) => {
 		})
 }
 
+//? DATA 
 exports.findAll = async (req, res) => {
-	try {
-		const students = await Student.findAll();
-		res.render("student.views/test.student.ejs", {students: students})
-	} catch (e) {
-		res.render("error", {
-			error: "error"
+	Student.findAll()
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message || "Some error occurred while retrieving students.",
+			});
 		});
-	}
-
-//? preguntar 
-	// Student.findAll()
-	// 	.then((data) => {
-	// 		res.render("testeo", {students: data});
-	// 	})
-	// 	.catch((err) => {
-	// 		res.status(500).send({
-	// 			message:
-	// 				err.message || "Some error occurred while retrieving students.",
-	// 		});
-	// 	});
 };
 
+//? VIEW
+exports.findAllView = async (req, res) => {
+	Student.findAll()
+		.then((student) => {
+			res.render("student.views/allData.student", { students: student })
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message || "Some error occurred while retrieving students.",
+			});
+		});
+};
+
+//? DATA 
 exports.findOne = (req, res) => {
 	const id = Number(req.params.id);
 
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required.",
-		});
-	}
-
-	if (req.user.role === "admin" || id === req.user.id || req.user.role === "worker") {
-		Student.findByPk(id)
-			.then((data) => {
-				if (!data) {
-					return res.status(404).json({
-						message: `Student with id=${id} not found.`,
-					});
-				}
-				// Delete the password in the get
-				delete data.password
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message: err.message || `Error retrieving student with id=${id}.`,
+	Student.findByPk(id)
+		.then((data) => {
+			if (!data) {
+				return res.status(404).json({
+					message: `Student with id=${id} not found.`,
 				});
+			}
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || `Error retrieving student with id=${id}.`,
 			});
-	} else {
-		res.status(403).json({ message: "Access denied. You can only access your own data." });
-	}
+		});
+};
+
+//? VIEW 
+exports.findOneView = (req, res) => {
+	const id = Number(req.params.id);
+
+	Student.findByPk(id)
+		.then((data) => {
+			if (!data) {
+				return res.status(404).json({
+					message: `Student with id=${id} not found.`,
+				});
+			}
+			res.render('student.views/data.student', {student: data});
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || `Error retrieving student with id=${id}.`,
+			});
+		});
 };
 
 exports.edit = (req, res) => {
@@ -167,15 +181,15 @@ exports.edit = (req, res) => {
 
 	Student.findByPk(id)
 		.then((student) => {
-			if(!student) {
+			if (!student) {
 				res.status(404).render("error", {
 					error: "student with id :" + id + " not found",
 				});
 			}
-			res.render("student.views/update.student.ejs", {student});
+			res.render("student.views/update.student.ejs", { student });
 		}).catch((err) => {
 			res.status(500).render("error", {
-				error: "error fetching the student: " + (err.message || "unknown error"),
+				error: "error fetching the student: " + (err || "unknown error"),
 			});
 		});
 }
@@ -257,8 +271,8 @@ exports.updateStudent = (req, res) => {
 	// if (req.body.password) {
 	// 	updateStudentData.password = bcrypt.hashSync(req.body.password);
 	// }
-console.log("UPDATE.......................................")
-console.log(id)
+	console.log("UPDATE.......................................")
+	console.log(id)
 	Student.update(updateStudentData, { where: { id: id } })
 		.then(([rowsUpdated]) => {
 			if (rowsUpdated === 0) {
@@ -266,7 +280,7 @@ console.log(id)
 					message: `Cannot update Student with id=${id}. Student not found.`,
 				});
 			}
-			res.render("student.views/test.student");
+			res.render("student.views/allData.student");
 		})
 		.catch((err) => {
 			res.status(500).send({
