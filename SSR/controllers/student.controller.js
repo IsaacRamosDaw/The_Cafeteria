@@ -98,7 +98,7 @@ exports.createStudent = async (req, res) => {
 	Student.create(studentData)
 		.then((student) => {
 			console.log('funcionó')
-			res.render('welcome')
+			res.redirect('/api/admin')
 		})
 		.catch((err) => {
 			res.status(500).send({
