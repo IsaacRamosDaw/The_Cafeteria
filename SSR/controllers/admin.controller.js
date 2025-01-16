@@ -1,8 +1,11 @@
 //!TO CHECK
 const db = require("../models");
-const Admin = db.admins;
 const Op = db.sequelize.Op;
 const bcrypt = require("bcryptjs");
+
+const Admin = db.admins;
+const Student = db.student
+const Worker = db.worker
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
@@ -55,9 +58,10 @@ exports.findAll = (req, res) => {
 exports.index = async (req, res) => {
   try {
     const admins = await Admin.findAll();
-    const students = [{ username: "mansour", id: '0' }] 
+    const students = await Student.findAll();
+    const workers = await Worker.findAll();
 
-    res.render("admins.views/home.admin.ejs", { admins, students }); 
+    res.render("admins.views/home.admin.ejs", { admins, students, workers }); 
   } catch (err) {
     console.error("Error while rendering admins page: ", err);
     res.status(500).send({

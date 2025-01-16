@@ -6,13 +6,17 @@
   <title>Document</title>
 </head>
 <body>
-   <h1>Bienvenido </h1>
+   <h1>Bienvenido! </h1>
 
-   <% include('../admins.views/crudAdmin/listAdmins.ejs') %>
+   <hr>
 
-   <% include('../student.views/test.student.ejs') %>
+   <%- include('./crudAdmin/listAdmins.ejs') %>
 
-   <% include('../worker.views/listWorker.worker.ejs') %>
+   <%- include('../student.views/test.student.ejs') %>
+
+   <%- include('../worker.views/listWorker.worker.ejs') %>
+
+   <hr>
 
    <form action="/api/logout" method="POST">
     <button type="submit">Logout</button>
