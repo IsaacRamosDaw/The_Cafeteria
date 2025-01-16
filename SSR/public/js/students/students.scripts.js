@@ -45,7 +45,7 @@ form.addEventListener('submit', async (e) => {
   console.log("age :" + data.age)
 
   try {
-    const response = await fetch('/api/view/edit/' + id, {
+    await fetch('/api/student/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json', 
@@ -53,9 +53,9 @@ form.addEventListener('submit', async (e) => {
       body: JSON.stringify(data), 
     });
 
-    if(!response.ok){
-      window.location.href = '/api/view';
-    }
+   
+      window.location.href = '/api/view/student';
+    
   } catch (err) {
 
     console.error('Error de red:', err.message);
