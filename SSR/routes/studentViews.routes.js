@@ -15,5 +15,5 @@ module.exports = (app) => {
     // Edit a students view
     router.get("/edit/:id", student.edit);
 
-  app.use("/api/student/view", router);
+  app.use("/api/view/student", router);
 };

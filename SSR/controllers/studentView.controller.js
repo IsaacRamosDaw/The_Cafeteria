@@ -1,26 +1,27 @@
 //!TO CHECK
 const db = require("../models");
 const Student = db.student;
-const Wallet = db.wallet;
-const utils = require("../utils");
 const bcrypt = require("bcryptjs");
+// const Wallet = db.wallet;
 
 
 exports.create = (req, res) => {
   res.render("create-student")
 }
 
-exports.findAll = async (req, res) => {
-  try {
-    const students = await Student.findAll();
-    console.log(students)
-    res.render("student.views/list-student", { students }); // Renderiza la vista con datos
-  } catch (error) {
-    res.status(500).send({
-      message: error.message || "Error retrieving students.",
+exports.findAll = (req, res) => {
+  Student.findAll()
+    .then((students) => {
+      console.log("students");
+      res.render("student.views/list-student", { students }); 
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "Error retrieving students.",
+      });
     });
-  }
 };
+
 
 exports.findOne = async (req, res) => {
   const id = Number(req.params.id);
