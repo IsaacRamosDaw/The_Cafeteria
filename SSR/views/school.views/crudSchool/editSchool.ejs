@@ -6,9 +6,9 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Editar Admin</h1>
-        <form id="edit-admin-form" data-id="<%= school.id %>">
-            <label for="username">Nombre</label>
+        <h1>Editar Colegio</h1>
+        <form id="edit-school-form" data-id="<%= school.id %>">
+            <label for="name">Nombre</label>
             <input type="text" id="name" name="name"
                 value="<%= school.name %>" required>
             <label for="address">Dirección</label>
@@ -22,7 +22,44 @@
                 value="<%= school.phone %>" required>
             <button type="submit">Guardar cambios</button>
         </form>
-        <a href="/api/admin">Volver</a>
-        <script src="js/schools/crudSchools/editSchool.js" defer></script>
+        <a href="/api/login">Volver</a>
+        <!-- <script src="js/schools/crudSchools/editSchool.js" defer></script> -->
+        <script>
+            const form = document.getElementById('edit-school-form');
+            const schoolId = form.getAttribute('data-id');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                const data = {
+                    name: formData.get('name'),
+                    address: formData.get('address'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                };
+
+                try {
+                    const response = await fetch(`/api/schools/edit/${schoolId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (response.ok) {
+                        alert('School updated successfully');
+                        window.location.href = '/api/admin';
+                    } else {
+                        const error = await response.json();
+                        alert(`Error updating school: ${error.message}`);
+                    }
+                } catch (err) {
+                    console.error('Error:', err);
+                    alert('An unexpected error occurred.');
+                }
+            });
+        </script>
     </body>
 </html>

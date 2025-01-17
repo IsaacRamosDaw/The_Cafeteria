@@ -1,5 +1,5 @@
 (function () {
-    const endpoint = '/api/admin/';
+    const endpoint = '/api/schools/';
     const buttons = document.querySelectorAll('.delete-button');
 
     buttons.forEach((button) => {
@@ -21,3 +21,4 @@
         });
     });
 })();
+

@@ -15,8 +15,8 @@ exports.create = (req, res) => {
   };
 
   School.create(school)
-    .then((data) => {
-      res.send(data);
+    .then(() => {
+      res.redirect("/api/admin");
     })
     .catch((err) => {
       res.status(500).send({
@@ -109,7 +109,7 @@ exports.edit = (req, res) => {
     .then((school) => {
       if (!school) {
         return res.status(404).render("error", {
-          error: `Admin with ID ${id} not found.`,
+          error: `School with ID ${id} not found.`,
         });
       }
       res.render("school.views/crudSchool/editSchool", { school });
