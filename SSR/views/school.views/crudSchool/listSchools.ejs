@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colegios</title>
+  </head>
+  <body>
+    <h1>Listado de colegios</h1>
+    <ul>
+      <% for (let s of students) { %>
+      <li>
+        <%= s.name %>
+        <button class="delete-button" data-id="<%= s.id %>">Eliminar</button>
+        <a href="/api/admin/edit/<%= s.id %>">
+          <button class="edit-button">Editar</button>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+
+    <a href="/api/school/create"> Crear Admin </a>
+    <script src="/js/admins/crudAdminJs/deleteAdmin.js" defer></script>
+  </body>
+</html>

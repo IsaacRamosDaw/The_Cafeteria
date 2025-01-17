@@ -9,12 +9,14 @@ module.exports = app => {
     router.post("/", school.create);
 
     //List all schools
-    router.get("/", school.findAll);
+    router.get("/admins", authSession.isAuthenticated, school.findAll);
 
     router.get("/:id", school.findOne);
 
     // Update school
-    router.put("/:id", school.update);
+    router.get("/edit/:id",authSession.isAuthenticated, school.edit);
+  
+    router.put("/edit/:id",authSession.isAuthenticated, school.update);
 
     // router.put("/upload/:id", upload.single('file'), school.imgUpdate);
 

@@ -39,15 +39,15 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findOne = (req, res) => {
-  School.findOne({
-    where: {
-      id: req.params.id,
-    },
-  }).then((data) => {
-    res.send(data);
-  });
-};
+// exports.findOne = (req, res) => {
+//   School.findOne({
+//     where: {
+//       id: req.params.id,
+//     },
+//   }).then((data) => {
+//     res.send(data);
+//   });
+// };
 
 // Update a school by ID
 exports.update = (req, res) => {
@@ -102,6 +102,25 @@ exports.update = (req, res) => {
     });
 };
 
+exports.edit = (req, res) => {
+  const id = req.params.id;
+
+  School.findByPk(id)
+    .then((school) => {
+      if (!school) {
+        return res.status(404).render("error", {
+          error: `Admin with ID ${id} not found.`,
+        });
+      }
+      res.render("school.views/crudSchool/editSchool", { school });
+    })
+    .catch((err) => {
+      res.status(500).render("error", {
+        error: "Error fetching the admin: " + (err.message || "Unknown error."),
+      });
+    });
+};
+
 // Delete a school by ID
 exports.delete = (req, res) => {
   const id = req.params.id;
@@ -122,35 +141,35 @@ exports.delete = (req, res) => {
     });
 };
 
-exports.imgUpdate = (req, res) => {
-  const id = req.params.id;
+// exports.imgUpdate = (req, res) => {
+//   const id = req.params.id;
 
-  console.log(req.user);
+//   console.log(req.user);
 
-  if (req.user.role != "admin") {
-    return res.status(403).send({
-      message: "Access denied",
-    });
-  }
+//   if (req.user.role != "admin") {
+//     return res.status(403).send({
+//       message: "Access denied",
+//     });
+//   }
 
-  const updateSchool = {
-    filename: req.file ? req.file.filename : "",
-  };
+//   const updateSchool = {
+//     filename: req.file ? req.file.filename : "",
+//   };
 
-  School.update(updateSchool, { where: { id: id } })
-    .then(([rowsUpdated]) => {
-      if (rowsUpdated === 0) {
-        // If no rows were updated, the admin was not found
-        return res.status(404).send({
-          message: `Cannot update school with id=${id}. admin not found.`,
-        });
-      }
-      res.send({ message: "school was updated successfully." });
-    })
-    .catch((err) => {
-      // Catch any error
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the admin.",
-      });
-    });
-};
+//   School.update(updateSchool, { where: { id: id } })
+//     .then(([rowsUpdated]) => {
+//       if (rowsUpdated === 0) {
+//         // If no rows were updated, the admin was not found
+//         return res.status(404).send({
+//           message: `Cannot update school with id=${id}. admin not found.`,
+//         });
+//       }
+//       res.send({ message: "school was updated successfully." });
+//     })
+//     .catch((err) => {
+//       // Catch any error
+//       res.status(500).send({
+//         message: err.message || "An error occurred while updating the admin.",
+//       });
+//     });
+// };

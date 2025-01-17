@@ -4,8 +4,9 @@ const Op = db.sequelize.Op;
 const bcrypt = require("bcryptjs");
 
 const Admin = db.admins;
-const Student = db.student
-const Worker = db.worker
+const Student = db.student;
+const Worker = db.worker;
+const School = db.school;
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
@@ -60,8 +61,9 @@ exports.index = async (req, res) => {
     const admins = await Admin.findAll();
     const students = await Student.findAll();
     const workers = await Worker.findAll();
+    const schools = await School.findAll();
 
-    res.render("admins.views/home.admin.ejs", { admins, students, workers }); 
+    res.render("admins.views/home.admin.ejs", { admins, students, workers, schools}); 
   } catch (err) {
     console.error("Error while rendering admins page: ", err);
     res.status(500).send({
