@@ -2,7 +2,6 @@ module.exports = (app) => {
 	const product = require("../controllers/product.controller.js");
     var router = require("express").Router();
 
-	app.use('/api/products', router);
 
 		// List all products
 		router.get("/", product.findAll);
@@ -27,6 +26,6 @@ module.exports = (app) => {
 
 		//Delete Product
 		router.delete("/:id", product.delete);
-
-
+		
+	app.use('/api/products', router);
 };  

@@ -15,5 +15,5 @@ module.exports = (app) => {
     // Edit a products view
     router.get("/edit/:id", product.edit);
 
-  app.use("/api/view/product", router);
+  app.use("/api/view/products", router);
 };

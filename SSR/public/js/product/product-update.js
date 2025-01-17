@@ -1,10 +1,11 @@
+const { response } = require("express");
+
 const endpoint = '/api/products/'
 const form = document.getElementById('update-product-form');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  alert("estamos aqui")
   const id = form.getAttribute('data-id');
   console.log("este es el id: " + id)
   const formData = new FormData(form);
@@ -27,8 +28,9 @@ form.addEventListener('submit', async (e) => {
       },
       body: JSON.stringify(data), 
     });
-
-      window.location.href = '/api/view/product';
+      if(!response.ok){
+        window.location.href = '/api/view/product';
+      }
   } catch (err) {
     console.error('Error de red:', err.message);
     alert('Error al conectar con el servidor');

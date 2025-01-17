@@ -116,16 +116,20 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = Number(req.params.id);
 
-  // if (!req.body.name) {
-  //   return res.status(400).send({ message: "The name field cannot be empty." });
-  // }
+  if (!req.body.name) {
+    return res.status(400).send({ message: "The name field cannot be empty." });
+  }
 
   const productUpdateData = {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    filename: "",
+    filename: "esto",
   };
+
+  console.log("name: " + productUpdateData.name)
+  console.log("price: " + productUpdateData.price)
+  console.log("descrption: "+ productUpdateData.description)
 
   Product.update(productUpdateData, { where: { id: id } })
     .then(([rowsUpdated]) => {

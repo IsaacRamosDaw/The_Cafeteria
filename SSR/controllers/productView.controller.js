@@ -42,62 +42,6 @@ exports.findOne = (req, res) => {
     });
 };
 
-
-exports.findByCategory = (req, res) => {
-  const categoryId = Number(req.params.id);
-
-  Product.findAll({ where: { CategoryId: categoryId } })
-    .then((products) => {
-      if (!products) {
-        return res.status(404).json({
-          message: `Product didn't found.`,
-        });
-      }
-      res.send(products);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving products.",
-      });
-    });
-};
-
-exports.findFirstOfCategory = (req, res) => {
-  const categoryId = Number(req.params.id);
-
-  Product.findOne({ where: { CategoryId: categoryId } })
-    .then((products) => {
-      if (!products) {
-        return res.status(404).json({
-          message: `Product didn't found.`,
-        });
-      }
-      res.send(products);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving products.",
-      });
-    });
-};
-
-exports.countByCategory = (req, res) => {
-  const value = req.params.id;
-
-  Product.findAndCountAll({ where: { CategoryId: value } })
-    .then((count) => {
-      delete count.rows;
-      res.send(count);
-    })
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Some error occurred while counting categories",
-      })
-    );
-};
-
 exports.edit = (req, res) => {
   const id = Number(req.params.id);
 
