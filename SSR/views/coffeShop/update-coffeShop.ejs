@@ -38,7 +38,9 @@
           },
           body: JSON.stringify(coffeShopUpdateData),
         });
-        alert("terminé")
+        if (response.ok) {
+          window.location.href = '/api/view/coffeShop'
+        }
       } catch (err) {
         console.error('Error de red:', err.message);
         alert('Error al conectar con el servidor');

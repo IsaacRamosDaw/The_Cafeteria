@@ -20,7 +20,7 @@ module.exports = (app) => {
     router.put("/:id", coffeShop.update);
 
     //Delete coffeShop
-    router.delete("/:id", auth.isAuthenticated, coffeShop.delete);
+    router.delete("/:id", coffeShop.delete);
 
     app.use('/api/coffeShop', router);
 

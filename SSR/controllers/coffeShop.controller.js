@@ -132,20 +132,12 @@ exports.imgUpdate = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
-  if (req.user.role !== "admin" && req.user.role !== "worker") {
-    return res.status(403).send({
-      message: "Access denied.",
-    });
-  }
 
-  // Delete a CoffeShop by id
   CoffeShop.destroy({ where: { id: id } })
     .then((deleted) => {
       if (deleted) {
-        console.log("coffeShop with id:", id, "was deleted.");
         res.json({ message: "coffeShop deleted successfully." });
       } else {
-        console.log("coffeShop with id:", id, "was not found.");
         res.status(404).json({ message: "coffeShop not found." });
       }
     })
