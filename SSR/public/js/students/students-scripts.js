@@ -50,10 +50,7 @@ form.addEventListener('submit', async (e) => {
       },
       body: JSON.stringify(data), 
     });
-
-   
       window.location.href = '/api/view/student';
-    
   } catch (err) {
 
     console.error('Error de red:', err.message);

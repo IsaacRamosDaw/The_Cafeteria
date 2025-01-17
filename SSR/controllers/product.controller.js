@@ -4,9 +4,9 @@ const Product = db.product;
 
 exports.create = (req, res) => {
   let productData = {
-    name: "producto",
-    price: 10,
-    description: "productaso",
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
     filename: "",
   };
 
@@ -115,6 +115,7 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   const id = Number(req.params.id);
+  console.log("id: " + id)
 
   if (!req.body.name) {
     return res.status(400).send({ message: "The name field cannot be empty." });
@@ -124,12 +125,8 @@ exports.update = (req, res) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    filename: "esto",
+    filename: "nada",
   };
-
-  console.log("name: " + productUpdateData.name)
-  console.log("price: " + productUpdateData.price)
-  console.log("descrption: "+ productUpdateData.description)
 
   Product.update(productUpdateData, { where: { id: id } })
     .then(([rowsUpdated]) => {

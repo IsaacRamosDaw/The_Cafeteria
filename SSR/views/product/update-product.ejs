@@ -13,6 +13,7 @@
     <h3><%= product.name %></h3>
     <input name="name" type="text" value="nano">
     <input name="price" type="text" value="12">
+    <input name="description" type="text" value="description">
     <button type="submit">Actualizar</button>
   </form>
   <script>
@@ -28,7 +29,7 @@
       const data = {
         name: formData.get("name"),
         price: formData.get("price"),
-        description: formData.get("description"),
+        description: formData.get("description")
       }
 
       try {
@@ -41,10 +42,11 @@
         });
 
         if (!response.ok) {
-          throw new Error(`Error en el servidor: ${response.status} ${response.statusText}`);
+          console.log(response.message)
+          return alert("error");
         }
 
-        alert('Producto actualizado con éxito');
+        return alert("todo bien");
       } catch (err) {
         console.error('Error de red:', err.message);
         alert('Error al conectar con el servidor');

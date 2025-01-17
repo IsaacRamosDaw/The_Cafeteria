@@ -74,6 +74,7 @@ app.use(function (req, res, next) {
 });
 
 require("./routes/coffeShop.routes")(app);
+require("./routes/coffeShopViews.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);

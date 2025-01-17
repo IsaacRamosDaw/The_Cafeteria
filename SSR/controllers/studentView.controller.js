@@ -4,14 +4,14 @@ const Student = db.student;
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
-  res.render("student.views/create-student")
+  res.render("student/create-student")
 }
 
 exports.findAll = (req, res) => {
   Student.findAll()
     .then((students) => {
       console.log("students");
-      res.render("student.views/list-student", { students }); 
+      res.render("student/list-student", { students }); 
     })
     .catch((error) => {
       res.status(500).send({
@@ -32,7 +32,7 @@ exports.findOne = async (req, res) => {
       });
     }
 
-    res.render('student.views/data-student', { student });
+    res.render('student/data-student', { student });
   } catch (err) {
     res.status(500).send({
       message: err.message || `Error retrieving student with id=${id}.`,
@@ -50,7 +50,7 @@ exports.edit = (req, res) => {
           error: "student with id :" + id + " not found",
         });
       }
-      res.render("student.views/update-student", { student });
+      res.render("student/update-student", { student });
     }).catch((err) => {
       res.status(500).render("error", {
         error: "error fetching the student: " + (err || "unknown error"),

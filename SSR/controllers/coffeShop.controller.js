@@ -1,19 +1,17 @@
 //!TO CHECK
 const db = require("../models");
 const CoffeShop = db.coffeShop;
-const Op = db.sequelize.Op;
 
 exports.create = (req, res) => {
-  // Create a CoffeShop object
-  const shop = {
+  const coffeShopData = {
     name: req.body.name,
     filename: req.file ? req.file.filename : "",
   };
 
-  // Save CoffeShop in the database
-  CoffeShop.create(shop)
-    .then((data) => {
-      res.send(data);
+  CoffeShop.create(coffeShopData)
+    .then((coffeShop) => {
+      res.send(coffeShop);
+      window.location.href = '/api/view/coffeShop';
     })
     .catch((err) => {
       res.status(500).send({
@@ -23,7 +21,6 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all coffeShops
 exports.findAll = (req, res) => {
   if (!req.user) {
     return res.status(403).json({
@@ -82,23 +79,16 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  // Validate request
-  if (req.user.role !== "admin" && req.user.role !== "worker") {
-    return res.status(403).send({
-      message: "Access denied.",
-    });
-  }
-
+  console.log("este es el id:" + id + "........................")
+  
   const update = {
     name: req.body.name,
     filename: req.file ? req.file.filename : "",
   };
 
-  // Attempt to update the coffeShop
   CoffeShop.update(update, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the coffeShop was not found
         return res.status(404).send({
           message: `Cannot update coffeShop with id=${id}. coffeShop not found.`,
         });
@@ -106,7 +96,6 @@ exports.update = (req, res) => {
       res.send({ message: "coffeShop was updated successfully." });
     })
     .catch((err) => {
-      // Catch any error
       res.status(500).send({
         message:
           err.message || "An error occurred while updating the coffeShop.",
