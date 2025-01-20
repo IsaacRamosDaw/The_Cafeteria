@@ -75,11 +75,11 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required.",
-		});
-	}
+	// if (!req.user) {
+	// 	return res.status(403).json({
+	// 		message: "Access denied. Authentication required.",
+	// 	});
+	// }
 
 	if (req.user.role == "admin" || req.user.role == "worker") {
 		Student.findAll()

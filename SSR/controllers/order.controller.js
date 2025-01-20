@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
           message: `Order with id: ${id} did not found`
         });
       }
-      res.send(orders);
+      res.render("orders/crudOrders/listOrders" , {orders});
     })
     .catch(err =>
       res.status(500).send({

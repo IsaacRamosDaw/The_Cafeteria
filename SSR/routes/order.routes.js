@@ -4,9 +4,9 @@ module.exports = (app) => {
   var router = require("express").Router();
 
   router.post("/", auth.isAuthenticated, order.create);
-
+  router.get("/create", (req, res) => res.render("orders/crudOrders/createOrder"));
   // Retrieve all orders 
-  router.get("/", auth.isAuthenticated, order.findAll);
+  router.get("/", order.findAll);
   
   // Retrieve one order
   router.get("/:id", auth.isAuthenticated, order.findOne);
