@@ -74,13 +74,15 @@ app.use(function (req, res, next) {
 });
 
 require("./routes/coffeShop.routes")(app);
+require("./routes/coffeShopViews.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/worker.routes")(app);
 require("./routes/student.routes")(app);
-require("./routes/student.views.routes")(app);
+require("./routes/studentViews.routes")(app);
 require("./routes/school.routes")(app);
 require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
+require("./routes/productViews.routes")(app);
 require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
 require("./routes/wallet.routes")(app);

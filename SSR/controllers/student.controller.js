@@ -6,239 +6,122 @@ const utils = require("../utils");
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
-	if (!req.body.password || !req.body.username) {
-		return res.status(400).send({
-			message: "Content can not be empty!",
-		});
-	}
-
-	// let studentData = {
-	// 	username: req.body.username,
-	// 	password: req.body.password,
-	// 	age: parseInt(req.body.age),
-	// 	phone: req.body.phone,
-	// 	CourseId: req.body.CourseId,
-	// 	role: "student",
-	// 	filename: req.file ? req.file.filename : "",
-	// };
-
-	Student.findOne({ where: { username: studentData.username } })
-		.then((student) => {
-			if (student) {
-				const result = bcrypt.compareSync(req.body.password, student.password);
-				if (!result) return res.status(401).send("Password not valid!");
-				const token = utils.generateToken(student);
-				const studentObj = utils.getCleanUser(student);
-
-				return res.json({ student: studentObj, access_token: token });
-			}
-
-			studentData.password = bcrypt.hashSync(req.body.password);
-
-			Student.create(studentData)
-				.then((student) => {
-					const token = utils.generateToken(student);
-					const studentObj = utils.getCleanUser(student);
-
-					const walletData = {
-						amount: 50,
-						StudentId: student.id,
-					}
-
-					Wallet.create(walletData)
-						.then((wallet) => {
-							res.status(201).json({
-								message: "Student and wallet added created succesfully",
-								student: studentObj,
-								CourseId: student.CourseId,
-								token: token,
-								wallet: wallet,
-							})
-						})
-						.catch(err => res.status(500).json({
-							message: "Some error while creating the wallet of this student: " || err.message
-						})
-						)
-				})
-				.catch((err) => {
-					res.status(500).send({
-						message: "Some error while creating the student: " || err.message,
-					})
-				})
-		}
-		)
-		.catch((err) => {
-			res.status(500).send({
-				message:
-					"Some error while retrieving the tutorials the student: " || err.message,
-			});
-		});
-};
-
-exports.createStudent = async (req, res) => {
-	// let studentData = {
-	// 	username: req.body.username,
-	// 	password: req.body.password,
-	// 	age: parseInt(req.body.age),
-	// 	phone: req.body.phone,
-	// 	CourseId: req.body.CourseId,
-	// 	role: "student",
-	// 	filename: req.file ? req.file.filename : "",
-	// };
+	// if (!req.body.password || !req.body.username) {
+	// 	return res.status(400).send({
+	// 		message: "Content can not be empty!",
+	// 	});
+	// }
 
 	let studentData = {
-		username: req.body.username,
-		password: req.body.password,
+		username: "alumno",
+		password: "password",
 		age: 10,
-		phone:' req.body.phone',
+		phone: "43758743",
 		role: "student",
 		filename: "",
+		// CourseId: req.body.CourseId,
+		// age: parseInt(req.body.age),
 	};
 
 	Student.create(studentData)
 		.then((student) => {
-			console.log('funcionó')
-			res.redirect('/api/admin')
+			res.send(student);
 		})
 		.catch((err) => {
 			res.status(500).send({
 				message: "Some error while creating the student: " || err.message,
 			})
-			res.redirect("error");
-		})
-}
+		});
+
+	// Student.findOne({ where: { username: studentData.username } })
+	// .then((student) => {
+	// if (student) {
+	// const result = bcrypt.compareSync(req.body.password, student.password);
+	// if (!result) return res.status(401).send("Password not valid!");
+	// const token = utils.generateToken(student);
+	// const studentObj = utils.getCleanUser(student);
+
+	// return res.json({ student: studentObj, access_token: token });
+	// }
+
+	// studentData.password = bcrypt.hashSync(studentData.password);
+
+	// const token = utils.generateToken(student);
+	// const studentObj = utils.getCleanUser(student);
+	// const walletData = {
+	// 	amount: 50,
+	// 	StudentId: student.id,
+	// }
+
+	// Wallet.create(walletData)
+	// 	.then((wallet) => {
+	// 		res.status(201).json({
+	// 			message: "Student and wallet added created succesfully",
+	// 			student: studentObj,
+	// 			CourseId: student.CourseId,
+	// 			token: token,
+	// 			wallet: wallet,
+	// 		})
+	// 	})
+	// 	.catch(err => res.status(500).json({
+	// 		message: "Some error while creating the wallet of this student: " || err.message
+	// 	})
+	// 	)
+	// 		.catch((err) => {
+	// 			res.status(500).send({
+	// 				message: "Some error while creating the student: " || err.message,
+	// 			})
+	// 		})
+	// }
+	// )
+	// .catch((err) => {
+	// 	res.status(500).send({
+	// 		message:
+	// 			"Some error while retrieving the tutorials the student: " || err.message,
+	// 	});
+	// });
+};
 
 exports.findAll = async (req, res) => {
-	try {
-		const students = await Student.findAll();
-		res.render("student.views/test.student.ejs", {students: students})
-	} catch (e) {
-		res.render("error", {
-			error: "error"
+	Student.findAll()
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message || "Some error occurred while retrieving students.",
+			});
 		});
-	}
-
-//? preguntar 
-	// Student.findAll()
-	// 	.then((data) => {
-	// 		res.render("testeo", {students: data});
-	// 	})
-	// 	.catch((err) => {
-	// 		res.status(500).send({
-	// 			message:
-	// 				err.message || "Some error occurred while retrieving students.",
-	// 		});
-	// 	});
 };
 
 exports.findOne = (req, res) => {
 	const id = Number(req.params.id);
 
-	if (!req.user) {
-		return res.status(403).json({
-			message: "Access denied. Authentication required.",
-		});
-	}
-
-	if (req.user.role === "admin" || id === req.user.id || req.user.role === "worker") {
-		Student.findByPk(id)
-			.then((data) => {
-				if (!data) {
-					return res.status(404).json({
-						message: `Student with id=${id} not found.`,
-					});
-				}
-				// Delete the password in the get
-				delete data.password
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message: err.message || `Error retrieving student with id=${id}.`,
-				});
-			});
-	} else {
-		res.status(403).json({ message: "Access denied. You can only access your own data." });
-	}
-};
-
-exports.edit = (req, res) => {
-	const id = req.params.id;
-
 	Student.findByPk(id)
-		.then((student) => {
-			if(!student) {
-				res.status(404).render("error", {
-					error: "student with id :" + id + " not found",
+		.then((data) => {
+			if (!data) {
+				return res.status(404).json({
+					message: `Student with id=${id} not found.`,
 				});
 			}
-			res.render("student.views/update.student.ejs", {student});
-		}).catch((err) => {
-			res.status(500).render("error", {
-				error: "error fetching the student: " + (err.message || "unknown error"),
-			});
-		});
-}
-
-exports.update = (req, res) => {
-	const id = req.params.id;
-
-	if (req.user.role !== "admin" && Number(id) !== req.user.id) {
-		return res.status(403).send({
-			message: "Access denied. You can only update your own data.",
-		});
-	}
-
-	if (!req.body.username) {
-		return res.status(400).send({
-			message: "The name field cannot be empty.",
-		});
-	}
-	if (!req.body.password) {
-		return res.status(400).send({
-			message: "The password field cannot be empty.",
-		});
-	}
-
-	const updateStudent = {
-		username: req.body.username,
-		age: req.body.age,
-		phone: req.body.phone,
-		role: "student",
-		CourseId: req.body.CourseId,
-		filename: req.file ? req.file.filename : "",
-	};
-
-	if (req.body.password) {
-		updateStudent.password = bcrypt.hashSync(req.body.password);
-	}
-
-	Student.update(updateStudent, { where: { id: id } })
-		.then(([rowsUpdated]) => {
-			if (rowsUpdated === 0) {
-				// If no rows were updated, the admin was not found
-				return res.status(404).send({
-					message: `Cannot update Student with id=${id}. Student not found.`,
-				});
-			}
-			res.send({ message: "Student was updated successfully." });
+			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: err.message || "An error occurred while updating the Student.",
+				message: err.message || `Error retrieving student with id=${id}.`,
 			});
 		});
 };
 
-exports.updateStudent = (req, res) => {
-	const id = req.params.id;
+exports.update = (req, res) => {
+	const id = Number(req.params.id);
 
 	if (!req.body.username) {
 		return res.status(400).send({
 			message: "The name field cannot be empty.",
 		});
 	}
-
 	if (!req.body.password) {
 		return res.status(400).send({
 			message: "The password field cannot be empty.",
@@ -247,18 +130,18 @@ exports.updateStudent = (req, res) => {
 
 	const updateStudentData = {
 		username: req.body.username,
-		// password: req.body.password,
-		// age: req.body.age,
-		// phone: req.body.phone,
-		// role: "student",
-		// filename: "",
+		password: req.body.password,
+		age: req.body.age,
+		phone: req.body.phone,
+		role: "student",
+		// CourseId: req.body.CourseId,
+		filename: req.file ? req.file.filename : "",
 	};
 
-	// if (req.body.password) {
-	// 	updateStudentData.password = bcrypt.hashSync(req.body.password);
-	// }
-console.log("UPDATE.......................................")
-console.log(id)
+	if (req.body.password) {
+		updateStudentData.password = bcrypt.hashSync(req.body.password);
+	}
+
 	Student.update(updateStudentData, { where: { id: id } })
 		.then(([rowsUpdated]) => {
 			if (rowsUpdated === 0) {
@@ -266,7 +149,7 @@ console.log(id)
 					message: `Cannot update Student with id=${id}. Student not found.`,
 				});
 			}
-			res.render("student.views/test.student");
+			res.send({ message: "Student was updated successfully." });
 		})
 		.catch((err) => {
 			res.status(500).send({

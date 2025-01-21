@@ -5,14 +5,15 @@ module.exports = (app) => {
 
 	var router = require("express").Router();
 
-	//Create an student
-	router.post("/", student.create);
 
 	//List all students
 	router.get("/", student.findAll);
 
 	// Retrieve one student
 	router.get("/:id",student.findOne);
+
+	//Create an student
+	router.post("/", student.create);
 
 	// Update student
 	router.put("/:id", student.update);

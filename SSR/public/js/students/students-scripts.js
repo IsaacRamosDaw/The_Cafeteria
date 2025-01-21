@@ -1,6 +1,5 @@
 const endpoint = '/api/student/'
 const buttons = document.querySelectorAll('.delete-button');
-
 //! Eliminar
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -14,7 +13,6 @@ buttons.forEach((button) => {
           console.log("error al eliminar el estudiante");
         }
         e.target.parentElement.remove();
-        console.log("studiante con este id eliminado")
 
       }).catch((err) => {
         console.log("ha habido un problema en la red")
@@ -45,17 +43,14 @@ form.addEventListener('submit', async (e) => {
   console.log("age :" + data.age)
 
   try {
-    const response = await fetch('/api/view/edit/' + id, {
+    await fetch('/api/student/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json', 
       },
       body: JSON.stringify(data), 
     });
-
-    if(!response.ok){
-      window.location.href = '/api/view';
-    }
+      window.location.href = '/api/view/student';
   } catch (err) {
 
     console.error('Error de red:', err.message);

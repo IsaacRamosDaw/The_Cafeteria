@@ -12,15 +12,15 @@ module.exports = (app) => {
     router.get("/:id", auth.isAuthenticated, coffeShop.findOne);
 
     //Create an coffeShop
-    router.post("/", auth.isAuthenticated, coffeShop.create);
+    router.post("/", coffeShop.create);
 
     router.put("/upload/:id" , upload.single('file'), coffeShop.imgUpdate);
 
     // Update coffeShop
-    router.put("/:id",  upload.single('file'), auth.isAuthenticated, coffeShop.update);
+    router.put("/:id", coffeShop.update);
 
     //Delete coffeShop
-    router.delete("/:id", auth.isAuthenticated, coffeShop.delete);
+    router.delete("/:id", coffeShop.delete);
 
     app.use('/api/coffeShop', router);
 
