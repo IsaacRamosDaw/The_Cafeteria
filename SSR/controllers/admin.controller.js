@@ -1,4 +1,3 @@
-//!TO CHECK
 const db = require("../models");
 const Op = db.sequelize.Op;
 const bcrypt = require("bcryptjs");

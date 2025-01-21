@@ -4,7 +4,8 @@
   "description": "backend de la cafeteria",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server.js && npx sequelize-cli db:seed:all"
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",

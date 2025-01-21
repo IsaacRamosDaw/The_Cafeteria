@@ -1,29 +1,24 @@
 module.exports = (app) => {
     const worker = require("../controllers/worker.controller.js");
-    const auth = require("../controllers/auth.js");
-    var upload = require("../multer/upload")
+    const authSession = require("../controllers/auth.session");
+    const multer = require('../multer/upload.js')
 
+    const upload = multer({dest: '../public/images/worker'})
+  
     var router = require("express").Router();
 
-    router.post('/signin', (req, res) => auth.signin(req, res, 'worker'));
-
-    //Create a worker
-    router.post("/", worker.create);
-
-    router.put("/upload/:id", upload.single('file'), worker.imgUpdate);
-
-    //List all workers
-    router.get("/", auth.isAuthenticated, worker.findAll);
-
-    // Find a worker with his id
-    router.get("/:id", auth.isAuthenticated, worker.findOne);
-
-    // Update worker
-    router.put("/:id", upload.single('file'), auth.isAuthenticated, worker.update);
-
-    //Delete worker
-    router.delete("/:id", auth.isAuthenticated, worker.delete);
-
-    app.use('/api/worker', router);
-
-};
+    //* Endpoints
+    // Get all worker
+    router.get("/", authSession.isAuthenticated, worker.findAll);
+    // Get one worker
+    router.get("/:id",authSession.isAuthenticated, worker.findOne);
+    // Create one worker
+    router.post("/",authSession.isAuthenticated, upload.single('file'), worker.create);
+    // Edit one worker
+    router.put("/:id",authSession.isAuthenticated, upload.single('file'), worker.update);
+    // Delete one worker
+    router.delete("/:id",authSession.isAuthenticated, worker.delete);
+  
+    app.use("/api/worker", router);
+  };
+  
