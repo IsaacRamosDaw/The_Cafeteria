@@ -9,15 +9,15 @@ module.exports = (app) => {
 
     //* Endpoints
     // Get all worker
-    router.get("/", worker.findAll);
+    router.get("/", authSession.isAuthenticated, worker.findAll);
     // Get one worker
-    router.get("/:id", worker.findOne);
+    router.get("/:id",authSession.isAuthenticated, worker.findOne);
     // Create one worker
-    router.post("/", upload.single('file'), worker.create);
+    router.post("/",authSession.isAuthenticated, upload.single('file'), worker.create);
     // Edit one worker
-    router.put("/:id", upload.single('file'), worker.update);
+    router.put("/:id",authSession.isAuthenticated, upload.single('file'), worker.update);
     // Delete one worker
-    router.delete("/:id", worker.delete);
+    router.delete("/:id",authSession.isAuthenticated, worker.delete);
   
     app.use("/api/worker", router);
   };
