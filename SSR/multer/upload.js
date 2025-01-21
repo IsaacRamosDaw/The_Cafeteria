@@ -1,37 +1,31 @@
-var multer = require('multer');
+const fs = require("fs");
+const multer = require("multer");
+const path = require("path");
 
-var storage = multer.diskStorage({
+module.exports = (options = {}) => {
+  const { dest = "../public/images" } = options;
+
+  const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+      const dirPath = path.resolve(__dirname, dest);
 
-        const folderName = req.params.folderName
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true });
+      }
 
-        console.log( "Folder name", folderName)
-        console.log( "Body del req", req.body)
-
-        cb(null,  './public/images' );
+      cb(null, dirPath);
     },
     filename: (req, file, cb) => {
-        var filetype = '';
-        if(file.mimetype === 'image/gif'){
-            filetype = 'gif';
-        }
-        if(file.mimetype === 'image/png'){
-            filetype = 'png';
-        }
-        if(file.mimetype === 'image/jpeg'){
-            filetype = 'jpeg';
-        }
-        if(file.mimetype === 'image/jpg'){
-            filetype = 'jpg';
-        }
-        if(file.mimetype === 'image/webp'){
-            filetype = 'webp';
-        }
-        
-        cb(null, 'image-' + Date.now() + '.' + filetype);
-    }
-});
+      let filetype = "";
+      if (file.mimetype === "image/gif") filetype = "gif";
+      if (file.mimetype === "image/png") filetype = "png";
+      if (file.mimetype === "image/jpeg") filetype = "jpeg";
+      if (file.mimetype === "image/jpg") filetype = "jpg";
+      if (file.mimetype === "image/webp") filetype = "webp";
 
-var upload = multer({storage: storage});
+      cb(null, `img-${Date.now()}.${filetype}`);
+    },
+  });
 
-module.exports = upload;
+  return multer({ storage });
+};
