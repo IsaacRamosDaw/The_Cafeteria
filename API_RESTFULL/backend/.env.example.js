@@ -1,0 +1,9 @@
+MYSQL_DATABASE=db_coffeshop
+MYSQL_USER=root
+MYSQL_PASSWORD=1234
+
+DB_HOST=localhost
+JWT_SECRET=1234
+# PORT=8080
+
+NODE_ENV=development 
