@@ -17,20 +17,16 @@ function CategoriesContainer() {
         const categoriesData = await get();
 
         const categoriesWithCounts = [];
-
         for (const category of categoriesData) {
           const count = await countByCategory(category.id);
           categoriesWithCounts.push({ ...category, amount: count });
         }
-
         setCategories(categoriesWithCounts);
 
         const images = {};
         for (const category of categoriesWithCounts) {
           const product = await getFirstByCategory(category.id);
-          // Creamos una nueva entra en el objeto y su valor es el filename
           images[category.id] = product?.filename || "";
-          // Esto es lo mismo que: images = { 1 : "img-test.jpeg" }
         }
         setProductImages(images);
       } catch (error) {
@@ -54,6 +50,7 @@ function CategoriesContainer() {
               count={category.amount}
               title={category.name}
               photo={productImages[category.id]}
+              altText={`Imagen de la categoría ${category.name}`}
             />
           </div>
         ))}
