@@ -2,47 +2,27 @@ module.exports = (app) => {
   const admin = require("../controllers/admin.controller.js");
 
   const authSession = require("../controllers/auth.session.js");
-  const multer = require('../multer/upload.js')
+  const multer = require("../multer/upload.js");
 
-  const upload = multer({dest: '../public/images/admin'})
+  const upload = multer({ dest: "../public/images/admin" });
 
   var router = require("express").Router();
 
-  //Create an admin
-  router.post("/", admin.create);
-  
-  router.post("/upload/:folderName", upload.single('file'), admin.create);
-
-  router.put("/upload/:id", upload.single('file'), admin.update);
-
   //List all admins
-  router.get("/", authSession.isAuthenticated, admin.index);
-  
-  router.get("/admins", authSession.isAuthenticated, admin.findAll);
-  // Get one admin
-  // router.get("/:id", authSession.isAuthenticated, admin.findOne);
+	router.get("/", authSession.isAuthenticated, admin.findAll);
 
-  router.get("/edit/:id",authSession.isAuthenticated, admin.edit);
-  
-  router.put("/edit/:id",authSession.isAuthenticated, admin.update);
+	// Retrieve one admin
+	router.get("/:id", authSession.isAuthenticated, admin.findOne);
 
-  //Delete admin
-  router.delete("/:id", authSession.isAuthenticated, admin.delete);
-  
-  router.get("/create", (req, res) => res.render("admins.views/crudAdmin/createAdmin"));
+	//Create an admin
+	router.post("/", authSession.isAuthenticated, upload.single('file'), admin.create);
 
-  router.get("/testAdmins", async (req, res) => {
-    try {
-        const admins = await admin.findAll();
-        res.render("admins.views/testHomeAdmin", {
-            pageContent: await res.render("admins.views/crudAdmin/listAdmins", { admins }, true),
-        });
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Error interno del servidor.");
-    }
-});
+	// Update admin
+	router.put("/:id", authSession.isAuthenticated, upload.single('file'), admin.update);
+
+	//Delete admin 
+	router.delete("/:id", authSession.isAuthenticated, admin.delete);
 
 
   app.use("/api/admin", router);
-}; 
+};

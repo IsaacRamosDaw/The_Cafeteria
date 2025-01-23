@@ -1,3 +1,4 @@
+const endpointEditAdmin = 'http://localhost:8080/api/admin/';
 const form = document.getElementById('edit-admin-form');
 const adminId = form.getAttribute('data-id'); 
 
@@ -5,28 +6,23 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault(); 
 
     const formData = new FormData(form);
-    const data = {
-        username: formData.get('username'),
-    };
 
     try {
-        const response = await fetch(`/api/admin/edit/${adminId}`, {
+        const response = await fetch(endpointEditAdmin+adminId, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         });
 
         if (response.ok) {
-            alert('Admin updated successfully');
-            window.location.href = '/api/admin';
+            const result = await response.json();
+            console.log('Admin updated successfully: ', result);
+            window.location.href = '/admin';
         } else {
             const error = await response.json();
-            alert(`Error updating admin: ${error.message}`);
+            console.log(`Error updating admin: ${error.message}`);
         }
     } catch (err) {
         console.error('Error:', err);
-        alert('An unexpected error occurred.');
+        console.log('An unexpected error occurred.');
     }
 });

@@ -56,7 +56,7 @@ exports.create = (req, res) => {
 
       Worker.create(worker)
         .then(() => {
-          res.redirect("/api/admin");
+          res.redirect("/admin");
         })
         .catch((err) => {
           res.json({

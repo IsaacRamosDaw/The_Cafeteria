@@ -13,5 +13,5 @@ module.exports = (app) => {
   // Logout a user
   router.post("/logout", authSession.logout);
 
-  app.use("/api", router);
+  app.use("", router);
 };

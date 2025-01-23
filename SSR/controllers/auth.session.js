@@ -11,15 +11,15 @@ const { login } = require("./site.controller");
 exports.login = (req, res) => {
   if (req.session.user) {
     if (req.session.user.role == "admin") {
-      return res.redirect("/api/admin");
+      return res.redirect("/admin");
     }
 
     if (req.session.user.role == "student") {
-      return res.redirect("/api/student");
+      return res.redirect("/student");
     }
 
     if (req.session.user.role == "worker") {
-      return res.redirect("/api/worker");
+      return res.redirect("/worker");
     }
   }
 
@@ -51,15 +51,15 @@ exports.signin = async (req, res) => {
     console.log("User from auth.session: ", data);
 
     if (data.role == "admin") {
-      return res.redirect("/api/admin");
+      return res.redirect("/admin");
     }
 
     if (data.role == "student") {
-      return res.redirect("/api/student");
+      return res.redirect("/student");
     }
 
     if (data.role == "worker") {
-      return res.redirect("/api/worker");
+      return res.redirect("/worker");
     }
   } catch (err) {
     return res.render("error", {
@@ -70,7 +70,7 @@ exports.signin = async (req, res) => {
 
 exports.isAuthenticated = (req, res, next) => {
   if (!req.session.user) {
-    return res.redirect("/api/login");
+    return res.redirect("/login");
   }
 
   next();
@@ -82,20 +82,20 @@ exports.logout = (req, res) => {
       console.error(err);
 
       if (user.role == "admin") {
-        return res.redirect("/api/admin");
+        return res.redirect("/admin");
       }
 
       if (user.role == "student") {
-        return res.redirect("/api/student");
+        return res.redirect("/student");
       }
 
       if (user.role == "worker") {
-        return res.redirect("/api/worker");
+        return res.redirect("/worker");
       }
     }
   });
 
   res.clearCookie("connect.sid");
 
-  res.redirect("/api/login");
+  res.redirect("/login");
 };

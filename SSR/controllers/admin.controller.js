@@ -8,7 +8,8 @@ const Worker = db.worker
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
-    return res.render("create", { error: "Content cannot be empty!" });
+    console.log("Crear admin: ", req.body);
+    return res.json({ message: "Content cannot be empty! " });
   }
 
   let admin = {
@@ -18,27 +19,50 @@ exports.create = (req, res) => {
     filename: req.file ? req.file.filename : "",
   };
 
+  console.log("Create admin controller: ", admin);
+
   Admin.findOne({ where: { username: admin.username } })
     .then((data) => {
       if (data) {
-        return res.render("create", { error: "The username already exists!" });
+        return res.json({ message: "The username already exists!" });
       }
 
       Admin.create(admin)
         .then(() => {
-          res.redirect("/api/admin");
+          res.redirect("/admin");
         })
         .catch((err) => {
-          res.render("createAdmin", {
-            error: "Error creating the admin: " + (err.message || ""),
+          res.json({
+            message:
+              "Error creating the admin: " + (err.message || "Uknown error"),
           });
         });
     })
     .catch((err) => {
-      res.render("createAdmin", {
-        error: "Error finding the admin: " + (err.message || ""),
+      res.json({
+        message: "Error finding the admin: " + (err.message || "Uknown error"),
       });
     });
+};
+
+
+exports.findOne = (req, res) => {
+	const id = Number(req.params.id);
+
+	Admin.findByPk(id)
+		.then((data) => {
+			if (!data) {
+				return res.status(404).json({
+					message: `Admin with id=${id} not found.`,
+				});
+			}
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || `Error retrieving Admin with id=${id}.`,
+			});
+		});
 };
 
 exports.findAll = (req, res) => {
@@ -73,26 +97,25 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   if (!req.body.username) {
-    return res.status(400).json({ message: "Username is required" });
+    return res.json({ message: "Username is required" });
   }
 
-  const updateData = {
+  let data = {
     username: req.body.username,
+    password: bcrypt.hashSync(req.body.password),
+    role: "admin",
+    filename: req.file ? req.file.filename : "",
   };
 
-  Admin.update(updateData, { where: { id } })
+  Admin.update(data, { where: { id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        return res
-          .status(404)
-          .json({ message: `Admin with id=${id} not found.` });
+        return res.json({ message: `admin with id=${id} not found.` });
       }
-      res.json({ message: "Admin updated successfully" });
+      res.json({ message: "admin updated successfully" });
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ message: "Error updating admin", error: err.message });
+      res.json({ message: "Error updating admin", error: err.message });
     });
 };
 

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h1>listado</h1>
+  <h2>listado de cafeterias </h2>
   <% for (let coffeShop of coffeShops) { %>
   <h2>Nombre : <%= coffeShop.name %> || ID : <%= coffeShop.id %></h2>
   <button class="delete-button" data-id="<%= coffeShop.id %>">Eliminar</button>
