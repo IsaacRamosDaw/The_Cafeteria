@@ -76,6 +76,7 @@ app.use(
 require("./routes/coffeShop.routes")(app);
 require("./routes/coffeShopViews.routes")(app);
 require("./routes/admin.routes")(app);
+require('./routes/admin.views.routes')(app)
 require("./routes/worker.routes")(app);
 require("./routes/worker.views.routes")(app);
 require("./routes/student.views.routes")(app);
@@ -88,6 +89,8 @@ require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
 require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
+
+app.get('/', (req, res) => res.redirect("/admin"))
 
 app.use((req, res) => {
   return res.render("error", {message: "Page not Found"});

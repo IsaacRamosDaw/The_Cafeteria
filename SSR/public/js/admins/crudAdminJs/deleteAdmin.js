@@ -1,10 +1,10 @@
-const endpoint = '/api/admin/';
+const endpointDeleteAdmin = 'http://localhost:8080/api/admin/';
 const buttons = document.querySelectorAll('.delete-button');
 
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
         const id = e.target.getAttribute('data-id');
-        fetch(endpoint + id, {
+        fetch(endpointDeleteAdmin + id, {
             method: "DELETE",
         })
         .then((res) => {

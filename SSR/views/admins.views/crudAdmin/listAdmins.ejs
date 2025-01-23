@@ -6,20 +6,20 @@
     <title>Admins</title>
   </head>
   <body>
-    <h1>Listado de admins</h1>
+    <h2>Listado de admins</h2>
     <ul>
       <% for (let a of admins) { %>
       <li>
         <%= a.username %>
         <button class="delete-button" data-id="<%= a.id %>">Eliminar</button>
-        <a href="/api/admin/edit/<%= a.id %>">
+        <a href="/admin/edit/<%= a.id %>">
           <button class="edit-button">Editar</button>
         </a>
       </li>
       <% } %>
     </ul>
 
-    <a href="/api/admin/create"> Crear Admin </a>
+    <a href="/admin/create"> Crear Admin </a>
     <script src="/js/admins/crudAdminJs/deleteAdmin.js" defer></script>
   </body>
 </html>

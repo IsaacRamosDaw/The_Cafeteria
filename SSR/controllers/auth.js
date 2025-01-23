@@ -23,15 +23,15 @@ exports.signin = async (req, res) => {
     console.log("User from auth.session: ", user);
 
     if (user.role == "admin") {
-      return res.redirect("/api/admin");
+      return res.redirect("/admin");
     }
 
     if (user.role == "student") {
-      return res.redirect("/api/student");
+      return res.redirect("/student");
     }
 
     if (user.role == "worker") {
-      return res.redirect("/api/worker");
+      return res.redirect("/worker");
     }
   }catch (err) {
     res.status(500).send({

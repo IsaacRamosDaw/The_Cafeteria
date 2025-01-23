@@ -1,6 +1,6 @@
 const endpointWorker = "http://localhost:8080/api/worker/";
 
-let formWorker = document.getElementById("worker-form-edit");
+let formWorker = document.querySelector("#worker-form-edit");
 const id = formWorker.getAttribute("data-id");
 
 formWorker.addEventListener("submit", async (e) => {
@@ -22,16 +22,15 @@ formWorker.addEventListener("submit", async (e) => {
     }
 
     console.log("Endpoint fetched:", response);
-    window.location.href = "/api/admin";
+    window.location.href = "/admin";
   } catch (error) {
     console.error("Error:", error);
     console.log({ message: "An unexpected error occurred in worker form" });
   }
 });
 
-
 async function deleteWorker(id) {
-  id = parseInt(id)
+  id = parseInt(id);
   console.log("Boton: ", id);
   try {
     const response = await fetch(endpointWorker + id, {

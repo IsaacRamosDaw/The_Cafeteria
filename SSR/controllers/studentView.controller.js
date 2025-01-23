@@ -50,7 +50,7 @@ exports.edit = (req, res) => {
           error: "student with id :" + id + " not found",
         });
       }
-      res.render("student/update-student", { student });
+      res.render("student/update-student.ejs", { student });
     }).catch((err) => {
       res.status(500).render("error", {
         error: "error fetching the student: " + (err || "unknown error"),
