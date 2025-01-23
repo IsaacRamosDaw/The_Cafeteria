@@ -2,23 +2,14 @@ import "./label.scss";
 import { forwardRef } from "react";
 
 const Label = forwardRef(function Label(
-  { title, placeHolder, type = "text", id, name, onChange },
+  { title, placeHolder, type = "text", id, name, onChange, arialabelledby},
   ref
 ) {
-  if (type === "select") {
-    return (
-      <div className="label-option">
-        <label className="label-text" htmlFor={id}>
-          {title}
-        </label>
-      </div>
-    );
-  }
 
   if (type === "file") {
     return (
       <div className="label-input">
-        <label className="label-text" htmlFor={id}>
+        <label className="label-text" htmlFor={id} id={arialabelledby}>
           {title}
         </label>
         <input
@@ -29,6 +20,7 @@ const Label = forwardRef(function Label(
           name={name}
           onChange={onChange}
           ref={ref}
+          aria-labelledby={arialabelledby}
         />
       </div>
     );
@@ -36,7 +28,7 @@ const Label = forwardRef(function Label(
 
   return (
     <div className="label-input">
-      <label className="label-text" htmlFor={id}>
+      <label className="label-text" htmlFor={id} id={arialabelledby}>
         {title}
       </label>
       <input
@@ -46,6 +38,7 @@ const Label = forwardRef(function Label(
         name={name}
         onChange={onChange}
         ref={ref}
+        aria-labelledby={arialabelledby}
       />
     </div>
   );
