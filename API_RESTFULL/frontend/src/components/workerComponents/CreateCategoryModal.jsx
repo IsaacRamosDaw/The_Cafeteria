@@ -33,7 +33,7 @@ export default function CreateCategoryModal({isModalOpen, handleSave, closeModal
 
     return (
         <div className="modal-overlay">
-            <div className="modal-container">
+            <div className="modal-container-category-create">
                 <button className="close-btn" onClick={closeModal}>X</button>
                 <h2>Crear Nueva Categoría</h2>
                 <form onSubmit={handleSubmit}>
