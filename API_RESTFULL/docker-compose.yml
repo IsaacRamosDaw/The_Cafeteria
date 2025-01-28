@@ -47,7 +47,7 @@ services:
   #     - "5713:5713"
   #   expose:
   #     - "5713"
-  #   stdin_open: true
+  #   stdin_open: tru
   #   networks:
   #     - app-network
   #   depends_on:
