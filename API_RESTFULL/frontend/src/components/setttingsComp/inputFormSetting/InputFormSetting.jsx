@@ -9,13 +9,14 @@ const InputFormSetting = forwardRef(
     option = 1,
     disable = false,
     type = "text",
-    required = false
+    required = false,
+    ariaLabeledBy
   }, ref) {
     return (
       <div className="container-inputform-setting">
         {option === 2 ? (
           <>
-            <label className="text-inputform-setting-2" htmlFor={title}>
+            <label className="text-inputform-setting-2" htmlFor={title} id={ariaLabeledBy}>
               {title}
             </label>
             <input
@@ -27,11 +28,12 @@ const InputFormSetting = forwardRef(
               placeholder={placeholder}
               disabled={disable}
               required={required}
+              aria-labelledby={ariaLabeledBy}
             />
           </>
         ) : (
           <>
-            <label className="text-inputform-setting-1" htmlFor={title}>
+            <label className="text-inputform-setting-1" htmlFor={title} id={ariaLabeledBy}>
               {title}
             </label>
             <input
@@ -43,6 +45,7 @@ const InputFormSetting = forwardRef(
               placeholder={placeholder}
               disabled={disable}
               required={required}
+              aria-labelledby={ariaLabeledBy}
             />
           </>
         )}

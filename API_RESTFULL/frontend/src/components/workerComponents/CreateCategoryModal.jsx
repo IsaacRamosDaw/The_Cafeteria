@@ -38,7 +38,7 @@ export default function CreateCategoryModal({isModalOpen, handleSave, closeModal
                 <h2>Crear Nueva Categoría</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name-category">Nombre de la Categoría</label>
+                        <label htmlFor="name-category" id="name-category-label">Nombre de la Categoría</label>
                         <input
                             type="text"
                             id="name-category"
@@ -46,6 +46,8 @@ export default function CreateCategoryModal({isModalOpen, handleSave, closeModal
                             value={newCategory.name}
                             onChange={handleInputChange}
                             required
+                            aria-labelledby="name-category-label"
+
                         />
                     </div>
                     <div className="button-container">
