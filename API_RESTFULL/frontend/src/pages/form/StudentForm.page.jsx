@@ -81,7 +81,7 @@ function StudentForm() {
           onChange={handleChange}
         />
         <div className="label-input">
-          <label className="label-text" htmlFor="courseId">
+          <label className="label-text" htmlFor="CourseId">
             Selecciona tu curso
           </label>
           <select name="CourseId" id="CourseId" onChange={handleChange}>
