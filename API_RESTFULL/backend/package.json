@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:reset-and-start": "comando_para_resetear_y_arrancar_db"
+    "db:reset-and-start": "comando_para_resetear_y_arrancar_db",
+    "db:migrate-and-start": "migrate and start",
+    "start": "node index.js"
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",
