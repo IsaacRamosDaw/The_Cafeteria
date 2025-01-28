@@ -17,7 +17,8 @@ COPY . .
 EXPOSE 5173
 
 # ATTENTION!!! DANGER!!! THIS WILL RESET XREATE DATABASE. Use it only if you know what you are doing.
-ENTRYPOINT [ "npm", "run", "db:reset-and-start" ]
+CMD [ "npm", "run", "start" ]
+
 
 # This is the normal use Entry point. Comment this line for the installation, and afterwards uncomment it forever.
 # ENTRYPOINT [ "npm", "run", "db:migrate-and-start" ]
