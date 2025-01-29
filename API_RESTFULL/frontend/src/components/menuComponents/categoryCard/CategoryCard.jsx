@@ -1,7 +1,7 @@
 import "./CategoryCard.scss";
 import { useNavigate } from "react-router-dom";
 
-function CategoryCard({ id, title, count, photo }) {
+function CategoryCard({ id, title, count, photo, altText }) {
   const navigate = useNavigate();
 
   const handleNavigate = (url) => {
@@ -17,12 +17,12 @@ function CategoryCard({ id, title, count, photo }) {
       className="container-card-category"
     >
       {/* <img src={"/images/ImgMenus/bebidas.jpg" } alt="Img category card" /> */}
-      <img src={folder + photo || ""} alt="" />
+      <img src={folder + photo || ""} alt={altText || `Imagen de ${title}`} />
 
       <div className="div-darken-category-card"></div>
 
       <div className="container-content-card-category">
-        <h4 className="title-category-card">{title}</h4>
+        <h1 className="title-category-card">{title}</h1>
         <p className="count-category-card">
           {count} {"Existencias"}
         </p>
