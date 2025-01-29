@@ -5,18 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-<<<<<<< HEAD
     "db:makemigrations": "node ./node_modules/sequelize-auto-migrations/bin/makemigration.js",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize db:create && npm run db:migrate-and-seed",
     "db:migrate-and-seed": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:reset-and-start": "npm run db:reset && npm start",
     "db:migrate-and-start": "npx sequelize-cli db:migrate && npm start",
     "start": "node ./server.js"
-=======
-    "db:reset-and-start": "comando_para_resetear_y_arrancar_db",
-    "db:migrate-and-start": "migrate and start",
-    "start": "node index.js"
->>>>>>> 96cd418f4c9e61999bf766d576e33284fcfc0992
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",
