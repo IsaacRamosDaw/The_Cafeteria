@@ -29,6 +29,7 @@ function CategoryCard({ id, title, count, photo, altText }) {
       </div>
     </div>
   );
+  
 }
 
 export default CategoryCard;
