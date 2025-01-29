@@ -4,7 +4,8 @@
   "description": "backend de la cafeteria",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:reset-and-start": "comando_para_resetear_y_arrancar_db"
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",

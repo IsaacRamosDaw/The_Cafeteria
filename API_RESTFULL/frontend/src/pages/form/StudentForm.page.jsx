@@ -56,7 +56,7 @@ function StudentForm() {
           id="username"
           name="username"
           onChange={handleChange}
-          arialabelledby="Ingrese su nombre de usuario"
+          arialabelledby="name-student-label"
         />
         <Label
           title="Edad"
@@ -65,7 +65,7 @@ function StudentForm() {
           name="age"
           type="text"
           onChange={handleChange}
-          arialabelledby="Ingrese su edad"
+          arialabelledby="edad-student-label"
 
         />
         <Label
@@ -74,7 +74,7 @@ function StudentForm() {
           id="phone"
           name="phone"
           onChange={handleChange}
-          arialabelledby="Ingrese su número de teléfono"
+          arialabelledby="phone-student-label"
         />
         <Label
           title="Contraseña"
@@ -83,17 +83,17 @@ function StudentForm() {
           name="password"
           type="password"
           onChange={handleChange}
-          arialabelledby="Ingrese su contraseña"
+          arialabelledby="password-student-label"
 
         />
         <div className="label-input">
-          <label className="label-text" htmlFor="courseId" aria-label="Escoge tu curso">
+          <label className="label-text" htmlFor="CourseId" aria-label="Escoge tu curso" id="label-student-course">
             Selecciona tu curso
           </label>
           <select name="CourseId" id="CourseId" onChange={handleChange}>
             <option value="">Elige un curso</option>
             {courses.map((course) => (
-              <option key={course.id} value={course.id} aria-describedby="">
+              <option key={course.id} value={course.id} aria-label={course.name} aria-labelledby="label-student-course">
                 {course.name}
               </option>
             ))}

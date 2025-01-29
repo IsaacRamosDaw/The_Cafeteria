@@ -149,6 +149,7 @@ export default function WorkerUpdate() {
             option={2}
             placeholder={userData.username}
             ref={usernameRef}
+            ariaLabeledBy="name-update-label"
           />
           <InputFormSetting
             title={"Contraseña"}
@@ -156,12 +157,14 @@ export default function WorkerUpdate() {
             placeholder={userData.phone}
             type="password"
             ref={passwordRef}
+            ariaLabeledBy="password-update-label"
           />
           <InputFormSetting
             title={"Telefono"}
             option={2}
             placeholder={"Numero de telefono"}
             ref={phoneRef}
+            ariaLabeledBy="phone-update-label"
           />
           <div className="container-btn-account">
             <Button text={"Actualizar"} submit={true} />

@@ -38,7 +38,7 @@ export function EditCategoryModal({ isModalOpen, categoryToEdit, handleSave, clo
         <h2>Editar Categoría</h2>
         <form onSubmit={handleFormSubmit}>
           <div>
-            <label htmlFor="category-name">Nombre</label>
+            <label htmlFor="category-name" id="name-category-label">Nombre</label>
             <input
               id="category-name"
               type="text"
@@ -47,6 +47,7 @@ export function EditCategoryModal({ isModalOpen, categoryToEdit, handleSave, clo
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
               }
+              aria-labelledby="name-category-label"
             />
           </div>
           {error && <p className="error-message">{error}</p>}

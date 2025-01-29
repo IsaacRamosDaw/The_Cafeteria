@@ -37,11 +37,12 @@ export default function EditProductModal({
         <h2>Editar Producto</h2>
         <form onSubmit={handleFormSubmit}>
           <div>
-            <label>Nombre</label>
+            <label id="name-product-label-update">Nombre</label>
             <input
               type="text"
               value={productToEdit?.name || ""}
               onChange={(e) => setProductToEdit({ ...productToEdit, name: e.target.value })}
+              aria-labelledby="name-product-label-update"
             />
           </div>
           <div>
