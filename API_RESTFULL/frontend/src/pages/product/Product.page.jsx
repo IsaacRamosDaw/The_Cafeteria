@@ -105,11 +105,13 @@ function Product() {
                 className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
                 onClick={() => handleQuantity("+")}
                 text={"+"}
+                ariaLabel={"Aumentar cantidad del producto elegido"}
               />
               <Button
                 className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
                 onClick={() => handleQuantity("-")}
                 text={"-"}
+                ariaLabel={"disminuir cantidad del producto elegido"}
               />
             </div>
           </div>
@@ -121,6 +123,7 @@ function Product() {
                   onClick={handleOrder}
                   className="btn-cancel-product"
                   text={"Cancelar"}
+                  ariaLabel={"Cancelar elegir el producto"}
                 />
               </form>
             ) : (
@@ -128,6 +131,7 @@ function Product() {
                 onClick={handleOrder}
                 className="btn-order-product"
                 text={"Pedir"}
+                ariaLabel={"Confirmar elegir el producto"}
               />
               // <button className="btn-order-product" onClick={handleOrder}>Ordena</button>
             )}

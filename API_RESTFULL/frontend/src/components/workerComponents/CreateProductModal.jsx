@@ -70,7 +70,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                 <h2>Crear Nuevo Producto</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name-product">Nombre del Producto</label>
+                        <label htmlFor="name-product" id="name-product-label">Nombre del Producto</label>
                         <input
                             type="text"
                             id="name-product"
@@ -78,10 +78,11 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             value={newProduct.name}
                             onChange={handleInputChange}
                             required
+                            aria-labelledby="name-product-label"
                         />
                     </div>
                     <div>
-                        <label htmlFor="description-product">Descripción</label>
+                        <label htmlFor="description-product" id="description-product-label">Descripción</label>
                         <input
                             type="text"
                             id="description-product"
@@ -89,10 +90,11 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             value={newProduct.description}
                             onChange={handleInputChange}
                             required
+                            aria-labelledby="description-product-label"
                         />
                     </div>
                     <div>
-                        <label htmlFor="price-product">Precio</label>
+                        <label htmlFor="price-product" id="price-product-label">Precio</label>
                         <input
                             type="number"
                             id="price-product"
@@ -100,10 +102,11 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             value={newProduct.price}
                             onChange={handleInputChange}
                             required
+                            aria-labelledby="price-product-label"
                         />
                     </div>
                     <div>
-                        {/* <label htmlFor="id-category">Categoría</label> */}
+                        <label htmlFor="id-category">Categoría</label>
                         <input
                             id="id-category"
                             type="hidden"
