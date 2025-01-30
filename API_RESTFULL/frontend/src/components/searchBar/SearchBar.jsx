@@ -16,7 +16,7 @@ function SearchBar({ input }) {
         {input ? (
           <input placeholder="Qué quieres comer..." type="text" name="search-bar" id="search-bar" aria-label="Barra de búsqueda"/>
         ) : (
-          <h2> {userTitle} </h2>
+          <h1 className="name-student-searchbar" > {userTitle} </h1>
         )}
         {/* <Link
           id="icon-user"

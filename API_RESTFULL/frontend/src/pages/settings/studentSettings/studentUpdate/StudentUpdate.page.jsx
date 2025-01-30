@@ -132,6 +132,7 @@ function StudentUpdate() {
         <section className="container-info">
           <div className="container-img-profile">
             <Avatar
+            role='img'
               className="avatar-img"
               onClick={() => document.getElementById("file-input").click()}
               alt={userData.username}
@@ -140,15 +141,20 @@ function StudentUpdate() {
             />
             <BiSolidPencil className="edit-mode-icon" />
           </div>
+          <label aria-hidden="true" style={{ display: "none" }} htmlFor="file-input"> Foto  </label>
           <input
+           aria-hidden="true"
             type="file"
             accept="image/*"
             onChange={handleFileChange}
             style={{ display: "none" }}
             id="file-input"
+            name="file-input"
           />
-          <h1> {userData.username} </h1>
-          <p> {currentCourse} </p>
+          <div className="container-info-student">
+            <h2 className="name-student-update-profile"> {userData.username} </h2>
+            <h3 className="course-student-update-profile"> {currentCourse} </h3>
+          </div>
         </section>
         <form onSubmit={HandleEdit} className="container-inputs">
           <InputFormSetting
@@ -174,11 +180,12 @@ function StudentUpdate() {
             ref={ageRef}
           />
           <div className="label-input">
-            <label className="label-text" htmlFor="CourseId">
+            <label aria-label="Course" className="label-text" htmlFor="CourseId">
               Selecciona tu curso
             </label>
             <select
-            className="select-courses-container"
+              className="select-courses-container"
+              id="CourseId"
               name="CourseId"
               ref={CourseIdRef}
               onChange={handleInputChange}
@@ -199,7 +206,7 @@ function StudentUpdate() {
             onChange={handleInputChange}
           />
           <div className="container-btn-account">
-            <Button text={"Actualizar"} submit={true} />
+            <Button role='button' text={"Actualizar"} submit={true} />
           </div>
         </form>
         <TabsBar />
@@ -208,4 +215,4 @@ function StudentUpdate() {
   );
 }
 
-export default StudentUpdate
+export default StudentUpdate;

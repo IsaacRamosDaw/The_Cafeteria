@@ -2,7 +2,7 @@
 
 nav#header-container {
 	color: white;
-	background-color: $secondary-color;
+	background-color: var(--background-1);
 	top: 0;
 	width: 100%;
 	position: fixed;
@@ -11,12 +11,12 @@ nav#header-container {
 	box-sizing: border-box;
 
 	div {
-		background-color: #fff;
-		border-radius: 20px;
+		background-color: var(--text-3);
+		border-radius: 10px;
 
 
-		h2 {
-			font-size: 1.5em;
+		.name-student-searchbar {
+			font-size: $font-subtitle-2;
 			color: black;
 			text-align: center;
 		}

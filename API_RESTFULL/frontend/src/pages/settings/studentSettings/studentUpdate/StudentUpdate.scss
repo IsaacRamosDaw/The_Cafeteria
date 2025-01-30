@@ -42,21 +42,28 @@
                 margin: 10px 20px;
                 position: relative;
 
+                .avatar-img {
+                    color: var(--reverse-neutral);
+                    font-size: $font-H1;
+                    background-color: var(--text-3);
+                }
+
                 .avatar-img:active {
                     transform: scale(.9);
                 }
             }
 
             .container-info-student {
-                h1 {
+                .name-student-update-profile {
                     color: var(--text-1);
                     font-weight: 600;
-                    font-size: 38px;
+                    font-size: $font-H2;
                 }
 
-                h5 {
+                .course-student-update-profile {
                     color: var(--text-2);
                     font-weight: 400;
+                    font-size: $font-body-large;
                 }
             }
 
@@ -73,20 +80,26 @@
                 color: var(--text-2);
 
                 .label-text {
-                    font-size: $font-body-small;
-                    color: var(--text-1);
-                    font-weight: 300;
+                    font-size: $font-size-medium-big;
+                    font-weight: 600;
+                    color: var(--text-2);
                 }
 
                 select {
                     background-color: var(--background-3);
-                    border: 1px solid var(--text-1);
-                    color: var(--text-3);
+                    color: var(--text-2);
                     font-weight: 500;
-                    font-size: $font-size-medium-small;
+                    border: 0;
+                    background-color: var(--background-3);
+                    border-radius: 5px;
+                    padding: 10px 10px;
+                    font-size: $font-t-body-large;
 
                     option {
                         color: var(--text-1);
+                    }
+                    option:hover{
+                        background-color: var(--text-1);
                     }
                 }
 
@@ -96,11 +109,13 @@
                 width: 50%;
 
                 button {
-                    background-color: var(--background-2);
-                    border: 1px solid var(--text-1);
+                    background-color: var(--background-3);
+                    border: 0;
                     font-size: $font-size-medium-small;
+                    font-weight: 700;
                 }
-                button:active{
+
+                button:active {
                     transform: scale(.8);
                 }
 

@@ -27,36 +27,28 @@
     }
     .input-inputform-setting-1{
         font-weight: bold;
-    }
-
-    .input-inputform-setting-1 {
         border: 1px solid var(--text-1);
         background-color: transparent;
         border-radius: 5px;
-        height: 20px;
+        height: 30px;
         padding: 10px 10px;
     }
 
     // Type 2 input form styles
-    .text-inputform-setting-2,
-    .input-inputform-setting-2 {
-        color: var(--text-1);
-        font-size: $font-size-medium-small;
-    }
-
     .text-inputform-setting-2{
-        font-weight: 300;
+        font-size: $font-size-medium-big;
+        font-weight: 600;
+        color: var(--text-2);
     }
     .input-inputform-setting-2{
         font-weight: 400;
-    }
-
-    .input-inputform-setting-2 {
-        border: 1px solid var(--text-1);
+        border: 0;
         background-color: var(--background-3);
         border-radius: 5px;
-        height: 20px;
+        height: 30px;
         padding: 10px 10px;
+        font-size: $font-t-body-large;
+        color: var(--text-1);
     }
 
 
