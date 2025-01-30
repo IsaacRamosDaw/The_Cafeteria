@@ -65,7 +65,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
 
     return (
         <div className="modal-overlay">
-            <div className="modal-container">
+            <div className="modal-container-product-create">
                 <button className="close-btn" onClick={closeModal}>X</button>
                 <h2>Crear Nuevo Producto</h2>
                 <form onSubmit={handleSubmit}>
