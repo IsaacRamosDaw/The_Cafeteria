@@ -51,8 +51,8 @@ describe("Product crud test", () => {
     const productPriceInput = screen.getByPlaceholderText("Precio del producto");
 
     fireEvent.change(productNameInput, { target: { value: "nuevo producto creado" } });
-    fireEvent.change(productDescriptionInput, { target: { value: 3 } });
-    fireEvent.change(productPriceInput, { target: { value: "descripción nuevo producto" } });
+    fireEvent.change(productPriceInput, { target: { value: 3 } });
+    fireEvent.change(productDescriptionInput, { target: { value: "descripción nuevo producto" } });
 
     fireEvent.click(createProductButton);
     
