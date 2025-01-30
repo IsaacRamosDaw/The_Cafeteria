@@ -39,32 +39,36 @@ function SchoolForm() {
       <form id="school-form">
         <h2>Schools</h2>
         <Label
-          id={"name-school"}
-          placeHolder={"Name of the school"}
-          title={"Name"}
-          type={"text"}
+          id="name-school"
+          placeHolder="Name of the school"
+          title="Name"
+          type="text"
+          aria-labelledby="Ingrese nombre del colegio"
         />
         <Label
-          id={"password-school"}
-          placeHolder={"Password of the school"}
-          title={"Password"}
-          type={"password"}
+          id="password-school"
+          placeHolder="Password of the school"
+          title="Password"
+          type="password"
+          aria-labelledby="Ingrese contraseña del colegio"
         />
         <Label
-          id={"phone-school"}
-          placeHolder={"Phone of the school"}
-          title={"Phone"}
-          type={"number"}
+          id="phone-school"
+          placeHolder="Phone of the school"
+          title="Phone"
+          type="number"
+          aria-labelledby="Ingrese el número del colegio"
         />
         <Label
-          id={"phone-school"}
-          placeHolder={"Adress of the school"}
-          title={"Adress"}
-          type={"text"}
+          id="adress-school"
+          placeHolder="Adress of the school"
+          title="Adress"
+          type="text"
+          aria-labelledby="Ingrese la dirección del colegio"
         />
         <div id="buttons">
-          <Button onClick={handleCreate} text={"Crear"} />
-          <Button onClick={handleEdit} text={"Editar"} />
+          <Button onClick={handleCreate} text="Crear" />
+          <Button onClick={handleEdit} text="Editar" />
         </div>
       </form>
     </main>

@@ -5,14 +5,11 @@ require("dotenv").config();
 
 var path = require("path");
 
-const upload = require("./multer/upload");
-
 const app = express();
 
 //public directory
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use(upload.single('file')); // Use form-data HTTP headers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
 
@@ -23,9 +20,9 @@ app.use(cors(corsOptions));
 
 const db = require("./models");
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db");
+// });
 
 app.use(function (req, res, next) {
   var token = req.headers["authorization"];
@@ -51,7 +48,6 @@ app.use(function (req, res, next) {
 
   token = token.replace("Bearer ", "");
   jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
-
     if (err) {
       return res.status(401).json({
         error: true,
@@ -81,8 +77,7 @@ require("./routes/order.routes")(app);
 require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
 
-
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log(`Backend server running on port ${PORT} `);
 });

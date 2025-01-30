@@ -80,11 +80,11 @@ return (
     <div className="container-btn-card-order">
       {role === "worker" ? (
         <>
-          <Button className="btn-card-order btn-done" text={"Terminado"} onClick={cancelOrder} />
+          <Button className="btn-card-order btn-done" text={"Terminado"} onClick={cancelOrder} ariaLabel={"Eliminar este pedido"} />
         </>
       ) : (
         <>
-          <Button className="btn-card-order btn-done" text={"Cancelar"} onClick={cancelOrder} />
+          <Button className="btn-card-order btn-done" text={"Cancelar"} onClick={cancelOrder} ariaLabel={"Eliminar este pedido"}/>
         </>
       )}
     </div>
@@ -93,3 +93,4 @@ return (
 }
 
 export default Order;
+

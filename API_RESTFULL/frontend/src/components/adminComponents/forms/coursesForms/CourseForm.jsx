@@ -37,6 +37,7 @@ export default function CourseForm() {
           title={"Nombre"}
           type={"text"}
           ref={nameRef}
+          aria-labelledby={"Ingrese aquí el nombre del curso"}
         />
         <div id="buttons">
           <Button submit={true} text={id ? "Editar" : "Crear"} />
