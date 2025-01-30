@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--text-2);
+    background-color: var(--text-1);
     padding: 10px;
     border-radius: 15px;
     width: 90%;
@@ -23,6 +23,10 @@
 
     .icon-add-category {
       font-size: 25px;
+    }
+
+    h1{
+      font-size: $font-size-medium-big;
     }
   }
 
@@ -91,7 +95,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        color: var(--text-3);
+        color: var(--text-1);
         margin: 10px 0;
         border: 1px solid var(--text-1);
         padding: 8px;
@@ -104,6 +108,7 @@
       }
       .container-add-product:hover{
         background-color: var(--text-1);
+        color: $neutral-default-black;
       }
 
     }
