@@ -10,7 +10,7 @@
     "db:migrate-and-seed": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:reset-and-start": "npm run db:reset && npm start",
     "db:migrate-and-start": "npx sequelize-cli db:migrate && npm start",
-    "start": "node ./server.js"
+    "start": "node ./index.js"
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",

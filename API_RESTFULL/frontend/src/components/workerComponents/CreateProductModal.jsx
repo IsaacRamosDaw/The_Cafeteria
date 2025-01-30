@@ -79,6 +79,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             onChange={handleInputChange}
                             required
                             aria-labelledby="name-product-label"
+                            placeholder="Nombre del producto"
                         />
                     </div>
                     <div>
@@ -91,6 +92,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             onChange={handleInputChange}
                             required
                             aria-labelledby="description-product-label"
+                            placeholder="texto del producto"
                         />
                     </div>
                     <div>
@@ -103,6 +105,7 @@ export default function CreateProductModal({isModalOpen,handleSave,closeModal,Ca
                             onChange={handleInputChange}
                             required
                             aria-labelledby="price-product-label"
+                            placeholder="Precio del producto"
                         />
                     </div>
                     <div>
