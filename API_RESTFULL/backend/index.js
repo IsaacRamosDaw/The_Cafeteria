@@ -78,6 +78,19 @@ require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT} `);
-});
+
+//! Importante
+// Jest ejecuta los test en paralelo, en decir en multiples instancias
+// Esto hace que un mismo puerto sea usado en varios test
+// Lo que lleva a error, por esto lo configure para que
+// el servidor solo se encienda cuando ejecutas directamente
+// index.js y no cuando lo importas en test
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`Backend server running on port ${PORT} `);
+  });
+
+  module.exports = server;
+} else {
+  module.exports = app;
+}
