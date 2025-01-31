@@ -31,7 +31,7 @@ exports.create = (req, res) => {
         const token = utils.generateToken(data);
         const adminObj = utils.getCleanUser(data);
 
-        return res.json({ admin: adminObj, access_token: token });
+        return res.status(200).json({ admin: adminObj, access_token: token });
       }
 
       Admin.create(admin)
@@ -42,7 +42,8 @@ exports.create = (req, res) => {
           const adminObj = utils.getCleanUser(data);
           console.log("After clean user", adminObj);
 
-          return res.json({ admin: adminObj, access_token: token });
+         return res.status(201).json({ message: "Admin created successfully", admin: adminObj, access_token: token });
+
         })
         .catch((err) => {
           res.status(500).send({
