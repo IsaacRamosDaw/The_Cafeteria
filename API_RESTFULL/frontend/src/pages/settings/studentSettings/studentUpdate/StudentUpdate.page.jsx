@@ -2,28 +2,16 @@ import SearchBar from "../../../../components/searchBar/SearchBar.jsx";
 import TabsBar from "../../../../components/tabsBar/TabsBar.jsx";
 import Button from "../../../../components/button/Button.jsx";
 import InputFormSetting from "../../../../components/setttingsComp/inputFormSetting/InputFormSetting.jsx";
-import {
-  getOne,
-  edit,
-  updateProfilePicture,
-} from "../../../../services/student.service.js";
-import {
-  get,
-  getOne as getOneStudent,
-} from "../../../../services/course.service.js";
+import { getOne, edit, updateProfilePicture } from "../../../../services/student.service.js";
+import { get, getOne as getOneStudent } from "../../../../services/course.service.js";
 import Avatar from "@mui/material/Avatar";
 import { BiSolidPencil } from "react-icons/bi";
-
-import { getUserId, getUserRole } from "../../../../services/utils.js";
-
+import { getUserId } from "../../../../services/utils.js";
 import { Alert } from "@mui/material";
 import Stack from "@mui/material/Stack";
-
-import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import "./StudentUpdate.scss";
 
 function StudentUpdate() {
@@ -31,10 +19,10 @@ function StudentUpdate() {
   const id = getUserId();
   const [selectedFile, setSelectedFile] = useState(null);
   const [courses, setCourses] = useState([]);
-
   const [imgProfile, setImgProfile] = useState("");
   const [currentCourse, setCurrentCourse] = useState("");
   const [invalidUser, setInvalidUser] = useState(true);
+  const [resultForm, setResultForm] = useState(false);
 
   // Ref hooks
   const usernameRef = useRef(null);
@@ -54,38 +42,34 @@ function StudentUpdate() {
   });
 
   useEffect(() => {
-    getOne(id).then((data) => {
-      setUserData(data);
-    });
+    const fetchData = async () => {
+      try {
+        const studentData = await getOne(id);
+        setUserData(studentData);
 
-    getOneStudent(id).then((data) => {
-      setCurrentCourse(data.name);
-    });
+        const courseData = await getOneStudent(id);
+        setCurrentCourse(courseData.name);
 
-    get()
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((error) => console.error("Error fetching courses:", error));
+        const coursesData = await get();
+        setCourses(coursesData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, [id]);
-
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      console.log(file);
       setSelectedFile(file);
       setImgProfile(URL.createObjectURL(file));
     }
   };
 
   const handleFileUpload = async () => {
-    if (!selectedFile) {
-      return;
-    }
+    if (!selectedFile) return;
     try {
       await updateProfilePicture(id, selectedFile);
       setUserData((prev) => ({
@@ -108,27 +92,35 @@ function StudentUpdate() {
       phone: phoneRef.current.value,
     };
 
+    // Validar campos obligatorios
+    if (!formData.username || !formData.password || !formData.age || !formData.CourseId || !formData.phone) {
+      setResultForm(true);
+      setInvalidUser(false); // Mostrar mensaje de error
+      setTimeout(() => {
+        setResultForm(false);
+      }, 2000);
+      return; // Detener la ejecución si hay campos vacíos
+    }
+
     try {
       await edit(id, formData);
       await handleFileUpload();
 
-      navigate(-1);
-    } catch (error) {
-
-      setInvalidUser(false);
+      setResultForm(true);
+      setInvalidUser(true); // Mostrar mensaje de éxito
       setTimeout(() => {
-        setInvalidUser(true);
+        setResultForm(false);
+        navigate(-1)
+      }, 2000);
+
+    } catch (error) {
+      setResultForm(true);
+      setInvalidUser(false); // Mostrar mensaje de error
+      setTimeout(() => {
+        setResultForm(false);
       }, 2000);
       console.error("Error of update:", error);
     }
-  };
-
-  useEffect(() => {
-    resetImageProfile();
-  }, [userData]);
-
-  const resetImageProfile = () => {
-    setImgProfile("http://localhost:8080/images/" + userData.filename);
   };
 
   return (
@@ -150,13 +142,8 @@ function StudentUpdate() {
             />
             <BiSolidPencil className="edit-mode-icon" />
           </div>
-          <label
-            aria-hidden="true"
-            style={{ display: "none" }}
-            htmlFor="file-input"
-          >
-            {" "}
-            Foto{" "}
+          <label aria-hidden="true" style={{ display: "none" }} htmlFor="file-input">
+            Foto
           </label>
           <input
             aria-hidden="true"
@@ -168,11 +155,8 @@ function StudentUpdate() {
             name="file-input"
           />
           <div className="container-info-student">
-            <h2 className="name-student-update-profile">
-              {" "}
-              {userData.username}{" "}
-            </h2>
-            <h3 className="course-student-update-profile"> {currentCourse} </h3>
+            <h2 className="name-student-update-profile">{userData.username}</h2>
+            <h3 className="course-student-update-profile">{currentCourse}</h3>
           </div>
         </section>
         <form onSubmit={HandleEdit} className="container-inputs">
@@ -180,7 +164,6 @@ function StudentUpdate() {
             title={"Nombre"}
             option={2}
             placeholder={userData.username}
-            onChange={handleInputChange}
             ref={usernameRef}
           />
           <InputFormSetting
@@ -188,22 +171,17 @@ function StudentUpdate() {
             option={2}
             placeholder="Nueva contraseña"
             type="password"
-            onChange={handleInputChange}
             ref={passwordRef}
           />
           <InputFormSetting
             title={"Edad"}
             option={2}
+            type="number"
             placeholder={userData.age}
-            onChange={handleInputChange}
             ref={ageRef}
           />
           <div className="label-input">
-            <label
-              aria-label="Course"
-              className="label-text"
-              htmlFor="CourseId"
-            >
+            <label aria-label="Course" className="label-text" htmlFor="CourseId">
               Selecciona tu curso
             </label>
             <select
@@ -211,10 +189,9 @@ function StudentUpdate() {
               id="CourseId"
               name="CourseId"
               ref={CourseIdRef}
-              onChange={handleInputChange}
             >
               <option>Elige un curso</option>
-              {courses.map((course, index) => (
+              {courses.map((course) => (
                 <option key={course.id} value={course.id}>
                   {course.name}
                 </option>
@@ -223,20 +200,21 @@ function StudentUpdate() {
           </div>
           <InputFormSetting
             title={"Teléfono"}
+            type={"number"}
             option={2}
             placeholder={userData.phone}
             ref={phoneRef}
-            onChange={handleInputChange}
           />
           <div className="container-btn-account">
             <Button role="button" text={"Actualizar"} submit={true} />
           </div>
         </form>
-        <Stack
-          sx={{ display: `${invalidUser ? "none" : "block"}`, width: "90%" }}
-          spacing={2}
-        >
-          <Alert severity="error">Usuario invalido</Alert>
+        <Stack sx={{ display: resultForm ? "block" : "none", width: "90%" }} spacing={2}>
+          {invalidUser ? (
+            <Alert severity="success">Datos actualizados</Alert>
+          ) : (
+            <Alert severity="error">Datos incorrectos</Alert>
+          )}
         </Stack>
         <TabsBar />
       </main>
