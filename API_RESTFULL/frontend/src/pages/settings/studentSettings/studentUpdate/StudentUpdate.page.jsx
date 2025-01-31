@@ -16,6 +16,9 @@ import { BiSolidPencil } from "react-icons/bi";
 
 import { getUserId, getUserRole } from "../../../../services/utils.js";
 
+import { Alert } from "@mui/material";
+import Stack from "@mui/material/Stack";
+
 import { deepOrange } from "@mui/material/colors";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
@@ -31,6 +34,7 @@ function StudentUpdate() {
 
   const [imgProfile, setImgProfile] = useState("");
   const [currentCourse, setCurrentCourse] = useState("");
+  const [invalidUser, setInvalidUser] = useState(true);
 
   // Ref hooks
   const usernameRef = useRef(null);
@@ -110,6 +114,11 @@ function StudentUpdate() {
 
       navigate(-1);
     } catch (error) {
+
+      setInvalidUser(false);
+      setTimeout(() => {
+        setInvalidUser(true);
+      }, 2000);
       console.error("Error of update:", error);
     }
   };
@@ -132,7 +141,7 @@ function StudentUpdate() {
         <section className="container-info">
           <div className="container-img-profile">
             <Avatar
-            role='img'
+              role="img"
               className="avatar-img"
               onClick={() => document.getElementById("file-input").click()}
               alt={userData.username}
@@ -141,9 +150,16 @@ function StudentUpdate() {
             />
             <BiSolidPencil className="edit-mode-icon" />
           </div>
-          <label aria-hidden="true" style={{ display: "none" }} htmlFor="file-input"> Foto  </label>
+          <label
+            aria-hidden="true"
+            style={{ display: "none" }}
+            htmlFor="file-input"
+          >
+            {" "}
+            Foto{" "}
+          </label>
           <input
-           aria-hidden="true"
+            aria-hidden="true"
             type="file"
             accept="image/*"
             onChange={handleFileChange}
@@ -152,7 +168,10 @@ function StudentUpdate() {
             name="file-input"
           />
           <div className="container-info-student">
-            <h2 className="name-student-update-profile"> {userData.username} </h2>
+            <h2 className="name-student-update-profile">
+              {" "}
+              {userData.username}{" "}
+            </h2>
             <h3 className="course-student-update-profile"> {currentCourse} </h3>
           </div>
         </section>
@@ -180,7 +199,11 @@ function StudentUpdate() {
             ref={ageRef}
           />
           <div className="label-input">
-            <label aria-label="Course" className="label-text" htmlFor="CourseId">
+            <label
+              aria-label="Course"
+              className="label-text"
+              htmlFor="CourseId"
+            >
               Selecciona tu curso
             </label>
             <select
@@ -206,9 +229,15 @@ function StudentUpdate() {
             onChange={handleInputChange}
           />
           <div className="container-btn-account">
-            <Button role='button' text={"Actualizar"} submit={true} />
+            <Button role="button" text={"Actualizar"} submit={true} />
           </div>
         </form>
+        <Stack
+          sx={{ display: `${invalidUser ? "none" : "block"}`, width: "90%" }}
+          spacing={2}
+        >
+          <Alert severity="error">Usuario invalido</Alert>
+        </Stack>
         <TabsBar />
       </main>
     </div>

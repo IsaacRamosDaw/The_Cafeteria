@@ -138,7 +138,7 @@ export async function edit(id, data) {
       return response.json();
     })
     .catch((error) => {
-      console.error("Error while updating admin data:", error);
+      // console.error("Error while updating admin data:", error);
       throw error;
     });
 
