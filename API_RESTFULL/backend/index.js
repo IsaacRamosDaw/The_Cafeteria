@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+//* WEB SOCKET
+const WebSocket = require("ws");
 
 var path = require("path");
 
@@ -19,6 +21,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 const db = require("./models");
+const { timeStamp } = require("console");
 
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db");
@@ -85,12 +88,92 @@ const PORT = process.env.PORT || 8080;
 // Lo que lleva a error, por esto lo configure para que
 // el servidor solo se encienda cuando ejecutas directamente
 // index.js y no cuando lo importas en test
+
+// if (require.main === module) {
+//   const server = app.listen(PORT, () => {
+//     console.log(`Backend server running on port ${PORT} `);
+//   });
+
+//   module.exports = server;
+// } else {
+//   module.exports = app;
+// }
+
+//* WEB SOCKET
 if (require.main === module) {
-  const server = app.listen(PORT, () => {
+  var server = new WebSocket.Server({port: PORT}, () => {
     console.log(`Backend server running on port ${PORT} `);
   });
 
   module.exports = server;
 } else {
   module.exports = app;
+}
+
+const usersToSend = [];
+const users = [];
+const helps = [];
+
+server.on('connection', (ws, incoming_request) => {
+  const u = { username: incoming_request.url.split("=")[1]};
+  ws.username = u.username;
+  const userRef = { ws };
+  usersToSend(u);
+  console.log("create");
+  console.log(users);
+
+  sendMessage({
+    users,
+    helps
+  })
+
+  ws.on('message', (message) => {
+    try {
+      const data = JSON.parse(message);
+
+      // Checking if the message is a valid one
+      if (typeof data.type !== 'string') {
+        console.error('Invalid message');
+        return;
+      }
+
+      if(data.type == 'next please'){
+        helps.push({
+          helper: data.helper,
+          helped: data.helped,
+          timeStamp: data.timestamps
+        })
+      };
+
+      if(data.type == 'next please'){
+        for (let i = 0; i < helps.length; i++) {
+          if(helps[i].helper == data.helper && helps[i].helped == data.helped) {
+            helps.splice(i,1);
+          }
+        }
+      };
+
+      sendMessage({users, helps});
+    } catch (e) { console.error('Error pasing message!', e)}
+  })
+
+  ws.on('close', (code, reason) => {
+    for (let i = 0; i < users.length; i++) {
+      console.log(users[i]);
+      if(users[i].username === ws.username){
+        users.splice(i,1);
+        usersToSend.splice(i,1);
+      }
+    }
+    console.log("final");
+    console.log(users);
+  });
+
+  //*Falta hacer los ajustes en .env 
+});
+
+function sendMessage(message) {
+  users.forEach((user) => {
+    user.ws.send(JSON.stringify(message));
+  })
 }
