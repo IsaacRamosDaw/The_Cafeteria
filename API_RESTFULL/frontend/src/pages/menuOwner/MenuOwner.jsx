@@ -31,7 +31,6 @@ export default function MenuOwner() {
 
   const [newCategory, setNewCategory] = useState({ name: '', amount: '' });
 
-  // Load categories and products
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
@@ -202,8 +201,8 @@ export default function MenuOwner() {
                       {product.price}€
                     </span>
                     <div className="container-control-item-category">
-                      <HiPencilSquare onClick={() => handleEdit(product)} />
-                      <FaTrash onClick={() => handleDelete(product.id)} />
+                      <HiPencilSquare aria-label="editar producto" onClick={() => handleEdit(product)} />
+                      <FaTrash aria-label="eliminar producto" onClick={() => handleDelete(product.id)} />
                     </div>
                   </div>
                 </div>
