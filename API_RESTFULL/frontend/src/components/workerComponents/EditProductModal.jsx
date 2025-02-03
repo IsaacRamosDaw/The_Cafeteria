@@ -30,18 +30,19 @@ export default function EditProductModal({
 
   return (
     <div className="modal-overlay">
-      <div className="modal-container">
+      <div className="modal-container-product-update">
         <button className="close-btn" onClick={closeModal}>
           X
         </button>
         <h2>Editar Producto</h2>
         <form onSubmit={handleFormSubmit}>
           <div>
-            <label>Nombre</label>
+            <label id="name-product-label-update">Nombre</label>
             <input
               type="text"
               value={productToEdit?.name || ""}
               onChange={(e) => setProductToEdit({ ...productToEdit, name: e.target.value })}
+              aria-labelledby="name-product-label-update"
             />
           </div>
           <div>

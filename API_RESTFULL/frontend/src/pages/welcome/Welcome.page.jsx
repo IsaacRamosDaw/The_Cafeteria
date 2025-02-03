@@ -7,7 +7,6 @@ import { useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import { tabScrollButtonClasses } from "@mui/material";
 
 function Welcome() {
   const navigate = useNavigate();
@@ -17,18 +16,19 @@ function Welcome() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const [inputName, inputPassword] = e.target;
+    const form = e.target; 
+    const nameInput = form.elements.namedItem("name"); 
+    const passwordInput = form.elements.namedItem("password");
 
-    const name = inputName.value;
-    const password = inputPassword.value;
+    const name = nameInput?.value || ""; 
+    const password = passwordInput?.value || ""; 
 
     try {
       const user = await login({ username: name, password: password });
 
       user.role === "admin" ? navigate("/dashboard") : navigate("/menu");
     } catch (error) {
-      // console.error("Login failed:", error.message);
-      setInvalidUser(false);
+      setInvalidUser(false); // Mostramos el mensaje de error
     }
   }
 
@@ -69,3 +69,4 @@ function Welcome() {
 }
 
 export default Welcome;
+

@@ -25,7 +25,6 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all schools from the database
 exports.findAll = (req, res) => {
   School.findAll()
     .then((data) => {

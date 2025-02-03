@@ -1,0 +1,33 @@
+services:
+  mysql:
+    image: mysql:8
+    env_file:
+     - ./backend/.env
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+  
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    environment:
+      DB_HOST: mysql,
+      DB_PORT: 3306,
+      DB_USER: root,
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD_DEV},
+      DB_NAME: ${MYSQL_DATABASE_DEV},
+      NODE_ENV: development
+    env_file:
+      - ./backend/.env
+  volumes:
+      mysql_data: 
+  networks:
+      backend:
