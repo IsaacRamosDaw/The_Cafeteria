@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 //* WEB SOCKET
 const WebSocket = require("ws");
+const setUpWebSocket = require("./webSocket")
 
 var path = require("path");
 
@@ -101,7 +102,7 @@ const PORT = process.env.PORT || 8080;
 
 //* WEB SOCKET
 if (require.main === module) {
-  var server = new WebSocket.Server({port: PORT}, () => {
+  var server = new WebSocket.Server({ port: PORT }, () => {
     console.log(`Backend server running on port ${PORT} `);
   });
 
@@ -110,72 +111,68 @@ if (require.main === module) {
   module.exports = app;
 }
 
-const usersToSend = [];
-const users = [];
-const helps = [];
 
-// Este código estaba al final del todo pero me parecía que tenía más lógica arriba
+const clients = [];
+const clientsWaiting = [];
+const clientsDone = [];
+
 function sendMessage(message) {
-  users.forEach((user) => {
-    user.ws.send(JSON.stringify(message));
+  clientsWaiting.forEach((client) => {
+    client.ws.send(JSON.stringify(message));
   })
 }
 
 server.on('connection', (ws, incoming_request) => {
-  const u = { username: incoming_request.url.split("=")[1]};
-  ws.username = u.username;
+  const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
+  const pedido = {
+    userId: urlParsed.searchParams.get("userId"),
+    username: urlParsed.searchParams.get("userName"),
+    foodName: urlParsed.searchParams.get("foodName")
+  }
+
+  ws.userId = pedido.userId;
+  ws.username = pedido.username;
+  ws.foodName = pedido.foodName;
+
   const userRef = { ws };
-  usersToSend.push(userRef)
-  users.push(u);
-  console.log("create");
-  console.log(users);
+
+  clients.push(pedido);
+  // Necesito esto?
+  clientsWaiting.push(userRef);
+
+  console.log("conexión creada");
+  console.log(clients);
 
   sendMessage({
-    users,
-    helps
+    clients,
+    clientsDone
   })
 
+  // mensaje recibido:
   ws.on('message', (message) => {
     try {
       const data = JSON.parse(message);
 
-      // Checking if the message is a valid one
       if (typeof data.type !== 'string') {
-        console.error('Invalid message, is not string message');
+        console.error('invalid message, is not a string');
         return;
       }
 
-      if(data.type == 'ask for help'){
-        helps.push({
-          helper: data.helper,
-          helped: data.helped,
-          timeStamp: data.timestamps
-        })
-      };
+      //Student make an order
 
-      if(data.type == 'next please'){
+      // Worker finish an order
+      if (data.type !== 'next') {
         for (let i = 0; i < helps.length; i++) {
-          if(helps[i].helper == data.helper && helps[i].helped == data.helped) {
-            helps.splice(i,1);
+          if (clientsDone[i].userId == data.userId && clientsDone[i].foodName == data.foodName) {
+            helps.splice(i, 1);
           }
         }
-      };
-
-      sendMessage({users, helps});
-    } catch (e) { console.error('Error pasing message!', e)}
+      }
+    } catch (e) { console.error('Error pasing message!', e) }
   })
 
   ws.on('close', (code, reason) => {
-    for (let i = 0; i < users.length; i++) {
-      console.log(users[i]);
-      if(users[i].username === ws.username){
-        users.splice(i,1);
-        usersToSend.splice(i,1);
-      }
-    }
     console.log("final");
-    console.log(users);
-  });
-
-});
-
+    console.log(clients);
+  })
+})
