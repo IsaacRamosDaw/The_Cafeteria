@@ -110,9 +110,9 @@ if (require.main === module) {
   module.exports = app;
 }
 
-const clients = [];
+// const clients = [];
 const clientsWaiting = [];
-const clientsDone = [];
+const clientsReady = [];
 
 function sendMessage(message) {
   clientsWaiting.forEach((client) => {
@@ -122,6 +122,7 @@ function sendMessage(message) {
 
 server.on('connection', (ws, incoming_request) => {
   const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
+
   const pedido = {
     userId: urlParsed.searchParams.get("userId"),
     username: urlParsed.searchParams.get("userName"),
@@ -134,45 +135,22 @@ server.on('connection', (ws, incoming_request) => {
 
   const userRef = { ws };
 
-  clients.push(pedido);
-  // Necesito esto?
   clientsWaiting.push(userRef);
-
   console.log("conexión creada");
   console.log(clients);
 
-  sendMessage({
-    clients,
-    clientsDone
-  })
-
-  // mensaje recibido:
-  ws.on('message', (message) => {
-    try {
-      const data = JSON.parse(message);
-
-      if (typeof data.type !== 'string') {
-        console.error('invalid message, is not a string');
-        return;
-      }
-
-      //Student make an order
-
-      // Worker finish an order
-      if (data.type !== 'next') {
-        for (let i = 0; i < helps.length; i++) {
-          if (clientsDone[i].userId == data.userId && clientsDone[i].foodName == data.foodName) {
-            helps.splice(i, 1);
-          }
-        }
-      }
-    } catch (e) { console.error('Error pasing message!', e) }
-  })
-
   ws.on('close', (code, reason) => {
-    console.log("final");
-    console.log(clients);
-  })
+    for (let i = 0; i < users.length; i++) {
+      console.log(users[i]);
+      console.log(clients[i]);
+      if (clients[i].username === ws.username) {
+        clients.splice(i, 1);
+        clientsWaiting.splice(i, 1);
+      }
+    }
+      console.log("final");
+      console.log(clients);
+    })
 })
 
 // const usersToSend = [];
