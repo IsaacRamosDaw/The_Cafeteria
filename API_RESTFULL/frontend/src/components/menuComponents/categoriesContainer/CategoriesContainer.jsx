@@ -49,7 +49,6 @@ function CategoriesContainer() {
               count={category.amount}
               title={category.name}
               photo={productImages[category.id]}
-              altText={`Imagen de la categoría ${category.name}`}
             />
           </div>
         ))}
