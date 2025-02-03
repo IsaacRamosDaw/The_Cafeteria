@@ -4,7 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 //* WEB SOCKET
 const WebSocket = require("ws");
-const setUpWebSocket = require("./webSocket")
 
 var path = require("path");
 
