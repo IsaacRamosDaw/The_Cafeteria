@@ -101,5 +101,6 @@ server.on('connection', (ws, incoming_request) => {
       }
     }
     console.log("Se ha cerrado la conexion del usuario" + ws.userId);
+    // COMMIT
   })
 })

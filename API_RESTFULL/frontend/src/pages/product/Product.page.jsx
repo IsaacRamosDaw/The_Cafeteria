@@ -13,7 +13,6 @@ import Button from "../../components/button/Button";
 import "./Product.scss";
 
 function Product() {
-
   const navigate = useNavigate();
   let { category, name } = useParams();
   name = name.replace(/-/g, " ");
@@ -32,6 +31,14 @@ function Product() {
 
   const location = useLocation();
   const id = location.state?.productId || 1;
+
+  //* WebSocket
+  useEffect(() => {
+    const SERVER_URL = `${process.env.REACT_APP_SERVER_URL}/userId=${userId}&/foodname=${product.name}`
+    ws.current.onopen = () => {
+      console.log("open")
+    }
+  }) 
 
   useEffect(() => {
     async function fetchData() {
@@ -66,6 +73,7 @@ function Product() {
 
   const handleOrder = () => {
     create(product.id, userId, product.price);
+
     navigate("/orders")
   };
 
