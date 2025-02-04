@@ -45,16 +45,6 @@
   }
 
   section#section-log-out {
-
-    width: 100%;
-    @include flex-items;
-
-    .container-logout {
-      @include flex-items;
-      color: var(--text-2);
-      gap: 10px;
-    }
-
     a {
       display: flex;
       flex-direction: column;
@@ -70,5 +60,50 @@
     p {
       color: grey;
     }
+
+    width: 100%;
+    // @include flex-items;
+
+
+    .container-logout {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: transparent;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .container-logout h1,
+    .container-logout svg {
+      position: relative;
+      z-index: 1;
+      color: var(--text-2);
+      transition: color 0.3s ease;
+    }
+
+    .container-logout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: red;
+      transform: translateX(-100%);
+      transition: transform 0.5s ease-in-out;
+      z-index: 0;
+    }
+
+    .container-logout:hover::before {
+      transform: translateX(0);
+    }
+
+    .container-logout:hover h1,
+    .container-logout:hover svg {
+      color: white;
+    }
+
   }
 }
