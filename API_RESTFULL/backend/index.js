@@ -27,16 +27,6 @@ const { timeStamp } = require("console");
 //   console.log("Drop and re-sync db");
 // });
 
-app.use(function (req, res, next) {
-  var token = req.headers["authorization"];
-  if (!token) return next();
-
-  if (req.headers.authorization.indexOf("Basic ") === 0) {
-    const base64Credentials = req.headers.authorization.split(" ")[1];
-    const credentials = Buffer.from(base64Credentials, "base64").toString(
-      "ascii"
-    );
-    const [username, password] = credentials.split(":");
 // Rutas
 require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);
