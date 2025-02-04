@@ -1,29 +1,30 @@
 module.exports = (app) => {
     const worker = require("../controllers/worker.controller.js");
     const auth = require("../controllers/auth.js");
-    var upload = require("../multer/upload")
+    const multer = require('../middlewares/multer.js')
 
-    var router = require("express").Router();
 
-    router.post('/signin', (req, res) => auth.signin(req, res, 'worker'));
+	const authToken = require('../middlewares/auth.js')
 
-    //Create a worker
-    router.post("/", worker.create);
+    const upload = multer({dest: '../public/images/workers'})
 
-    router.put("/upload/:id", upload.single('file'), worker.imgUpdate);
+	var router = require("express").Router();
 
-    //List all workers
-    router.get("/", auth.isAuthenticated, worker.findAll);
+	//List all workers
+	router.get("/", authToken ,auth.isAuthenticated , worker.findAll);
 
-    // Find a worker with his id
-    router.get("/:id", auth.isAuthenticated, worker.findOne);
+	// Retrieve one worker
+	router.get("/:id", authToken ,auth.isAuthenticated, worker.findOne);
 
-    // Update worker
-    router.put("/:id", upload.single('file'), auth.isAuthenticated, worker.update);
+	//Create an worker
+	router.post("/", upload.single('file'), authToken, worker.create);
 
-    //Delete worker
-    router.delete("/:id", auth.isAuthenticated, worker.delete);
+	// Update worker
+	router.put("/:id", upload.single('file'), authToken, auth.isAuthenticated, worker.update);
 
-    app.use('/api/worker', router);
+	//Delete worker 
+	router.delete("/:id", authToken, auth.isAuthenticated, worker.delete);
+
+	app.use('/api/worker', router);
 
 };
