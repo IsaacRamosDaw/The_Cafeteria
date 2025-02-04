@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+//* WEB SOCKET
 const WebSocket = require("ws");
 
 var path = require("path");
@@ -61,18 +62,17 @@ app.use((err, req, res, next) => {
 });
 
 //* WEB SOCKET
-if (process.env.NODE_ENV != "test") {
-  const PORT = process.env.PORT || 8080;
-  
+const PORT = process.env.PORT || 8080;
+
+if (process.env.NODE_ENV !== "test") {
   var server = new WebSocket.Server({ port: PORT }, () => {
     console.log(`Backend server running on port ${PORT} `);
   });
-
+  
 } else {
-   module.exports = app;
-
+  module.exports = app;
 }
-
+    
 const clients = [];
 const clientsWaiting = [];
 const clientsDone = [];
