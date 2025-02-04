@@ -75,7 +75,6 @@ exports.findAll = async (req, res) => {
 
   try {
     const admins = await Admin.findAll();
-
     return res.json(admins);
   } catch (err) {
     return res.status(500).json({
@@ -198,7 +197,7 @@ exports.delete = (req, res) => {
     .then((deleted) => {
       if (deleted) {
         console.log("Admin with id:", id, "was deleted.");
-        res.json({ message: "Admin deleted successfully." });
+        res.json({ message: "Admin was deleted successfully." });
       } else {
         console.log("Admin with id:", id, "was not found.");
         res.status(404).json({ message: "Admin not found." });
