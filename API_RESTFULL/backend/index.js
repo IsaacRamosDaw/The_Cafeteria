@@ -43,9 +43,6 @@ app.use(function (req, res, next) {
     req.body.username = username;
     req.body.password = password;
 
-    // console.log("En medio: ", req.headers);
-    // console.log(req.body);
-
     return next();
   }
 
@@ -82,55 +79,27 @@ require("./routes/site.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 
-//! Importante
-// Jest ejecuta los test en paralelo, en decir en multiples instancias
-// Esto hace que un mismo puerto sea usado en varios test
-// Lo que lleva a error, por esto lo configure para que
-// el servidor solo se encienda cuando ejecutas directamente
-// index.js y no cuando lo importas en test
-
-// if (require.main === module) {
-//   const server = app.listen(PORT, () => {
-//     console.log(`Backend server running on port ${PORT} `);
-//   });
-
-//   module.exports = server;
-// } else {
-//   module.exports = app;
-// }
-
 //* WEB SOCKET
-if (require.main === module) {
+if (process.env.NODE_ENV !== "test") {
   var server = new WebSocket.Server({ port: PORT }, () => {
     console.log(`Backend server running on port ${PORT} `);
   });
 
-  module.exports = server;
 } else {
   module.exports = app;
 }
 
-// const clients = [];
 const clientsWaiting = [];
-const clientsReady = [];
-
-function sendMessage(message) {
-  clientsWaiting.forEach((client) => {
-    client.ws.send(JSON.stringify(message));
-  })
-}
 
 server.on('connection', (ws, incoming_request) => {
   const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
 
   const pedido = {
     userId: urlParsed.searchParams.get("userId"),
-    username: urlParsed.searchParams.get("userName"),
     foodName: urlParsed.searchParams.get("foodName")
   }
 
   ws.userId = pedido.userId;
-  ws.username = pedido.username;
   ws.foodName = pedido.foodName;
 
   const userRef = { ws };
@@ -140,83 +109,22 @@ server.on('connection', (ws, incoming_request) => {
   console.log(clients);
 
   ws.on('close', (code, reason) => {
-    for (let i = 0; i < users.length; i++) {
-      console.log(users[i]);
-      console.log(clients[i]);
-      if (clients[i].username === ws.username) {
-        clients.splice(i, 1);
+    const message = `Tu comida ${ws.foodName}" está lista.`
+
+    for (let i = 0; i < clientsWaiting.length; i++) {
+      console.log(clientsWaiting[i]);
+      if (clientsWaiting[i].userId == ws.userId && clientsWaiting.foodName == ws.foodName) {
         clientsWaiting.splice(i, 1);
+        break;
       }
     }
-      console.log("final");
-      console.log(clients);
-    })
+
+    for (let i = 0; i < clientsWaiting.length; i++) {
+      if (clientsWaiting.ws.userId === ws.userId) {
+        clientsWaiting.ws.send(message); // Enviar mensaje
+        console.log(`Mensaje enviado al usuario ${ws.userId}`);
+      }
+    }
+    console.log("Se ha cerrado la conexion del usuario" + ws.userId);
+  })
 })
-
-// const usersToSend = [];
-// const users = [];
-// const helps = [];
-
-// // Este código estaba al final del todo pero me parecía que tenía más lógica arriba
-// function sendMessage(message) {
-//   users.forEach((user) => {
-//     user.ws.send(JSON.stringify(message));
-//   })
-// }
-
-// server.on('connection', (ws, incoming_request) => {
-//   const u = { username: incoming_request.url.split("=")[1]};
-//   ws.username = u.username;
-//   const userRef = { ws };
-//   usersToSend.push(userRef)
-//   users.push(u);
-//   console.log("create");
-//   console.log(users);
-
-//   sendMessage({
-//     users,
-//     helps
-//   })
-
-//   ws.on('message', (message) => {
-//     try {
-//       const data = JSON.parse(message);
-
-//       // Checking if the message is a valid one
-//       if (typeof data.type !== 'string') {
-//         console.error('Invalid message, is not string message');
-//         return;
-//       }
-
-//       if(data.type == 'ask for help'){
-//         helps.push({
-//           helper: data.helper,
-//           helped: data.helped,
-//           timeStamp: data.timestamps
-//         })
-//       };
-
-//       if(data.type == 'next please'){
-//         for (let i = 0; i < helps.length; i++) {
-//           if(helps[i].helper == data.helper && helps[i].helped == data.helped) {
-//             helps.splice(i,1);
-//           }
-//         }
-//       };
-
-//       sendMessage({users, helps});
-//     } catch (e) { console.error('Error pasing message!', e)}
-//   })
-
-//   ws.on('close', (code, reason) => {
-//     for (let i = 0; i < users.length; i++) {
-//       console.log(users[i]);
-//       if(users[i].username === ws.username){
-//         users.splice(i,1);
-//         usersToSend.splice(i,1);
-//       }
-//     }
-//     console.log("final");
-//     console.log(users);
-//   });
-// });
