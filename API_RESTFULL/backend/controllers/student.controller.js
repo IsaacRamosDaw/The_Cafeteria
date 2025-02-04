@@ -5,6 +5,7 @@ const utils = require("../utils");
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
+	
 	if (!req.body.password || !req.body.username) {
 		return res.status(400).send({
 			message: "Content can not be empty!",
@@ -20,6 +21,7 @@ exports.create = (req, res) => {
 		role: "student",
 		filename: req.file ? req.file.filename : "",
 	};
+
 
 	Student.findOne({ where: { username: studentData.username } })
 		.then((student) => {
