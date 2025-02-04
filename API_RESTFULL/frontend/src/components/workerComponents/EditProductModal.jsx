@@ -30,7 +30,7 @@ export default function EditProductModal({
 
   return (
     <div className="modal-overlay">
-      <div className="modal-container">
+      <div className="modal-container-product-update">
         <button className="close-btn" onClick={closeModal}>
           X
         </button>

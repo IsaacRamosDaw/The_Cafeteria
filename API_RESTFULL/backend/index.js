@@ -1,7 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const path = require("path");
+
+//* WEB SOCKET
+const WebSocket = require("ws");
+
+var path = require("path");
 
 const app = express();
 
@@ -9,9 +13,31 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
+app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
 
+var corsOptions = {
+  origin: "http://localhost:5173",
+};
+app.use(cors(corsOptions));
+
+const db = require("./models");
+const { timeStamp } = require("console");
+
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db");
+// });
+
+app.use(function (req, res, next) {
+  var token = req.headers["authorization"];
+  if (!token) return next();
+
+  if (req.headers.authorization.indexOf("Basic ") === 0) {
+    const base64Credentials = req.headers.authorization.split(" ")[1];
+    const credentials = Buffer.from(base64Credentials, "base64").toString(
+      "ascii"
+    );
+    const [username, password] = credentials.split(":");
 
 // Rutas
 require("./routes/coffeShop.routes")(app);
@@ -37,13 +63,80 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: true, message: "Algo salió mal en el servidor." });
 });
 
-// Iniciar servidor
+//* WEB SOCKET
 const PORT = process.env.PORT || 8080;
 
-if (process.env.NODE_ENV === "test") {
-  module.exports = app;
-} else {
-  app.listen(PORT, () => {
-    console.log(`Backend server running on port ${PORT}`);
+if (process.env.NODE_ENV !== "test") {
+  var server = new WebSocket.Server({ port: PORT }, () => {
+    console.log(`Backend server running on port ${PORT} `);
   });
+  
+} else {
+  module.exports = app;
+  
 }
+
+const clients = [];
+const clientsWaiting = [];
+const clientsDone = [];
+
+function sendMessage(message) {
+  clientsWaiting.forEach((client) => {
+    client.ws.send(JSON.stringify(message));
+  })
+}
+
+server.on('connection', (ws, incoming_request) => {
+  const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
+  const pedido = {
+    userId: urlParsed.searchParams.get("userId"),
+    username: urlParsed.searchParams.get("userName"),
+    foodName: urlParsed.searchParams.get("foodName")
+  }
+
+  ws.userId = pedido.userId;
+  ws.username = pedido.username;
+  ws.foodName = pedido.foodName;
+
+  const userRef = { ws };
+
+  clients.push(pedido);
+  // Necesito esto?
+  clientsWaiting.push(userRef);
+
+  console.log("conexión creada");
+  console.log(clients);
+
+  sendMessage({
+    clients,
+    clientsDone
+  })
+
+  // mensaje recibido:
+  ws.on('message', (message) => {
+    try {
+      const data = JSON.parse(message);
+
+      if (typeof data.type !== 'string') {
+        console.error('invalid message, is not a string');
+        return;
+      }
+
+      //Student make an order
+
+      // Worker finish an order
+      if (data.type !== 'next') {
+        for (let i = 0; i < helps.length; i++) {
+          if (clientsDone[i].userId == data.userId && clientsDone[i].foodName == data.foodName) {
+            helps.splice(i, 1);
+          }
+        }
+      }
+    } catch (e) { console.error('Error pasing message!', e) }
+  })
+
+  ws.on('close', (code, reason) => {
+    console.log("final");
+    console.log(clients);
+  })
+})
