@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-
 //* WEB SOCKET
 const WebSocket = require("ws");
 
@@ -38,7 +37,6 @@ app.use(function (req, res, next) {
       "ascii"
     );
     const [username, password] = credentials.split(":");
-
 // Rutas
 require("./routes/coffeShop.routes")(app);
 require("./routes/admin.routes")(app);
@@ -73,9 +71,8 @@ if (process.env.NODE_ENV !== "test") {
   
 } else {
   module.exports = app;
-  
 }
-
+    
 const clients = [];
 const clientsWaiting = [];
 const clientsDone = [];
@@ -123,6 +120,7 @@ server.on('connection', (ws, incoming_request) => {
       }
 
       //Student make an order
+      
 
       // Worker finish an order
       if (data.type !== 'next') {
