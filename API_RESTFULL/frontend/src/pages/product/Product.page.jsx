@@ -38,6 +38,8 @@ function Product() {
     ws.current.onopen = () => {
       console.log("open")
     }
+
+    
   }) 
 
   useEffect(() => {
