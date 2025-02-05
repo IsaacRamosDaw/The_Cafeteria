@@ -1,26 +1,27 @@
-module.exports = app => {
-    const school = require("../controllers/school.controller.js");
-    var upload = require('../middlewares/multer.js');
+module.exports = (app) => {
+  const school = require("../controllers/school.controller.js");
+  const auth = require("../controllers/auth.js");
+  const multer = require("../middlewares/multer.js");
 
-    var router = require("express").Router();
+  const upload = multer({ dest: "../public/images/worker" });
+  const authToken = require("../middlewares/auth.js");
 
-    //Create a school
+  var router = require("express").Router();
 
-    router.post("/", school.create);
+  //List all schools
+  router.get("/", authToken, auth.isAuthenticated, school.findAll);
 
-    //List all schools
-    router.get("/", school.findAll);
+  // Retrieve one school
+  router.get("/:id", authToken, auth.isAuthenticated, school.findOne);
 
-    router.get("/:id", school.findOne);
+  //Create a school
+  router.post("/", upload.single('file'), authToken, school.create);
 
-    // Update school
-    router.put("/:id", school.update);
+  // Update school
+  router.put("/:id", upload.single('file'), authToken, auth.isAuthenticated, school.update);
 
-    // router.put("/upload/:id", upload.single('file'), school.imgUpdate);
+  //Delete school
+  router.delete("/:id", authToken, auth.isAuthenticated, school.delete);
 
-    //Delete school
-    router.delete("/:id", school.delete);
-
-    app.use('/api/schools', router);
-
+  app.use("/api/schools", router);
 };

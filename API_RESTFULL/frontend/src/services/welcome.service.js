@@ -1,12 +1,13 @@
 let endpoint = "http://localhost:8080/api/site";
 
 export async function login(formData) {
+  let AUTH_CODE = btoa(`${formData.username}:${formData.password}`)
+
   const response = await fetch(endpoint, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/x-www-form-urlencoded",
-    }),
-    body: new URLSearchParams(formData),
+      "Authorization" : `Basic ${AUTH_CODE}`}),
   });
 
   if (!response.ok || response === null ) {

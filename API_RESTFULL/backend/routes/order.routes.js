@@ -1,21 +1,30 @@
 module.exports = (app) => {
   const order = require("../controllers/order.controller.js");
-	const auth = require("../controllers/auth.js");
+  const auth = require("../controllers/auth.js");
+  const multer = require("../middlewares/multer.js");
+
+  const upload = multer({ dest: "../public/images/worker" });
+  const authToken = require("../middlewares/auth.js");
+
   var router = require("express").Router();
 
-  router.post("/", auth.isAuthenticated, order.create);
-
-  // Retrieve all orders 
-  router.get("/", auth.isAuthenticated, order.findAll);
+  // Retrieve all orders
+  router.get("/", authToken, auth.isAuthenticated, order.findAll);
   
   // Retrieve one order
-  router.get("/:id", auth.isAuthenticated, order.findOne);
+  router.get("/:id", authToken, auth.isAuthenticated, order.findOne);
 
   // Retrieve order from one student
-  router.get("/:student/:id", auth.isAuthenticated, order.findAllByStudent);
+  router.get("/:student/:id", authToken, auth.isAuthenticated, order.findAllByStudent);
+
+  // Create a order
+  router.post("/", authToken, auth.isAuthenticated, order.create);
+
+  // Update worker
+	// router.put("/:id", authToken, auth.isAuthenticated, order.update);
 
   // Delete orders
-  router.delete("/", auth.isAuthenticated, order.delete);
+  router.delete("/", authToken, auth.isAuthenticated, order.delete);
 
-  app.use("/api/orders", auth.isAuthenticated, router);
-}
+  app.use("/api/orders", router);
+};
