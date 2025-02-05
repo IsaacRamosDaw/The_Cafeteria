@@ -4,15 +4,12 @@ module.exports = (app) => {
     const multer = require('../middlewares/multer.js')
 
     const upload = multer({dest: '../public/images/worker'})
-
 	const authToken = require('../middlewares/auth.js')
-
-    const upload = multer({dest: '../public/images/workers'})
 
 	var router = require("express").Router();
 
 	//List all workers
-	router.get("/", authToken ,auth.isAuthenticated , worker.findAll);
+	router.get("/", authToken ,auth.isAuthenticated, worker.findAll);
 
 	// Retrieve one worker
 	router.get("/:id", authToken ,auth.isAuthenticated, worker.findOne);
@@ -27,5 +24,4 @@ module.exports = (app) => {
 	router.delete("/:id", authToken, auth.isAuthenticated, worker.delete);
 
 	app.use('/api/worker', router);
-
 };

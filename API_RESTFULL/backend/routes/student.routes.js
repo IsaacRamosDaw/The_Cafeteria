@@ -4,7 +4,6 @@ module.exports = (app) => {
 	const multer = require('../middlewares/multer.js')
 
 	const authToken = require('../middlewares/auth.js')
-
     const upload = multer({dest: '../public/images/student'})
 
 	var router = require("express").Router();

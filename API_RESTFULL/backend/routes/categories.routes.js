@@ -1,24 +1,27 @@
-module.exports = app => {
-    const categories = require("../controllers/categories.controller.js");
-    const auth = require("../controllers/auth.js");
+module.exports = (app) => {
+  const categories = require("../controllers/categories.controller.js");
+  const auth = require("../controllers/auth.js");
+  const multer = require("../middlewares/multer.js");
 
-    var router = require("express").Router();
+  const upload = multer({ dest: "../public/images/worker" });
+  const authToken = require("../middlewares/auth.js");
 
-    // Create a category
-    router.post("/",  auth.isAuthenticated, categories.create);
+  var router = require("express").Router();
 
-     //List all categories
-    router.get("/",  auth.isAuthenticated, categories.findAll);
+  //List all categories
+  router.get("/", authToken, auth.isAuthenticated, categories.findAll);
 
-    // Get one category
-    router.get("/:id",  auth.isAuthenticated, categories.findOne);
+  // Get one category
+  router.get("/:id", authToken, auth.isAuthenticated, categories.findOne);
 
-    // Update category
-    router.put("/:id",  auth.isAuthenticated, categories.update);
+  // Create a category
+  router.post("/", upload.single('file'), authToken, categories.create);
 
-    // Delete a category with id
-    router.delete("/:id",  auth.isAuthenticated, categories.delete);
+  // Update category
+  router.put("/:id", upload.single('file'), authToken, auth.isAuthenticated, categories.update);
 
-    app.use('/api/categories', router);
+  // Delete a category with id
+  router.delete("/:id", authToken, auth.isAuthenticated, categories.delete);
 
+  app.use("/api/categories", router);
 };

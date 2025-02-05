@@ -36,12 +36,13 @@ exports.create = (req, res) => {
     })
   );
 };
+
 exports.findAll = async (req, res) => {
   Course.findAll()
   .then(courses => {
     if(!courses){
       return res.status(404).json({
-        mesage: "Course created succesfully",
+        mesage: "No courses",
       })
     }
     res.send(courses);

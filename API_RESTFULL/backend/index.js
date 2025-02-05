@@ -55,7 +55,11 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV !== "test") {
-  var server = new WebSocket.Server({ port: PORT }, () => {
+  // var server = new WebSocket.Server({ port: PORT }, () => {
+  //   console.log(`Backend server running on port ${PORT} `);
+  // });
+
+  app.listen(PORT, () => {
     console.log(`Backend server running on port ${PORT} `);
   });
   
@@ -63,68 +67,68 @@ if (process.env.NODE_ENV !== "test") {
   module.exports = app;
 }
     
-const clients = [];
-const clientsWaiting = [];
-const clientsDone = [];
+// const clients = [];
+// const clientsWaiting = [];
+// const clientsDone = [];
 
-function sendMessage(message) {
-  clientsWaiting.forEach((client) => {
-    client.ws.send(JSON.stringify(message));
-  })
-}
+// function sendMessage(message) {
+//   clientsWaiting.forEach((client) => {
+//     client.ws.send(JSON.stringify(message));
+//   })
+// }
 
-server.on('connection', (ws, incoming_request) => {
-  const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
-  const pedido = {
-    userId: urlParsed.searchParams.get("userId"),
-    username: urlParsed.searchParams.get("userName"),
-    foodName: urlParsed.searchParams.get("foodName")
-  }
+// server.on('connection', (ws, incoming_request) => {
+//   const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
+//   const pedido = {
+//     userId: urlParsed.searchParams.get("userId"),
+//     username: urlParsed.searchParams.get("userName"),
+//     foodName: urlParsed.searchParams.get("foodName")
+//   }
 
-  ws.userId = pedido.userId;
-  ws.username = pedido.username;
-  ws.foodName = pedido.foodName;
+//   ws.userId = pedido.userId;
+//   ws.username = pedido.username;
+//   ws.foodName = pedido.foodName;
 
-  const userRef = { ws };
+//   const userRef = { ws };
 
-  clients.push(pedido);
-  // Necesito esto?
-  clientsWaiting.push(userRef);
+//   clients.push(pedido);
+//   // Necesito esto?
+//   clientsWaiting.push(userRef);
 
-  console.log("conexión creada");
-  console.log(clients);
+//   console.log("conexión creada");
+//   console.log(clients);
 
-  sendMessage({
-    clients,
-    clientsDone
-  })
+//   sendMessage({
+//     clients,
+//     clientsDone
+//   })
 
-  // mensaje recibido:
-  ws.on('message', (message) => {
-    try {
-      const data = JSON.parse(message);
+//   // mensaje recibido:
+//   ws.on('message', (message) => {
+//     try {
+//       const data = JSON.parse(message);
 
-      if (typeof data.type !== 'string') {
-        console.error('invalid message, is not a string');
-        return;
-      }
+//       if (typeof data.type !== 'string') {
+//         console.error('invalid message, is not a string');
+//         return;
+//       }
 
-      //Student make an order
+//       //Student make an order
       
 
-      // Worker finish an order
-      if (data.type !== 'next') {
-        for (let i = 0; i < helps.length; i++) {
-          if (clientsDone[i].userId == data.userId && clientsDone[i].foodName == data.foodName) {
-            helps.splice(i, 1);
-          }
-        }
-      }
-    } catch (e) { console.error('Error pasing message!', e) }
-  })
+//       // Worker finish an order
+//       if (data.type !== 'next') {
+//         for (let i = 0; i < helps.length; i++) {
+//           if (clientsDone[i].userId == data.userId && clientsDone[i].foodName == data.foodName) {
+//             helps.splice(i, 1);
+//           }
+//         }
+//       }
+//     } catch (e) { console.error('Error pasing message!', e) }
+//   })
 
-  ws.on('close', (code, reason) => {
-    console.log("final");
-    console.log(clients);
-  })
-})
+//   ws.on('close', (code, reason) => {
+//     console.log("final");
+//     console.log(clients);
+//   })
+// })
