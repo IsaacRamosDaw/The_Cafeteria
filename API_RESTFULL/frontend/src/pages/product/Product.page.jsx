@@ -33,14 +33,13 @@ function Product() {
   const id = location.state?.productId || 1;
 
   //* WebSocket
-  useEffect(() => {
-    const SERVER_URL = `${process.env.REACT_APP_SERVER_URL}/userId=${userId}&/foodname=${product.name}`
-    ws.current.onopen = () => {
-      console.log("open")
-    }
-
+  // useEffect(() => {
+  //   const SERVER_URL = `${process.env.REACT_APP_SERVER_URL}/userId=${userId}&/foodname=${product.name}`
+  //   ws.current.onopen = () => {
+  //     console.log("open")
+  //   }
     
-  }) 
+  // }) 
 
   useEffect(() => {
     async function fetchData() {
