@@ -37,6 +37,8 @@ import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpd
 import WorkerForm from "./components/adminComponents/forms/workerForms/WorkerForm.jsx";
 import CourseForm from "./components/adminComponents/forms/coursesForms/CourseForm.jsx";
 
+//! WebSocket Pages
+
 function App() {
   return (
     <ThemeProvider>

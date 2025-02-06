@@ -99,7 +99,8 @@ exports.findOne = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.body.id;
-
+  // const userId = req.body.userId
+  // const message = req.body.message
   Order.destroy({ where: { id: id } })
     .then((orderDeleted) => {
       if (!orderDeleted) {
@@ -107,6 +108,8 @@ exports.delete = (req, res) => {
           message: "order not found"
         });
       }
+      const sendMessage = require("../index.js");
+      sendMessage(userId, message);
       res.json({
         message: `Order with id: ${id} was deleted.`
       });
