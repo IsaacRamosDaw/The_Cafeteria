@@ -29,11 +29,7 @@ wss.on('connection', (ws, incoming_request) => {
   clientsWaiting.push(userRef);
   console.log("conexión creada");
 
-
-
   wss.on('close', (code, reason) => {
-    const message = `Tu comida ${ws.foodName}" está lista.`
-
     for (let i = 0; i < clientsWaiting.length; i++) {
       console.log(clientsWaiting[i]);
       if (clientsWaiting[i].userId == ws.userId && clientsWaiting.foodName == ws.foodName) {
@@ -41,7 +37,6 @@ wss.on('connection', (ws, incoming_request) => {
         break;
       }
     }
-
     
     console.log("Se ha cerrado la conexion del usuario" + ws.userId);
   })
