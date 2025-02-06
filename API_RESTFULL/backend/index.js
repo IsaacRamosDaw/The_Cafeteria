@@ -35,7 +35,7 @@ wss.on('connection', (ws, incoming_request) => {
   ws.userId = pedido.userId;
   ws.foodName = pedido.foodName;
 
-  const userRef = { ws };
+//   const userRef = { ws };
 
   clientsWaiting.push(userRef);
   console.log("conexión creada");
