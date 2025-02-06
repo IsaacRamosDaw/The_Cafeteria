@@ -11,23 +11,25 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
+app.use(express.urlencoded({ extended: true })); 
 
 var corsOptions = {
   origin: "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
-console.log("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
 const db = require("./models");
-// const { timeStamp } = require("console");
-
-db.sequelize.sync().then(() => {
-  console.log("Drop and re-sync db");
-});
+const { timeStamp } = require("console");
 
 
+if (process.env.NODE_ENV !== "test") {
+  db.sequelize.sync().then(() => {
+    console.log("Base de datos iniciada");
+  });  
+} else {
+  module.exports = app;
+}
 
 // Rutas
 require("./routes/coffeShop.routes")(app);
