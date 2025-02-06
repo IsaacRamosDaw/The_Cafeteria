@@ -7,21 +7,10 @@ let wss = new WSServer({
 });
 
 //* WEB SOCKET
-// const WebSocket = require("ws");
 const PORT = process.env.PORT || 8080;
-
-// if (process.env.NODE_ENV !== "test") {
-//   var server = new WebSocket.Server({ port: PORT }, () => {
-//     console.log(`Backend server running on port ${PORT} `);
-//   });
-  
-// } else {
-//   module.exports = app;
-// }
 
 server.on('request', app); 
 
-const clients = [];
 const clientsWaiting = [];
 
 wss.on('connection', (ws, incoming_request) => {
@@ -35,13 +24,14 @@ wss.on('connection', (ws, incoming_request) => {
   ws.userId = pedido.userId;
   ws.foodName = pedido.foodName;
 
-//   const userRef = { ws };
+  const userRef = { ws };
 
   clientsWaiting.push(userRef);
   console.log("conexión creada");
-  console.log(clients);
 
-  ws.on('close', (code, reason) => {
+
+
+  wss.on('close', (code, reason) => {
     const message = `Tu comida ${ws.foodName}" está lista.`
 
     for (let i = 0; i < clientsWaiting.length; i++) {
@@ -52,17 +42,22 @@ wss.on('connection', (ws, incoming_request) => {
       }
     }
 
-    for (let i = 0; i < clientsWaiting.length; i++) {
-      if (clientsWaiting.ws.userId === ws.userId) {
-        clientsWaiting.ws.send(message); // Enviar mensaje
-        console.log(`Mensaje enviado al usuario ${ws.userId}`);
-      }
-    }
+    
     console.log("Se ha cerrado la conexion del usuario" + ws.userId);
-    // COMMIT
   })
 })
+
+const sendMessage = (userId, message) => {
+  for (let i = 0; i < clientsWaiting.length; i++) {
+      if (clientsWaiting.ws.userId === userId) {
+        clientsWaiting.ws.send(message); 
+        console.log(`Mensaje enviado al usuario ${userId}`);
+      }
+    }
+}
 
 server.listen(PORT, function() {
   console.log(`http/ws server listening on ${PORT}`);
 });
+
+module.exports = sendMessage;

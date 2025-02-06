@@ -19,17 +19,16 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-const db = require("./models");
-const { timeStamp } = require("console");
+// const db = require("./models");
 
 
-if (process.env.NODE_ENV !== "test") {
-  db.sequelize.sync().then(() => {
-    console.log("Base de datos iniciada");
-  });  
-} else {
-  module.exports = app;
-}
+// if (process.env.NODE_ENV !== "test") {
+//   db.sequelize.sync().then(() => {
+//     console.log("Base de datos iniciada");
+//   });
+// } else {
+//   module.exports = app;
+// }
 
 // Rutas
 require("./routes/coffeShop.routes")(app);

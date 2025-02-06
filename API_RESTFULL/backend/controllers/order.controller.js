@@ -107,6 +107,8 @@ exports.delete = (req, res) => {
           message: "order not found"
         });
       }
+      const sendMessage = require("../index.js");
+      sendMessage();
       res.json({
         message: `Order with id: ${id} was deleted.`
       });
