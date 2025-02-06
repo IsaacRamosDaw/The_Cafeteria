@@ -1,23 +1,23 @@
 module.exports = app => {
     const categories = require("../controllers/categories.controller.js");
     const auth = require("../controllers/auth.js");
-
+// AUTH DA PROBLEMAS
     var router = require("express").Router();
 
     // Create a category
-    router.post("/",  auth.isAuthenticated, categories.create);
+    router.post("/",   categories.create);
 
      //List all categories
-    router.get("/",  auth.isAuthenticated, categories.findAll);
+    router.get("/",   categories.findAll);
 
     // Get one category
-    router.get("/:id",  auth.isAuthenticated, categories.findOne);
+    router.get("/:id",   categories.findOne);
 
     // Update category
-    router.put("/:id",  auth.isAuthenticated, categories.update);
+    router.put("/:id",   categories.update);
 
     // Delete a category with id
-    router.delete("/:id",  auth.isAuthenticated, categories.delete);
+    router.delete("/:id", categories.delete);
 
     app.use('/api/categories', router);
 

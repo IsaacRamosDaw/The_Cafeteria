@@ -1,6 +1,8 @@
 const dbConfig = require("../config/db.config.js")
 const Sequelize = require('sequelize');
 
+console.log("hola holitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav 0")
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -16,6 +18,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 const db = {};
 db.sequelize = sequelize;
 
+console.log("hola holitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav 1")
+
 db.admins = require("./admin.model.js")(sequelize);
 db.worker = require("./worker.model.js")(sequelize);
 db.student = require("./student.model.js")(sequelize);
@@ -28,7 +32,7 @@ db.order = require("./order.model.js")(sequelize);
 db.coffeShop = require("./coffeShop.model.js")(sequelize);
 // db.inventory = require("./inventory.model.js")(sequelize);
 // db.orderLine = require("./orderLine.model.js")(sequelize);
-
+console.log("hola holitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav 2")
 //! FK 
 
 //* TABLE STUDENT

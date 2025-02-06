@@ -1,72 +1,30 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-//* WEB SOCKET
-const WebSocket = require("ws");
+let WSServer = require('ws').Server;
+let server = require('http').createServer();
+let app = require('./http-server');
 
-var path = require("path");
-
-const app = express();
-
-// Middlewares
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({ origin: "http://localhost:5173" }));
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: true })); // Use urlencoded HTTP headers
-
-var corsOptions = {
-  origin: "http://localhost:5173",
-};
-app.use(cors(corsOptions));
-
-const db = require("./models");
-const { timeStamp } = require("console");
-
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db");
-// });
-
-// Rutas
-require("./routes/coffeShop.routes")(app);
-require("./routes/admin.routes")(app);
-require("./routes/worker.routes")(app);
-require("./routes/student.routes")(app);
-require("./routes/school.routes")(app);
-require("./routes/categories.routes")(app);
-require("./routes/product.routes")(app);
-require("./routes/course.routes")(app);
-require("./routes/order.routes")(app);
-require("./routes/wallet.routes")(app);
-require("./routes/site.routes")(app);
-
-// Ruta de bienvenida
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Coffe Shop application" });
-});
-
-// Middleware de manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: true, message: "Algo salió mal en el servidor." });
+let wss = new WSServer({
+  server: server
 });
 
 //* WEB SOCKET
+// const WebSocket = require("ws");
 const PORT = process.env.PORT || 8080;
 
-if (process.env.NODE_ENV !== "test") {
-  var server = new WebSocket.Server({ port: PORT }, () => {
-    console.log(`Backend server running on port ${PORT} `);
-  });
+// if (process.env.NODE_ENV !== "test") {
+//   var server = new WebSocket.Server({ port: PORT }, () => {
+//     console.log(`Backend server running on port ${PORT} `);
+//   });
   
-} else {
-  module.exports = app;
-}
-    
+// } else {
+//   module.exports = app;
+// }
+
+server.on('request', app); 
+
 const clients = [];
 const clientsWaiting = [];
 
-server.on('connection', (ws, incoming_request) => {
+wss.on('connection', (ws, incoming_request) => {
   const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
 
   const pedido = {
@@ -104,3 +62,7 @@ server.on('connection', (ws, incoming_request) => {
     // COMMIT
   })
 })
+
+server.listen(PORT, function() {
+  console.log(`http/ws server listening on ${PORT}`);
+});

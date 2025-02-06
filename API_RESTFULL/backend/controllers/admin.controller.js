@@ -22,10 +22,12 @@ exports.create = (req, res) => {
   console.log(admin);
 
   admin.password = bcrypt.hashSync(req.body.password);
-
+console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   Admin.findOne({ where: { username: admin.username } })
     .then((data) => {
+      console.log("dentroooooooooooooooooooooooooo")
       if (data) {
+        console.log("mas adentroooooooooooooooooo")
         const result = bcrypt.compareSync(req.body.password, data.password);
         if (!result) return res.status(401).send("Password not valid!");
         const token = utils.generateToken(data);
@@ -33,7 +35,7 @@ exports.create = (req, res) => {
 
         return res.json({ admin: adminObj, access_token: token });
       }
-
+      console.log("llagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       Admin.create(admin)
         .then((data) => {
           console.log("After create", data);
@@ -49,14 +51,16 @@ exports.create = (req, res) => {
             message: err.message || "Some error while creating the Admin.",
           });
         });
-    })
-
-    .catch((err) => {
+    }).catch((err) => {
+      console.log("este es el errorrrrrrrrrrrrrrrrrrrrrr")
+      console.log(err.message)
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials.",
       });
     });
+
+  console.log("finallllllllllllllllllllllllllllllllllllllllllll")
 };
 
 exports.findAll = async (req, res) => {
