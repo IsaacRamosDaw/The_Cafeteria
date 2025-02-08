@@ -3,34 +3,29 @@ const Order = db.order;
 const Wallet = db.wallet;
 
 exports.create = (req, res) => {
-  const date = new Date()
-  const day = date.getDate()
-  const month = date.getMonth() + 1
-  const year = date.getFullYear()
-
-  const fullDate = `${month}-${day}-${year}`
 
   const orderData = {
-    StudentId: req.body.StudentId,
-    ProductId: req.body.ProductId,
-    date: fullDate,
+    date: req.body.date,
+    status: 'ready',
+    studentId: req.body.studentId,
   };
 
   Order.create(orderData)
     .then((order) => {
       // Decrement wallet
-      return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
+      // return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
+      res.status(201).send({ message: "Order created!", order})
     })
-    .then((wallet) => {
-      if (!wallet) {
-        return res.status(404).json({
-          message: `Wallet not found`,
-        });
-      }
-      res.status(201).json({
-        message: "Order created successfully and wallet decreased",
-      });
-    })
+    // .then((wallet) => {
+    //   if (!wallet) {
+    //     return res.status(404).json({
+    //       message: `Wallet not found`,
+    //     });
+    //   }
+    //   res.status(201).json({
+    //     message: "Order created successfully and wallet decreased",
+    //   });
+    // })
     .catch((err) => {
       console.error(err);
       res.status(500).send({
@@ -42,11 +37,12 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
 
+  // Order.findAll({ order: ['id', 'DESC'] })
   Order.findAll()
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} did not found`
+          message: `Could retrieve all orders`
         });
       }
       res.send(orders);
@@ -66,7 +62,7 @@ exports.findAllByStudent = (req, res) => {
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Order with id: ${id} did not found`
+          message: `Student with id: ${id} not found`
         });
       }
       res.send(orders);
@@ -97,55 +93,75 @@ exports.findOne = (req, res) => {
     );
 };
 
+exports.update = async (req, res) => {
+  const orderId = req.params.id;
+
+  try {
+    
+    const order = await Order.findByPk(orderId);
+    if (!order) {
+      return res.status(404).send({
+        message: `Order with id=${orderId} not found.`,
+      });
+    }
+
+    
+    const allowedFields = ["studentId", "date", "status"];
+    const updateData = {};
+
+    
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).send({
+        message: "No valid fields provided for update.",
+      });
+    }
+
+    
+    const [rowsUpdated] = await Order.update(updateData, {
+      where: { ID: orderId },
+    });
+
+    if (rowsUpdated === 0) {
+      return res.status(500).send({
+        message: `Error updating Order with id=${orderId}.`,
+      });
+    }
+
+    
+    res.send({
+      message: "Order was updated successfully.",
+      updatedFields: updateData,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "An error occurred while updating the Order.",
+    });
+  }
+};
+
 exports.delete = (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
+
+  if (!id) {
+    return res.status(400).json({ message: "ID is required" });
+  }
 
   Order.destroy({ where: { id: id } })
-    .then((orderDeleted) => {
-      if (!orderDeleted) {
-        return res.status(404).json({
-          message: "order not found"
-        });
+    .then((rowsDeleted) => {
+      if (rowsDeleted === 0) {
+        return res.status(404).json({ message: "Order not found" });
       }
-      res.json({
-        message: `Order with id: ${id} was deleted.`
-      });
+      res.json({ message: `Order with id: ${id} was deleted.` });
     })
-    .catch((err) =>
-      res.status(500).json({
-        message: "Error deleting order: " || err.message
-      })
-    )
-}
-
-// exports.createByUrl = (req, res) => {
-
-//   const date = new Date()
-
-//   let day = date.getDate()
-//   let month = date.getMonth() + 1
-//   let year = date.getFullYear()
-
-//   let fullDate = `${month}-${day}-${year}`
-
-//   let orderData = {
-//     StudentId: req.params.studentId,
-//     ProductId: req.params.id,
-//     date: fullDate,
-//   };
-
-
-//   Order.create(orderData)
-//     .then((order) =>
-//       res.status(201).json({
-//         message: "Order created succesfully",
-//         order: order,
-//       })
-//     )
-//     .catch((err) =>
-//       res.status(500).send({
-//         message: "Some error ocurred while retrieving tutorial" || err.message,
-
-//       })
-//     );
-// };
+    .catch((err) => {
+      console.error("Error deleting order:", err);
+      res.status(500).json({ message: "Error deleting order", error: err.message });
+    });
+};

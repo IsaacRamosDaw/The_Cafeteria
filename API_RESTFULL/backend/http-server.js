@@ -18,6 +18,8 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// const db = require('./models')
+
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db");
 // });
@@ -32,6 +34,7 @@ require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
 require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
+require("./routes/orderLine.routes")(app);
 require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
 

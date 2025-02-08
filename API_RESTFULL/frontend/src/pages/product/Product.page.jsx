@@ -1,62 +1,57 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-
 import { findByPk as getOne } from "../../services/product.service";
-import { create } from "../../services/order.service";
+import { create } from "../../services/orderLine.service";
 import { getUserId } from "../../services/utils";
-
 import TabsBar from "../../components/tabsBar/TabsBar";
 import Button from "../../components/button/Button";
-
 import "./Product.scss";
 
+// Contexts
+import OrderContext from "../../contexts/OrderContext";
+
 function Product() {
-
   const navigate = useNavigate();
-  let { category, name } = useParams();
-  name = name.replace(/-/g, " ");
-
   const folder = "http://localhost:8080/images/";
-
-  const [userId, setUserId] = useState(null);
-  useEffect(() => {
-    setUserId(getUserId());
-  }, []);
-
   const [ordered, setOrdered] = useState(false);
   const [product, setProduct] = useState({});
-  let [quantity, setQuantity] = useState(1.0);
-  let [priceShown, setPriceShown] = useState(quantity);
+  const [quantity, setQuantity] = useState(1);
+  const [priceShown, setPriceShown] = useState(0);
+
+  const { createOrderLine } = useContext(OrderContext);
 
   const location = useLocation();
-  const id = location.state?.productId || 1;
+  const productId = location.state?.productId || 1;
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getOne(id);
-      setProduct(data);
-      setPriceShown(data.price || 1);
+      try {
+        const data = await getOne(productId);
+        if (data) {
+          setProduct(data);
+          setPriceShown(data.price || 0);
+        }
+      } catch (error) {
+        console.error("Error al obtener el producto:", error);
+      }
     }
 
     fetchData();
-  }, [id]);
+  }, [productId]);
 
-  const handleQuantity = (operador) => {
+  const handleQuantity = (operator) => {
     if (!ordered) {
-      setQuantity((prevQuantity) => {
-        let newQuantity = prevQuantity;
+      let newQuantity = quantity;
+      if (operator === "+") {
+        newQuantity += 1;
+      } else if (operator === "-" && quantity > 1) {
+        newQuantity -= 1;
+      }
 
-        if (operador === "+") {
-          newQuantity = prevQuantity + 1;
-        } else if (operador === "-" && prevQuantity > 1) {
-          newQuantity = prevQuantity - 1;
-        }
-
-        setPriceShown((newQuantity * product.price).toFixed(2));
-        return newQuantity;
-      });
+      setQuantity(newQuantity);
+      setPriceShown((newQuantity * product.price).toFixed(2));
     }
   };
 
@@ -64,12 +59,18 @@ function Product() {
     navigate(-1);
   };
 
-  const handleOrder = () => {
-    create(product.id, userId, product.price);
-    navigate("/orders")
+  const handleOrder = async () => {
+    createOrderLine({
+      quantity: quantity,
+      unitPrice: product.price,
+      productId: productId,
+    });
+
+    setOrdered(true);
+    setTimeout(() => {
+      navigate("/orders");
+    }, 1000);
   };
-
-
 
   return (
     <div id="page-product">
@@ -79,61 +80,69 @@ function Product() {
       <main className="content-page-product">
         <div className="container-img-product">
           <div className="container-price-title-product">
-            {ordered ? <BsFillCartCheckFill className="shopping-cart" /> : ""}
-            <div className="price-product"> {product.price}$ </div>
+            {ordered && <BsFillCartCheckFill className="shopping-cart" />}
+            <div className="price-product">
+              {product.price ? `${product.price}$` : "Precio no disponible"}
+            </div>
           </div>
-          <img src={folder+product.filename || "" } alt="Img product page" />
+          <img
+            src={
+              product.filename
+                ? `${folder}${product.filename}`
+                : "/default-image.jpg"
+            }
+            alt={`${product.name || "Producto"} image`}
+            className="product-image"
+          />
         </div>
         <div className="container-description-product">
           <h3 className="title-product">
-            <p> {product.name} </p>
+            <p>{product.name || "Producto no encontrado"}</p>
           </h3>
           <article className="description-product">
-            {product.description}
+            {product.description || "Descripción no disponible"}
           </article>
         </div>
         <div className="container-product-order-control">
           <div className="container-amount-product">
             <div className="container-price-order-product">
-              <p className={ordered ? "ordered" : ""}> ${priceShown}</p>
+              <p className={ordered ? "ordered" : ""}>${priceShown}</p>
             </div>
-
             <span className="container-amount-product-number">{quantity}</span>
-
             <div className="button-container-product-page">
               <Button
-                className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
+                className={`btn-product-quantity-page ${
+                  ordered ? "ordered" : ""
+                }`}
                 onClick={() => handleQuantity("+")}
-                text={"+"}
-                ariaLabel={"Aumentar cantidad del producto elegido"}
+                text="+"
+                ariaLabel="Aumentar cantidad del producto elegido"
               />
               <Button
-                className={`btn-product-quantity-page ${ordered ? "ordered" : ""}`}
+                className={`btn-product-quantity-page ${
+                  ordered ? "ordered" : ""
+                }`}
                 onClick={() => handleQuantity("-")}
-                text={"-"}
-                ariaLabel={"disminuir cantidad del producto elegido"}
+                text="-"
+                ariaLabel="Disminuir cantidad del producto elegido"
               />
             </div>
           </div>
           <div className="container-control-order-product">
             {ordered ? (
-              // <button className="btn-cancel-product" onClick={handleOrder}>crea</button>
-              <form>
-                <Button
-                  onClick={handleOrder}
-                  className="btn-cancel-product"
-                  text={"Cancelar"}
-                  ariaLabel={"Cancelar elegir el producto"}
-                />
-              </form>
+              <Button
+                onClick={goBack}
+                className="btn-cancel-product"
+                text="Cancelar"
+                ariaLabel="Cancelar y volver atrás"
+              />
             ) : (
               <Button
                 onClick={handleOrder}
                 className="btn-order-product"
-                text={"Pedir"}
-                ariaLabel={"Confirmar elegir el producto"}
+                text="Pedir"
+                ariaLabel="Confirmar pedido del producto"
               />
-              // <button className="btn-order-product" onClick={handleOrder}>Ordena</button>
             )}
           </div>
         </div>

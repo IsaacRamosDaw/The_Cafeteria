@@ -426,7 +426,7 @@
                         "model": "Orders",
                         "key": "id"
                     },
-                    "onDelete": "cascade",
+                    "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
                     "field": "orderId",
                     "seqType": "Sequelize.INTEGER"
@@ -446,5 +446,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

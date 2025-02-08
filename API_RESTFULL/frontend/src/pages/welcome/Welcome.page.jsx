@@ -26,7 +26,7 @@ function Welcome() {
     try {
       const user = await login({ username: name, password: password });
 
-      user.role === "admin" ? navigate("/dashboard") : navigate("/menu");
+      user.role === "admin" ? navigate("/dashboard", {user}) : navigate("/menu", {user});
     } catch (error) {
       setInvalidUser(false); // Mostramos el mensaje de error
     }

@@ -26,34 +26,38 @@ db.categories = require("./categories.model.js")(sequelize);
 db.product = require("./product.model.js")(sequelize);
 db.order = require("./order.model.js")(sequelize);
 db.coffeShop = require("./coffeShop.model.js")(sequelize);
-// db.inventory = require("./inventory.model.js")(sequelize);
-// db.orderLine = require("./orderLine.model.js")(sequelize);
+db.inventory = require("./inventory.model.js")(sequelize);
+db.orderLine = require("./orderLine.model.js")(sequelize);
 
 //! FK 
 
 //* TABLE STUDENT
-/** ID - COURSE */ db.student.belongsTo(db.course, {foreingKey: 'courseId'});
+/** ID - COURSE */ db.student.belongsTo(db.course, {foreignKey: 'courseId'});
 
 //* TABLE WALLET
-/** ID - STUDENT */ db.wallet.belongsTo(db.student, {onDelete: 'cascade', foreingKey: 'studentId'});
+/** ID - STUDENT */ db.wallet.belongsTo(db.student, {onDelete: 'cascade', foreignKey: 'studentId'});
 
 //* TABLE ORDER
-/** ID - STUDENT */ db.order.belongsTo(db.student, {foreingKey: 'studentId'});
-/** ID - PRODUCT */ db.order.belongsTo(db.product, {foreingKey: 'productId'});
+/** ID - STUDENT */ db.order.belongsTo(db.student, {foreignKey: 'studentId'});
+
+//* TABLE ORDER Line
+db.orderLine.belongsTo(db.order, {onDelete: 'cascade', foreignKey: 'orderId' });
+db.orderLine.belongsTo(db.product, {onDelete: 'cascade', foreignKey: 'productId' });
 
 //* TABLE PRODUCT
-/** ID - PRODUCT */ db.product.belongsTo(db.categories, {onDelete: 'cascade', foreingKey: 'categoryId'});
+/** ID - PRODUCT */ db.product.belongsTo(db.categories, {onDelete: 'cascade', foreignKey: 'categoryId'});
+
 
 //* TABLE COFFE SHOP
-/** ID - COFFE SHOP */ db.worker.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+/** ID - COFFE SHOP */ db.worker.belongsTo(db.coffeShop, {foreignKey: 'coffeShop'});
 
-/** ID - COFFE SHOP */ db.school.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+/** ID - COFFE SHOP */ db.school.belongsTo(db.coffeShop, {foreignKey: 'coffeShop'});
 
-/** ID - COFFE SHOP */ db.product.belongsTo(db.coffeShop, {foreingKey: 'coffeShop'});
+/** ID - COFFE SHOP */ db.product.belongsTo(db.coffeShop, {foreignKey: 'coffeShop'});
 
 //* TABLE ADMIN
 /** ID - ADMIN */
-db.coffeShop.belongsTo(db.admins, {foreingKey: 'admin'});
+db.coffeShop.belongsTo(db.admins, {foreignKey: 'admin'});
 
 
 // // TABLE WORKER

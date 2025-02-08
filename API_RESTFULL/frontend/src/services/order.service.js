@@ -1,140 +1,87 @@
+import axios from "axios";
+
 const endpoint = "http://localhost:8080/api/orders";
 
-export async function create(idProduct, idUser, price) {
-  let token = localStorage.getItem("token");
-
+async function request(method, url, data = null) {
+  const token = localStorage.getItem("token");
   if (!token) {
     window.location.href = "/error";
   }
-
-  const orderData = {
-    ProductId: idProduct,
-    StudentId: idUser,
-    price: price,
-  }
-
-  const getOperation = await fetch(endpoint, {
-    method: "POST",
-    headers: new Headers({
+  try {
+    const headers = {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-    body: new URLSearchParams(orderData).toString()
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error creating order, product didnt found");
-      }
-      return res.json();
-    })
-    .catch((e) => {
-      console.log(`error catch este:, ${e.message}`);
-      return e;
+    };
+
+    // Solo configura Content-Type para POST, PUT
+    if (["post", "put"].includes(method)) {
+      headers["Content-Type"] = "application/json"; // Usa JSON para estas solicitudes
+    }
+
+    const response = await axios({
+      method,
+      url,
+      data,
+      headers,
     });
-  return getOperation;
-};
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(
+        `(Orders.service-${method}) Error: ${error.response.status} - ${JSON.stringify(
+          error.response.data
+        )}`
+      );
+    } else if (error.request) {
+      console.error(`(Orders.service-${method}) No hubo respuesta del servidor`);
+    } else {
+      console.error(`(Orders.service-${method}) Error: ${error.message}`);
+    }
+    throw error;
+  }
+}
+
+export async function create(date, studentId) {
+  const orderData = new URLSearchParams({
+    date,
+    studentId,
+  }).toString();
+
+  const result = await request("post", endpoint, orderData);
+  console.log("(Orders.service-create) Resultado:", result);
+  return result;
+}
+
+export async function finishOrder(id) {
+  const orderData = new URLSearchParams({
+    status: 'completed',
+  }).toString();
+
+  const result = await request("put", `${endpoint}/${id}`, orderData);
+  console.log("(Orders.service-put) Resultado:", result);
+  return result;
+}
 
 export async function get() {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOperation = await fetch(endpoint, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error fetching data");
-      }
-      return res.json();
-    })
-    .catch((e) => {
-      console.log(`error catch, ${e.message}`);
-      return e;
-    });
-  return getOperation;
+  const result = await request("get", endpoint);
+  console.log("(Orders.service-get) Resultado:", result);
+  return result;
 }
 
 export async function findOne(id) {
-  const getOperation = await fetch(endpoint, { method: "GET", }, { where: { id: id } })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error fetching data");
-      }
-      return res.json();
-    })
-    .catch((e) => {
-      console.log(`error catch, ${e.message}`);
-      return e;
-    });
-  return getOperation;
+  const result = await request("get", `${endpoint}/${id}`);
+  console.log("(Orders.service-findOne) Resultado:", result);
+  return result;
 }
 
 export async function getByStudent(id) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOperation = await fetch(`${endpoint}/student/${id}`, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error fetching data");
-      }
-      return res.json();
-    })
-    .catch((e) => {
-      console.log(`error catch, ${e.message}`);
-      return e;
-    });
-  return getOperation;
+  const result = await request("get", `${endpoint}/student/${id}`);
+  console.log("(Orders.service-getByStudent) Resultado:", result);
+  return result;
 }
 
 export async function remove(id) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const idObject = {
-    id: id
-  }
-  
-  const getOperation = await fetch(endpoint, { method: "DELETE", 
-      headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-    body: new URLSearchParams(idObject).toString()
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error fetching data");
-      }
-      return res.json();
-    })
-    .catch((e) => {
-      console.log(`error catch, ${e.message}`);
-      return e;
-    });
-
-  return getOperation;
+  const result = await request("delete", `${endpoint}/${id}`);
+  console.log("(Orders.service-remove) Resultado:", result);
+  return result;
 }
