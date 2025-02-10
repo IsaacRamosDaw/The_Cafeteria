@@ -181,6 +181,7 @@ describe("PUT /admin/:id (Failures)", () => {
         const admin = await Admin.create({ username: "admin", password: "password", role: "admin" });
         const token = utils.generateToken({ id: admin.id, role: "admin" });
 
+        
         const res = await request(app)
             .put(`/api/admin/${admin.id}`)
             .send({ username: "newUser" })
