@@ -1,9 +1,7 @@
 module.exports = (app) => {
   const order = require("../controllers/order.controller.js");
   const auth = require("../controllers/auth.js");
-  const multer = require("../middlewares/multer.js");
 
-  const upload = multer({ dest: "../public/images/worker" });
   const authToken = require("../middlewares/auth.js");
 
   var router = require("express").Router();
@@ -20,11 +18,11 @@ module.exports = (app) => {
   // Create a order
   router.post("/", authToken, auth.isAuthenticated, order.create);
 
-  // Update worker
-	// router.put("/:id", authToken, auth.isAuthenticated, order.update);
+  // Update order
+	router.put("/:id", authToken, auth.isAuthenticated, order.update);
 
   // Delete orders
-  router.delete("/", authToken, auth.isAuthenticated, order.delete);
+  router.delete("/:id", authToken, auth.isAuthenticated, order.delete);
 
   app.use("/api/orders", router);
 };

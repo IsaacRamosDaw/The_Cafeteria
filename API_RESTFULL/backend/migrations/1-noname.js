@@ -8,20 +8,22 @@ var Sequelize = require('sequelize');
  * createTable "Admins", deps: []
  * createTable "Courses", deps: []
  * createTable "Categories", deps: []
+ * createTable "Inventories", deps: []
  * createTable "CoffeShops", deps: [Admins]
  * createTable "Students", deps: [Courses]
  * createTable "Wallets", deps: [Students]
  * createTable "Workers", deps: [CoffeShops]
  * createTable "Schools", deps: [CoffeShops]
+ * createTable "Orders", deps: [Students]
  * createTable "Products", deps: [Categories, CoffeShops]
- * createTable "Orders", deps: [Students, Products]
+ * createTable "orderLines", deps: [Orders, Products]
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2025-01-29T16:52:28.107Z",
+    "created": "2025-02-06T01:18:23.960Z",
     "comment": ""
 };
 
@@ -113,6 +115,32 @@ var migrationCommands = function(transaction) {
         {
             fn: "createTable",
             params: [
+                "Inventories",
+                {
+                    "id": {
+                        "type": Sequelize.INTEGER,
+                        "field": "id",
+                        "autoIncrement": true,
+                        "primaryKey": true,
+                        "allowNull": false
+                    },
+                    "name": {
+                        "type": Sequelize.STRING,
+                        "field": "name"
+                    },
+                    "quantity": {
+                        "type": Sequelize.INTEGER,
+                        "field": "quantity"
+                    }
+                },
+                {
+                    "transaction": transaction
+                }
+            ]
+        },
+        {
+            fn: "createTable",
+            params: [
                 "CoffeShops",
                 {
                     "id": {
@@ -131,9 +159,9 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.STRING,
                         "field": "filename"
                     },
-                    "AdminId": {
+                    "admin": {
                         "type": Sequelize.INTEGER,
-                        "field": "AdminId",
+                        "field": "admin",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
@@ -190,9 +218,9 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.STRING,
                         "field": "filename"
                     },
-                    "CourseId": {
+                    "courseId": {
                         "type": Sequelize.INTEGER,
-                        "field": "CourseId",
+                        "field": "courseId",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
@@ -223,9 +251,9 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.DECIMAL,
                         "field": "amount"
                     },
-                    "StudentId": {
+                    "studentId": {
                         "type": Sequelize.INTEGER,
-                        "field": "StudentId",
+                        "field": "studentId",
                         "onUpdate": "CASCADE",
                         "onDelete": "cascade",
                         "references": {
@@ -277,9 +305,9 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.STRING,
                         "field": "filename"
                     },
-                    "CoffeShopId": {
+                    "coffeShop": {
                         "type": Sequelize.INTEGER,
-                        "field": "CoffeShopId",
+                        "field": "coffeShop",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
@@ -330,13 +358,51 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.STRING,
                         "field": "filename"
                     },
-                    "CoffeShopId": {
+                    "coffeShop": {
                         "type": Sequelize.INTEGER,
-                        "field": "CoffeShopId",
+                        "field": "coffeShop",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
                             "model": "CoffeShops",
+                            "key": "id"
+                        },
+                        "allowNull": true
+                    }
+                },
+                {
+                    "transaction": transaction
+                }
+            ]
+        },
+        {
+            fn: "createTable",
+            params: [
+                "Orders",
+                {
+                    "id": {
+                        "type": Sequelize.INTEGER,
+                        "field": "id",
+                        "autoIncrement": true,
+                        "primaryKey": true,
+                        "allowNull": false
+                    },
+                    "date": {
+                        "type": Sequelize.DATE,
+                        "field": "date",
+                        "allowNull": false
+                    },
+                    "status": {
+                        "type": Sequelize.STRING,
+                        "field": "status"
+                    },
+                    "studentId": {
+                        "type": Sequelize.INTEGER,
+                        "field": "studentId",
+                        "onUpdate": "CASCADE",
+                        "onDelete": "SET NULL",
+                        "references": {
+                            "model": "Students",
                             "key": "id"
                         },
                         "allowNull": true
@@ -380,9 +446,9 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.STRING,
                         "field": "filename"
                     },
-                    "CategoryId": {
+                    "categoryId": {
                         "type": Sequelize.INTEGER,
-                        "field": "CategoryId",
+                        "field": "categoryId",
                         "onUpdate": "CASCADE",
                         "onDelete": "cascade",
                         "references": {
@@ -391,9 +457,9 @@ var migrationCommands = function(transaction) {
                         },
                         "allowNull": true
                     },
-                    "CoffeShopId": {
+                    "coffeShop": {
                         "type": Sequelize.INTEGER,
-                        "field": "CoffeShopId",
+                        "field": "coffeShop",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
@@ -411,7 +477,7 @@ var migrationCommands = function(transaction) {
         {
             fn: "createTable",
             params: [
-                "Orders",
+                "orderLines",
                 {
                     "id": {
                         "type": Sequelize.INTEGER,
@@ -420,25 +486,29 @@ var migrationCommands = function(transaction) {
                         "primaryKey": true,
                         "allowNull": false
                     },
-                    "date": {
-                        "type": Sequelize.DATE,
-                        "field": "date",
+                    "quantity": {
+                        "type": Sequelize.INTEGER,
+                        "field": "quantity",
                         "allowNull": false
                     },
-                    "StudentId": {
+                    "unitPrice": {
+                        "type": Sequelize.DECIMAL,
+                        "field": "unitPrice"
+                    },
+                    "orderId": {
                         "type": Sequelize.INTEGER,
-                        "field": "StudentId",
+                        "field": "orderId",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
-                            "model": "Students",
+                            "model": "Orders",
                             "key": "id"
                         },
                         "allowNull": true
                     },
-                    "ProductId": {
+                    "productId": {
                         "type": Sequelize.INTEGER,
-                        "field": "ProductId",
+                        "field": "productId",
                         "onUpdate": "CASCADE",
                         "onDelete": "SET NULL",
                         "references": {
@@ -513,6 +583,18 @@ var rollbackCommands = function(transaction) {
         {
             fn: "dropTable",
             params: ["CoffeShops", {
+                transaction: transaction
+            }]
+        },
+        {
+            fn: "dropTable",
+            params: ["Inventories", {
+                transaction: transaction
+            }]
+        },
+        {
+            fn: "dropTable",
+            params: ["orderLines", {
                 transaction: transaction
             }]
         }

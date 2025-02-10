@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
 
 const request = require("supertest");
-const app = require("../index");
+const app = require("../http-server");
 
 const db = require("../models");
 const Student = db.student;
@@ -28,8 +28,6 @@ beforeAll(async () => {
 
 // 200 - Solicitud exitosa (GET, PUT, DELETE)
 // 201 - Recurso creado (POST)
-
-//! Crear un usuario y luego eliminarlo
 
 describe("POST /api/students ", () => {
   it("should create student", async () => {

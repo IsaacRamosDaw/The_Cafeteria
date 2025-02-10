@@ -1,18 +1,21 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require(".");
 
 module.exports = (sequelize) => {
-  const OrderLine = sequelize.define(
-    "OrderLine",
+  const Order = sequelize.define(
+    "orderLines",
     {
       quantity: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
+      unitPrice: {
+        type: DataTypes.DECIMAL
+      }
     },
     {
       timestamps: false,
     }
   );
 
-  return OrderLine;
+  return Order;
 };

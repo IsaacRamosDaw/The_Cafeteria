@@ -1,4 +1,3 @@
-import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./global.scss";
 
@@ -8,6 +7,9 @@ import "./global.scss";
 // import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx"; 
 // import StudentData from "./pages/account/Account";
 
+// Contexts
+import { ThemeProvider } from "./contexts/ThemeContext";
+import OrdersContextProvider from "./contexts/OrderContextProvider.jsx";
 
 //! Shared Pages
 import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
@@ -42,6 +44,7 @@ import CourseForm from "./components/adminComponents/forms/coursesForms/CourseFo
 function App() {
   return (
     <ThemeProvider>
+      <OrdersContextProvider>
       <Router>
         <Routes>
 
@@ -49,7 +52,7 @@ function App() {
 
           {/* Page routes */}
           <Route path="/" element={<Welcome />} />
-          <Route path="/home" element={<Menu />} />
+          {/* <Route path="/home" element={<Menu />} /> */}
           <Route path="/menu" element={<Menu />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/profile/policy" element={<Policy />} />
@@ -93,6 +96,7 @@ function App() {
 
         </Routes>
       </Router>
+      </OrdersContextProvider>
     </ThemeProvider>
   );
 }

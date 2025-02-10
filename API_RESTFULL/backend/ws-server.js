@@ -6,7 +6,6 @@ let wss = new WSServer({
   server: server
 });
 
-//* WEB SOCKET
 const PORT = process.env.PORT || 8080;
 
 server.on('request', app); 

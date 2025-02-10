@@ -11,24 +11,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
 var corsOptions = {
   origin: "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
+// const db = require('./models')
 
-// const db = require("./models");
-
-
-// if (process.env.NODE_ENV !== "test") {
-//   db.sequelize.sync().then(() => {
-//     console.log("Base de datos iniciada");
-//   });
-// } else {
-//   module.exports = app;
-// }
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db");
+// });
 
 // Rutas
 require("./routes/coffeShop.routes")(app);
@@ -40,6 +34,7 @@ require("./routes/categories.routes")(app);
 require("./routes/product.routes")(app);
 require("./routes/course.routes")(app);
 require("./routes/order.routes")(app);
+require("./routes/orderLine.routes")(app);
 require("./routes/wallet.routes")(app);
 require("./routes/site.routes")(app);
 

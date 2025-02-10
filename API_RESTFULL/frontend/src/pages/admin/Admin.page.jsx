@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 
 function Admin() {
+
   const navigate = useNavigate();
 
   const actions = [
