@@ -3,10 +3,9 @@ const Order = db.order;
 const Wallet = db.wallet;
 
 exports.create = (req, res) => {
-
   const orderData = {
     date: req.body.date,
-    status: 'ready',
+    status: "ready",
     studentId: req.body.studentId,
   };
 
@@ -14,7 +13,7 @@ exports.create = (req, res) => {
     .then((order) => {
       // Decrement wallet
       // return Wallet.decrement('amount', { by: req.body.price, where: { StudentId: req.body.StudentId } });
-      res.status(201).send({ message: "Order created!", order})
+      res.status(201).send({ message: "Order created!", order });
     })
     // .then((wallet) => {
     //   if (!wallet) {
@@ -34,42 +33,53 @@ exports.create = (req, res) => {
     });
 };
 
-
 exports.findAll = (req, res) => {
-
   // Order.findAll({ order: ['id', 'DESC'] })
   Order.findAll()
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Could retrieve all orders`
+          message: `Could retrieve all orders`,
         });
       }
+
+      orders.forEach((order) => {
+        if( order.status == "completed" ){
+          orders = orders.filter( (order) => order.status !== "completed" )
+        }
+      })
+
       res.send(orders);
     })
-    .catch(err =>
+    .catch((err) =>
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Orders."
+        message: err.message || "Some error occurred while retrieving Orders.",
       })
     );
 };
 
-
 exports.findAllByStudent = (req, res) => {
   const id = Number(req.params.id);
 
-  Order.findAll({ where: { StudentId: id, } })
+  Order.findAll({ where: { StudentId: id } })
     .then((orders) => {
       if (!orders) {
         return res.status(404).json({
-          message: `Student with id: ${id} not found`
+          message: `Student with id: ${id} not found`,
         });
       }
+      
+      orders.forEach((order) => {
+        if( order.status == "completed" ){
+          orders = orders.filter( (order) => order.status !== "completed" )
+        }
+      })
+
       res.send(orders);
     })
-    .catch(err =>
+    .catch((err) =>
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving orders."
+        message: err.message || "Some error occurred while retrieving orders.",
       })
     );
 };
@@ -86,9 +96,9 @@ exports.findOne = (req, res) => {
       }
       res.send(order);
     })
-    .catch(err =>
+    .catch((err) =>
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Orders."
+        message: err.message || "Some error occurred while retrieving Orders.",
       })
     );
 };
@@ -97,7 +107,6 @@ exports.update = async (req, res) => {
   const orderId = req.params.id;
 
   try {
-    
     const order = await Order.findByPk(orderId);
     if (!order) {
       return res.status(404).send({
@@ -105,40 +114,50 @@ exports.update = async (req, res) => {
       });
     }
 
-    
     const allowedFields = ["studentId", "date", "status"];
     const updateData = {};
 
-    
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
         updateData[field] = req.body[field];
       }
     });
 
-    
     if (Object.keys(updateData).length === 0) {
       return res.status(400).send({
         message: "No valid fields provided for update.",
       });
     }
 
-    
-    const [rowsUpdated] = await Order.update(updateData, {
-      where: { ID: orderId },
-    });
+    const rowBeforeUpdated = await Order.findOne({ where: { id: orderId } });
 
-    if (rowsUpdated === 0) {
-      return res.status(500).send({
-        message: `Error updating Order with id=${orderId}.`,
+    if (rowBeforeUpdated.status === "completed"){
+      res.send({
+        message: "Order was already completd",
       });
+
+    }else{
+
+      const [rowsUpdated] = await Order.update(updateData, {
+        where: { id: orderId },
+      });
+
+      if (rowsUpdated === 0) {
+        return res.status(500).send({
+          message: `Error updating Order with id=${orderId}.`,
+        });
+      }
+  
+      res.send({
+        message: "Order was updated successfully.",
+        updatedFields: updateData,
+      });
+
     }
 
-    
-    res.send({
-      message: "Order was updated successfully.",
-      updatedFields: updateData,
-    });
+  
+
+
   } catch (err) {
     res.status(500).send({
       message: err.message || "An error occurred while updating the Order.",
@@ -162,6 +181,8 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       console.error("Error deleting order:", err);
-      res.status(500).json({ message: "Error deleting order", error: err.message });
+      res
+        .status(500)
+        .json({ message: "Error deleting order", error: err.message });
     });
 };

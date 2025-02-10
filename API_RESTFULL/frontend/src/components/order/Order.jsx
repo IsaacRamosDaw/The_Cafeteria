@@ -4,9 +4,10 @@ import { getByOrder } from "../../services/orderLine.service.js";
 import { getOne } from "../../services/student.service";
 import { findByPk } from "../../services/product.service";
 import { getOne as findOneCourse } from "../../services/course.service.js";
-import "./Order.scss";
 import { getUserRole } from "../../services/utils.js";
 import { finishOrder } from "../../services/order.service.js";
+
+import "./Order.scss";
 
 function Order({
   orderId,
@@ -15,6 +16,7 @@ function Order({
   productId,
   status,
   studentIdParam,
+  pos,
 }) {
   const [studentName, setStudentName] = useState(null);
   const [courseName, setCourseName] = useState(null);
@@ -69,13 +71,14 @@ function Order({
     fetchAllData();
   }, [orderId, dateParam, studentIdParam]);
 
-  const cancelOrder = () => {
-    deleted(orderId);
+  const deleteOrder = () => {
+    deleted(pos);
   };
 
   const orderDone = () => {
-    finishOrder(orderId)
-  }
+    finishOrder(orderId);
+    deleteOrder();
+  };
 
   return (
     <section className="order-card">
@@ -88,22 +91,31 @@ function Order({
           {studentName} <span></span> {courseName}
         </h2>
       )}
-      <ul className="card-order-content">
+      <table className="card-order-content">
+        <thead>
+          <th className="container-quantity-table-orders">  </th>
+          <th> Descripcion </th>
+          <th> Precio </th>
+          <th> Importe </th>
+        </thead>
+        <tbody>
         {orderLine.length > 0 ? (
           <>
             {orderLine.map((line) => (
-              <li key={line.id}>
-                <p>
-                  {line.quantity} {line.productName} - {line.unitPrice}€ -{" "}
-                  {line.unitPrice * line.quantity}€
-                </p>
-              </li>
+              <tr key={line.id}>
+                <td className="container-quantity-table-orders">{line.quantity}</td>
+                <td>{line.productName}</td>
+                <td>{line.unitPrice}€</td>
+                <td>{line.unitPrice * line.quantity}€</td>
+              </tr>
             ))}
           </>
         ) : (
-          <li>No hay productos en esta orden</li>
+          <h4>No hay productos en esta orden</h4>
         )}
-      </ul>
+
+        </tbody>
+      </table>
       <p>Total: {totalOrder}€</p>
       {status ? <p>Estado: {status || "No disponible"}</p> : ""}
       <div className="container-btn-card-order">
@@ -117,7 +129,7 @@ function Order({
           <Button
             className="btn-card-order btn-done"
             text={"Cancelar"}
-            onClick={cancelOrder}
+            onClick={deleteOrder}
           />
         )}
       </div>

@@ -47,14 +47,11 @@ function Orders() {
     fetchOrders();
   }, [role, userId, orderLineCart]);
 
-  const handleCancel = async (id) => {
-    try {
-      await remove(id);
-      await removeByOrder(id);
-    } catch (error) {
-      console.log("Error while trying to delete order:", error);
-    }
-    setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
+  const handleDelete = async (pos) => {
+    // setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
+    const updatedOrders = [...orders]
+    updatedOrders.splice(pos, 1)
+    setOrders(updatedOrders) 
   };
 
   return (
@@ -62,9 +59,7 @@ function Orders() {
       <SearchBar />
       <Separator />
       <main id="orders-container">
-        {role == "student" && orderLineCart.length != 0 ? <OrderCart /> : ""}
-
-        <hr />
+        { role == "student" && orderLineCart.length != 0 ? <OrderCart /> : ""}
 
         {orders.length == 0 ? (
           <BsCupHot className="cup-img-logo" />
@@ -74,11 +69,12 @@ function Orders() {
               return getUserRole() === "worker" ? (
                 <Order
                   key={index}
+                  pos={index}
                   orderId={order.id}
                   studentIdParam={order.studentId}
                   dateParam={order.date}
                   productId={order.productId}
-                  deleted={handleCancel}
+                  deleted={handleDelete}
                   role={role}
                 />
               ) : (
@@ -86,7 +82,7 @@ function Orders() {
                   key={index}
                   orderId={order.id}
                   dateParam={order.date}
-                  deleted={handleCancel}
+                  deleted={handleDelete}
                   status={order.status}
                   productId={order.ProductId}
                 />

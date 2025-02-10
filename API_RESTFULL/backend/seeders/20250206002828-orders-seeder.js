@@ -18,12 +18,12 @@ module.exports = {
       },
       {
         date: fullDate,
-        status: "completed",
+        status: "ready",
         studentId: 2,
       },
       {
         date: fullDate,
-        status: "completed",
+        status: "ready",
         studentId: 3,
       },
     ];

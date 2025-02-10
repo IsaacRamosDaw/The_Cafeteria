@@ -15,7 +15,7 @@ async function request(method, url, data = null) {
 
     // Solo configura Content-Type para POST, PUT
     if (["post", "put"].includes(method)) {
-      headers["Content-Type"] = "application/json"; // Usa JSON para estas solicitudes
+      headers["Content-Type"] = "application/x-www-form-urlencoded"; // Usa JSON para estas solicitudes
     }
 
     const response = await axios({
@@ -25,6 +25,7 @@ async function request(method, url, data = null) {
       headers,
     });
     return response.data;
+
   } catch (error) {
     if (error.response) {
       console.error(

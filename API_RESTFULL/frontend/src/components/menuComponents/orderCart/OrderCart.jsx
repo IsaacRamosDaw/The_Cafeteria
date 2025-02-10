@@ -16,7 +16,7 @@ export default function OrderCart() {
   const makeOrder = () => {
     try {
       createOrder();
-      window.reload();
+      // window.reload();
     } catch (error) {
       console.log("Error al hacer pedido: ", error);
     }
