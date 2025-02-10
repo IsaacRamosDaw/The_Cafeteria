@@ -14,7 +14,7 @@ function SearchBar({ input }) {
     <nav id="header-container">
       <div>
         {input ? (
-          <input placeholder="Qué quieres comer..." type="text" name="" id="" />
+          <input placeholder="Qué quieres comer..." type="text" name="search-bar" id="search-bar" aria-label="Barra de búsqueda"/>
         ) : (
           <h2> {userTitle} </h2>
         )}
