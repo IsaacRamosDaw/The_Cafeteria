@@ -10,7 +10,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { HiPencilSquare } from "react-icons/hi2";
 import { FaCirclePlus } from "react-icons/fa6";
 
-import {getByCategory as getProducts, remove, create as createProducts, } from "../../services/product.service";
+import { getByCategory as getProducts, remove, create as createProducts, } from "../../services/product.service";
 import { get as getCategories, create as createCategory, remove as removeCategory } from "../../services/category.service";
 
 import "./MenuOwner.scss";
@@ -169,7 +169,7 @@ export default function MenuOwner() {
         onClick={() => setIsCreateCategoryModalOpen(true)}
         className="container-add-category"
       >
-        <h4>Añadir categoria</h4>
+        <h1>Añadir categoria</h1>
         <FiPlusCircle className="icon-add-category" />
       </div>
       {categories.map((category) => (
@@ -190,7 +190,7 @@ export default function MenuOwner() {
                 <div className="container-img-category-item">
                   <img
                     src="/images/ImgMenus/cafeExpreso.jpg"
-                    alt="Img category"
+                    alt={`Imagen del producto ${product.name}`}
                   />
                 </div>
                 <div className="container-info-category">
@@ -216,7 +216,7 @@ export default function MenuOwner() {
               }}
               className="container-add-product"
             >
-              <h4>Añadir producto</h4>
+              <h1>Añadir producto</h1>
               <FaCirclePlus className="add-product-button" />
             </div>
           </section>
@@ -260,9 +260,9 @@ export default function MenuOwner() {
   );
 }
 
-  // const [newProduct, setNewProduct] = useState({
-  //   name: '',
-  //   description: '',
-  //   price: '',
-  //   CategoryId: ''
-  // });
+// const [newProduct, setNewProduct] = useState({
+//   name: '',
+//   description: '',
+//   price: '',
+//   CategoryId: ''
+// });
