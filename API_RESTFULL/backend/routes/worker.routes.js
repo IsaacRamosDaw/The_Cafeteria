@@ -24,4 +24,5 @@ module.exports = (app) => {
 	router.delete("/:id", authToken, auth.isAuthenticated, worker.delete);
 
 	app.use('/api/worker', router);
+	
 };
