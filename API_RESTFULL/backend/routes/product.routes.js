@@ -25,6 +25,7 @@ module.exports = (app) => {
 
     //Create an Product
     router.post("/", upload.single('file'), authToken, auth.isAuthenticated, product.create);
+    // router.post("/", upload.single('file'), product.create);
 
     // Update Product
     router.put("/:id", upload.single('file'), authToken, auth.isAuthenticated, product.update);

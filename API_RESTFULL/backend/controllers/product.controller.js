@@ -28,8 +28,7 @@ exports.create = (req, res) => {
   };
 
 		Product.create(productData)
-		.then(product => res.status(201)
-		.json({
+		.then(product => res.status(201).json({
 				message: "Product created successfully",
 				product: product,
 			}))
