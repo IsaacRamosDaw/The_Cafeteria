@@ -8,7 +8,7 @@ let wss = new WSServer({
 
 const PORT = process.env.PORT || 8080;
 
-server.on('request', app); 
+server.on('request', app);
 
 const clientsWaiting = [];
 
@@ -28,6 +28,24 @@ wss.on('connection', (ws, incoming_request) => {
   clientsWaiting.push(userRef);
   console.log("conexión creada");
 
+  wss.on('message', (message) => {
+    const data = JSON.parse(message)
+
+    if (typeof data.type !== 'string') {
+      console.error("invalid message");
+      return;
+    }
+
+    if (data.type === "Finished") {
+      for (let i = 0; i < clientsWaiting.length; i++) {
+        if (clientsWaiting[i].userId == ws.userId && clientsWaiting.foodName == ws.foodName) {
+          clientsWaiting.splice(i, 1);
+          break;
+        }
+      }
+    }
+  })
+
   wss.on('close', (code, reason) => {
     for (let i = 0; i < clientsWaiting.length; i++) {
       console.log(clientsWaiting[i]);
@@ -36,21 +54,23 @@ wss.on('connection', (ws, incoming_request) => {
         break;
       }
     }
-    
+
     console.log("Se ha cerrado la conexion del usuario" + ws.userId);
   })
 })
 
 const sendMessage = (userId, message) => {
   for (let i = 0; i < clientsWaiting.length; i++) {
-      if (clientsWaiting.ws.userId === userId) {
-        clientsWaiting.ws.send(message); 
-        console.log(`Mensaje enviado al usuario ${userId}`);
+    if (clientsWaiting.ws.userId === userId) {
+      if (message == "") {
+        clientsWaiting.ws.send("Tu pedido está en proceso");
       }
+      clientsWaiting.ws.send(message);
     }
+  }
 }
 
-server.listen(PORT, function() {
+server.listen(PORT, function () {
   console.log(`http/ws server listening on ${PORT}`);
 });
 
