@@ -44,10 +44,10 @@ app.get("/", (req, res) => {
 });
 
 // Middleware de manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: true, message: "Algo salió mal en el servidor." });
-});
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).json({ error: true, message: "Algo salió mal en el servidor." });
+// });
 
 module.exports = app;
 

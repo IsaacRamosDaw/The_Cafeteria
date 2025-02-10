@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Update student: <%= student.id %></h2>
+    <form id="update-student-form" data-id="<%= student.id %>">
+      <input name="username" type="text" value="<%= student.username %>" />
+      <input name="password" type="password"/>
+      <input name="age" type="text" value="<%= student.age %>" />
+      <input name="phone" type="text" value="<%= student.phone %>" />
+      <label for="file">Foto de perfil:</label>
+      <input type="file" id="file" name="file" />
+      <button type="submit">Actualizar</button>
+    </form>
+    <a href="/admin">Volver</a>
+    <script src="/js/students/students-scripts.js"></script>
+  </body>
+</html>

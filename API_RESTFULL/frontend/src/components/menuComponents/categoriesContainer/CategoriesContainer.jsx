@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { get } from "../../../services/category.service";
 import CategoryCard from "../categoryCard/CategoryCard";
-import {
-  countByCategory,
-  getFirstByCategory,
+import {countByCategory,
+getFirstByCategory,
 } from "../../../services/product.service";
 import "./CategoriesContainer.scss";
 
@@ -17,20 +16,16 @@ function CategoriesContainer() {
         const categoriesData = await get();
 
         const categoriesWithCounts = [];
-
         for (const category of categoriesData) {
           const count = await countByCategory(category.id);
           categoriesWithCounts.push({ ...category, amount: count });
         }
-
         setCategories(categoriesWithCounts);
 
         const images = {};
         for (const category of categoriesWithCounts) {
           const product = await getFirstByCategory(category.id);
-          // Creamos una nueva entra en el objeto y su valor es el filename
           images[category.id] = product?.filename || "";
-          // Esto es lo mismo que: images = { 1 : "img-test.jpeg" }
         }
         setProductImages(images);
       } catch (error) {

@@ -1,29 +1,28 @@
 module.exports = (app) => {
   const admin = require("../controllers/admin.controller.js");
-  const auth = require("../controllers/auth.js");
-  var upload = require("../multer/upload.js");
+
+  const authSession = require("../controllers/auth.session.js");
+  const multer = require("../multer/upload.js");
+
+  const upload = multer({ dest: "../public/images/admin" });
 
   var router = require("express").Router();
 
-  //Create an admin
-  router.post("/", admin.create);
-
-
-  router.post("/upload/:folderName", upload.single('file'), admin.create);
-
-  router.put("/upload/:id", upload.single('file'), admin.imgUpdate);
-
   //List all admins
-  router.get("/", admin.findAll);
+	router.get("/", authSession.isAuthenticated, admin.findAll);
 
-  // Get one admin
-  router.get("/:id", auth.isAuthenticated, admin.findOne);
+	// Retrieve one admin
+	router.get("/:id", authSession.isAuthenticated, admin.findOne);
 
-  // Update admin
-  router.put("/:id", auth.isAuthenticated, admin.update);
+	//Create an admin
+	router.post("/", authSession.isAuthenticated, upload.single('file'), admin.create);
 
-  //Delete admin
-  router.delete("/:id", auth.isAuthenticated, admin.delete);
+	// Update admin
+	router.put("/:id", authSession.isAuthenticated, upload.single('file'), admin.update);
+
+	//Delete admin 
+	router.delete("/:id", authSession.isAuthenticated, admin.delete);
+
 
   app.use("/api/admin", router);
-}; 
+};

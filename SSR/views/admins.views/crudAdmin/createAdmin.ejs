@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Create admin</h1>
+    <form action="/api/admin/" method="POST" enctype="multipart/form-data">
+      <label for="username">Nombre:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="file">Foto de perfil:</label>
+      <input type="file" id="file" name="file" />
+
+      <button type="submit">Crear</button>
+    </form>
+    <a href="/admin">Volver</a>
+  </body>
+</html>

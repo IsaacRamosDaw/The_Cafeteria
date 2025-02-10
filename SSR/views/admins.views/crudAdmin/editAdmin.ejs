@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Admin</title>
+</head>
+<body>
+    <h1>Editar Admin</h1>
+    <form id="edit-admin-form" data-id="<%= admin.id %>">
+        <label for="username">Nombre</label>
+        <input type="text" id="username" name="username" value="<%= admin.username %>" required>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Guardar cambios</button>
+    </form>
+    <a href="/admin">Volver</a>
+    <script src="/js/admins/crudAdminJs/editAdmin.js" defer></script>
+</body>
+</html>
