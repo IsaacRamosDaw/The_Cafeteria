@@ -4,13 +4,14 @@
   "description": "backend de la cafeteria",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:makemigrations": "node ./node_modules/sequelize-auto-migrations/bin/makemigration.js",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize db:create && npm run db:migrate-and-seed",
     "db:migrate-and-seed": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:reset-and-start": "npm run db:reset && npm start",
     "db:migrate-and-start": "npx sequelize-cli db:migrate && npm start",
-    "start": "node ./server.js"
+    "start": "node ./index.js"
   },
   "author": "mansour | cynthia | isaac",
   "license": "ISC",
@@ -29,6 +30,16 @@
     "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.6.2"
+    "@faker-js/faker": "^9.4.0",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

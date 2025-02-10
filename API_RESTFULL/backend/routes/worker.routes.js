@@ -1,7 +1,9 @@
 module.exports = (app) => {
     const worker = require("../controllers/worker.controller.js");
     const auth = require("../controllers/auth.js");
-    var upload = require("../multer/upload")
+    const multer = require('../middlewares/multer.js')
+
+    const upload = multer({dest: '../public/images/worker'})
 
     var router = require("express").Router();
 

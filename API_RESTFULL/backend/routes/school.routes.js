@@ -1,6 +1,6 @@
 module.exports = app => {
     const school = require("../controllers/school.controller.js");
-    var upload = require('../multer/upload.js');
+    var upload = require('../middlewares/multer.js');
 
     var router = require("express").Router();
 
