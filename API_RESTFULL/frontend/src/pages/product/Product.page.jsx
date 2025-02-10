@@ -25,6 +25,15 @@ function Product() {
   const location = useLocation();
   const productId = location.state?.productId || 1;
 
+  //* WebSocket
+  // useEffect(() => {
+  //   const SERVER_URL = `${process.env.REACT_APP_SERVER_URL}/userId=${userId}&/foodname=${product.name}`
+  //   ws.current.onopen = () => {
+  //     console.log("open")
+  //   }
+    
+  // }) 
+
   useEffect(() => {
     async function fetchData() {
       try {
