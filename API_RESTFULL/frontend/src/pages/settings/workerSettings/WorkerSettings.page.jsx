@@ -10,20 +10,24 @@ import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUserId } from "../../../services/utils";
 import { getOne } from "../../../services/coffeShop.service";
 
 import "./WorkerSettings.scss";
+import WebSocketContext from "../../../contexts/WebSocketsContext";
 
 function WorkerSettings() {
   const { theme, toggleTheme } = useTheme();
   const [coffeShopData, setCoffeShopData] = useState({});
   const navigate = useNavigate();
 
+  const { logOut } = useContext(WebSocketContext)
+
   const folder = "http://localhost:8080/images/";
 
   const clearToken = () => {
+    logOut()
     localStorage.removeItem("token");
     navigate("/");
   };

@@ -8,19 +8,13 @@ let wss = new WSServer({
 
 const PORT = process.env.PORT || 8080;
 
-server.on("request", app);
+server.on('request', app);
 
 const clientsWaiting = [];
 
 wss.on("connection", (ws, incoming_request) => {
-  // const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
 
-  console.log(
-    "---------------------------------------------------------------------------"
-  );
-  console.log("User conected: ", ws);
-
-  ws.send(" Hello client")
+  console.log("Connection stablished");
 
   // const pedido = {
   //   userId: urlParsed.searchParams.get("userId"),
@@ -35,20 +29,22 @@ wss.on("connection", (ws, incoming_request) => {
   // clientsWaiting.push(userRef);
   // console.log("conexión creada");
 
-  wss.on("close", (code, reason) => {
+  ws.on('open', (obj) => {
+    console.log("Connection open");
+  })
+
+  ws.on("close", (code, reason) => {
     // for (let i = 0; i < clientsWaiting.length; i++) {
     //   console.log(clientsWaiting[i]);
     //   if (clientsWaiting[i].userId == ws.userId && clientsWaiting.foodName == ws.foodName) {
     //     clientsWaiting.splice(i, 1);
     //     break;
     //   }
-    // }X
+    // }
 
-    console.log(
-      "---------------------------------------------------------------------------"
-    );
+    ws.close()
 
-    console.log("Se ha cerrado la conexion del usuario" + ws);
+    console.log("Connection closed");
   });
 });
 
@@ -66,3 +62,4 @@ server.listen(PORT, function () {
 });
 
 module.exports = sendMessage;
+

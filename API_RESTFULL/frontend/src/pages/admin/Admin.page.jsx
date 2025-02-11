@@ -21,7 +21,12 @@ import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 
+import WebSocketContext from "../../contexts/WebSocketsContext";
+import { useContext } from "react";
+
 function Admin() {
+
+  const { logOut } = useContext(WebSocketContext)
 
   const navigate = useNavigate();
 
@@ -38,6 +43,7 @@ function Admin() {
   };
 
   const clearToken = () => {
+    logOut()
     localStorage.removeItem("token");
     navigate("/");
   };
