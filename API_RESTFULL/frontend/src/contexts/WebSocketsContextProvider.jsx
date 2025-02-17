@@ -1,23 +1,35 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import WebSocketContext from "./WebSocketsContext";
+import { getUserId, getUserRole } from "../services/utils";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const WebSocketsContextProvider = ({ children }) => {
   const ws = useRef(null);
-
-  // Cleanup cuando el componente se desmonta
-  // return () => {
-  //   if (ws.current) {
-  //     ws.current.close();
-  //   }
-  // };
+  const userId = getUserId();
+  const userRole = getUserRole();
 
   const logIn = () => {
     ws.current = new WebSocket(SERVER_URL);
-    ws.current.onopen = () => {
-      console.log("Connection Opened");
-    };
+
+    ws.current.addEventListener("open", (e) => {
+      console.log("Connected to WS server");
+
+      ws.current.send('Hello server!');
+    });
+
+    ws.current.addEventListener("message", (e) => {
+      const data = e.data;
+      console.log("Received message data:", data);
+    });
+
+    ws.current.addEventListener("error", (e) => {
+      console.error("WebSocket error:", e);
+    });
+
+    ws.current.addEventListener("close", (e) => {
+      console.error("Disconnected from Websocket server");
+    });
   };
 
   const logOut = () => {
@@ -26,15 +38,7 @@ const WebSocketsContextProvider = ({ children }) => {
   };
 
   const sendMessage = (message) => {
-    ws.current.onmessage = (e) => {
-      const data = JSON.parse(e.data);
-      console.log(data);
-    };
-    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      ws.current.send(message);
-    } else {
-      console.error("WebSocket no está conectado.");
-    }
+    ws.current.send(JSON.stringify(message));
   };
 
   return (
@@ -44,4 +48,4 @@ const WebSocketsContextProvider = ({ children }) => {
   );
 };
 
-export default WebSocketsContextProvider;   
+export default WebSocketsContextProvider;
