@@ -11,24 +11,33 @@ const WebSocketsContextProvider = ({ children }) => {
 
   const logIn = () => {
     ws.current = new WebSocket(SERVER_URL);
-
+    
     ws.current.addEventListener("open", (e) => {
+      const data = {
+        type: "chat",
+        data: {
+          message: "Hello server",
+          userId: userId,
+          userRole: userRole
+        }
+      }
+
       console.log("Connected to WS server");
 
-      ws.current.send('Hello server!');
-    });
+      ws.current.send(JSON.stringify(data));
+    })
 
     ws.current.addEventListener("message", (e) => {
-      const data = e.data;
-      console.log("Received message data:", data);
+      const message = JSON.parse( e.data)
+      console.log("Received message:", message);
     });
 
     ws.current.addEventListener("error", (e) => {
-      console.error("WebSocket error:", e);
+      console.log("WebSocket error:", e);
     });
 
     ws.current.addEventListener("close", (e) => {
-      console.error("Disconnected from Websocket server");
+      console.log("Disconnected from Websocket server");
     });
   };
 
@@ -38,7 +47,7 @@ const WebSocketsContextProvider = ({ children }) => {
   };
 
   const sendMessage = (message) => {
-    ws.current.send(JSON.stringify(message));
+    ws.current.send(message);
   };
 
   return (

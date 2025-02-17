@@ -2,6 +2,8 @@ const db = require("../models");
 const Order = db.order;
 const Wallet = db.wallet;
 
+const updateOrder = require("../ws-server");
+
 exports.create = (req, res) => {
   const orderData = {
     date: req.body.date,
@@ -44,10 +46,10 @@ exports.findAll = (req, res) => {
       }
 
       orders.forEach((order) => {
-        if( order.status == "completed" ){
-          orders = orders.filter( (order) => order.status !== "completed" )
+        if (order.status == "completed") {
+          orders = orders.filter((order) => order.status !== "completed");
         }
-      })
+      });
 
       res.send(orders);
     })
@@ -68,12 +70,12 @@ exports.findAllByStudent = (req, res) => {
           message: `Student with id: ${id} not found`,
         });
       }
-      
+
       orders.forEach((order) => {
-        if( order.status == "completed" ){
-          orders = orders.filter( (order) => order.status !== "completed" )
+        if (order.status == "completed") {
+          orders = orders.filter((order) => order.status !== "completed");
         }
-      })
+      });
 
       res.send(orders);
     })
@@ -106,6 +108,10 @@ exports.findOne = (req, res) => {
 exports.update = async (req, res) => {
   const orderId = req.params.id;
 
+  let userId = req.body.userId;
+
+  delete req.body.userId;
+
   try {
     const order = await Order.findByPk(orderId);
     if (!order) {
@@ -131,13 +137,11 @@ exports.update = async (req, res) => {
 
     const rowBeforeUpdated = await Order.findOne({ where: { id: orderId } });
 
-    if (rowBeforeUpdated.status === "completed"){
+    if (rowBeforeUpdated.status === "completed") {
       res.send({
         message: "Order was already completd",
       });
-
-    }else{
-
+    } else {
       const [rowsUpdated] = await Order.update(updateData, {
         where: { id: orderId },
       });
@@ -147,21 +151,36 @@ exports.update = async (req, res) => {
           message: `Error updating Order with id=${orderId}.`,
         });
       }
-  
+
       res.send({
         message: "Order was updated successfully.",
         updatedFields: updateData,
       });
-
     }
-
-  
-
-
   } catch (err) {
     res.status(500).send({
       message: err.message || "An error occurred while updating the Order.",
     });
+  }
+};
+
+exports.finish = async (req, res) => {
+  const orderId = req.params.id;
+
+  try {
+    const orderUpdated = await Order.update({ status: "completed" }, {
+      where: { id: orderId },
+    });
+
+    updateOrder(id, orderUpdated.studentId);
+
+    res
+      .status(200)
+      .json({ message: `Order with id ${orderId} updated`, orderUpdated });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error while updated order", error, orderUpdated });
   }
 };
 

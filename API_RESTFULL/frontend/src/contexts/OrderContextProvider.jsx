@@ -30,7 +30,7 @@ const OrdersContextProvider = ({ children }) => {
     // Create the order
     const responseOrder = await axios.post(
       endpointOrders,
-      { studentId: id, date: fullDate },
+      new URLSearchParams({ studentId: id, date: fullDate }).toString(),
       {
         headers: {
           Authorization: `Bearer ${token}`,
