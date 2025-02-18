@@ -2,6 +2,9 @@ const db = require("../models");
 const Order = db.order;
 const Wallet = db.wallet;
 
+let updateOrder = require("../ws-server");
+// let boberia = require('../ws-server')
+
 exports.create = (req, res) => {
   const orderData = {
     date: req.body.date,
@@ -44,10 +47,10 @@ exports.findAll = (req, res) => {
       }
 
       orders.forEach((order) => {
-        if( order.status == "completed" ){
-          orders = orders.filter( (order) => order.status !== "completed" )
+        if (order.status == "completed") {
+          orders = orders.filter((order) => order.status !== "completed");
         }
-      })
+      });
 
       res.send(orders);
     })
@@ -68,12 +71,12 @@ exports.findAllByStudent = (req, res) => {
           message: `Student with id: ${id} not found`,
         });
       }
-      
+
       orders.forEach((order) => {
-        if( order.status == "completed" ){
-          orders = orders.filter( (order) => order.status !== "completed" )
+        if (order.status == "completed") {
+          orders = orders.filter((order) => order.status !== "completed");
         }
-      })
+      });
 
       res.send(orders);
     })
@@ -131,13 +134,11 @@ exports.update = async (req, res) => {
 
     const rowBeforeUpdated = await Order.findOne({ where: { id: orderId } });
 
-    if (rowBeforeUpdated.status === "completed"){
+    if (rowBeforeUpdated.status === "completed") {
       res.send({
         message: "Order was already completd",
       });
-
-    }else{
-
+    } else {
       const [rowsUpdated] = await Order.update(updateData, {
         where: { id: orderId },
       });
@@ -147,20 +148,51 @@ exports.update = async (req, res) => {
           message: `Error updating Order with id=${orderId}.`,
         });
       }
-  
+
       res.send({
         message: "Order was updated successfully.",
         updatedFields: updateData,
       });
-
     }
-
-  
-
-
   } catch (err) {
     res.status(500).send({
       message: err.message || "An error occurred while updating the Order.",
+    });
+  }
+};
+
+exports.finish = async (req, res) => {
+  const orderId = Number(req.params.id);
+
+  if (isNaN(orderId)) {
+    return res.status(400).json({ message: "Invalid order ID" });
+  }
+
+  try {
+    const rowsUpdated = await Order.update(
+      { status: "completed" },
+      {
+        where: { id: orderId },
+        returning: true,
+      }
+    );
+
+    if (rowsUpdated === 0) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    const rowAfterUpdated = await Order.findOne({ where: { id: orderId } });
+
+    updateOrder.updateOrder(`${orderId}`, rowAfterUpdated.studentId);
+
+    return res.status(200).json({
+      message: `Order with id ${orderId} updated`,
+      order: rowAfterUpdated,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error while updating order",
+      error: error.message,
     });
   }
 };

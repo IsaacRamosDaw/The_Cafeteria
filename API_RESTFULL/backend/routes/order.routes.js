@@ -21,6 +21,9 @@ module.exports = (app) => {
   // Update order
 	router.put("/:id", authToken, auth.isAuthenticated, order.update);
 
+  // Finish a order
+	router.put("/finish/:id", authToken, auth.isAuthenticated, order.finish);
+
   // Delete orders
   router.delete("/:id", authToken, auth.isAuthenticated, order.delete);
 

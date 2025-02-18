@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUserId } from "./utils";
 
 const endpoint = "http://localhost:8080/api/orders";
 
@@ -53,13 +54,9 @@ export async function create(date, studentId) {
   return result;
 }
 
-export async function finishOrder(id) {
-  const orderData = new URLSearchParams({
-    status: 'completed',
-  }).toString();
-
-  const result = await request("put", `${endpoint}/${id}`, orderData);
-  console.log("(Orders.service-put) Resultado:", result);
+export async function finishOrder(orderId) {
+  const result = await request("put", `${endpoint}/finish/${orderId}`);
+  console.log("(Orders.service-finishOrder) Resultado:", result);
   return result;
 }
 

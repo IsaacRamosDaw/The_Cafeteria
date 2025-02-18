@@ -6,7 +6,7 @@ import Order from "../../components/order/Order";
 import { BsCupHot } from "react-icons/bs";
 import { useEffect, useState, useContext } from "react";
 
-import { get, getByStudent, remove } from "../../services/order.service";
+import { get, getByStudent } from "../../services/order.service";
 import { getUserId, getUserRole } from "../../services/utils";
 import OrderCart from "../../components/menuComponents/orderCart/OrderCart";
 
@@ -14,14 +14,14 @@ import "./Orders.scss";
 
 // Contexts
 import OrderContext from "../../contexts/OrderContext";
-import { removeByOrder } from "../../services/orderLine.service";
+import WebSocketContext from "../../contexts/WebSocketsContext";
 
 function Orders() {
   const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const { orders, setOrders, orderLineCart, removeOrderById  } = useContext(OrderContext);
 
-  const { orderLineCart } = useContext(OrderContext);
+  const { notifications } = useContext(WebSocketContext)
 
   useEffect(() => {
     setUserId(getUserId());
@@ -45,13 +45,10 @@ function Orders() {
     }
 
     fetchOrders();
-  }, [role, userId, orderLineCart]);
+  }, [notifications, setOrders, userId, role]);
 
-  const handleDelete = async (pos) => {
-    // setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
-    const updatedOrders = [...orders]
-    updatedOrders.splice(pos, 1)
-    setOrders(updatedOrders) 
+  const handleDelete = async (id) => {
+    removeOrderById(id) 
   };
 
   return (

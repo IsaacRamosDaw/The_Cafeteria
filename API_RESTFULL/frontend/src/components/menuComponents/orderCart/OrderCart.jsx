@@ -5,18 +5,30 @@ import { useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
 import "./OrderCart.scss";
+import WebSocketContext from "../../../contexts/WebSocketsContext";
+import { getUserId } from "../../../services/utils";
 
 export default function OrderCart() {
   const [orderLine, setOrderLine] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
 
+  const { sendMessage } = useContext(WebSocketContext)
+ 
   const { orderLineCart, removeOrderLine, createOrder, clearOrder } =
     useContext(OrderContext);
 
   const makeOrder = () => {
     try {
       createOrder();
-      // window.reload();
+
+      sendMessage( JSON.stringify({
+        type: "notification",
+        data: {
+          message: "new order created",
+          notificationType: "newOrder",
+          userId: getUserId()
+        },
+      }) )
     } catch (error) {
       console.log("Error al hacer pedido: ", error);
     }

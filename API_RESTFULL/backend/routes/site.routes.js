@@ -6,5 +6,7 @@ module.exports = (app) => {
 
   router.post("/", authToken, auth.signin);
 
+  router.get("ws", authToken, auth.signin);
+
   app.use("/api/site", router);
 }
