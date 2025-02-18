@@ -1,57 +1,85 @@
-let WSServer = require('ws').Server;
-let server = require('http').createServer();
-let app = require('./http-server');
+let WSServer = require("ws").Server;
+let server = require("http").createServer();
+const app = require("./http-server");
 
 let wss = new WSServer({
-  server: server
+  server: server,
 });
 
 const PORT = process.env.PORT || 8080;
 
-server.on('request', app); 
+server.on("request", app);
 
-const clientsWaiting = [];
+wss.on("connection", (ws) => {
+  log("New client connected!", wss.clients.size);
 
-wss.on('connection', (ws, incoming_request) => {
-  const urlParsed = new url.URL(incoming_request.url, 'http://${incoming_request.headers.host}')
+  // wss.on("open", () => {
+  //   ws.send("Hello client!");
+  //   log("Connection open");
+  // });
 
-  const pedido = {
-    userId: urlParsed.searchParams.get("userId"),
-    foodName: urlParsed.searchParams.get("foodName")
-  }
+  ws.on("close", () => {
+    log("Connection closed");
+  });
 
-  ws.userId = pedido.userId;
-  ws.foodName = pedido.foodName;
+  ws.on("message", (rawMessage) => {
+    const msg = JSON.parse(rawMessage);
 
-  const userRef = { ws };
+    log("Message received: ", msg);
 
-  clientsWaiting.push(userRef);
-  console.log("conexión creada");
-
-  wss.on('close', (code, reason) => {
-    for (let i = 0; i < clientsWaiting.length; i++) {
-      console.log(clientsWaiting[i]);
-      if (clientsWaiting[i].userId == ws.userId && clientsWaiting.foodName == ws.foodName) {
-        clientsWaiting.splice(i, 1);
-        break;
-      }
+    if (msg.type === "notification") {
+      log("Notification received: ", msg);
+      ws.send( JSON.stringify(msg) )
+      
     }
-    
-    console.log("Se ha cerrado la conexion del usuario" + ws.userId);
-  })
-})
 
-const sendMessage = (userId, message) => {
-  for (let i = 0; i < clientsWaiting.length; i++) {
-      if (clientsWaiting.ws.userId === userId) {
-        clientsWaiting.ws.send(message); 
-        console.log(`Mensaje enviado al usuario ${userId}`);
-      }
+    if (msg.type === "auth") {
+      log("Auth message received: ", msg);
+      ws.userId = msg.data.userId;
+      ws.userRole = msg.data.userRole;
+
+      log("Cliente userId registered ", ws.userId);
+      log("Cliente userRole registered ", ws.userRole);
     }
+
+    ws.send(
+      JSON.stringify({
+        type: "chat",
+        data: {
+          message: "Mensaje recibido: ",
+          msg,
+        },
+      })
+    );
+  });
+});
+
+const updateOrder = (orderId, userId) => {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN && client.userId === userId) {
+      client.send(
+        JSON.stringify({
+          type: "notification",
+          data: {
+            notificationType: "orderUpdate",
+            orderId: orderId,
+            status: "completed",
+            timeStamps: Date.toString()
+          },
+        })
+      );
+    }
+  });
+};
+
+function log(msg, obj) {
+  console.log("\n");
+  obj ? console.log(msg, obj) : console.log(msg);
+  console.log("\n");
 }
 
-server.listen(PORT, function() {
+server.listen(PORT, function () {
   console.log(`http/ws server listening on ${PORT}`);
 });
 
-module.exports = sendMessage;
+exports.updateOrder = updateOrder;

@@ -7,7 +7,7 @@ import { useTheme } from "../../../contexts/ThemeContext";
 import { getUserId } from "../../../services/utils";
 import { getOne } from "../../../services/student.service";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FiUser } from "react-icons/fi";
@@ -16,6 +16,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineLocalCafe, MdOutlineLightMode, MdOutlineDarkMode, MdOutlinePrivacyTip, } from "react-icons/md";
 
 import "./StudentSettings.scss";
+import WebSocketContext from "../../../contexts/WebSocketsContext";
 
 function StudentSettings() {
 
@@ -27,6 +28,7 @@ function StudentSettings() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme(); 
 
+  const { logOut } = useContext(WebSocketContext)
 
   useEffect(() => {
     const studentId = id || decodedId;
@@ -50,6 +52,7 @@ function StudentSettings() {
   }, [id, decodedId]);
 
   const clearToken = () => {
+    logOut()
     localStorage.removeItem("token");
     navigate("/");
   };

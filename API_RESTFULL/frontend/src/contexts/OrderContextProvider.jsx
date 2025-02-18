@@ -21,6 +21,7 @@ const id = getUserId();
 const token = localStorage.getItem("token");
 
 const OrdersContextProvider = ({ children }) => {
+  const [orders, setOrders] = useState([]);
   const [orderCart, setOrderCart] = useState([]);
   const [orderLineCart, setOrderLineCart] = useState([]);
 
@@ -30,7 +31,7 @@ const OrdersContextProvider = ({ children }) => {
     // Create the order
     const responseOrder = await axios.post(
       endpointOrders,
-      { studentId: id, date: fullDate },
+      new URLSearchParams({ studentId: id, date: fullDate }).toString(),
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,7 +71,7 @@ const OrdersContextProvider = ({ children }) => {
 
     if (responseOrderLines.statusText !== "OK") success = false;
 
-    clearOrder();
+    clearOrder()
     return true;
   };
 
@@ -78,6 +79,10 @@ const OrdersContextProvider = ({ children }) => {
     setOrderCart([]);
     setOrderLineCart([]);
   };
+
+  const removeOrderById = (orderId) => {
+    setOrders((prevOrders) => prevOrders.filter((order) => parseInt(order.id) !== parseInt(orderId)));
+  }
 
   const createOrderLine = (obj) => {
     setOrderLineCart((prev) => [...prev, obj]);
@@ -91,12 +96,15 @@ const OrdersContextProvider = ({ children }) => {
   return (
     <OrderContext.Provider
       value={{
+        orders,
+        setOrders,
         orderCart,
         orderLineCart,
         createOrderLine,
         removeOrderLine,
         createOrder,
         clearOrder,
+        removeOrderById
       }}
     >
       {children}
