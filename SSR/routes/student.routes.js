@@ -8,7 +8,7 @@ module.exports = (app) => {
 	var router = require("express").Router();
 
 	//List all students
-	router.get("/", authSession.isAuthenticated, student.findAll);
+	router.get("/",  student.findAll);
 
 	// Retrieve one student
 	router.get("/:id", authSession.isAuthenticated, student.findOne);
