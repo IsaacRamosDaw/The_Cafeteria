@@ -128,7 +128,7 @@ The administrator will mainly see these windows, which will allow them to manage
 </div>
 
 
-º
+
 ### Worker
 
 The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
