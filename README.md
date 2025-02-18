@@ -54,9 +54,9 @@ This project aims to develop an application that allows multiple schools to crea
 <p>
 
 <div align="center">
-    <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/Products.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/Products.png" alt="Logo"  height="440">
 </div>
 
 <span id="type"></span>
@@ -124,7 +124,7 @@ The server-side rendering (SSR) approach is a traditional method of building web
 The administrator will mainly see these windows, which will allow them to manage the institutes and cafeterias assigned to them, their courses, their employees, and even if they have more than one cafeteria.
 
 <div align="center">
-    <img src="frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/AdminRoleDashboard.png" alt="Logo"  height="440">
 </div>
 
 
@@ -133,9 +133,9 @@ The administrator will mainly see these windows, which will allow them to manage
 
 The worker will have the ability to create, edit, and delete categories and products. They can also cancel orders and make adjustments to their profile as needed.
 <div align="center">
-    <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/WorkerHome.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/WorkerProfile.png" alt="Logo"  height="440">
 </div>
 
 
@@ -144,9 +144,9 @@ The worker will have the ability to create, edit, and delete categories and prod
 
 The student will be able to browse available products and categories, place orders, view their order history, and update their profile information as needed
 <div align="center">
-    <img src="frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
-    <img src="frontend/public/readmeImg/studentProduct.png" alt="Logo"  height="150">
+    <img src="API_RESTFULL/frontend/public/readmeImg/StudentCategories.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/StudentPerfil.png" alt="Logo"  height="440">
+    <img src="API_RESTFULL/frontend/public/readmeImg/studentProduct.png" alt="Logo"  height="150">
 </div>
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
@@ -188,8 +188,8 @@ Organized by type: Each folder groups similar files (controllers, routes, models
     2. Developers need to switch between folders to work on a single feature.
 
 <div align= "center">
- <img src="frontend/public/readmeImg/structureFrontend.png" alt="Logo"  height="440">
-  <img src="frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
+ <img src="API_RESTFULL/frontend/public/readmeImg/structureFrontend.png" alt="Logo"  height="440">
+  <img src="API_RESTFULL/frontend/public/readmeImg/structureBackend.png" alt="Logo"  height="440">
 </div>
 
 <span id="folder-alternative"></span>
@@ -214,7 +214,7 @@ Files are grouped by feature/module instead of by type.
     2. Shared components or styles might be harder to manage if not organized well.
 
 <div align= "center">
- <img src="frontend/public/readmeImg/structureFrotendExample.png" alt="Logo"  height="440">
+ <img src="API_RESTFULL/frontend/public/readmeImg/structureFrotendExample.png" alt="Logo"  height="440">
 </div>
 
 #### **Backend**
@@ -235,7 +235,7 @@ Instead of organizing by type, files are grouped by feature, like frotend exampl
     2. Can lead to code duplication if shared logic is not managed properly.
 
 <div align= "center">
- <img src="frontend/public/readmeImg/structureBackendExample.png" alt="Logo"  height="440">
+ <img src="API_RESTFULL/frontend/public/readmeImg/structureBackendExample.png" alt="Logo"  height="440">
 </div>
 <div align= "right"><a href="#back-top">Back to top</a></div>
 
@@ -247,7 +247,7 @@ In the backend, we have used Multer as middleware to handle image uploads. The i
     - **Path**: public/images/
 
 <div align= "center">
- <img src="frontend/public/readmeImg/imageStructure.png" alt="Logo"  height="440">
+ <img src="API_RESTFULL/frontend/public/readmeImg/imageStructure.png" alt="Logo"  height="440">
 </div>
 
 - **Advantages**
@@ -274,7 +274,7 @@ In the backend, we have used Multer as middleware to handle image uploads. The i
 Another option would be to store images in a cloud storage service like Amazon S3, Google Cloud Storage, or Firebase Storage.
 
 <div align= "center">
- <img src="frontend/public/readmeImg/imageStructureExample.png" alt="Logo"  height="240">
+ <img src="API_RESTFULL/frontend/public/readmeImg/imageStructureExample.png" alt="Logo"  height="240">
 </div>
 
 - **Advantages**
