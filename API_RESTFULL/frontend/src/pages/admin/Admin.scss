@@ -1,5 +1,24 @@
 @import '/src/global.scss';
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+details {
+  & > *:not(summary) {
+    opacity: 0; // Empiezan ocultos
+    transform: translateY(-10px);
+  }
+}
+
+
 .page-admin-container {
   width: 100%;
   height: 100vh;
@@ -13,10 +32,38 @@ main#admin-home {
   details {
     width: 100vw;
     background-color: var(--background-1);
-    // cursor: pointer;
     color: var(--text-1);
+    border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s ease-in-out;
+
+    summary {
+      cursor: pointer;
+      padding: 10px;
+      font-weight: bold;
+      background: var(--background-2);
+      border-radius: 5px;
+    }
+
+    // Ocultar los elementos internos antes de abrir
+    & > *:not(summary) {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 section#section-log-out {
   cursor: pointer;
