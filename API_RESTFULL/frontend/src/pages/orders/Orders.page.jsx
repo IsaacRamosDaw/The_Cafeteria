@@ -14,11 +14,14 @@ import "./Orders.scss";
 
 // Contexts
 import OrderContext from "../../contexts/OrderContext";
+import WebSocketContext from "../../contexts/WebSocketsContext";
 
 function Orders() {
   const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
-  const { orders, setOrders, orderCart, orderLineCart, removeOrderById  } = useContext(OrderContext);
+  const { orders, setOrders, orderLineCart, removeOrderById  } = useContext(OrderContext);
+
+  const { notifications } = useContext(WebSocketContext)
 
   useEffect(() => {
     setUserId(getUserId());
@@ -42,7 +45,7 @@ function Orders() {
     }
 
     fetchOrders();
-  }, [userId, role, userId, setOrders, orderCart]);
+  }, [notifications, setOrders, userId, role]);
 
   const handleDelete = async (id) => {
     removeOrderById(id) 

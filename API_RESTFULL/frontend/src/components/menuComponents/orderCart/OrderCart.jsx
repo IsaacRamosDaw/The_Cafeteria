@@ -6,6 +6,7 @@ import { FaTrash } from "react-icons/fa";
 
 import "./OrderCart.scss";
 import WebSocketContext from "../../../contexts/WebSocketsContext";
+import { getUserId } from "../../../services/utils";
 
 export default function OrderCart() {
   const [orderLine, setOrderLine] = useState([]);
@@ -19,10 +20,13 @@ export default function OrderCart() {
   const makeOrder = () => {
     try {
       createOrder();
+
       sendMessage( JSON.stringify({
         type: "notification",
         data: {
-          message: "new Order"
+          message: "new order created",
+          notificationType: "newOrder",
+          userId: getUserId()
         },
       }) )
     } catch (error) {

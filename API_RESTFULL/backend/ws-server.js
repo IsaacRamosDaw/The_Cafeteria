@@ -27,7 +27,14 @@ wss.on("connection", (ws) => {
 
     log("Message received: ", msg);
 
+    if (msg.type === "notification") {
+      log("Notification received: ", msg);
+      ws.send( JSON.stringify(msg) )
+      
+    }
+
     if (msg.type === "auth") {
+      log("Auth message received: ", msg);
       ws.userId = msg.data.userId;
       ws.userRole = msg.data.userRole;
 
@@ -44,21 +51,20 @@ wss.on("connection", (ws) => {
         },
       })
     );
-
   });
 });
 
 const updateOrder = (orderId, userId) => {
   wss.clients.forEach((client) => {
-    console.log("User in bucle: ", client);
     if (client.readyState === WebSocket.OPEN && client.userId === userId) {
-      log("Cliente found: ", client);
       client.send(
         JSON.stringify({
           type: "notification",
           data: {
+            notificationType: "orderUpdate",
             orderId: orderId,
             status: "completed",
+            timeStamps: Date.toString()
           },
         })
       );

@@ -71,9 +71,7 @@ const OrdersContextProvider = ({ children }) => {
 
     if (responseOrderLines.statusText !== "OK") success = false;
 
-    
-
-    clearOrder();
+    clearOrder()
     return true;
   };
 

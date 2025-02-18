@@ -27,7 +27,7 @@ function Order({
   const [orderLine, setOrderLine] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
 
-  const { eraseOrder, removeOrderById } = useContext(OrderContext)
+  const { removeOrderById } = useContext(OrderContext)
 
   let role = getUserRole();
 
@@ -76,14 +76,13 @@ function Order({
     fetchAllData();
   }, [orderId, dateParam, studentIdParam]);
 
-  const deleteOrder = () => {
-    deleted(orderId);
-  };
+  const cancelOrder = () => {
+    
+  }
 
-  const orderDone = () => {
-    finishOrder(orderId);
+  const orderDone = async () => {
+    await finishOrder(orderId);
     removeOrderById(orderId)
-    // deleteOrder();
   };
 
   return (
@@ -142,7 +141,7 @@ function Order({
           <Button
             className="btn-card-order btn-done"
             text={"Cancelar"}
-            onClick={deleteOrder}
+            onClick={cancelOrder}
           />
         )}
       </div>
