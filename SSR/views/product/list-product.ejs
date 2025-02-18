@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>Listado de productos</h2>
+
+  <% for (let product of products) { %>
+  <h2>Nombre : <%= product.name %> <span> id: <%= product.id %></span></h2>
+  <button class="delete-button" data-id="<%= product.id %>">Eliminar</button>
+  <a href="/api/view/products/edit/<%= product.id %>">
+    <button class="edit-button">Editar</button>
+  </a>
+  <% } %>
+  <script>
+    const endpoint = '/api/products/'
+    const buttons = document.querySelectorAll('.delete-button');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.delete-button');
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          console.log(endpoint + id);
+          fetch(endpoint + id, {
+              method: 'DELETE',
+            })
+            .then((res) => {
+              if (!res.ok) {
+                console.log("error al eliminar el producto");
+              }
+              e.target.parentElement.remove();
+            })
+            .catch((err) => {
+              console.log("ha habido un problema en la red" + err.message);
+            });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,31 +1,31 @@
 module.exports = (app) => {
-    const product = require("../controllers/product.controller.js");
-	const auth = require("../controllers/auth.js");
+	const product = require("../controllers/product.controller.js");
     var router = require("express").Router();
 
-    // List all products
-    router.get("/", auth.isAuthenticated, product.findAll);
 
-    // Get one product
-    router.get("/:id", auth.isAuthenticated, product.findOne);
+		// List all products
+		router.get("/", product.findAll);
 
-    //List products by category
-    router.get("/categories/:id", product.findByCategory);
+		// Get one product
+		router.get("/:id", product.findOne);
 
-    //Get first product of a category
-    router.get("/category/:id", product.findFirstOfCategory);
+		//List products by category
+		router.get("/categories/:id", product.findByCategory);
 
-    // Count products
-    router.get("/count/:id", product.countByCategory);
+		//Get first product of a category
+		router.get("/category/:id", product.findFirstOfCategory);
 
-    //Create an Product
-    router.post("/", auth.isAuthenticated, product.create);
+		// Count products
+		router.get("/count/:id", product.countByCategory);
 
-    // Update Product
-    router.put("/:id", auth.isAuthenticated, product.update);
+		//Create an Product
+		router.post("/", product.create);
 
-    //Delete Product
-    router.delete("/:id",  auth.isAuthenticated, product.delete);
+		// Update Product
+		router.put("/:id", product.update);
 
-    app.use('/api/products', router);
+		//Delete Product
+		router.delete("/:id", product.delete);
+		
+	app.use('/api/products', router);
 };  

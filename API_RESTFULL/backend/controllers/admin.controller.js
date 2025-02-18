@@ -33,7 +33,7 @@ console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         const token = utils.generateToken(data);
         const adminObj = utils.getCleanUser(data);
 
-        return res.json({ admin: adminObj, access_token: token });
+        return res.status(200).json({ admin: adminObj, access_token: token });
       }
       console.log("llagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       Admin.create(admin)
@@ -44,7 +44,8 @@ console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
           const adminObj = utils.getCleanUser(data);
           console.log("After clean user", adminObj);
 
-          return res.json({ admin: adminObj, access_token: token });
+         return res.status(201).json({ message: "Admin created successfully", admin: adminObj, access_token: token });
+
         })
         .catch((err) => {
           res.status(500).send({
@@ -78,7 +79,6 @@ exports.findAll = async (req, res) => {
 
   try {
     const admins = await Admin.findAll();
-
     return res.json(admins);
   } catch (err) {
     return res.status(500).json({
@@ -201,7 +201,7 @@ exports.delete = (req, res) => {
     .then((deleted) => {
       if (deleted) {
         console.log("Admin with id:", id, "was deleted.");
-        res.json({ message: "Admin deleted successfully." });
+        res.json({ message: "Admin was deleted successfully." });
       } else {
         console.log("Admin with id:", id, "was not found.");
         res.status(404).json({ message: "Admin not found." });

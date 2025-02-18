@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit worker</title>
+  </head>
+  <body>
+    <h1> Update worker <%= worker.id %> </h1>
+    <form id="worker-form-edit" data-id="<%= worker.id %>" >
+      <label for="username">Nombre:</label>
+      <input type="text" id="username" value="<%= worker.username %>" name="username" />
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" />
+
+      <label for="phone">Telefono:</label>
+      <input type="phone" value="<%= worker.phone %>" id="phone" name="phone" />
+
+      <label for="file">Foto de perfil:</label>
+      <input type="file" id="file" name="file" />
+
+      <button type="submit">Actualizar</button>
+    </form>
+    <a href="/admin">Volver</a>
+
+    <script src="/js/workers/forms.js"></script>
+  </body>
+</html>

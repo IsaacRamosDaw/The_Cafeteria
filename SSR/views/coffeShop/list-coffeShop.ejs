@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>listado de cafeterias </h2>
+  <% for (let coffeShop of coffeShops) { %>
+  <h2>Nombre : <%= coffeShop.name %> || ID : <%= coffeShop.id %></h2>
+  <button class="delete-button" data-id="<%= coffeShop.id %>">Eliminar</button>
+  <a href="/api/view/coffeShop/edit/<%= coffeShop.id %>">
+    <button class="edit-button">Editar</button>
+  </a>
+  <% } %>
+
+  <script>
+    const buttons = document.querySelectorAll('.delete-button');
+    buttons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        console.log('/api/coffeShop/' + id);
+        fetch('/api/coffeShop/'+ id, {
+            method: 'DELETE',
+          })
+          .then((res) => {
+            if (!res.ok) {
+              console.log("error al eliminar el estudiante");
+            }
+            e.target.parentElement.remove();
+
+          }).catch((err) => {
+            console.log("ha habido un problema en la red")
+          })
+      })
+    })
+  </script>
+</body>
+
+</html>
