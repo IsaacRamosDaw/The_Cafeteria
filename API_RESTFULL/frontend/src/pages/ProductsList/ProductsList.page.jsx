@@ -44,6 +44,7 @@ export default function ProductsList() {
               title={product.name}
               img={product.filename}
               id={product.id}
+              altText={`Imagen del producto ${product.name}`}
             />
           ))}
         </div>

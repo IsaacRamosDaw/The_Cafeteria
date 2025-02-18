@@ -1,0 +1,103 @@
+@import '/src/global.scss';
+
+.order-card {
+  background-color: var(--background-2);
+  width: 70%;
+  // max-width: 290px;
+  padding: 20px;
+  border-radius: 15px;
+  @include flex-items(column);
+  gap: 10px;
+
+  .card-order-header {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-3);
+    font-size: $font-size-small;
+    font-weight: 500;
+  }
+
+  .text-name-student {
+    text-align: start;
+    color: var(--text-1);
+    width: 90%;
+    @include flex-items;
+
+    span {
+      margin: 0 5px;
+    }
+  }
+
+  .card-order-content {
+    width: 100%;
+    @include flex-items(column);
+
+    li {
+      padding: 5px;
+      background-color: var(--borders-separators-2);
+      display: flex;
+      justify-content: space-between;
+      width: 95%;
+      font-weight: 600;
+      color: var(--text-2);
+
+      p {
+        font-weight: 500;
+      }
+
+
+    }
+  }
+
+  .container-btn-card-order {
+    width: 100%;
+    @include flex-items;
+    gap: 10px;
+    height: 28px;
+
+    .btn-card-order {
+      flex: 1;
+      height: 100%;
+      border-radius: 7px;
+      border: 0;
+      background-color: var(--interactive-2);
+      color: var(--text-1);
+      font-size: $font-size-small;
+      font-weight: bold;
+      @include flex-items;
+    }
+
+    .btn-card-order:active {
+      transform: scale(.8);
+    }
+
+    .btn-done {
+      background-color: $primary-color;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+
+  // OWNER SIDE
+
+  .order-card {
+
+    header.card-order-header {
+      p {
+        font-size: $font-size-medium-big;
+        font-weight: 700;
+      }
+    }
+
+    .card-order-content p {
+      font-size: $font-size-medium-big;
+    }
+
+    .container-btn-card-order .btn-card-order {
+      height: 125%;
+      font-size: 1.5em;
+    }
+  }
+}

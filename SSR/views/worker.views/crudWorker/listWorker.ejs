@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admins</title>
+  </head>
+  <body>
+    <h2>Listado de Trabajadores</h2>
+    <ul>
+      <% for (let worker of workers) { %>
+      <li>
+        <%= worker.username %>
+        <button
+          onclick="deleteWorker('<%= worker.id %>')"
+          class="btn-delete"
+        >
+          Eliminar
+        </button>
+        <a href="/worker/edit/<%= worker.id %>">
+          <button class="edit-button">Editar</button>
+        </a>
+        <% } %>
+      </li>
+    </ul>
+    <a href="/worker/create"> Crear Trabajador </a>
+    <script src="/js/workers/forms.js"></script>
+  </body>
+</html>

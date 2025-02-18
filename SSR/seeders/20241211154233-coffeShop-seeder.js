@@ -7,7 +7,18 @@ module.exports = {
     [
       {
         name: "Rincon's Mug",
-        filename: "img-test.jpeg"
+        filename: "img-test.jpeg",
+        AdminId: 1
+      },
+      {
+        name: "Palermo's coffe",
+        filename: "img-test.jpeg",
+        AdminId: 2
+      },
+      {
+        name: "Pablito segundito",
+        filename: "img-test.jpeg",
+        AdminId: 2
       },
     ]
     , {});
@@ -17,6 +28,3 @@ module.exports = {
     await queryInterface.bulkDelete("coffeshops", null, {});
   },
 };
-
-// npx sequelize-cli db:seed --seed 20241209133620-coffeShop-seeder.js
-// npx sequelize-cli db:seed:all 

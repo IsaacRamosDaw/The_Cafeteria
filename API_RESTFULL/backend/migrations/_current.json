@@ -72,7 +72,7 @@
                     "field": "filename",
                     "seqType": "Sequelize.STRING"
                 },
-                "CoffeShopId": {
+                "coffeShop": {
                     "allowNull": true,
                     "references": {
                         "model": "CoffeShops",
@@ -80,7 +80,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "CoffeShopId",
+                    "field": "coffeShop",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -128,7 +128,7 @@
                     "field": "filename",
                     "seqType": "Sequelize.STRING"
                 },
-                "CourseId": {
+                "courseId": {
                     "allowNull": true,
                     "references": {
                         "model": "Courses",
@@ -136,7 +136,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "CourseId",
+                    "field": "courseId",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -156,7 +156,7 @@
                     "field": "amount",
                     "seqType": "Sequelize.DECIMAL"
                 },
-                "StudentId": {
+                "studentId": {
                     "allowNull": true,
                     "references": {
                         "model": "Students",
@@ -164,7 +164,7 @@
                     },
                     "onDelete": "cascade",
                     "onUpdate": "CASCADE",
-                    "field": "StudentId",
+                    "field": "studentId",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -204,7 +204,7 @@
                     "field": "filename",
                     "seqType": "Sequelize.STRING"
                 },
-                "CoffeShopId": {
+                "coffeShop": {
                     "allowNull": true,
                     "references": {
                         "model": "CoffeShops",
@@ -212,7 +212,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "CoffeShopId",
+                    "field": "coffeShop",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -289,7 +289,7 @@
                     "field": "filename",
                     "seqType": "Sequelize.STRING"
                 },
-                "CategoryId": {
+                "categoryId": {
                     "allowNull": true,
                     "references": {
                         "model": "Categories",
@@ -297,10 +297,10 @@
                     },
                     "onDelete": "cascade",
                     "onUpdate": "CASCADE",
-                    "field": "CategoryId",
+                    "field": "categoryId",
                     "seqType": "Sequelize.INTEGER"
                 },
-                "CoffeShopId": {
+                "coffeShop": {
                     "allowNull": true,
                     "references": {
                         "model": "CoffeShops",
@@ -308,7 +308,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "CoffeShopId",
+                    "field": "coffeShop",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -329,7 +329,11 @@
                     "field": "date",
                     "seqType": "Sequelize.DATE"
                 },
-                "StudentId": {
+                "status": {
+                    "field": "status",
+                    "seqType": "Sequelize.STRING"
+                },
+                "studentId": {
                     "allowNull": true,
                     "references": {
                         "model": "Students",
@@ -337,18 +341,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "StudentId",
-                    "seqType": "Sequelize.INTEGER"
-                },
-                "ProductId": {
-                    "allowNull": true,
-                    "references": {
-                        "model": "Products",
-                        "key": "id"
-                    },
-                    "onDelete": "SET NULL",
-                    "onUpdate": "CASCADE",
-                    "field": "ProductId",
+                    "field": "studentId",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
@@ -373,7 +366,7 @@
                     "field": "filename",
                     "seqType": "Sequelize.STRING"
                 },
-                "AdminId": {
+                "admin": {
                     "allowNull": true,
                     "references": {
                         "model": "Admins",
@@ -381,12 +374,77 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "AdminId",
+                    "field": "admin",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Inventories": {
+            "tableName": "Inventories",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "quantity": {
+                    "field": "quantity",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "orderLines": {
+            "tableName": "orderLines",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "quantity": {
+                    "allowNull": false,
+                    "field": "quantity",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "unitPrice": {
+                    "field": "unitPrice",
+                    "seqType": "Sequelize.DECIMAL"
+                },
+                "orderId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Orders",
+                        "key": "id"
+                    },
+                    "onDelete": "cascade",
+                    "onUpdate": "CASCADE",
+                    "field": "orderId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "productId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Products",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "productId",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
         }
     },
-    "revision": 1
+    "revision": 2
 }

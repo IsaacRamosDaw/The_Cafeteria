@@ -2,7 +2,7 @@
 
 .order-card {
   background-color: var(--background-2);
-  width: 70%;
+  width: 80%;
   // max-width: 290px;
   padding: 20px;
   border-radius: 15px;
@@ -30,23 +30,51 @@
   }
 
   .card-order-content {
-    width: 100%;
-    @include flex-items(column);
-
-    li {
-      padding: 5px;
-      background-color: var(--borders-separators-2);
+    width: 100%; // Ocupa todo el ancho del contenedor
+    display: flex;
+    flex-direction: column; // Organiza los elementos en columna
+  
+    thead {
+      width: 100%; // Ancho completo
       display: flex;
-      justify-content: space-between;
-      width: 95%;
-      font-weight: 600;
-      color: var(--text-2);
+      justify-content: space-around; // Distribuye las columnas equitativamente
+      background-color: var(--borders-separators-2); // Fondo suave
+      color: var(--text-2); // Color de texto
+      font-weight: bold; // Negrita para destacar
 
-      p {
-        font-weight: 500;
+      .container-quantity-table-orders{
+        width: 10px;
       }
+  
+      th {
+        padding: 10px; // Espaciado interno
+        text-align: center; // Alineación centrada
+        flex: 1; // Cada columna ajusta su tamaño automáticamente
+      }
+    }
+  
+    tbody {
+      width: 100%; // Ancho completo
+      color: var(--text-2); // Color de texto
+      background-color: transparent; // Sin fondo visible
 
-
+      .container-quantity-table-orders{
+        width: 10px;
+      }
+  
+      tr {
+        width: 100%; // Ancho completo
+        display: grid;
+        grid-template-columns: .2fr 1.8fr .2fr .2fr;
+        
+      }
+    }
+  
+    h4 {
+      margin: 10px 0; // Margen superior e inferior
+      text-align: center; // Centrado horizontal
+      color: var(--text-3); // Color de texto alternativo
+      font-style: italic; // Itálica para destacar
     }
   }
 

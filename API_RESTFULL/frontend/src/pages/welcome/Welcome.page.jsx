@@ -3,13 +3,17 @@ import Button from "../../components/button/Button";
 import Label from "../../components/label/Label";
 import "./Welcome.scss";
 import { login } from "../../services/welcome.service";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
+import WebSocketContext from "../../contexts/WebSocketsContext";
+
 function Welcome() {
   const navigate = useNavigate();
+
+  const { logIn } = useContext(WebSocketContext)
 
   const [invalidUser, setInvalidUser] = useState(true);
 
@@ -26,7 +30,9 @@ function Welcome() {
     try {
       const user = await login({ username: name, password: password });
 
-      user.role === "admin" ? navigate("/dashboard") : navigate("/menu");
+      logIn()
+
+      user.role === "admin" ? navigate("/dashboard", {user}) : navigate("/menu", {user});
     } catch (error) {
       setInvalidUser(false); // Mostramos el mensaje de error
     }

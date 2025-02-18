@@ -1,29 +1,26 @@
 module.exports = (app) => {
 	const student = require("../controllers/student.controller.js");
-	const auth = require("../controllers/auth.js");
-	var upload = require("../multer/upload.js")
+	const authSession = require("../controllers/auth.session.js");
+	const multer = require('../multer/upload.js')
+
+    const upload = multer({dest: '../public/images/student'})
 
 	var router = require("express").Router();
 
-	// router.post('/signin', (req, res) => auth.signin(req, res, 'student'));
-
-	//Create an student
-	router.post("/", student.create);
-
 	//List all students
-	router.get("/", auth.isAuthenticated, student.findAll);
+	router.get("/", authSession.isAuthenticated, student.findAll);
 
 	// Retrieve one student
-	router.get("/:id", auth.isAuthenticated, student.findOne);
+	router.get("/:id", authSession.isAuthenticated, student.findOne);
+
+	//Create an student
+	router.post("/", authSession.isAuthenticated, upload.single('file'), student.create);
 
 	// Update student
-	router.put("/:id", auth.isAuthenticated, student.update);
-
-	// Update photo
-	router.put("/upload/:id", upload.single('file'), student.imgUpdate);
+	router.put("/:id", authSession.isAuthenticated, upload.single('file'), student.update);
 
 	//Delete student 
-	router.delete("/:id", auth.isAuthenticated, student.delete);
+	router.delete("/:id", authSession.isAuthenticated, student.delete);
 
 	app.use('/api/student', router);
 

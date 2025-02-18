@@ -4,6 +4,7 @@ import WorkerContainer from "../../components/adminComponents/workerContainer/Wo
 import CoffeContainer from "../../components/adminComponents/coffeShopContainer/CoffeShopContainer";
 import CourseContainer from "../../components/adminComponents/courseContainer/CourseContainer";
 import "./Admin.scss";
+import { useEffect } from "react";
 
 //React icons
 import { IoIosLogOut } from "react-icons/io";
@@ -21,7 +22,13 @@ import LocalCafe from "@mui/icons-material/LocalCafe";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 
+import WebSocketContext from "../../contexts/WebSocketsContext";
+import { useContext } from "react";
+
 function Admin() {
+
+  const { logOut } = useContext(WebSocketContext)
+
   const navigate = useNavigate();
 
   const actions = [
@@ -32,11 +39,40 @@ function Admin() {
     { icon: <School />, name: "Colegio", to: "/school" },
   ];
 
+  useEffect(() => {
+    const detailsElements = document.querySelectorAll("details");
+  
+    detailsElements.forEach((detail) => {
+      detail.addEventListener("toggle", () => {
+        const children = detail.querySelectorAll(":scope > *:not(summary)");
+        
+        if (detail.open) {
+          // Hacer que cada hijo aparezca con retraso escalonado
+          children.forEach((child, index) => {
+            child.style.opacity = "0";  // Asegurarse de que inicia oculto
+            child.style.transform = "translateY(-10px)";
+            setTimeout(() => {
+              child.style.animation = `fadeIn 0.4s ease-in-out forwards`;
+            }, index * 200); // 200ms de retraso entre cada uno
+          });
+        } else {
+          // Resetear animación al cerrar
+          children.forEach((child) => {
+            child.style.animation = "none";
+            child.style.opacity = "0";
+            child.style.transform = "translateY(-10px)";
+          });
+        }
+      });
+    });
+  }, []);
+  
   const goTo = (page) => {
     navigate(page);
   };
 
   const clearToken = () => {
+    logOut()
     localStorage.removeItem("token");
     navigate("/");
   };

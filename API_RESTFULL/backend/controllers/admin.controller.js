@@ -22,18 +22,20 @@ exports.create = (req, res) => {
   console.log(admin);
 
   admin.password = bcrypt.hashSync(req.body.password);
-
+console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   Admin.findOne({ where: { username: admin.username } })
     .then((data) => {
+      console.log("dentroooooooooooooooooooooooooo")
       if (data) {
+        console.log("mas adentroooooooooooooooooo")
         const result = bcrypt.compareSync(req.body.password, data.password);
         if (!result) return res.status(401).send("Password not valid!");
         const token = utils.generateToken(data);
         const adminObj = utils.getCleanUser(data);
 
-        return res.json({ admin: adminObj, access_token: token });
+        return res.status(200).json({ admin: adminObj, access_token: token });
       }
-
+      console.log("llagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       Admin.create(admin)
         .then((data) => {
           console.log("After create", data);
@@ -42,21 +44,24 @@ exports.create = (req, res) => {
           const adminObj = utils.getCleanUser(data);
           console.log("After clean user", adminObj);
 
-          return res.json({ admin: adminObj, access_token: token });
+         return res.status(201).json({ message: "Admin created successfully", admin: adminObj, access_token: token });
+
         })
         .catch((err) => {
           res.status(500).send({
             message: err.message || "Some error while creating the Admin.",
           });
         });
-    })
-
-    .catch((err) => {
+    }).catch((err) => {
+      console.log("este es el errorrrrrrrrrrrrrrrrrrrrrr")
+      console.log(err.message)
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials.",
       });
     });
+
+  console.log("finallllllllllllllllllllllllllllllllllllllllllll")
 };
 
 exports.findAll = async (req, res) => {
@@ -74,7 +79,6 @@ exports.findAll = async (req, res) => {
 
   try {
     const admins = await Admin.findAll();
-
     return res.json(admins);
   } catch (err) {
     return res.status(500).json({
@@ -197,7 +201,7 @@ exports.delete = (req, res) => {
     .then((deleted) => {
       if (deleted) {
         console.log("Admin with id:", id, "was deleted.");
-        res.json({ message: "Admin deleted successfully." });
+        res.json({ message: "Admin was deleted successfully." });
       } else {
         console.log("Admin with id:", id, "was not found.");
         res.status(404).json({ message: "Admin not found." });

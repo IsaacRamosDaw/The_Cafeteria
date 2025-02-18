@@ -1,26 +1,28 @@
-import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./global.scss";
 
-
 // import Home from "./pages/home/Home.jsx";
 // import StudentCredits from "./pages/settings/studentSettings/creditSettings/CreditSetting.jsx";
-// import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx"; 
+// import StudentFavs from "./pages/settings/studentSettings/favorites/Favorites.jsx";
 // import StudentData from "./pages/account/Account";
 
+// Contexts
+import { ThemeProvider } from "./contexts/ThemeContext";
+import OrdersContextProvider from "./contexts/OrderContextProvider.jsx";
+import WebSocketsContextProvider from "./contexts/WebSocketsContextProvider.jsx";
 
 //! Shared Pages
-import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login 
-import Orders from "./pages/orders/Orders.page.jsx"; //* Orders 
+import Welcome from "./pages/welcome/Welcome.page.jsx"; //* Login
+import Orders from "./pages/orders/Orders.page.jsx"; //* Orders
 import Menu from "./pages/menu/Menu.page.jsx"; //* Menu which decides what show inside by user role
-import Policy from "./pages/settings/policy/Policy.page.jsx"; //* Private poicy    
+import Policy from "./pages/settings/policy/Policy.page.jsx"; //* Private poicy
 import ErrorPage from "./pages/errorPage/ErrorPage.jsx"; //* Error if you dont't have token
 
 //! Admin Pages
 import Admin from "./pages/admin/Admin.page.jsx"; //* Admin dashboard
-import AdminForm from "./components/adminComponents/forms/adminForms/AdminForm.jsx"
+import AdminForm from "./components/adminComponents/forms/adminForms/AdminForm.jsx";
 import CoffeShopsForms from "./components/adminComponents/forms/coffeShopsForms/CoffeShopsForms.jsx";
-import SchoolForm from "./components/adminComponents/forms/schoolForms/SchoolForm.jsx"
+import SchoolForm from "./components/adminComponents/forms/schoolForms/SchoolForm.jsx";
 
 //! Student Pages
 import StudentForm from "./pages/form/StudentForm.page.jsx"; //* Student form to register
@@ -37,61 +39,74 @@ import WorkerUpdate from "./pages/settings/workerSettings/workerUpdate/WorkerUpd
 import WorkerForm from "./components/adminComponents/forms/workerForms/WorkerForm.jsx";
 import CourseForm from "./components/adminComponents/forms/coursesForms/CourseForm.jsx";
 
+//! WebSocket Pages
+
 function App() {
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
+    <OrdersContextProvider>
+      <WebSocketsContextProvider>
+        <ThemeProvider>
+          <Router>
+            <Routes>
+              <Route path="*" element={<Welcome />} />
 
-          <Route path="*" element={<Welcome />} />
+              {/* Page routes */}
+              <Route path="/" element={<Welcome />} />
+              {/* <Route path="/home" element={<Menu />} /> */}
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/profile/policy" element={<Policy />} />
+              <Route path="/error" element={<ErrorPage />} />
 
-          {/* Page routes */}
-          <Route path="/" element={<Welcome />} />
-          <Route path="/home" element={<Menu />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/profile/policy" element={<Policy />} />
-          <Route path="/error" element={<ErrorPage />} />
+              {/* Admin routes */}
+              <Route path="/dashboard" element={<Admin />} />
+              <Route path="/admin" element={<AdminForm />} />
+              <Route path="/admin/:id" element={<AdminForm />} />
+              <Route path="/course" element={<CourseForm />} />
+              <Route path="/course/:id" element={<CourseForm />} />
 
-          {/* Admin routes */}
-          <Route path="/dashboard" element={<Admin />} />
-          <Route path="/admin" element={<AdminForm />} />
-          <Route path="/admin/:id" element={<AdminForm />} />
-          <Route path="/course" element={<CourseForm />} />
-          <Route path="/course/:id" element={<CourseForm />} />
+              {/* School routes */}
+              <Route path="/school" element={<SchoolForm />} />
+              <Route path="/school/:id" element={<SchoolForm />} />
 
-          {/* School routes */}
-          <Route path="/school" element={<SchoolForm />} />
-          <Route path="/school/:id" element={<SchoolForm />} />
+              {/* CoffeShop routes */}
+              <Route path="/coffeShop" element={<CoffeShopsForms />} />
+              <Route path="/coffeShop/:id" element={<CoffeShopsForms />} />
 
-          {/* CoffeShop routes */}
-          <Route path="/coffeShop" element={<CoffeShopsForms />} />
-          <Route path="/coffeShop/:id" element={<CoffeShopsForms />} />
+              {/* Worker routes */}
+              <Route path="/worker" element={<WorkerForm />} />
+              <Route path="/worker/:id" element={<WorkerForm />} />
+              <Route path="/worker/profile" element={<WorkerProfile />} />
+              <Route
+                path="/worker/profile/mycafeteria"
+                element={<WorkerCoffeShop />}
+              />
+              <Route path="/worker/profile/update" element={<WorkerUpdate />} />
 
-          {/* Worker routes */}
-          <Route path="/worker" element={<WorkerForm />} />
-          <Route path="/worker/:id" element={<WorkerForm />} />
-          <Route path="/worker/profile" element={<WorkerProfile />} />
-          <Route path="/worker/profile/mycafeteria" element={<WorkerCoffeShop />} />
-          <Route path="/worker/profile/update" element={<WorkerUpdate />} />
+              {/* student routes */}
+              <Route path="/form" element={<StudentForm />} />
+              <Route path="/student/profile" element={<StudentProfile />} />
+              <Route
+                path="/student/profile/mycafeteria"
+                element={<StudentCoffeShop />}
+              />
+              <Route
+                path="/student/profile/update"
+                element={<StudentUpdate />}
+              />
+              <Route path="/menu/:category" element={<ProductsList />} />
+              <Route path="/menu/:category/:name" element={<Product />} />
 
-          {/* student routes */}
-          <Route path="/form" element={<StudentForm />} />
-          <Route path="/student/profile" element={<StudentProfile />} />
-          <Route path="/student/profile/mycafeteria" element={<StudentCoffeShop />} />
-          <Route path="/student/profile/update" element={<StudentUpdate />} />
-          <Route path="/menu/:category" element={<ProductsList />} />
-          <Route path="/menu/:category/:name" element={<Product />} />
-
-          {/* <NEXT SEASON ROUTES /> */}
-          {/* <Route path="/home" element={<Home />} /> */}
-          {/* <Route path="/student/profile/credits" element={<StudentCredits />} /> */}
-          {/* <Route path="/student/profile/data" element={<StudentData />} /> */}
-          {/* <Route path="/student/profile/favs" element={<StudentFavs />} /> */}
-
-        </Routes>
-      </Router>
-    </ThemeProvider>
+              {/* <NEXT SEASON ROUTES /> */}
+              {/* <Route path="/home" element={<Home />} /> */}
+              {/* <Route path="/student/profile/credits" element={<StudentCredits />} /> */}
+              {/* <Route path="/student/profile/data" element={<StudentData />} /> */}
+              {/* <Route path="/student/profile/favs" element={<StudentFavs />} /> */}
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </WebSocketsContextProvider>
+    </OrdersContextProvider>
   );
 }
 

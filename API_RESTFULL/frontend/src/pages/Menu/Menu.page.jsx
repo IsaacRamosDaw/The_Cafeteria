@@ -6,6 +6,7 @@ import MenuOwner from "../menuOwner/MenuOwner";
 import "./Menu.scss";
 
 function Menu() {
+
   return (
     <div id="menu-page-container">
       <SearchBar />

@@ -16,13 +16,14 @@ function StudentForm() {
   });
 
   const [courses, setCourses] = useState([]);
+  const [error, setError] = useState(null);  // Añadido para manejar el error
 
   const navigate = useNavigate();
 
   useEffect(() => {
     get()
       .then((data) => setCourses(data))
-      .catch((error) => console.error("Error :", error));
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   function handleSubmit(evt) {
@@ -35,12 +36,12 @@ function StudentForm() {
       })
       .catch((error) => {
         console.error("Error creating the user:", error);
+        setError("Error creando el usuario");  // Establece el error aquí
       });
   }
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-    console.log(`Field changed: ${name}, Value: ${value}`); // For debugging
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -101,6 +102,7 @@ function StudentForm() {
         </div>
         <Button submit={true} text="Registrarme" />
       </form>
+      {error && <p>{error}</p>}
       <p className="register-form-text">
         ¿Tienes una cuenta?
         <Link className="link-to-register" to="/">

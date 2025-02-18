@@ -5,6 +5,12 @@
   height: 140px;
   position: relative;
   cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+  transform-origin: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
   
   img{
     width: 95%;
