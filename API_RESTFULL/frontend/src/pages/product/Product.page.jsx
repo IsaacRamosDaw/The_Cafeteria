@@ -103,6 +103,7 @@ function Product() {
             alt={`${product.name || "Producto"} image`}
             className="product-image"
           />
+          
         </div>
         <div className="container-description-product">
           <h3 className="title-product">

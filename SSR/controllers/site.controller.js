@@ -1,5 +1,6 @@
 //!TO CHECK
 //? OK? 
+
 const db = require("../models");
 const Student = db.student;
 const Admin = db.admins;
@@ -23,3 +24,5 @@ exports.login = async (userData) => {
 
   return null;
 }
+
+

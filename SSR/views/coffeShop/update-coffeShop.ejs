@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>update</h1>
+  <h2><%= coffeShop.id %></h2>
+  <form id="update-coffeShop-form" data-id="<%= coffeShop.id %>">
+    <label for="name">Nombre de la cafeteria</label>
+    <input type="text" name="name" value="nuevo nombraso">
+    <label for="AdminId">Id del admin</label>
+    <input type="number" name="AdminId" value="1">
+    <button type="submit">Actualizar</button>
+  </form>
+  <script>
+    const form = document.getElementById('update-coffeShop-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const id = form.getAttribute('data-id');
+
+      const formData = new FormData(form);
+      const coffeShopUpdateData = {
+        name: formData.get("name"),
+        AdminId: formData.get("AdminId")
+      }
+
+      try {
+        const response = await fetch("/api/coffeShop/" + id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(coffeShopUpdateData),
+        });
+        if (response.ok) {
+          window.location.href = '/api/view/coffeShop'
+        }
+      } catch (err) {
+        console.error('Error de red:', err.message);
+        alert('Error al conectar con el servidor');
+      }
+    });
+  </script>
+</body>
+
+</html>

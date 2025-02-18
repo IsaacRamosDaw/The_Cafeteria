@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <h1>Bienvenido!</h1>
+
+    <hr />
+
+    <div id="container-lists-admin">
+      <div class="container-list-dashboard">
+        <%- include('./crudAdmin/listAdmins.ejs') %>
+      </div>
+      <div class="container-list-dashboard">
+        <%- include('../student/list-student.ejs') %>
+      </div>
+      <div class="container-list-dashboard">
+        <%- include('../worker.views/crudWorker/listWorker.ejs') %>
+      </div>
+    </div>
+
+    <hr />
+
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+  </body>
+</html>

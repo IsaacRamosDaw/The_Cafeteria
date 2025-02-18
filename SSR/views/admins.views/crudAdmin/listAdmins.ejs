@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admins</title>
+  </head>
+  <body>
+    <h2>Listado de admins</h2>
+    <ul>
+      <% for (let a of admins) { %>
+      <li>
+        <%= a.username %>
+        <button class="delete-button" data-id="<%= a.id %>">Eliminar</button>
+        <a href="/admin/edit/<%= a.id %>">
+          <button class="edit-button">Editar</button>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+
+    <a href="/admin/create"> Crear Admin </a>
+    <script src="/js/admins/crudAdminJs/deleteAdmin.js" defer></script>
+  </body>
+</html>

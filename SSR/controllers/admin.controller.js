@@ -1,116 +1,94 @@
-//!TO CHECK
 const db = require("../models");
-const Admin = db.admins;
 const Op = db.sequelize.Op;
-const utils = require("../utils");
 const bcrypt = require("bcryptjs");
+
+const Admin = db.admins;
+const Student = db.student
+const Worker = db.worker
 
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
+    console.log("Crear admin: ", req.body);
+    return res.json({ message: "Content cannot be empty! " });
   }
 
   let admin = {
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password),
     role: "admin",
     filename: req.file ? req.file.filename : "",
   };
 
-  console.log(admin);
-
-  admin.password = bcrypt.hashSync(req.body.password);
+  console.log("Create admin controller: ", admin);
 
   Admin.findOne({ where: { username: admin.username } })
     .then((data) => {
       if (data) {
-        const result = bcrypt.compareSync(req.body.password, data.password);
-        if (!result) return res.status(401).send("Password not valid!");
-        const token = utils.generateToken(data);
-        const adminObj = utils.getCleanUser(data);
-
-        return res.json({ admin: adminObj, access_token: token });
+        return res.json({ message: "The username already exists!" });
       }
 
       Admin.create(admin)
-        .then((data) => {
-          console.log("After create", data);
-          const token = utils.generateToken(data);
-          console.log("After create the token", token);
-          const adminObj = utils.getCleanUser(data);
-          console.log("After clean user", adminObj);
-
-          return res.json({ admin: adminObj, access_token: token });
+        .then(() => {
+          res.redirect("/admin");
         })
         .catch((err) => {
-          res.status(500).send({
-            message: err.message || "Some error while creating the Admin.",
+          res.json({
+            message:
+              "Error creating the admin: " + (err.message || "Uknown error"),
           });
         });
     })
-
     .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
+      res.json({
+        message: "Error finding the admin: " + (err.message || "Uknown error"),
       });
     });
 };
 
-exports.findAll = async (req, res) => {
-  if (!req.user) {
-    return res.status(403).json({
-      message: "Access denied. Authentication required.",
-    });
-  }
-
-  if (req.user.role !== "admin") {
-    return res.status(403).json({
-      message: "Access denied. Invalid role.",
-    });
-  }
-
-  try {
-    const admins = await Admin.findAll();
-
-    return res.json(admins);
-  } catch (err) {
-    return res.status(500).json({
-      message: err.message || "Some error occurred while retrieving data.",
-    });
-  }
-};
 
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+	const id = Number(req.params.id);
 
-  if (!req.user) {
-    return res.status(403).json({
-      message: "Access denied. Authentication required.",
-    });
-  }
+	Admin.findByPk(id)
+		.then((data) => {
+			if (!data) {
+				return res.status(404).json({
+					message: `Admin with id=${id} not found.`,
+				});
+			}
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || `Error retrieving Admin with id=${id}.`,
+			});
+		});
+};
 
-  if (req.user.role === "admin") {
-    Admin.findByPk(id)
-      .then((data) => {
-        if (!data) {
-          return res.status(404).json({
-            message: `Admin with id=${id} not found.`,
-          });
-        }
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || `Error retrieving admin with id=${id}.`,
-        });
+exports.findAll = (req, res) => {
+  Admin.findAll()
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      console.error("Error while getting all admins: ", err);
+      res.status(500).send({
+        message: "Error while retrieving admins.",
       });
-  } else {
-    res.status(403).json({
-      message: "Access denied. Invalid role.",
+    });
+};
+
+exports.index = async (req, res) => {
+  try {
+    const admins = await Admin.findAll();
+    const students = await Student.findAll();
+    const workers = await Worker.findAll();
+
+    res.render("admins.views/home.admin.ejs", { admins, students, workers }); 
+  } catch (err) {
+    console.error("Error while rendering admins page: ", err);
+    res.status(500).send({
+      message: "Error while loading the admins page.",
     });
   }
 };
@@ -118,125 +96,65 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  // Validate request
-
-  if (Number(id) !== req.user.id) {
-    return res.status(403).send({
-      message: "Access denied. You can only update your own data.",
-    });
-  }
-
   if (!req.body.username) {
-    return res.status(400).send({
-      message: "The name field cannot be empty.",
-    });
-  }
-  if (!req.body.password) {
-    return res.status(400).send({
-      message: "The password field cannot be empty.",
-    });
+    return res.json({ message: "Username is required" });
   }
 
-  const update = {
+  let data = {
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password),
     role: "admin",
-  };
-
-  if (req.body.password) {
-    update.password = bcrypt.hashSync(req.body.password);
-  }
-  // Attempt to update the admin
-  Admin.update(update, { where: { id: id } })
-    .then(([rowsUpdated]) => {
-      if (rowsUpdated === 0) {
-        // If no rows were updated, the admin was not found
-        return res.status(404).send({
-          message: `Cannot update Admin with id=${id}. Admin not found.`,
-        });
-      }
-      res.send({ message: "Admin was updated successfully." });
-    })
-    .catch((err) => {
-      // Catch any error
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the Admin.",
-      });
-    });
-};
-
-exports.imgUpdate = (req, res) => {
-  const id = req.params.id;
-
-  console.log(req.user);
-
-  const updateAdmin = {
     filename: req.file ? req.file.filename : "",
   };
 
-  Admin.update(updateAdmin, { where: { id: id } })
+  Admin.update(data, { where: { id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        return res.status(404).send({
-          message: `Cannot update admin with id=${id}. admin not found.`,
-        });
+        return res.json({ message: `admin with id=${id} not found.` });
       }
-      res.send({ message: "admin was updated successfully." });
+      res.json({ message: "admin updated successfully" });
     })
     .catch((err) => {
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the admin.",
+      res.json({ message: "Error updating admin", error: err.message });
+    });
+};
+
+exports.edit = (req, res) => {
+  const id = req.params.id;
+
+  Admin.findByPk(id)
+    .then((admin) => {
+      if (!admin) {
+        return res.status(404).render("error", {
+          error: `Admin with ID ${id} not found.`,
+        });
+      }
+      res.render("admins.views/crudAdmin/editAdmin", { admin });
+    })
+    .catch((err) => {
+      res.status(500).render("error", {
+        error: "Error fetching the admin: " + (err.message || "Unknown error."),
       });
     });
 };
 
 exports.delete = (req, res) => {
   const id = req.params.id;
+  console.log("ID recibido para eliminar:", id);
 
-  // Delete an Admin by ID
   Admin.destroy({ where: { id: id } })
     .then((deleted) => {
-      if (deleted) {
-        console.log("Admin with id:", id, "was deleted.");
-        res.json({ message: "Admin deleted successfully." });
-      } else {
-        console.log("Admin with id:", id, "was not found.");
-        res.status(404).json({ message: "Admin not found." });
+      if (!deleted) {
+        return res.status(404).json({ error: "Admin not found." });
       }
+      return res
+        .status(200)
+        .json({ message: "Admin eliminado correctamente." });
     })
     .catch((err) => {
-      console.error("Error deleting admin:", err);
-      res.status(500).json({ message: "Error deleting admin." });
-    });
-};
-
-// Find user by username and password
-exports.findUserByUsernameAndPassword = (req, res) => {
-  const { username, password } = req.body;
-
-  Admin.findOne({ where: { username } })
-    .then((admin) => {
-      if (!admin) {
-        return res.status(404).send({ message: "User not found." });
-      }
-
-      if (req.user.role !== "admin" && req.user.id !== admin.id) {
-        return res.status(403).send({
-          message: "Access denied. You can only view your own data.",
-        });
-      }
-
-      const isMatch = bcrypt.compareSync(password, admin.password);
-      if (!isMatch) {
-        return res.status(401).send({ message: "Invalid credentials." });
-      }
-
-      res.send(admin);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving the user.",
+      console.error("Error al eliminar el admin:", err);
+      res.status(500).json({
+        error: "Error deleting the admin: " + (err.message || "Unknown error"),
       });
     });
 };
