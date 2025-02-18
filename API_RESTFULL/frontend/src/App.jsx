@@ -43,9 +43,9 @@ import CourseForm from "./components/adminComponents/forms/coursesForms/CourseFo
 
 function App() {
   return (
-    <WebSocketsContextProvider>
-      <ThemeProvider>
-        <OrdersContextProvider>
+    <OrdersContextProvider>
+      <WebSocketsContextProvider>
+        <ThemeProvider>
           <Router>
             <Routes>
               <Route path="*" element={<Welcome />} />
@@ -104,9 +104,9 @@ function App() {
               {/* <Route path="/student/profile/favs" element={<StudentFavs />} /> */}
             </Routes>
           </Router>
-        </OrdersContextProvider>
-      </ThemeProvider>
-    </WebSocketsContextProvider>
+        </ThemeProvider>
+      </WebSocketsContextProvider>
+    </OrdersContextProvider>
   );
 }
 

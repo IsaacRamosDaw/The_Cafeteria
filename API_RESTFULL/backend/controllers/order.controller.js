@@ -2,7 +2,8 @@ const db = require("../models");
 const Order = db.order;
 const Wallet = db.wallet;
 
-const updateOrder = require("../ws-server");
+let updateOrder = require("../ws-server");
+// let boberia = require('../ws-server')
 
 exports.create = (req, res) => {
   const orderData = {
@@ -108,10 +109,6 @@ exports.findOne = (req, res) => {
 exports.update = async (req, res) => {
   const orderId = req.params.id;
 
-  let userId = req.body.userId;
-
-  delete req.body.userId;
-
   try {
     const order = await Order.findByPk(orderId);
     if (!order) {
@@ -165,22 +162,38 @@ exports.update = async (req, res) => {
 };
 
 exports.finish = async (req, res) => {
-  const orderId = req.params.id;
+  const orderId = Number(req.params.id);
+
+  if (isNaN(orderId)) {
+    return res.status(400).json({ message: "Invalid order ID" });
+  }
 
   try {
-    const orderUpdated = await Order.update({ status: "completed" }, {
-      where: { id: orderId },
+    const rowsUpdated = await Order.update(
+      { status: "completed" },
+      {
+        where: { id: orderId },
+        returning: true,
+      }
+    );
+
+    if (rowsUpdated === 0) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    const rowAfterUpdated = await Order.findOne({ where: { id: orderId } });
+
+    updateOrder.updateOrder(`${orderId}`, rowAfterUpdated.studentId);
+
+    return res.status(200).json({
+      message: `Order with id ${orderId} updated`,
+      order: rowAfterUpdated,
     });
-
-    updateOrder(id, orderUpdated.studentId);
-
-    res
-      .status(200)
-      .json({ message: `Order with id ${orderId} updated`, orderUpdated });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Error while updated order", error, orderUpdated });
+    return res.status(400).json({
+      message: "Error while updating order",
+      error: error.message,
+    });
   }
 };
 

@@ -54,9 +54,9 @@ export async function create(date, studentId) {
   return result;
 }
 
-export async function finishOrder(id) {
-  const result = await request("put", `${endpoint}/finish/${id}`);
-  console.log("(Orders.service-put) Resultado:", result);
+export async function finishOrder(orderId) {
+  const result = await request("put", `${endpoint}/finish/${orderId}`);
+  console.log("(Orders.service-finishOrder) Resultado:", result);
   return result;
 }
 

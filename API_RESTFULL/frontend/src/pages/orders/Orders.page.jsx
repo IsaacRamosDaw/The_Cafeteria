@@ -6,7 +6,7 @@ import Order from "../../components/order/Order";
 import { BsCupHot } from "react-icons/bs";
 import { useEffect, useState, useContext } from "react";
 
-import { get, getByStudent, remove } from "../../services/order.service";
+import { get, getByStudent } from "../../services/order.service";
 import { getUserId, getUserRole } from "../../services/utils";
 import OrderCart from "../../components/menuComponents/orderCart/OrderCart";
 
@@ -14,14 +14,11 @@ import "./Orders.scss";
 
 // Contexts
 import OrderContext from "../../contexts/OrderContext";
-import { removeByOrder } from "../../services/orderLine.service";
 
 function Orders() {
   const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
-  const [orders, setOrders] = useState([]);
-
-  const { orderLineCart } = useContext(OrderContext);
+  const { orders, setOrders, orderCart, orderLineCart, removeOrderById  } = useContext(OrderContext);
 
   useEffect(() => {
     setUserId(getUserId());
@@ -45,13 +42,10 @@ function Orders() {
     }
 
     fetchOrders();
-  }, [role, userId, orderLineCart]);
+  }, [userId, role, userId, setOrders, orderCart]);
 
-  const handleDelete = async (pos) => {
-    // setOrders((prevOrder) => prevOrder.filter((order) => order.id !== id));
-    const updatedOrders = [...orders]
-    updatedOrders.splice(pos, 1)
-    setOrders(updatedOrders) 
+  const handleDelete = async (id) => {
+    removeOrderById(id) 
   };
 
   return (

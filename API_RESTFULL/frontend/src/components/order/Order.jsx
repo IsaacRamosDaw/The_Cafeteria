@@ -1,5 +1,5 @@
 import Button from "../button/Button";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getByOrder } from "../../services/orderLine.service.js";
 import { getOne } from "../../services/student.service";
 import { findByPk } from "../../services/product.service";
@@ -8,6 +8,9 @@ import { getUserRole } from "../../services/utils.js";
 import { finishOrder } from "../../services/order.service.js";
 
 import "./Order.scss";
+
+// Contexts
+import OrderContext from "../../contexts/OrderContext.jsx";
 
 function Order({
   orderId,
@@ -23,6 +26,8 @@ function Order({
   const [orderDate, setOrderDate] = useState("");
   const [orderLine, setOrderLine] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
+
+  const { eraseOrder, removeOrderById } = useContext(OrderContext)
 
   let role = getUserRole();
 
@@ -72,12 +77,13 @@ function Order({
   }, [orderId, dateParam, studentIdParam]);
 
   const deleteOrder = () => {
-    deleted(pos);
+    deleted(orderId);
   };
 
   const orderDone = () => {
     finishOrder(orderId);
-    deleteOrder();
+    removeOrderById(orderId)
+    // deleteOrder();
   };
 
   return (
@@ -93,27 +99,34 @@ function Order({
       )}
       <table className="card-order-content">
         <thead>
-          <th className="container-quantity-table-orders">  </th>
-          <th> Descripcion </th>
-          <th> Precio </th>
-          <th> Importe </th>
+          <tr>
+            <th className="container-quantity-table-orders"> </th>
+            <th> Descripcion </th>
+            <th> Precio </th>
+            <th> Importe </th>
+          </tr>
         </thead>
         <tbody>
-        {orderLine.length > 0 ? (
-          <>
-            {orderLine.map((line) => (
-              <tr key={line.id}>
-                <td className="container-quantity-table-orders">{line.quantity}</td>
-                <td>{line.productName}</td>
-                <td>{line.unitPrice}€</td>
-                <td>{line.unitPrice * line.quantity}€</td>
-              </tr>
-            ))}
-          </>
-        ) : (
-          <h4>No hay productos en esta orden</h4>
-        )}
-
+          {orderLine.length > 0 ? (
+            <>
+              {orderLine.map((line) => (
+                <tr key={line.id}>
+                  <td className="container-quantity-table-orders">
+                    {line.quantity}
+                  </td>
+                  <td>{line.productName}</td>
+                  <td>{line.unitPrice}€</td>
+                  <td>{line.unitPrice * line.quantity}€</td>
+                </tr>
+              ))}
+            </>
+          ) : (
+            <tr>
+              <td>
+                <p>No hay productos en esta orden</p>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <p>Total: {totalOrder}€</p>
