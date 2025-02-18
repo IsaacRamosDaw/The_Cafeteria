@@ -2,7 +2,7 @@
 
 <div align="center">
     <span id="back-top"></span>
-    <img src="frontend/public/preview.png" alt="Logo" width="150" height="150">
+    <img src="API_RESTFULL/frontend/public/preview.png" alt="Logo" width="150" height="150">
     <br>
 <h1>School Coffe ApiResftul</h1>
 </div>
