@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
 
 const request = require("supertest");
-const app = require("../http-server");
+const app = require("../ws-server");
 
 const db = require("../models");
 const Student = db.student;
