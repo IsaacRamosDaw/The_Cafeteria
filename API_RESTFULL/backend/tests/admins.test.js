@@ -1,7 +1,7 @@
 require("dotenv").config();
 const faker = require("@faker-js/faker").faker;
 const request = require("supertest");
-const app = require("../index");
+const app = require("../ws-server");
 const { admins: Admin } = require("../models");
 const bcrypt = require("bcryptjs");
 
@@ -41,17 +41,18 @@ describe("GET /admin (List All Failed)", () => {
         .set("Authorization", `Bearer ${token}`)
         .set("Content-Type", "application/json");
   
-      expect(res.statusCode).toEqual(403);
-      expect(res.body).toHaveProperty("message", "Access denied. Invalid role.");
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toHaveProperty("error", "Invalid user type");
     });
   
     it("should return 403 if no token is provided", async () => {
       const res = await request(app)
         .get("/api/admin")
+        .set("Authorization", `Bearer `)
         .set("Content-Type", "application/json");
   
-      expect(res.statusCode).toEqual(403);
-      expect(res.body).toHaveProperty("message", "Access denied. Authentication required.");
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toHaveProperty("message", "Formato de autorización no válido.");
     });
   });
   

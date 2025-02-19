@@ -2,8 +2,29 @@ const db = require("../models");
 const School = db.school;
 
 exports.create = (req, res) => {
-  console.log("req.body:", req.body);
-  console.log("req.file:", req.file);
+  if (!req.body.name || req.body.name.length < 3) {
+    return res.status(400).send({
+      message: "El nombre debe tener al menos 3 caracteres.",
+    });
+  }
+
+  if (!req.body.address || req.body.address.length < 5) {
+    return res.status(400).send({
+      message: "La dirección debe tener al menos 5 caracteres.",
+    });
+  }
+
+  if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
+    return res.status(400).send({
+      message: "El email debe ser válido.",
+    });
+  }
+
+  if (!req.body.phone || req.body.phone.length < 10) {
+    return res.status(400).send({
+      message: "El teléfono debe tener al menos 10 caracteres.",
+    });
+  }
 
   const school = {
     name: req.body.name,
@@ -51,25 +72,33 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  // Validate that required fields are present
-  if (!req.body.name) {
-    return res.status(400).send({
-      message: "The name field cannot be empty.",
+  if (Number(id) !== req.user.id) {
+    return res.status(403).send({
+      message: "Access denied. You can only update your own data.",
     });
   }
-  if (!req.body.address) {
+
+  if (!req.body.name || req.body.name.length < 3) {
     return res.status(400).send({
-      message: "The address field cannot be empty.",
+      message: "El nombre debe tener al menos 3 caracteres.",
     });
   }
-  if (!req.body.email) {
+
+  if (!req.body.address || req.body.address.length < 5) {
     return res.status(400).send({
-      message: "The email field cannot be empty.",
+      message: "La dirección debe tener al menos 5 caracteres.",
     });
   }
-  if (!req.body.phone) {
+
+  if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
     return res.status(400).send({
-      message: "The phone field cannot be empty.",
+      message: "El email debe ser válido.",
+    });
+  }
+
+  if (!req.body.phone || req.body.phone.length < 10) {
+    return res.status(400).send({
+      message: "El teléfono debe tener al menos 10 caracteres.",
     });
   }
 
@@ -81,11 +110,9 @@ exports.update = (req, res) => {
     filename: req.file ? req.file.filename : "",
   };
 
-  // Attempt to update the school
   School.update(updateSchool, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the school was not found
         return res.status(404).send({
           message: `Cannot update School with id=${id}. School not found.`,
         });
@@ -93,7 +120,6 @@ exports.update = (req, res) => {
       res.send({ message: "School was updated successfully." });
     })
     .catch((err) => {
-      // Catch any error
       res.status(500).send({
         message: err.message || "An error occurred while updating the school.",
       });

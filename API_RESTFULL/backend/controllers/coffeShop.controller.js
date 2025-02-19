@@ -3,13 +3,23 @@ const CoffeShop = db.coffeShop;
 const Op = db.sequelize.Op;
 
 exports.create = (req, res) => {
-  // Create a CoffeShop object
+  if (!req.body.name || req.body.name.trim() === "") {
+    return res.status(400).send({
+      message: "El nombre del CoffeeShop es obligatorio.",
+    });
+  }
+
+  if (req.body.name.length < 3) {
+    return res.status(400).send({
+      message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
+    });
+  }
+
   const shop = {
     name: req.body.name,
     filename: req.file ? req.file.filename : "",
   };
 
-  // Save CoffeShop in the database
   CoffeShop.create(shop)
     .then((data) => {
       res.send(data);
@@ -17,7 +27,7 @@ exports.create = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the coffeShop.",
+          err.message || "Ocurrió un error mientras se creaba el CoffeeShop.",
       });
     });
 };
@@ -80,11 +90,22 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-
-  // Validate request
+  
   if (req.user.role !== "admin" && req.user.role !== "worker") {
     return res.status(403).send({
-      message: "Access denied.",
+      message: "Access denied. Only admins or workers can update.",
+    });
+  }
+
+  if (!req.body.name || req.body.name.trim() === "") {
+    return res.status(400).send({
+      message: "El nombre del CoffeeShop es obligatorio.",
+    });
+  }
+
+  if (req.body.name.length < 3) {
+    return res.status(400).send({
+      message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
     });
   }
 
@@ -93,25 +114,23 @@ exports.update = (req, res) => {
     filename: req.file ? req.file.filename : "",
   };
 
-  // Attempt to update the coffeShop
   CoffeShop.update(update, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the coffeShop was not found
         return res.status(404).send({
-          message: `Cannot update coffeShop with id=${id}. coffeShop not found.`,
+          message: `No se pudo actualizar el CoffeeShop con id=${id}. CoffeeShop no encontrado.`,
         });
       }
-      res.send({ message: "coffeShop was updated successfully." });
+      res.send({ message: "CoffeeShop actualizado exitosamente." });
     })
     .catch((err) => {
-      // Catch any error
       res.status(500).send({
         message:
-          err.message || "An error occurred while updating the coffeShop.",
+          err.message || "Ocurrió un error mientras se actualizaba el CoffeeShop.",
       });
     });
 };
+
 
 exports.imgUpdate = (req, res) => {
   const id = req.params.id;

@@ -3,7 +3,7 @@ require("dotenv").config();
 const { faker } = require("@faker-js/faker");
 
 const request = require("supertest");
-const app = require("../http-server");
+const app = require("../ws-server");
 
 //* Correct login
 describe("POST /api/site  LogIn", () => {
