@@ -24,7 +24,7 @@ exports.create = (req, res) => {
     price: req.body.price,
     description: req.body.description,
     filename: req.file ? req.file.filename : "",
-    CategoryId: req.body.CategoryId,
+    categoryId: req.body.categoryId,
   };
 
 		Product.create(productData)
