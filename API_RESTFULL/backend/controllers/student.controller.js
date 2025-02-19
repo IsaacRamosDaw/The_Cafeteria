@@ -150,6 +150,101 @@ exports.findOne = (req, res) => {
 	}
 };
 
+exports.create = (req, res) => {
+	
+	if (!req.body.password || !req.body.username) {
+		return res.status(400).send({
+			message: "Content can not be empty!",
+		});
+	}
+
+	if (req.body.username.length < 5) {
+		return res.status(400).send({
+			message: "The username must have at least 5 characters.",
+		});
+	}
+
+	if (req.body.password.length < 4) {
+		return res.status(400).send({
+			message: "The password must have at least 4 characters.",
+		});
+	}
+
+	if (req.body.age && isNaN(req.body.age)) {
+		return res.status(400).send({
+			message: "Age must be a valid number.",
+		});
+	}
+
+	if (req.body.phone && req.body.phone.length < 10) {
+		return res.status(400).send({
+			message: "The phone number must have at least 10 characters.",
+		});
+	}
+
+	let studentData = {
+		username: req.body.username,
+		password: req.body.password,
+		age: parseInt(req.body.age),
+		phone: req.body.phone,
+		CourseId: req.body.CourseId,
+		role: "student",
+		filename: req.file ? req.file.filename : "",
+	};
+
+	Student.findOne({ where: { username: studentData.username } })
+		.then((student) => {
+			if (student) {
+				const result = bcrypt.compareSync(req.body.password, student.password);
+				if (!result) return res.status(401).send("Password not valid!");
+				const token = utils.generateToken(student);
+				const studentObj = utils.getCleanUser(student);
+
+				return res.json({ student: studentObj, access_token: token });
+			}
+
+			studentData.password = bcrypt.hashSync(req.body.password);
+
+			Student.create(studentData)
+				.then((student) => {
+					const token = utils.generateToken(student);
+					const studentObj = utils.getCleanUser(student);
+
+					const walletData = {
+						amount: 50,
+						StudentId: student.id,
+					}
+
+					Wallet.create(walletData)
+						.then((wallet) => {
+							res.status(201).json({
+								message: "Student and wallet added created succesfully",
+								student: studentObj,
+								CourseId: student.CourseId,
+								token: token,
+								wallet: wallet,
+							})
+						})
+						.catch(err => res.status(500).json({
+							message: "Some error while creating the wallet of this student: " || err.message
+						})
+						)
+				})
+				.catch((err) => {
+					res.status(500).send({
+						message: "Some error while creating the student: " || err.message,
+					})
+				})
+		}
+		)
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					"Some error while retrieving the tutorials the student: " || err.message,
+			});
+		});
+};
+
 exports.update = (req, res) => {
 	const id = req.params.id;
 
@@ -159,25 +254,38 @@ exports.update = (req, res) => {
 		});
 	}
 
-	if (!req.body.username) {
+	if (!req.body.username || req.body.username.length < 5) {
 		return res.status(400).send({
-			message: "The name field cannot be empty.",
-		});
-	}
-	if (!req.body.password) {
-		return res.status(400).send({
-			message: "The password field cannot be empty.",
+			message: "The username must have at least 5 characters.",
 		});
 	}
 
-  const updateStudent = {
-    username: req.body.username,
-    age: req.body.age,
-    phone: req.body.phone,
-    role: "student",
-    CourseId: req.body.CourseId,
-    filename: req.file ? req.file.filename : "",
-  };
+	if (!req.body.password || req.body.password.length < 4) {
+		return res.status(400).send({
+			message: "The password must have at least 4 characters.",
+		});
+	}
+
+	if (req.body.age && isNaN(req.body.age)) {
+		return res.status(400).send({
+			message: "Age must be a valid number.",
+		});
+	}
+
+	if (req.body.phone && req.body.phone.length < 10) {
+		return res.status(400).send({
+			message: "The phone number must have at least 10 characters.",
+		});
+	}
+
+	const updateStudent = {
+		username: req.body.username,
+		age: req.body.age,
+		phone: req.body.phone,
+		role: "student",
+		CourseId: req.body.CourseId,
+		filename: req.file ? req.file.filename : "",
+	};
 
 	if (req.body.password) {
 		updateStudent.password = bcrypt.hashSync(req.body.password);
@@ -186,7 +294,6 @@ exports.update = (req, res) => {
 	Student.update(updateStudent, { where: { id: id } })
 		.then(([rowsUpdated]) => {
 			if (rowsUpdated === 0) {
-				// If no rows were updated, the admin was not found
 				return res.status(404).send({
 					message: `Cannot update Student with id=${id}. Student not found.`,
 				});
@@ -194,12 +301,12 @@ exports.update = (req, res) => {
 			res.send({ message: "Student was updated successfully." });
 		})
 		.catch((err) => {
-			// Catch any error
 			res.status(500).send({
 				message: err.message || "An error occurred while updating the Student.",
 			});
 		});
 };
+
 
 exports.imgUpdate = (req, res) => {
 	const id = req.params.id;
