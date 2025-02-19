@@ -3,7 +3,6 @@ const multer = require("multer");
 const path = require("path");
 
 module.exports = (options = {}) => {
-  console.log('Using multer middleware')
   const { dest = "../public/images" } = options;
 
   const storage = multer.diskStorage({

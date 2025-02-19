@@ -3,27 +3,24 @@ const jwt = require("jsonwebtoken");
 //! Separar basic y bearer
 
 module.exports = (req, res, next) => {
-  console.log("Using auth middleware");
-
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
-    return next(); // Si no hay token, continúa sin autenticación
+    return next(); 
   }
 
-  // Manejo de autenticación básica (Basic Auth)
+
   if (authHeader.startsWith("Basic ")) {
     const base64Credentials = authHeader.split(" ")[1];
     const credentials = Buffer.from(base64Credentials, "base64").toString("ascii");
     const [username, password] = credentials.split(":");
 
-    // Asignar credenciales al cuerpo de la solicitud
+
     if (!req.body.username) req.body.username = username;
     if (!req.body.password) req.body.password = password;
 
     return next();
   }
-
-  // Manejo de autenticación con JWT (Bearer Token)
+ 
   if (authHeader.startsWith("Bearer ")) {
     const token = authHeader.replace("Bearer ", "");
 
@@ -42,7 +39,6 @@ module.exports = (req, res, next) => {
         });
       }
 
-      // Adjuntar el usuario decodificado a la solicitud
       req.user = user;
       req.token = token;
       next();
