@@ -2,39 +2,37 @@ const db = require("../models");
 const Course = db.course;
 
 exports.create = (req, res) => {
-  // if (!req.user.role === "admin"){
-  //   return res.status(403).json({
-  //     message: "Access denied. Authentication required.",
-  //   });
-  // }
-
   if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({
       message: "Access denied. Authentication required.",
     });
   }
 
-  if(!req.body.name) {
-    res.status(400).send({
-      message: "There is no name",
+  if (!req.body.name || req.body.name.trim() === "") {
+    return res.status(400).send({
+      message: "El nombre del curso es obligatorio.",
     });
-    
-    return;
+  }
+
+  if (req.body.name.length < 3) {
+    return res.status(400).send({
+      message: "El nombre del curso debe tener al menos 3 caracteres.",
+    });
   }
 
   let courseData = {
-    name: req.body.name
+    name: req.body.name,
   };
 
   Course.create(courseData)
-  .then((course) => {
-    return res.json({ course: course});
-  })
-  .catch((err) => 
-    res.status(500).send({
-      message: "Some error while creating the course" || err.message,
+    .then((course) => {
+      return res.json({ course: course });
     })
-  );
+    .catch((err) =>
+      res.status(500).send({
+        message: err.message || "Ocurrió un error mientras se creaba el curso.",
+      })
+    );
 };
 
 exports.findAll = async (req, res) => {
@@ -74,18 +72,19 @@ exports.findOne = (req, res) => {
     });
   });
 };
+
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  if(!req.body.name){
+  if (!req.body.name || req.body.name.trim() === "") {
     return res.status(400).send({
-      message: "The name cannot be empty"
-    })
+      message: "El nombre no puede estar vacío.",
+    });
   }
 
   if (req.user.role !== "admin") {
     return res.status(403).send({
-      message: "You do not have the permission to change it",
+      message: "No tienes permiso para modificar este curso.",
     });
   }
 
@@ -93,21 +92,23 @@ exports.update = (req, res) => {
     name: req.body.name,
   };
 
-  Course.update(courseUpdate, {where: {id: id}})
-  .then(([rowsUpdated]) => {
-    if(rowsUpdated === 0) {
-      return res.status(404).send({
-        message: `Cannot update course with id=${id}. Course did not found`
-      })
-    }
-    res.send({ message: "Course was edited succesfully"});
-  })
-  .catch((err) => 
-    res.status(500).send({
-      message: "An error ocurred while creating Course: " || err.message,
+  Course.update(courseUpdate, { where: { id: id } })
+    .then(([rowsUpdated]) => {
+      if (rowsUpdated === 0) {
+        return res.status(404).send({
+          message: `No se pudo actualizar el curso con id=${id}. Curso no encontrado.`,
+        });
+      }
+      res.send({ message: "El curso se actualizó exitosamente." });
     })
-  )
-}
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Ocurrió un error mientras se actualizaba el curso.",
+      });
+    });
+};
+
+
 exports.delete = (req, res) => {
   const id = req.params.id;
 

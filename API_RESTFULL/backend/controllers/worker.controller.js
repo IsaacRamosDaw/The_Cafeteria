@@ -6,7 +6,25 @@ const bcrypt = require("bcryptjs");
 // Create a new Worker
 exports.create = (req, res) => {
   if (!req.body.password || !req.body.username) {
-    res.status(400).send({ message: "Content cannot be empty!" });
+    return res.status(400).send({ message: "Content cannot be empty!" });
+  }
+
+  if (req.body.username.length < 5) {
+    return res.status(400).send({
+      message: "The username must have at least 5 characters.",
+    });
+  }
+
+  if (req.body.password.length < 4) {
+    return res.status(400).send({
+      message: "The password must have at least 4 characters.",
+    });
+  }
+
+  if (req.body.phone && req.body.phone.length < 10) {
+    return res.status(400).send({
+      message: "The phone number must have at least 10 characters.",
+    });
   }
 
   const worker = {
@@ -115,15 +133,21 @@ exports.update = (req, res) => {
     });
   }
 
-  if (!req.body.username) {
+  if (!req.body.username || req.body.username.length < 5) {
     return res.status(400).send({
-      message: "The name field cannot be empty.",
+      message: "The username must have at least 5 characters.",
     });
   }
 
-  if (!req.body.password) {
+  if (!req.body.password || req.body.password.length < 4) {
     return res.status(400).send({
-      message: "The password field cannot be empty.",
+      message: "The password must have at least 4 characters.",
+    });
+  }
+
+  if (req.body.phone && req.body.phone.length < 10) {
+    return res.status(400).send({
+      message: "The phone number must have at least 10 characters.",
     });
   }
 
@@ -139,15 +163,12 @@ exports.update = (req, res) => {
     updateWorker.password = bcrypt.hashSync(req.body.password);
   }
 
-  // Attempt to update the worker
   Worker.update(updateWorker, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        return res
-          .status(404)
-          .send({
-            message: `Cannot update Worker with id=${id}. Worker not found.`,
-          });
+        return res.status(404).send({
+          message: `Cannot update Worker with id=${id}. Worker not found.`,
+        });
       }
       res.send({ message: "Worker was updated successfully." });
     })

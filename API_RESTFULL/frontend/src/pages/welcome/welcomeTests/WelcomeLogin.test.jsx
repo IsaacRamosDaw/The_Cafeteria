@@ -3,6 +3,7 @@ import Welcome from "../Welcome.page";
 import { login } from "../../../services/welcome.service";
 import { MemoryRouter } from "react-router-dom";
 import { vi } from "vitest";
+import WebSocketContext from "../../../contexts/WebSocketsContext";
 
 vi.mock("../../../services/welcome.service");
 
@@ -14,16 +15,20 @@ vi.mock("react-router-dom", async () => ({
 
 describe("Welcome Component", () => {
   afterEach(() => {
-    vi.clearAllMocks(); 
+    vi.clearAllMocks();
   });
 
   test("should navigate to /dashboard for admin role", async () => {
     login.mockResolvedValue({ username: "adminUser", role: "admin" });
 
+    const mockWebSocketContext = { logIn: vi.fn() };
+
     render(
-      <MemoryRouter>
-        <Welcome />
-      </MemoryRouter>
+      <WebSocketContext.Provider value={mockWebSocketContext}>
+        <MemoryRouter>
+          <Welcome />
+        </MemoryRouter>
+      </WebSocketContext.Provider>
     );
 
     const nameInput = screen.getByPlaceholderText("John Doe");
@@ -36,17 +41,21 @@ describe("Welcome Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
+      expect(mockNavigate).toHaveBeenCalledWith("/dashboard", expect.any(Object));
     });
   });
 
   test("should navigate to /menu for non-admin role", async () => {
     login.mockResolvedValue({ username: "normalUser", role: "user" });
 
+    const mockWebSocketContext = { logIn: vi.fn() };
+
     render(
-      <MemoryRouter>
-        <Welcome />
-      </MemoryRouter>
+      <WebSocketContext.Provider value={mockWebSocketContext}>
+        <MemoryRouter>
+          <Welcome />
+        </MemoryRouter>
+      </WebSocketContext.Provider>
     );
 
     const nameInput = screen.getByPlaceholderText("John Doe");
@@ -59,7 +68,7 @@ describe("Welcome Component", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/menu");
+      expect(mockNavigate).toHaveBeenCalledWith("/menu", expect.any(Object));
     });
   });
 });

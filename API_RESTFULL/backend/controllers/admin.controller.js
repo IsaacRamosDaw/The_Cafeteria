@@ -5,11 +5,22 @@ const utils = require("../utils");
 const bcrypt = require("bcryptjs");
 
 exports.create = (req, res) => {
-  if (!req.body.password || !req.body.username) {
-    res.status(400).send({
-      message: "Content can not be empty!",
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send({
+      message: "El nombre de usuario y la contraseña son obligatorios.",
     });
-    return;
+  }
+
+  if (req.body.username.length < 5) {
+    return res.status(400).send({
+      message: "El nombre de usuario debe tener al menos 5 caracteres.",
+    });
+  }
+
+  if (req.body.password.length < 4) {
+    return res.status(400).send({
+      message: "La contraseña debe tener al menos 4 caracteres.",
+    });
   }
 
   let admin = {
@@ -22,20 +33,19 @@ exports.create = (req, res) => {
   console.log(admin);
 
   admin.password = bcrypt.hashSync(req.body.password);
-console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
   Admin.findOne({ where: { username: admin.username } })
     .then((data) => {
-      console.log("dentroooooooooooooooooooooooooo")
       if (data) {
-        console.log("mas adentroooooooooooooooooo")
         const result = bcrypt.compareSync(req.body.password, data.password);
-        if (!result) return res.status(401).send("Password not valid!");
+        if (!result) {
+          return res.status(401).send("Password not valid!");
+        }
         const token = utils.generateToken(data);
         const adminObj = utils.getCleanUser(data);
 
         return res.status(200).json({ admin: adminObj, access_token: token });
       }
-      console.log("llagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       Admin.create(admin)
         .then((data) => {
           console.log("After create", data);
@@ -44,24 +54,20 @@ console.log("fueraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
           const adminObj = utils.getCleanUser(data);
           console.log("After clean user", adminObj);
 
-         return res.status(201).json({ message: "Admin created successfully", admin: adminObj, access_token: token });
-
+          return res.status(201).json({ message: "Admin created successfully", admin: adminObj, access_token: token });
         })
         .catch((err) => {
           res.status(500).send({
             message: err.message || "Some error while creating the Admin.",
           });
         });
-    }).catch((err) => {
-      console.log("este es el errorrrrrrrrrrrrrrrrrrrrrr")
-      console.log(err.message)
+    })
+    .catch((err) => {
+      console.log(err.message);
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
+        message: err.message || "Some error occurred while retrieving tutorials.",
       });
     });
-
-  console.log("finallllllllllllllllllllllllllllllllllllllllllll")
 };
 
 exports.findAll = async (req, res) => {
@@ -120,9 +126,6 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-
-  // Validate request
-
   if (Number(id) !== req.user.id) {
     return res.status(403).send({
       message: "Access denied. You can only update your own data.",
@@ -131,12 +134,19 @@ exports.update = (req, res) => {
 
   if (!req.body.username) {
     return res.status(400).send({
-      message: "The name field cannot be empty.",
+      message: "El campo nombre de usuario no puede estar vacío.",
     });
   }
-  if (!req.body.password) {
+
+  if (req.body.password && req.body.password.length < 4) {
     return res.status(400).send({
-      message: "The password field cannot be empty.",
+      message: "La contraseña debe tener al menos 4 caracteres.",
+    });
+  }
+
+  if (req.body.username.length < 5) {
+    return res.status(400).send({
+      message: "El nombre de usuario debe tener al menos 5 caracteres.",
     });
   }
 
@@ -149,21 +159,19 @@ exports.update = (req, res) => {
   if (req.body.password) {
     update.password = bcrypt.hashSync(req.body.password);
   }
-  // Attempt to update the admin
+
   Admin.update(update, { where: { id: id } })
     .then(([rowsUpdated]) => {
       if (rowsUpdated === 0) {
-        // If no rows were updated, the admin was not found
         return res.status(404).send({
-          message: `Cannot update Admin with id=${id}. Admin not found.`,
+          message: `No se pudo actualizar el Admin con id=${id}. Admin no encontrado.`,
         });
       }
-      res.send({ message: "Admin was updated successfully." });
+      res.send({ message: "El Admin fue actualizado exitosamente." });
     })
     .catch((err) => {
-      // Catch any error
       res.status(500).send({
-        message: err.message || "An error occurred while updating the Admin.",
+        message: err.message || "Ocurrió un error mientras se actualizaba el Admin.",
       });
     });
 };
