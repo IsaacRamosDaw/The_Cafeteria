@@ -78,8 +78,13 @@ function log(msg, obj) {
   console.log("\n");
 }
 
-server.listen(PORT, function () {
-  console.log(`http/ws server listening on ${PORT}`);
-});
+
+if( process.env.NODE_ENV =='development'  ){
+  server.listen(PORT, function () {
+    console.log(`http/ws server listening on ${PORT}`);
+  });
+}else{
+  module.exports = server
+}
 
 exports.updateOrder = updateOrder;
