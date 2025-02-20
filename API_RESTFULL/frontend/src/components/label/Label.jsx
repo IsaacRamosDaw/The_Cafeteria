@@ -2,9 +2,11 @@ import "./label.scss";
 import { forwardRef } from "react";
 
 const Label = forwardRef(function Label(
-  { title, placeHolder, type = "text", id, name, onChange, arialabelledby},
+  { title, placeHolder, type = "text", id, name, onChange, arialabelledby, required, min, max, patternSymbol },
   ref
 ) {
+
+const pattern = patternSymbol ? `.*\\${patternSymbol}.*` : undefined;
 
   if (type === "file") {
     return (
@@ -21,6 +23,9 @@ const Label = forwardRef(function Label(
           onChange={onChange}
           ref={ref}
           aria-labelledby={arialabelledby}
+          required={required}
+          min={min}
+          max={max}
         />
       </div>
     );
@@ -40,6 +45,9 @@ const Label = forwardRef(function Label(
         onChange={onChange}
         ref={ref}
         aria-labelledby={arialabelledby}
+        required={required}
+        min={min}
+        max={max}
       />
     </div>
   );
