@@ -15,6 +15,10 @@ export default function WorkerForm() {
   const [workerData, setWorkerData] = useState({ name: "" });
   const { id } = useParams();
 
+  const [errorName, setErrorName] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+  const [errorPhone, setErrorPhone] = useState(null);
+
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const phoneRef = useRef(null);
@@ -39,6 +43,27 @@ export default function WorkerForm() {
 
     const photo = photoRef.current.files[0];
 
+    if (formData.username.length < 3 || formData.username.length > 15) {
+      setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+      hasError = true;
+    } else {
+      setErrorName(null);
+    }
+
+    if (formData.password.length < 3 || formData.password.length > 15) {
+      setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+      hasError = true;
+    } else {
+      setErrorPassword(null);
+    }
+
+    if (formData.phone.length < 9 || formData.phone.length > 12) {
+      setErrorPhone("El formato del teléfono debe ser entre 9 y 12 dígitos")
+      hasError = true;
+    } else {
+      setErrorPhone(null);
+    }
+
     try {
       const user = await create(formData);
       await updateProfilePicture(user.id, { file: photo });
@@ -58,12 +83,33 @@ export default function WorkerForm() {
     // const url = URL.createObjectURL(photo)
 
     const formData = {
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
-        phone: phoneRef.current.value,
-      };
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+      phone: phoneRef.current.value,
+    };
 
     console.log(formData);
+
+    if (formData.username.length < 3 || formData.username.length > 15) {
+      setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+      hasError = true;
+    } else {
+      setErrorName(null);
+    }
+
+    if (formData.password.length < 3 || formData.password.length > 15) {
+      setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+      hasError = true;
+    } else {
+      setErrorPassword(null);
+    }
+
+    if (formData.phone.length < 9 || formData.phone.length > 12) {
+      setErrorPhone("El formato del teléfono debe ser entre 9 y 12 dígitos")
+      hasError = true;
+    } else {
+      setErrorPhone(null);
+    }
 
     try {
       await edit(id, formData);
@@ -78,6 +124,7 @@ export default function WorkerForm() {
     <main className="form-container">
       <form onSubmit={id ? handleEdit : handleCreate} id="worker-form">
         <h2>Trabajador</h2>
+        {errorName && <p className="error-text-validation">{errorName}</p>}
         <Label
           id={"name-worker"}
           placeHolder={workerData.username || "Nombre del trabajador"}
@@ -85,6 +132,7 @@ export default function WorkerForm() {
           type={"text"}
           ref={usernameRef}
         />
+        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <Label
           id={"password-worker"}
           placeHolder={"Contraseña del trabajador"}
@@ -92,9 +140,10 @@ export default function WorkerForm() {
           type={"password"}
           ref={passwordRef}
         />
+        {errorPhone && <p className="error-text-validation">{errorPhone}</p>}
         <Label
           id={"phone-worker"}
-          placeHolder={ workerData.phone || "Telefono del trabajador"}
+          placeHolder={workerData.phone || "Telefono del trabajador"}
           title={"Telefono"}
           type={"text"}
           ref={phoneRef}

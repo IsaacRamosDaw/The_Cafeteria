@@ -57,22 +57,26 @@ export function getOne(id) {
 }
 
 export async function create(formData) {
+  const username = formData.get("username");
+  const password = formData.get("password");
+
+  formData.delete("username");
+  formData.delete("password");
+
   try {
     const response = await fetch(endpoint, {
       method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${btoa(
-          formData.username + ":" + formData.password
-        )}`,
-      }),
+      headers: {
+        Authorization: `Basic ${btoa(username + ":" + password)}`,
+      },
+      body: formData,
     });
 
     if (!response.ok) {
       throw new Error("Error in the request");
     }
 
-    const user = await response.json(); // Resolviendo la promesa de la respuesta
+    const user = await response.json();
     console.log("User created:", user.admin);
 
     return user;
@@ -118,28 +122,27 @@ export async function edit(id, data) {
     window.location.href = "/error";
   }
 
-  // let url = `${endpoint}/${id}`;
-
-  return fetch(`${endpoint}/${id}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error in the request");
-      }
-
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while updating admin data:", error);
-      throw error;
+  try {
+    const response = await fetch(`${endpoint}/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: data,
     });
+
+    if (!response.ok) {
+      throw new Error("Error in the request");
+    }
+
+    const user = await response.json();
+    console.log("User created:", user.admin);
+
+    return user;
+  } catch (error) {
+    console.error("Error while retrieving admin data:", error);
+    throw error;
+  }
 }
 
 export async function editImg(id, data) {
@@ -148,7 +151,7 @@ export async function editImg(id, data) {
 
     if (!token) {
       window.location.href = "/error";
-      return; // Asegúrate de detener la ejecución si no hay token
+      return;
     }
 
     let url = `${endpoint}/upload/${id}`;

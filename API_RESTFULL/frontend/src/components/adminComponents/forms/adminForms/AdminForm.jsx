@@ -2,7 +2,6 @@ import Button from "../../../button/Button";
 import {
   create,
   edit,
-  editImg,
   getOne,
 } from "../../../../services/admin.service";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +13,9 @@ export default function AdminForm() {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({ name: "" });
   const { id } = useParams();
+
+  const [errorName, setErrorName] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
 
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
@@ -30,18 +32,31 @@ export default function AdminForm() {
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-    };
+    // let hasError = false; 
 
-    const photo = photoRef.current.files[0];
+    const formData = new FormData()
+    formData.append('username', usernameRef.current.value)
+    formData.append('password', passwordRef.current.value)
+    formData.append('file', photoRef.current.files[0])
 
-    console.log(formData)
+    // if(formData.username.length < 3 || formData.username.length > 15){
+    //   setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+    //   hasError = true;
+    // } else {
+    //   setErrorName(null);
+    // }
+
+    // if(formData.password.length < 3 || formData.password.length > 15){
+    //   setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+    //   hasError = true;
+    // } else {
+    //   setErrorPassword(null);
+    // }
+
+    // if (hasError) return;
 
     try {
-      const user = await create(formData);
-      await editImg(user.admin.id, { file: photo });
+      await create(formData);
 
       navigate(-1);
     } catch (error) {
@@ -52,21 +67,31 @@ export default function AdminForm() {
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    const photo = photoRef.current.files[0];
+    const formData = new FormData()
 
-    // Create a url for see the image
-    // const url = URL.createObjectURL(photo)
+    formData.append('username', usernameRef.current.value)
+    formData.append('password', passwordRef.current.value)
+    formData.append('file', photoRef.current.files[0])
 
-    const formData = {
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-    };
+    // if(formData.username.length < 3 || formData.username.length > 15){
+    //   setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+    //   hasError = true;
+    // } else {
+    //   setErrorName(null);
+    // }
 
+    // if(formData.password.length < 3 || formData.password.length > 15){
+    //   setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+    //   hasError = true;
+    // } else {
+    //   setErrorPassword(null);
+    // }
+    
     console.log(formData);
 
     try {
       await edit(id, formData);
-      await editImg(id, { file: photo });
+      
       navigate(-1);
     } catch (error) {
       console.error("Error al editar:", error);
@@ -77,6 +102,7 @@ export default function AdminForm() {
     <main className="form-container">
       <form onSubmit={id ? handleEdit : handleCreate} id="admin-form">
         <h2>Admin</h2>
+        {errorName && <p className="error-text-validation">{errorName}</p>}
         <Label
           id={"name-admin"}
           placeHolder={ id ? adminData.username : "Nombre del administrador"}
@@ -84,6 +110,8 @@ export default function AdminForm() {
           type={"text"}
           ref={usernameRef}
         />
+
+        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <Label
           id={"password-admin"}
           placeHolder={"Contraseña del administrador"}

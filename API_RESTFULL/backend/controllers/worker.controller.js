@@ -9,23 +9,23 @@ exports.create = (req, res) => {
     return res.status(400).send({ message: "Content cannot be empty!" });
   }
 
-  if (req.body.username.length < 5) {
-    return res.status(400).send({
-      message: "The username must have at least 5 characters.",
-    });
-  }
+  // if (req.body.username.length < 5) {
+  //   return res.status(400).send({
+  //     message: "The username must have at least 5 characters.",
+  //   });
+  // }
 
-  if (req.body.password.length < 4) {
-    return res.status(400).send({
-      message: "The password must have at least 4 characters.",
-    });
-  }
+  // if (req.body.password.length < 4) {
+  //   return res.status(400).send({
+  //     message: "The password must have at least 4 characters.",
+  //   });
+  // }
 
-  if (req.body.phone && req.body.phone.length < 10) {
-    return res.status(400).send({
-      message: "The phone number must have at least 10 characters.",
-    });
-  }
+  // if (req.body.phone && req.body.phone.length < 10) {
+  //   return res.status(400).send({
+  //     message: "The phone number must have at least 10 characters.",
+  //   });
+  // }
 
   const worker = {
     username: req.body.username,
@@ -133,23 +133,23 @@ exports.update = (req, res) => {
     });
   }
 
-  if (!req.body.username || req.body.username.length < 5) {
-    return res.status(400).send({
-      message: "The username must have at least 5 characters.",
-    });
-  }
+  // if (!req.body.username || req.body.username.length < 5) {
+  //   return res.status(400).send({
+  //     message: "The username must have at least 5 characters.",
+  //   });
+  // }
 
-  if (!req.body.password || req.body.password.length < 4) {
-    return res.status(400).send({
-      message: "The password must have at least 4 characters.",
-    });
-  }
+  // if (!req.body.password || req.body.password.length < 4) {
+  //   return res.status(400).send({
+  //     message: "The password must have at least 4 characters.",
+  //   });
+  // }
 
-  if (req.body.phone && req.body.phone.length < 10) {
-    return res.status(400).send({
-      message: "The phone number must have at least 10 characters.",
-    });
-  }
+  // if (req.body.phone && req.body.phone.length < 10) {
+  //   return res.status(400).send({
+  //     message: "The phone number must have at least 10 characters.",
+  //   });
+  // }
 
   const updateWorker = {
     username: req.body.username,

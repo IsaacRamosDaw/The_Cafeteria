@@ -27,7 +27,7 @@ exports.create = (req, res) => {
     username: req.body.username,
     password: req.body.password,
     role: "admin",
-    filename: req.file ? req.file.filename : "",
+    filename: req.file ? req.file.filename || req.file.name : "",
   };
 
   console.log(admin);
@@ -153,6 +153,7 @@ exports.update = (req, res) => {
   const update = {
     username: req.body.username,
     password: req.body.password,
+    filename: req.file ? req.file.filename || req.file.name : "",
     role: "admin",
   };
 

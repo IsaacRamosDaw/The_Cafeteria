@@ -17,10 +17,12 @@ exports.create = (req, res) => {
 		password: req.body.password,
 		age: parseInt(req.body.age),
 		phone: req.body.phone,
-		CourseId: req.body.CourseId,
+		courseId: req.body.CourseId,
 		role: "student",
 		filename: req.file ? req.file.filename : "",
 	};
+
+	console.log("Datos en el frontend ", studentData );
 
 
 	Student.findOne({ where: { username: studentData.username } })
@@ -158,29 +160,29 @@ exports.create = (req, res) => {
 		});
 	}
 
-	if (req.body.username.length < 5) {
-		return res.status(400).send({
-			message: "The username must have at least 5 characters.",
-		});
-	}
+	// if (req.body.username.length < 5) {
+	// 	return res.status(400).send({
+	// 		message: "The username must have at least 5 characters.",
+	// 	});
+	// }
 
-	if (req.body.password.length < 4) {
-		return res.status(400).send({
-			message: "The password must have at least 4 characters.",
-		});
-	}
+	// if (req.body.password.length < 4) {
+	// 	return res.status(400).send({
+	// 		message: "The password must have at least 4 characters.",
+	// 	});
+	// }
 
-	if (req.body.age && isNaN(req.body.age)) {
-		return res.status(400).send({
-			message: "Age must be a valid number.",
-		});
-	}
+	// if (req.body.age && isNaN(req.body.age)) {
+	// 	return res.status(400).send({
+	// 		message: "Age must be a valid number.",
+	// 	});
+	// }
 
-	if (req.body.phone && req.body.phone.length < 10) {
-		return res.status(400).send({
-			message: "The phone number must have at least 10 characters.",
-		});
-	}
+	// if (req.body.phone && req.body.phone.length < 10) {
+	// 	return res.status(400).send({
+	// 		message: "The phone number must have at least 10 characters.",
+	// 	});
+	// }
 
 	let studentData = {
 		username: req.body.username,
@@ -254,29 +256,29 @@ exports.update = (req, res) => {
 		});
 	}
 
-	if (!req.body.username || req.body.username.length < 5) {
-		return res.status(400).send({
-			message: "The username must have at least 5 characters.",
-		});
-	}
+	// if (!req.body.username || req.body.username.length < 5) {
+	// 	return res.status(400).send({
+	// 		message: "The username must have at least 5 characters.",
+	// 	});
+	// }
 
-	if (!req.body.password || req.body.password.length < 4) {
-		return res.status(400).send({
-			message: "The password must have at least 4 characters.",
-		});
-	}
+	// if (!req.body.password || req.body.password.length < 4) {
+	// 	return res.status(400).send({
+	// 		message: "The password must have at least 4 characters.",
+	// 	});
+	// }
 
-	if (req.body.age && isNaN(req.body.age)) {
-		return res.status(400).send({
-			message: "Age must be a valid number.",
-		});
-	}
+	// if (req.body.age && isNaN(req.body.age)) {
+	// 	return res.status(400).send({
+	// 		message: "Age must be a valid number.",
+	// 	});
+	// }
 
-	if (req.body.phone && req.body.phone.length < 10) {
-		return res.status(400).send({
-			message: "The phone number must have at least 10 characters.",
-		});
-	}
+	// if (req.body.phone && req.body.phone.length < 10) {
+	// 	return res.status(400).send({
+	// 		message: "The phone number must have at least 10 characters.",
+	// 	});
+	// }
 
 	const updateStudent = {
 		username: req.body.username,

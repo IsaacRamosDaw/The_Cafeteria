@@ -3,7 +3,7 @@ module.exports = (app) => {
   const auth = require("../controllers/auth.js");
   const multer = require("../middlewares/multer.js");
 
-  const upload = multer({ dest: "../public/images/worker" });
+  const upload = multer({ dest: "../public/images" });
   const authToken = require("../middlewares/auth.js");
 
   var router = require("express").Router();
@@ -11,10 +11,11 @@ module.exports = (app) => {
   var router = require("express").Router();
 
   // Retrieve all course
-  router.get("/", authToken, auth.isAuthenticated, course.findAll);
-
+  // router.get("/", authToken, auth.isAuthenticated, course.findAll);
+  router.get("/", course.findAll);
   // Retrieve one course
-  router.get("/:id", authToken, auth.isAuthenticated, course.findOne);
+  // router.get("/:id", authToken, auth.isAuthenticated, course.findOne);
+  router.get("/:id", course.findOne);
 
   // Create a course
   router.post("/", upload.single('file'), authToken, auth.isAuthenticated, course.create);

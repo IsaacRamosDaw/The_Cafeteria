@@ -7,7 +7,7 @@ import { getUserId } from "../../../../services/utils";
 function AdminCard({ username, id, onDelete, photo }) {
   const navigate = useNavigate();
 
-  const folder = "http://localhost:8080/images/";
+  const folder = "http://localhost:8080/images/admin";
 
   const handleDelete = () => {
     onDelete(id);
@@ -25,7 +25,7 @@ function AdminCard({ username, id, onDelete, photo }) {
       <div className="container-info">
         <img
           className="item-img"
-          src={`${folder}${photo}`}
+          src={`${folder}/${photo}`}
           alt="Imagen de administrador"
         />
         <div className="container-name">

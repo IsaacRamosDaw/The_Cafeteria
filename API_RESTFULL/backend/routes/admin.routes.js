@@ -3,7 +3,7 @@ module.exports = (app) => {
   const auth = require("../controllers/auth.js");
   const multer = require("../middlewares/multer.js");
 
-  const upload = multer({ dest: "../public/images/worker" });
+  const upload = multer({ dest: "../public/images/admin" });
   const authToken = require("../middlewares/auth.js");
 
   var router = require("express").Router();

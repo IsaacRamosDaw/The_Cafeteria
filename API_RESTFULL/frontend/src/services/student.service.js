@@ -57,19 +57,45 @@ export function getOne(id) {
   return getOneOperation;
 }
 
+// export function create(formData) {
+//   const bodyData = new URLSearchParams({
+//     ...formData,
+//     role: 'student',
+//   });
+
+//   return fetch(endpoint, {
+//     method: "POST",
+//     headers: new Headers({
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'Authorization': `Basic ${btoa(formData.username + ':' + formData.password)}`,
+//     }),
+//     body: bodyData, 
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error in the request");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.error("Error while retrieving admin data:", error);
+//       throw error;
+//     });
+// }
+
 export function create(formData) {
-  const bodyData = new URLSearchParams({
+  const bodyData = JSON.stringify({
     ...formData,
     role: 'student',
   });
 
-  return fetch(endpoint, {
+  return fetch("http://localhost:8080/api/student", {
     method: "POST",
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
+    headers: {
+      'Content-Type': 'application/json', // Cambiado a JSON
       'Authorization': `Basic ${btoa(formData.username + ':' + formData.password)}`,
-    }),
-    body: bodyData, 
+    },
+    body: bodyData,
   })
     .then((response) => {
       if (!response.ok) {
@@ -78,7 +104,7 @@ export function create(formData) {
       return response.json();
     })
     .catch((error) => {
-      console.error("Error while retrieving admin data:", error);
+      console.error("Error while retrieving student data:", error);
       throw error;
     });
 }
