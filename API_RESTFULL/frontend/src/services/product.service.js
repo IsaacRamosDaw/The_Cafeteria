@@ -1,229 +1,136 @@
+import axios from "axios";
 const endpoint = "http://localhost:8080/api/products";
 
-export async function get() {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOperation =await fetch(endpoint, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return getOperation;
-}
-
-export function findByPk(id) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOneOperation = fetch(`${endpoint}/${id}`, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return getOneOperation;
-}
-
-
-export function getByCategory(idCategory) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOperation = fetch(`${endpoint}/categories/${idCategory}`, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return getOperation;
-}
-
-
-export function getFirstByCategory(idCategory) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
-  const getOperation = fetch(`${endpoint}/category/${idCategory}`, {
-    method: "GET",
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.log(`error, ${error}`);
-      return error;
-    });
-  return getOperation;
-}
-
-
-export async function countByCategory(idCategory) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-    // return 0;
-  }
-
-  try {
-    const response = await fetch(`${endpoint}/count/${idCategory}`, {
-      method: "GET",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error with count");
-    }
-
-    const data = await response.json();
-    return data.count || 0;
-  } catch (error) {
-    console.error("Error en countByCategory:", error);
-    return 0;
-  }
-}
-
-
-export async function remove(id) {
+async function request(method, url, data, type) {
   const token = localStorage.getItem("token");
   if (!token) {
-    window.location.href = "/error";
+    console.error(`(Products.service-${method}) No token`);
+    return null;
   }
 
   try {
-    const response = await fetch(`${endpoint}/${id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-      }),
-    });
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
 
-    if (!response.ok) {
-      throw new Error("Error of delete product");
+    if (type == 1) {
+      headers["Content-Type"] = "application/x-www-form-urlencoded";
+    } else if (type == 2) {
+      // let formData = new FormData()
+      // formData.append('name', data.name)
+      // headers["Content-Type"] = "multipart/form-data";
+    } else {
+      headers["Content-Type"] = "application/json";
     }
 
-    return await response.json();
+    const response = await axios({
+      method,
+      url,
+      data,
+      headers,
+    });
+
+    return response.data;
   } catch (error) {
-    console.error("Error of delete product:", error);
+    if (error.response) {
+      console.error(
+        `(Products.service-${method}) Error: ${
+          error.response.status
+        } - ${JSON.stringify(error.response.data)}`
+      );
+    } else if (error.request) {
+      console.error(
+        `(Products.service-${method}) No hubo respuesta del servidor`
+      );
+    } else {
+      console.error(`(Products.service-${method}) Error: ${error.message}`);
+    }
     throw error;
   }
 }
 
+export async function create(formData) {
+  try {
+    return await request("POST", endpoint, formData, 2);
+  } catch (error) {
+    console.error("Error creating product:", error);
+    throw error;
+  }
+}
+
+export async function get() {
+  try {
+    return await request("GET", endpoint, null);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+}
 
 export async function edit(id, updatedProductData) {
-  let token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/error";
-  }
-
   try {
-    const response = await fetch(`${endpoint}/${id}`, {
-      method: "PUT", 
-      headers: new Headers({
-        Authorization: `Bearer ${token}`, 
-        "Content-Type": "application/json", 
-      }),
-      body: JSON.stringify(updatedProductData), 
-    });
-
-    if (!response.ok) {
-      throw new Error("Error of edit product");
-    }
-
-    return await response.json();
+    return await request("PUT", `${endpoint}/${id}`, updatedProductData, 2);
   } catch (error) {
-    console.error("Error of edit product:", error);
+    console.error(`Error editing product with ID ${id}:`, error);
     throw error;
   }
 }
 
-export function create(formData) {
-  const token = localStorage.getItem("token");
-  
-  if (!token) {
-    window.location.href = "/error";
+export async function remove(id) {
+  try {
+    return await request("DELETE", `${endpoint}/${id}`);
+  } catch (error) {
+    console.error(`Error deleting product with ID ${id}:`, error);
+    throw error;
   }
+}
 
-  return fetch(endpoint, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error in the request");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error while retrieving course data:", error);
-      throw error;
-    });
+export async function findByPk(id) {
+  try {
+    return await request("GET", `${endpoint}/${id}`, null);
+  } catch (error) {
+    console.error(`Error fetching product with ID ${id}:`, error);
+    throw error;
+  }
+}
+
+export async function getByCategory(idCategory) {
+  try {
+    return await request(
+      "GET",
+      `${endpoint}/categories/${idCategory}`,
+      null
+    );
+  } catch (error) {
+    console.error(`Error fetching products for category ${idCategory}:`, error);
+    throw error;
+  }
+}
+
+export async function getFirstByCategory(idCategory) {
+  try {
+    return await request(
+      "GET",
+      `${endpoint}/category/${idCategory}`,
+    );
+  } catch (error) {
+    console.error(
+      `Error fetching first product for category ${idCategory}:`,
+      error
+    );
+    throw error;
+  }
+}
+
+export async function countByCategory(idCategory) {
+  try {
+    const response = await request(
+      "GET",
+      `${endpoint}/count/${idCategory}`,
+    );
+    return response.count || 0;
+  } catch (error) {
+    console.error(`Error counting products for category ${idCategory}:`, error);
+    return 0;
+  }
 }
