@@ -11,17 +11,17 @@ exports.create = (req, res) => {
     });
   }
 
-  if (req.body.username.length < 5) {
-    return res.status(400).send({
-      message: "El nombre de usuario debe tener al menos 5 caracteres.",
-    });
-  }
+  // if (req.body.username.length < 5) {
+  //   return res.status(400).send({
+  //     message: "El nombre de usuario debe tener al menos 5 caracteres.",
+  //   });
+  // }
 
-  if (req.body.password.length < 4) {
-    return res.status(400).send({
-      message: "La contraseña debe tener al menos 4 caracteres.",
-    });
-  }
+  // if (req.body.password.length < 4) {
+  //   return res.status(400).send({
+  //     message: "La contraseña debe tener al menos 4 caracteres.",
+  //   });
+  // }
 
   let admin = {
     username: req.body.username,
@@ -138,17 +138,17 @@ exports.update = (req, res) => {
     });
   }
 
-  if (req.body.password && req.body.password.length < 4) {
-    return res.status(400).send({
-      message: "La contraseña debe tener al menos 4 caracteres.",
-    });
-  }
+  // if (req.body.password && req.body.password.length < 4) {
+  //   return res.status(400).send({
+  //     message: "La contraseña debe tener al menos 4 caracteres.",
+  //   });
+  // }
 
-  if (req.body.username.length < 5) {
-    return res.status(400).send({
-      message: "El nombre de usuario debe tener al menos 5 caracteres.",
-    });
-  }
+  // if (req.body.username.length < 5) {
+  //   return res.status(400).send({
+  //     message: "El nombre de usuario debe tener al menos 5 caracteres.",
+  //   });
+  // }
 
   const update = {
     username: req.body.username,

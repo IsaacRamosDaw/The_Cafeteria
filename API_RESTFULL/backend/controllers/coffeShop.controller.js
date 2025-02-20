@@ -9,11 +9,11 @@ exports.create = (req, res) => {
     });
   }
 
-  if (req.body.name.length < 3) {
-    return res.status(400).send({
-      message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
-    });
-  }
+  // if (req.body.name.length < 3) {
+  //   return res.status(400).send({
+  //     message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
+  //   });
+  // }
 
   const shop = {
     name: req.body.name,
@@ -103,11 +103,11 @@ exports.update = (req, res) => {
     });
   }
 
-  if (req.body.name.length < 3) {
-    return res.status(400).send({
-      message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
-    });
-  }
+  // if (req.body.name.length < 3) {
+  //   return res.status(400).send({
+  //     message: "El nombre del CoffeeShop debe tener al menos 3 caracteres.",
+  //   });
+  // }
 
   const update = {
     name: req.body.name,

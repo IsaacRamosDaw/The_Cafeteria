@@ -12,8 +12,10 @@ function StudentForm() {
     password: "",
     age: "",
     phone: "",
-    CourseId: "",
+    courseId: "",
   });
+
+  // console.log("Datos en frontend", values);
 
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);  // Añadido para manejar el error
@@ -88,10 +90,10 @@ function StudentForm() {
 
         />
         <div className="label-input">
-          <label className="label-text" htmlFor="CourseId" aria-label="Escoge tu curso" id="label-student-course">
+          <label className="label-text" htmlFor="courseId" aria-label="Escoge tu curso" id="label-student-course">
             Selecciona tu curso
           </label>
-          <select name="CourseId" id="CourseId" onChange={handleChange}>
+          <select name="courseId" id="courseId" onChange={handleChange}>
             <option value="">Elige un curso</option>
             {courses.map((course) => (
               <option key={course.id} value={course.id} aria-label={course.name} aria-labelledby="label-student-course">

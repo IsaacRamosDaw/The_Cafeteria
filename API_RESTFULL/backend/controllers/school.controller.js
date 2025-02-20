@@ -2,29 +2,31 @@ const db = require("../models");
 const School = db.school;
 
 exports.create = (req, res) => {
-  if (!req.body.name || req.body.name.length < 3) {
-    return res.status(400).send({
-      message: "El nombre debe tener al menos 3 caracteres.",
-    });
-  }
 
-  if (!req.body.address || req.body.address.length < 5) {
-    return res.status(400).send({
-      message: "La dirección debe tener al menos 5 caracteres.",
-    });
-  }
 
-  if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
-    return res.status(400).send({
-      message: "El email debe ser válido.",
-    });
-  }
+  // if (!req.body.name || req.body.name.length < 3) {
+  //   return res.status(400).send({
+  //     message: "El nombre debe tener al menos 3 caracteres.",
+  //   });
+  // }
 
-  if (!req.body.phone || req.body.phone.length < 10) {
-    return res.status(400).send({
-      message: "El teléfono debe tener al menos 10 caracteres.",
-    });
-  }
+  // if (!req.body.address || req.body.address.length < 5) {
+  //   return res.status(400).send({
+  //     message: "La dirección debe tener al menos 5 caracteres.",
+  //   });
+  // }
+
+  // if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
+  //   return res.status(400).send({
+  //     message: "El email debe ser válido.",
+  //   });
+  // }
+
+  // if (!req.body.phone || req.body.phone.length < 10) {
+  //   return res.status(400).send({
+  //     message: "El teléfono debe tener al menos 10 caracteres.",
+  //   });
+  // }
 
   const school = {
     name: req.body.name,
@@ -78,29 +80,29 @@ exports.update = (req, res) => {
     });
   }
 
-  if (!req.body.name || req.body.name.length < 3) {
-    return res.status(400).send({
-      message: "El nombre debe tener al menos 3 caracteres.",
-    });
-  }
+  // if (!req.body.name || req.body.name.length < 3) {
+  //   return res.status(400).send({
+  //     message: "El nombre debe tener al menos 3 caracteres.",
+  //   });
+  // }
 
-  if (!req.body.address || req.body.address.length < 5) {
-    return res.status(400).send({
-      message: "La dirección debe tener al menos 5 caracteres.",
-    });
-  }
+  // if (!req.body.address || req.body.address.length < 5) {
+  //   return res.status(400).send({
+  //     message: "La dirección debe tener al menos 5 caracteres.",
+  //   });
+  // }
 
-  if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
-    return res.status(400).send({
-      message: "El email debe ser válido.",
-    });
-  }
+  // if (!req.body.email || !/\S+@\S+\.\S+/.test(req.body.email)) {
+  //   return res.status(400).send({
+  //     message: "El email debe ser válido.",
+  //   });
+  // }
 
-  if (!req.body.phone || req.body.phone.length < 10) {
-    return res.status(400).send({
-      message: "El teléfono debe tener al menos 10 caracteres.",
-    });
-  }
+  // if (!req.body.phone || req.body.phone.length < 10) {
+  //   return res.status(400).send({
+  //     message: "El teléfono debe tener al menos 10 caracteres.",
+  //   });
+  // }
 
   const updateSchool = {
     name: req.body.name,
