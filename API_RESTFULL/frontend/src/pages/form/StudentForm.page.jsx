@@ -18,8 +18,12 @@ function StudentForm() {
   // console.log("Datos en frontend", values);
 
   const [courses, setCourses] = useState([]);
-  const [error, setError] = useState(null);  // Añadido para manejar el error
-
+  const [error, setError] = useState(null);
+  const [errorName, setErrorName] = useState(null);
+  const [errorAge, setErrorAge] = useState(null);
+  const [errorPhone, setErrorPhone] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +35,41 @@ function StudentForm() {
   function handleSubmit(evt) {
     evt.preventDefault();
 
+    let hasError = false; 
+
+    if (values.username.length < 3 || values.username.length > 15) {
+      setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+      hasError = true;
+    } else {
+      setErrorName(null);
+    }
+
+    const age = parseInt(values.age, 10); 
+
+    if (isNaN(age) || age < 10) {
+      setErrorAge("Debes tener más de 10 años.");
+      hasError = true;
+    } else {
+      setErrorAge(null);
+    }
+
+    if (values.phone.length < 9 || values.phone.length > 12) {
+      setErrorPhone("El formato del teléfono debe ser entre 9 y 12 dígitos")
+      hasError = true;
+    } else {
+      setErrorPhone(null);
+    }
+
+    if (values.password.length < 3 || values.password.length > 15) {
+      setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+      hasError = true;
+    } else {
+      setErrorPassword(null);
+    }
+
+
+    if (hasError) return; 
+
     create(values)
       .then((response) => {
         console.log("User created:", response);
@@ -38,9 +77,11 @@ function StudentForm() {
       })
       .catch((error) => {
         console.error("Error creating the user:", error);
-        setError("Error creando el usuario");  // Establece el error aquí
+        setError("Error creando el usuario");
       });
   }
+
+
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -53,6 +94,7 @@ function StudentForm() {
   return (
     <div className="form-container-template">
       <form onSubmit={handleSubmit}>
+        {errorName && <p className="error-text-validation">{errorName}</p>}
         <Label
           title="Tu nombre de usuario"
           placeHolder="Introduce tu nombre"
@@ -60,7 +102,10 @@ function StudentForm() {
           name="username"
           onChange={handleChange}
           arialabelledby="name-student-label"
+          required={true}
         />
+
+        {errorAge && <p className="error-text-validation">{errorAge}</p>}
         <Label
           title="Edad"
           placeHolder="Introduce tu edad"
@@ -69,8 +114,9 @@ function StudentForm() {
           type="text"
           onChange={handleChange}
           arialabelledby="edad-student-label"
-
         />
+
+        {errorPhone && <p className="error-text-validation">{errorPhone}</p>}
         <Label
           title="Tu teléfono"
           placeHolder="Introduce tu teléfono"
@@ -79,6 +125,8 @@ function StudentForm() {
           onChange={handleChange}
           arialabelledby="phone-student-label"
         />
+
+        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <Label
           title="Contraseña"
           placeHolder="Escribe tu contraseña"
@@ -87,7 +135,6 @@ function StudentForm() {
           type="password"
           onChange={handleChange}
           arialabelledby="password-student-label"
-
         />
         <div className="label-input">
           <label className="label-text" htmlFor="courseId" aria-label="Escoge tu curso" id="label-student-course">
