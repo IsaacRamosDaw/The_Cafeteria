@@ -15,6 +15,9 @@ export default function AdminForm() {
   const [adminData, setAdminData] = useState({ name: "" });
   const { id } = useParams();
 
+  const [errorName, setErrorName] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const photoRef = useRef(null);
@@ -30,6 +33,8 @@ export default function AdminForm() {
   const handleCreate = async (e) => {
     e.preventDefault();
 
+    let hasError = false; 
+
     const formData = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
@@ -37,7 +42,21 @@ export default function AdminForm() {
 
     const photo = photoRef.current.files[0];
 
-    console.log(formData)
+    if(formData.username.length < 3 || formData.username.length > 15){
+      setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+      hasError = true;
+    } else {
+      setErrorName(null);
+    }
+
+    if(formData.password.length < 3 || formData.password.length > 15){
+      setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+      hasError = true;
+    } else {
+      setErrorPassword(null);
+    }
+
+    if (hasError) return;
 
     try {
       const user = await create(formData);
@@ -62,6 +81,20 @@ export default function AdminForm() {
       password: passwordRef.current.value,
     };
 
+if(formData.username.length < 3 || formData.username.length > 15){
+      setErrorName("El nombre de usuario debe tener entre 3 y 15 caracteres.");
+      hasError = true;
+    } else {
+      setErrorName(null);
+    }
+
+    if(formData.password.length < 3 || formData.password.length > 15){
+      setErrorPassword("La contraseña debe tener entre 3 y 15 caracteres")
+      hasError = true;
+    } else {
+      setErrorPassword(null);
+    }
+    
     console.log(formData);
 
     try {
@@ -77,6 +110,7 @@ export default function AdminForm() {
     <main className="form-container">
       <form onSubmit={id ? handleEdit : handleCreate} id="admin-form">
         <h2>Admin</h2>
+        {errorName && <p className="error-text-validation">{errorName}</p>}
         <Label
           id={"name-admin"}
           placeHolder={ id ? adminData.username : "Nombre del administrador"}
@@ -84,6 +118,8 @@ export default function AdminForm() {
           type={"text"}
           ref={usernameRef}
         />
+
+        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <Label
           id={"password-admin"}
           placeHolder={"Contraseña del administrador"}

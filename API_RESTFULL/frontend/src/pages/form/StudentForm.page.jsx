@@ -21,6 +21,7 @@ function StudentForm() {
   const [errorAge, setErrorAge] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function StudentForm() {
       setErrorAge(null);
     }
 
-    if (values.phone.length > 9 || values.phone.length > 12) {
+    if (values.phone.length < 9 || values.phone.length > 12) {
       setErrorPhone("El formato del teléfono debe ser entre 9 y 12 dígitos")
       hasError = true;
     } else {
@@ -91,6 +92,7 @@ function StudentForm() {
   return (
     <div className="form-container-template">
       <form onSubmit={handleSubmit}>
+        {errorName && <p className="error-text-validation">{errorName}</p>}
         <Label
           title="Tu nombre de usuario"
           placeHolder="Introduce tu nombre"
@@ -100,8 +102,8 @@ function StudentForm() {
           arialabelledby="name-student-label"
           required={true}
         />
-        {errorName && <p className="error-text-validation">{errorName}</p>}
 
+        {errorAge && <p className="error-text-validation">{errorAge}</p>}
         <Label
           title="Edad"
           placeHolder="Introduce tu edad"
@@ -111,8 +113,8 @@ function StudentForm() {
           onChange={handleChange}
           arialabelledby="edad-student-label"
         />
-        {errorAge && <p className="error-text-validation">{errorAge}</p>}
 
+        {errorPhone && <p className="error-text-validation">{errorPhone}</p>}
         <Label
           title="Tu teléfono"
           placeHolder="Introduce tu teléfono"
@@ -121,7 +123,8 @@ function StudentForm() {
           onChange={handleChange}
           arialabelledby="phone-student-label"
         />
-        {errorPhone && <p className="error-text-validation">{errorPhone}</p>}
+
+        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <Label
           title="Contraseña"
           placeHolder="Escribe tu contraseña"
@@ -131,7 +134,6 @@ function StudentForm() {
           onChange={handleChange}
           arialabelledby="password-student-label"
         />
-        {errorPassword && <p className="error-text-validation">{errorPassword}</p>}
         <div className="label-input">
           <label className="label-text" htmlFor="CourseId" aria-label="Escoge tu curso" id="label-student-course">
             Selecciona tu curso
